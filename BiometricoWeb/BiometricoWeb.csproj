@@ -1,0 +1,394 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{298A18F0-1DC3-447E-BC6E-D68D4343A7EA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BiometricoWeb</RootNamespace>
+    <AssemblyName>BiometricoWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44348</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.ZKFPEngXControl, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AxInterop.ZKFPEngXControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.zkemkeeper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>bin\Interop.zkemkeeper.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ZKFPEngXControl, Version=4.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Interop.ZKFPEngXControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\alert.css" />
+    <Content Include="css\animate.min.css" />
+    <Content Include="css\breadcrumb.css" />
+    <Content Include="css\calendar.css" />
+    <Content Include="css\chosen.css" />
+    <Content Include="css\chosen.min.css" />
+    <Content Include="css\fstdropdown.css" />
+    <Content Include="css\fstdropdown.min.css" />
+    <Content Include="css\GridStyle.css" />
+    <Content Include="css\jquery-ui.min.css" />
+    <Content Include="css\pager.css" />
+    <Content Include="css\smart_wizard.css" />
+    <Content Include="css\smart_wizard_theme_arrows.css" />
+    <Content Include="css\smart_wizard_theme_circles.css" />
+    <Content Include="css\smart_wizard_theme_dots.css" />
+    <Content Include="css\style.css" />
+    <Content Include="default.aspx" />
+    <Content Include="images\auth\lockscreen-bg.jpg" />
+    <Content Include="images\auth\login-bg2.jpg" />
+    <Content Include="images\auth\login-bg.jpg" />
+    <Content Include="images\faces\face5.jpg" />
+    <Content Include="images\favicon.png" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\logo-mini.svg" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\logo.svg" />
+    <Content Include="images\logo_mini.png" />
+    <Content Include="images\rh.png" />
+    <Content Include="js\bootstrap-notify.js" />
+    <Content Include="js\calendarscript.js" />
+    <Content Include="js\chart.js" />
+    <Content Include="js\Chart.min.js" />
+    <Content Include="js\chosen.jquery.js" />
+    <Content Include="js\chosen.jquery.min.js" />
+    <Content Include="js\chosen.proto.js" />
+    <Content Include="js\chosen.proto.min.js" />
+    <Content Include="js\dashboard.js" />
+    <Content Include="js\data-table.js" />
+    <Content Include="js\dataTables.bootstrap4.js" />
+    <Content Include="js\documentation.js" />
+    <Content Include="js\file-upload.js" />
+    <Content Include="js\fstdropdown.js" />
+    <Content Include="js\fstdropdown.min.js" />
+    <Content Include="js\fullcanlendar.min.js" />
+    <Content Include="js\hoverable-collapse.js" />
+    <Content Include="js\jquery-3.1.1.js" />
+    <Content Include="js\jquery.dataTables.js" />
+    <Content Include="js\jquery.smartWizard.js" />
+    <Content Include="js\jquery.tablesorter.js" />
+    <Content Include="js\moment.min.js" />
+    <Content Include="js\off-canvas.js" />
+    <Content Include="js\tabs.js" />
+    <Content Include="js\template.js" />
+    <Content Include="login.aspx" />
+    <Content Include="logout.aspx" />
+    <Content Include="pages\access.aspx" />
+    <Content Include="pages\authorizations.aspx" />
+    <Content Include="pages\clockuser.aspx" />
+    <Content Include="pages\employees.aspx" />
+    <Content Include="pages\finished.aspx" />
+    <Content Include="pages\mail\TemplateMail.html" />
+    <Content Include="pages\permissions.aspx" />
+    <Content Include="pages\settings.aspx" />
+    <Content Include="vendors\base\vendor.bundle.base.css" />
+    <Content Include="vendors\base\vendor.bundle.base.js" />
+    <Content Include="vendors\chart.js\Chart.min.js" />
+    <Content Include="vendors\datatables.net-bs4\dataTables.bootstrap4.css" />
+    <Content Include="vendors\datatables.net-bs4\dataTables.bootstrap4.js" />
+    <Content Include="vendors\datatables.net\jquery.dataTables.js" />
+    <Content Include="vendors\mdi\css\materialdesignicons.min.css" />
+    <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.svg" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="clases\db.cs" />
+    <Compile Include="clases\biometricos.cs" />
+    <Compile Include="clases\generales.cs" />
+    <Compile Include="clases\LdapService.cs" />
+    <Compile Include="clases\SapConnector.cs" />
+    <Compile Include="clases\SmtpService.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="main.Master.cs">
+      <DependentUpon>main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="main.Master.designer.cs">
+      <DependentUpon>main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="pages\access.aspx.cs">
+      <DependentUpon>access.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\access.aspx.designer.cs">
+      <DependentUpon>access.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\authorizations.aspx.cs">
+      <DependentUpon>authorizations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\authorizations.aspx.designer.cs">
+      <DependentUpon>authorizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\clockuser.aspx.cs">
+      <DependentUpon>clockuser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\clockuser.aspx.designer.cs">
+      <DependentUpon>clockuser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\employees.aspx.cs">
+      <DependentUpon>employees.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\employees.aspx.designer.cs">
+      <DependentUpon>employees.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\finished.aspx.cs">
+      <DependentUpon>finished.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\finished.aspx.designer.cs">
+      <DependentUpon>finished.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\permissions.aspx.cs">
+      <DependentUpon>permissions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\permissions.aspx.designer.cs">
+      <DependentUpon>permissions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\settings.aspx.cs">
+      <DependentUpon>settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\settings.aspx.designer.cs">
+      <DependentUpon>settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SapServicesH\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SapServicesP\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\.DS_Store" />
+    <Content Include="fonts\Roboto\.DS_Store" />
+    <Content Include="fonts\Roboto\Roboto-Black.eot" />
+    <Content Include="fonts\Roboto\Roboto-Black.ttf" />
+    <Content Include="fonts\Roboto\Roboto-Black.woff" />
+    <Content Include="fonts\Roboto\Roboto-Black.woff2" />
+    <Content Include="fonts\Roboto\Roboto-Bold.eot" />
+    <Content Include="fonts\Roboto\Roboto-Bold.ttf" />
+    <Content Include="fonts\Roboto\Roboto-Bold.woff" />
+    <Content Include="fonts\Roboto\Roboto-Bold.woff2" />
+    <Content Include="fonts\Roboto\Roboto-Light.eot" />
+    <Content Include="fonts\Roboto\Roboto-Light.ttf" />
+    <Content Include="fonts\Roboto\Roboto-Light.woff" />
+    <Content Include="fonts\Roboto\Roboto-Light.woff2" />
+    <Content Include="fonts\Roboto\Roboto-Medium.eot" />
+    <Content Include="fonts\Roboto\Roboto-Medium.ttf" />
+    <Content Include="fonts\Roboto\Roboto-Medium.woff" />
+    <Content Include="fonts\Roboto\Roboto-Medium.woff2" />
+    <Content Include="fonts\Roboto\Roboto-Regular.eot" />
+    <Content Include="fonts\Roboto\Roboto-Regular.ttf" />
+    <Content Include="fonts\Roboto\Roboto-Regular.woff" />
+    <Content Include="fonts\Roboto\Roboto-Regular.woff2" />
+    <Content Include="images\.DS_Store" />
+    <Content Include="images\auth\.DS_Store" />
+    <Content Include="images\faces\.DS_Store" />
+    <Content Include="js\.DS_Store" />
+    <Content Include="main.Master" />
+    <None Include="packages.config" />
+    <Content Include="vendors\.DS_Store" />
+    <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.eot" />
+    <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.ttf" />
+    <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.woff" />
+    <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.woff2" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SapServicesH\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web References\SapServicesH\ZFM_CONSULTA_VACACIONESResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\SapServicesH\zws_hr_vacaciones.wsdl" />
+    <None Include="Web References\SapServicesP\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web References\SapServicesP\ZFM_SAVE_INFTPResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\SapServicesP\zws_hr_setdata.wsdl" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_setdata/300/zws_hr_setdata/zws_hr_setdata%3fsap-client=300">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SapServicesP\</RelPath>
+      <UpdateFromURL>http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_setdata/300/zws_hr_setdata/zws_hr_setdata%3fsap-client=300</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>BiometricoWeb_SapServicesP_ZWS_HR_SetData</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://10.128.2.22:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_vacaciones/300/zws_hr_vacaciones/zws_hr_vacaciones%3fsap-client=300">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SapServicesH\</RelPath>
+      <UpdateFromURL>http://10.128.2.22:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_vacaciones/300/zws_hr_vacaciones/zws_hr_vacaciones%3fsap-client=300</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>BiometricoWeb_SapServicesH_ZWS_HR_VACACIONES</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54277</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44348/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

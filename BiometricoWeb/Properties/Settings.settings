@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BiometricoWeb.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BiometricoWeb_SapServicesH_ZWS_HR_VACACIONES" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_vacaciones/300/zws_hr_vacaciones/zws_hr_vacaciones</Value>
+    </Setting>
+    <Setting Name="BiometricoWeb_SapServicesP_ZWS_HR_SetData" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_setdata/300/zws_hr_setdata/zws_hr_setdata</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
