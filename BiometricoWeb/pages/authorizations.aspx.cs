@@ -21,8 +21,12 @@ namespace BiometricoWeb.pages
                 if (Convert.ToBoolean(Session["AUTH"]))
                 {
                     CargarAutorizaciones();
-                    GVBusqueda.UseAccessibleHeader = true;
-                    GVBusqueda.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+                    if (GVBusqueda.Rows.Count > 0)
+                    {
+                        GVBusqueda.UseAccessibleHeader = true;
+                        GVBusqueda.HeaderRow.TableSection = TableRowSection.TableHeader;
+                    }
                 }
             }
         }
