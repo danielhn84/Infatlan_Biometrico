@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="authorizations.aspx.cs" Inherits="BiometricoWeb.pages.authorizations" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="canceled.aspx.cs" Inherits="BiometricoWeb.pages.canceled" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/css/GridStyle.css" rel="stylesheet" />
     <link href="/css/breadcrumb.css" rel="stylesheet" />
@@ -21,7 +20,6 @@
             $('#DescargaModal').modal('show');
         }
     </script>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
@@ -29,7 +27,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h2>Autorización de Empleado</h2>
+                        <h2>Autorizaciones Canceladas</h2>
                         <p class="mb-md-0">Recursos Humanos</p>
                     </div>
 
@@ -37,7 +35,7 @@
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
                     <asp:UpdatePanel ID="UpdatePrincipalBotones" runat="server">
                         <ContentTemplate>
-                            <asp:Button ID="BtnPermisos" class="btn btn-primary mr-2" runat="server" Text="Crear Permiso" OnClick="BtnPermisos_Click" />
+                            <asp:Button ID="BtnPermisos" class="btn btn-primary mr-2" runat="server" Text="Crear Permiso" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
@@ -51,8 +49,8 @@
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Autorizaciones Pendientes</h4>
-                            <p>Permisos que no han sido autorizados por recursos humanos.</p>
+                            <h4 class="card-title">Autorizaciones Canceladas</h4>
+                            <p>Permisos que han sido cancelados por recursos humanos.</p>
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Buscar</label>
@@ -84,7 +82,7 @@
                                                         <HeaderTemplate>
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:Button ID="BtnAutorizarRecursosHumanos" runat="server" Text="Finalizar" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idPermiso") %>' CommandName="AutorizarEmpleadoRecursosHumanos" />
+                                                            <asp:Button ID="BtnAutorizarRecursosHumanos" runat="server" Enabled="false" Text="Cancelado" class="btn btn-inverse-danger mr-2" CommandArgument='<%# Eval("idPermiso") %>' CommandName="Cerrado" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
@@ -92,7 +90,7 @@
                                                         <HeaderTemplate>
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:Button ID="BtnAutorizar" runat="server" Text="Autorizar" class="btn btn-inverse-primary mr-2" CommandArgument='<%# Eval("idPermiso") %>' CommandName="AutorizarEmpleado" />
+                                                            <asp:Button ID="BtnAutorizar" runat="server" Enabled="false" Text="Cancelado" class="btn btn-inverse-danger mr-2" CommandArgument='<%# Eval("idPermiso") %>' CommandName="Cerrado" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Select" HeaderStyle-Width="50px">
@@ -118,7 +116,7 @@
                                                     <asp:BoundField DataField="TipoPermiso" HeaderText="Tipo" />
                                                     <asp:BoundField DataField="FechaInicio" HeaderText="Inicio" />
                                                     <asp:BoundField DataField="FechaRegreso" HeaderText="Fin" />
-                                                    <asp:BoundField DataField="Detalle" HeaderText="Detalle" />                                                    
+                                                    <asp:BoundField DataField="Detalle" HeaderText="Detalle" />
                                                 </Columns>
                                             </asp:GridView>
                                         </ContentTemplate>
@@ -131,66 +129,6 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
-    <div class="modal fade" id="AutorizarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                    <asp:UpdatePanel ID="UpdateLabelPermiso" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <h4 class="modal-title" id="ModalLabelUsuario">Autorización de Empleado - No.Permiso 
-                                    <asp:Label ID="LbNumeroPermiso" runat="server" Text=""></asp:Label>
-                            </h4>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <asp:UpdatePanel ID="UpdateAutorizar" runat="server">
-                        <ContentTemplate>
-                            <div class="form-group row">
-                                <div class="col-sm-9">
-                                    ¿Estas seguro de autorizar a este empleado?
-                                </div>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <asp:UpdatePanel ID="UpdateUsuario" runat="server">
-                        <ContentTemplate>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Acciones</label>
-                                <div class="col-sm-9">
-                                    <asp:DropDownList ID="DDLOpciones" class="form-control" runat="server">
-                                        <asp:ListItem Value="1">Autorizar</asp:ListItem>
-                                        <asp:ListItem Value="0">No Autorizar</asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <asp:UpdatePanel ID="UpdateAutorizarMensaje" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <div class="form-group row">
-                                <asp:Label ID="LbAutorizarMensaje" runat="server" Text="" Class="col-sm-12" Style="color: indianred; text-align: center;"></asp:Label>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                </div>
-                <div class="modal-footer">
-                    <asp:UpdatePanel ID="UpdateUsuarioBotones" runat="server">
-                        <ContentTemplate>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="BtnAutorizarPermiso" runat="server" Text="Ok" class="btn btn-success" OnClick="BtnAutorizarPermiso_Click" />
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="modal fade" id="FinalizarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -222,7 +160,7 @@
                     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                         <ContentTemplate>
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Acciones</label>
+                                <label class="col-sm-3 col-form-label">Opciones</label>
                                 <div class="col-sm-9">
                                     <asp:DropDownList ID="DDlFinalizarPermiso" class="form-control" runat="server">
                                         <asp:ListItem Value="1">Finalizar Permiso</asp:ListItem>
@@ -244,13 +182,14 @@
                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="BtnFinalizarPermiso" runat="server" Text="Ok" class="btn btn-success" OnClick="BtnFinalizarPermiso_Click" />
+                            <asp:Button ID="BtnFinalizarPermiso" runat="server" Text="Autorizar" class="btn btn-primary" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="DescargaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
@@ -306,6 +245,7 @@
             </div>
         </div>
     </div>
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

@@ -16,35 +16,26 @@ namespace BiometricoWeb.pages
     public partial class permissions : System.Web.UI.Page
     {
         db vConexion;
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected void Page_Load(object sender, EventArgs e){
             vConexion = new db();
             String vEx = Request.QueryString["ex"];
             
 
-            if (!Page.IsPostBack)
-            {
-                if (Convert.ToBoolean(Session["AUTH"]))
-                {
+            if (!Page.IsPostBack){
+                if (Convert.ToBoolean(Session["AUTH"])){
                     CargarEmpleados();
                     CargarTipoPermisos();
                     CargarPermisos();
                     CargarDiasSAP();
 
-                    if (vEx != null)
-                    {
+                    if (vEx != null){
                         if (vEx.Equals("1"))
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + "Archivo subido con exito" + "')", true);
                         else if (vEx.Equals("2"))
-                        {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + "Error al subir archivo, por favor entregarlo en fisico a recursos humanos." + "')", true);
-                        }
                         else if (vEx.Equals("3"))
-                        {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + "Permiso ingresado con exito." + "')", true);
-                        }
                     }
-
                 }
             }
         }
@@ -53,44 +44,43 @@ namespace BiometricoWeb.pages
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
+        
         public void CerrarModal(String vModal)
         {
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "$('#" + vModal + "').modal('hide');", true);
         }
-        void CargarEmpleados()
-        {
-            try
-            {
+        
+        void CargarEmpleados(){
+            try{
                 DataTable vDatos = new DataTable();
                 vDatos = vConexion.obtenerDataTable("RSP_ObtenerGenerales 8,'" + Convert.ToString(Session["USUARIO"]) + "'");
 
+                Session["PERMISOSCGS"] = Convert.ToBoolean(vDatos.Rows[0]["PermisosCGS"]);
+                
                 DDLEmpleado.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                foreach (DataRow item in vDatos.Rows)
-                {
+                foreach (DataRow item in vDatos.Rows){
                     DDLEmpleado.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["idEmpleado"].ToString() + " - " + item["nombre"].ToString() });
                 }
 
                 DDLJefe.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                foreach (DataRow item in vDatos.Rows)
-                {
+                foreach (DataRow item in vDatos.Rows){
                     DDLJefe.Items.Add(new ListItem { Value = item["idJefe"].ToString(), Text = item["idJefe"].ToString() + " - " + item["jefeNombre"].ToString() });
                 }
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        void CargarTipoPermisos()
-        {
-            try
-            {
+        void CargarTipoPermisos(){
+            try{
                 DataTable vDatos = new DataTable();
-                vDatos = vConexion.obtenerDataTable("RSP_ObtenerGenerales 4");
+                String vQuery = "RSP_ObtenerGenerales 4";
+                vDatos = vConexion.obtenerDataTable(vQuery);
 
                 DDLTipoPermiso.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                foreach (DataRow item in vDatos.Rows)
-                {
+                foreach (DataRow item in vDatos.Rows){
                     DDLTipoPermiso.Items.Add(new ListItem { Value = item["idTipoPermiso"].ToString(), Text = item["idTipoPermiso"].ToString() + " - " + item["descripcion"].ToString() });
                 }
+
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
@@ -108,30 +98,23 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); } // swift reiniciado, se creo una politica
         }
 
-        void CargarDiasSAP()
-        {
-            try
-            {
+        void CargarDiasSAP(){
+            try{
                 SapConnector vTest = new SapConnector();
-                String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
+                //String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
+                String vDias = "5";
                 LbNumeroVaciones.Text = vDias;
                 Session["DIASSAP"] = vDias;
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
 
-        protected void BtnCrearPermiso_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
+        protected void BtnCrearPermiso_Click(object sender, EventArgs e){
+            try{
                 String vFechaInicio = Convert.ToDateTime(TxFechaInicio.Text).ToString("yyyy-MM-dd HH:mm:ss");
                 String vFechaRegreso = Convert.ToDateTime(TxFechaRegreso.Text).ToString("yyyy-MM-dd HH:mm:ss");
                 ValidacionesPermisos(DDLEmpleado.SelectedValue, vFechaInicio, vFechaRegreso, DDLTipoPermiso.SelectedValue);
-
 
                 DateTime desde = Convert.ToDateTime(TxFechaInicio.Text);
                 DateTime hasta = Convert.ToDateTime(TxFechaRegreso.Text);
@@ -139,9 +122,7 @@ namespace BiometricoWeb.pages
                 DateTime inicio = desde;
                 int dias = 0;
 
-                while (inicio <= hasta)
-                {
-
+                while (inicio <= hasta){
                     if (inicio.DayOfWeek != DayOfWeek.Saturday && inicio.DayOfWeek != DayOfWeek.Sunday)
                         dias++;
 
@@ -149,97 +130,119 @@ namespace BiometricoWeb.pages
                 }
 
                 TimeSpan ts = Convert.ToDateTime(vFechaRegreso) - Convert.ToDateTime(vFechaInicio);
-                
                 int days = 1;
                 if (ts.Days >= 1)
                     days = dias; //ts.Days + 1 - 
-                else if (ts.Hours > 0)
-                {
+                else if (ts.Hours > 0 || ts.Minutes > 0){
                     days = 0;
                 }
-
-                if (days > 0 && ts.Hours > 0)
-                    throw new Exception("Debes de crear permisos para dias y horas por separado");
-
 
                 generales vGenerales = new generales();
                 int vDias = vGenerales.BusinessDaysUntil(Convert.ToDateTime(TxFechaInicio.Text), Convert.ToDateTime(TxFechaRegreso.Text));
 
-
                 LbInformacionPermiso.Text = "Informacion de Permiso de empleado " + DDLEmpleado.SelectedValue + "<br /><br />" +
                     "Fechas solicitadas del <b>" + vFechaInicio + "</b> al <b>" + vFechaRegreso + "</b><br /><br />" +
-                    "Total de dias: <b>" + days + "</b> Horas: <b>" + ts.Hours + "</b> Minutos: <b>" + ts.Minutes + "</b><br /><br />" +
+                    "Total: <b>" + days + "</b> días <b>" + ts.Hours + "</b> horas <b>" + ts.Minutes + "</b> minutos<br /><br />" +
                     "Tipo de permiso solicitado: <b>" + DDLTipoPermiso.SelectedItem.Text + "</b><br /><br />" +
                     "¿Estas seguro que estas fechas quieres solicitar?";
 
-                if (DDLTipoPermiso.SelectedValue.Equals("1003"))
-                {
-                    if (vDias > 3)
-                    {
+                if (DDLTipoPermiso.SelectedValue.Equals("1003")){
+                    if (vDias > 3){
                         LbIncapacidadInformacion.Text = "Es obligatorio que tramites tu subsidio del 66% de incapacidad en el seguro social a la mayor brevedad posible y sea depositado a la cuenta de INFATLAN, caso contrario se te deducirá de tu planilla";
-                    }
-                    else
+                    }else
                         LbIncapacidadInformacion.Text = String.Empty;
-                }
-                else
+                }else
                     LbIncapacidadInformacion.Text = String.Empty;
-
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger);
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        private void ValidacionesPermisos(String vEmpleado, String vFechaInicio, String vFechaRegreso, String vTipoPermiso)
-        {
-            if (CbEmergencias.Checked)
-            {
-                if (DDLEmpleado.SelectedValue.Equals("0"))
-                    throw new Exception("Seleccione un empleado valido para el permiso.");
-                if (DDLJefe.SelectedValue.Equals("0"))
-                    throw new Exception("Seleccione un jefe valido para el permiso.");
-                if (DDLTipoPermiso.SelectedValue.Equals("0"))
-                    throw new Exception("Seleccione un tipo de permiso valido");
-                if (TxFechaInicio.Text.Equals(""))
-                    throw new Exception("Ingrese una fecha de inicio valida");
-                if (TxFechaRegreso.Text.Equals(""))
-                    throw new Exception("Ingrese una fecha de regreso valida");
-                if (Convert.ToDateTime(TxFechaRegreso.Text) < Convert.ToDateTime(TxFechaInicio.Text))
-                    throw new Exception("Las fechas ingresadas son incorrectas, el regreso es menor que el inicio");
+        private void ValidacionesPermisos(String vEmpleado, String vFechaInicio, String vFechaRegreso, String vTipoPermiso){
+            Decimal vDiasDisponibles = Convert.ToDecimal((LbNumeroVaciones.Text == String.Empty ? "0" : LbNumeroVaciones.Text));
+            String vTipo = DDLTipoPermiso.SelectedValue;
+            Decimal vDiasHoras = Calculo(null, -1);
+            //GENERALES
+            if (DDLEmpleado.SelectedValue.Equals("0"))
+                throw new Exception("Seleccione un empleado valido para el permiso.");
+            if (DDLJefe.SelectedValue.Equals("0"))
+                throw new Exception("Seleccione un jefe valido para el permiso.");
+            if (DDLTipoPermiso.SelectedValue.Equals("0"))
+                throw new Exception("Seleccione un tipo de permiso valido");
+            if (TxFechaInicio.Text.Equals(""))
+                throw new Exception("Ingrese una fecha de inicio valida");
+            if (TxFechaRegreso.Text.Equals(""))
+                throw new Exception("Ingrese una fecha de regreso valida");
+            if (Convert.ToDateTime(TxFechaRegreso.Text) < Convert.ToDateTime(TxFechaInicio.Text))
+                throw new Exception("Las fechas ingresadas son incorrectas, el regreso es menor que el inicio");
+            
+            //ESPECIFICAS
+            if (vTipo == "1004" || vTipo == "1007"){
+                if (vDiasHoras > vDiasDisponibles)
+                    throw new Exception("Usted solo tiene <b>" + vDiasDisponibles + "</b> días disponibles.");
+                if (vDiasDisponibles <= 0)
+                    throw new Exception("Usted no cuenta con vacaciones disponibles.");
 
+                String vQuerySIM = "RSP_ObtenerGenerales 15, " + vEmpleado;
+                DataTable vDatosSIM = vConexion.obtenerDataTable(vQuerySIM);
+                Decimal vDiasHoras2 = 0;
+
+                if (vDatosSIM != null){
+                    for (int i = 0; i < vDatosSIM.Rows.Count; i++){
+                        vDiasHoras2 += Calculo(vDatosSIM, i);
+                    }
+                }
+
+                Decimal vDias = Convert.ToDecimal(LbNumeroVaciones.Text) - vDiasHoras2 - vDiasHoras;
+                if (vDias < 0)
+                    throw new Exception("La cantidad de días solicitados sobrepasa los disponibles. " +
+                        "Para consultar los permisos pendientes comuníquese con Recursos Humanos.");
+            }
+
+            if ((vTipo == "1001" || vTipo == "1010" || vTipo == "1018") && !Convert.ToBoolean(Session["PERMISOSCGS"]))
+                throw new Exception("Debe solicitar acceso a RRHH para ingresar este permiso.");
+
+            if (vTipo == "1006"){
+                String vAnual = DateTime.Now.Year.ToString();
+                String vMes = DateTime.Now.Month.ToString().Length > 1 ? DateTime.Now.Month.ToString() : "0" + DateTime.Now.Month.ToString();
+
+                String vQuery = "RSP_ValidacionesPermisos 2," + vEmpleado + ",'" + vAnual + "',0";
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+
+                if (Convert.ToInt32(vDatos.Rows[0][0].ToString()) > 15)
+                    throw new Exception("Ya ha realizado los 15 permisos de calamidad domestica este año.");
+
+                vQuery = "RSP_ValidacionesPermisos 3," + vEmpleado + ",'" + vMes + "',0";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+
+                if (Convert.ToInt32(vDatos.Rows[0][0].ToString()) > 2)
+                    throw new Exception("Ya ha realizado los 2 permisos de calamidad domestica este mes.");
+            }
+
+            TimeSpan tsHorario = Convert.ToDateTime(vFechaRegreso) - Convert.ToDateTime(vFechaInicio);
+            if (tsHorario.Hours < 4 && tsHorario.Days < 1 && vFechaInicio != vFechaRegreso && (vTipo == "1001" || vTipo == "1002" || vTipo == "1006" || vTipo == "1007" || vTipo == "1008" || vTipo == "1010" || vTipo == "1018" || vTipo == "1019" || vTipo == "1020" || vTipo == "1021"))
+                throw new Exception("No se pueden agregar permisos menores a 4 horas.");
+
+
+            //EMERGENCIAS
+            if (CBxEmergencia.Checked){
                 TimeSpan ts = Convert.ToDateTime(TxFechaInicio.Text) - DateTime.Now;
                 if (ts.Days < -15)
                     throw new Exception("No se pueden agregar permisos por incumplimiento de politica (15 dias maximo para ingresar permisos pasados)");
-            }
-            else
-            {
-                if (DDLEmpleado.SelectedValue.Equals("0"))
-                    throw new Exception("Seleccione un empleado valido para el permiso.");
-                if (DDLJefe.SelectedValue.Equals("0"))
-                    throw new Exception("Seleccione un jefe valido para el permiso.");
-                if (DDLTipoPermiso.SelectedValue.Equals("0"))
-                    throw new Exception("Seleccione un tipo de permiso valido");
-                if (TxFechaInicio.Text.Equals(""))
-                    throw new Exception("Ingrese una fecha de inicio valida");
-                if (TxFechaRegreso.Text.Equals(""))
-                    throw new Exception("Ingrese una fecha de regreso valida");
 
-                if (Convert.ToDateTime(TxFechaRegreso.Text) < Convert.ToDateTime(TxFechaInicio.Text))
-                    throw new Exception("Las fechas ingresadas son incorrectas, el regreso es menor que el inicio");
-
-                
+            }else{
                 String vQuery = "RSP_ValidacionesPermisos 1," + vEmpleado + ",'" + vFechaInicio + "','" + vFechaRegreso + "'";
                 DataTable vDatosVerificacion = vConexion.obtenerDataTable(vQuery);
 
-                if (vDatosVerificacion.Rows.Count > 0)
-                {
+                if (vDatosVerificacion.Rows.Count > 0){
                     if (vDatosVerificacion.Rows[0][0].ToString().Equals("1"))
                         throw new Exception("Ya existe un permiso en el tiempo seleccionado");
                 }
 
-                if (Convert.ToInt32(vTipoPermiso) < 2000)
-                {
+                if (Convert.ToInt32(vTipoPermiso) < 2000){
                     TimeSpan ts = Convert.ToDateTime(TxFechaInicio.Text) - DateTime.Now;
                     if (ts.Days < -15)
                         throw new Exception("No se pueden agregar permisos por incumplimiento de politica (15 dias maximo para ingresar permisos pasados)");
@@ -277,16 +280,14 @@ namespace BiometricoWeb.pages
 
         }
 
-        protected void BtnEnviarPermiso_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnEnviarPermiso_Click(object sender, EventArgs e){
+            try{
                 String vNombreDepot1 = String.Empty;
                 HttpPostedFile bufferDeposito1T = FUDocumentoPermiso.PostedFile;
                 byte[] vFileDeposito1 = null;
                 String vExtension = String.Empty;
-                if (bufferDeposito1T != null)
-                {
+
+                if (bufferDeposito1T != null){
                     vNombreDepot1 = FUDocumentoPermiso.FileName;
                     Stream vStream = bufferDeposito1T.InputStream;
                     BinaryReader vReader = new BinaryReader(vStream);
@@ -297,6 +298,8 @@ namespace BiometricoWeb.pages
                 String vArchivo = String.Empty;
                 if (vFileDeposito1 != null)
                     vArchivo = Convert.ToBase64String(vFileDeposito1);
+
+                Int32 vEmergencia = CBxEmergencia.Checked ? 1 : 0;
 
                 String vQuery = "RSP_IngresarPermisos 1," + DDLEmpleado.SelectedValue + "," +
                     "" + DDLJefe.SelectedValue + "," +
@@ -309,13 +312,16 @@ namespace BiometricoWeb.pages
                     "'" + TxFechaCompensacion.Text + "'," +
                     "" + DDLParientes.SelectedValue + "," + 
                     "'" + vArchivo + "'," +
-                    "'" + vExtension + "'";
-                    
+                    "'" + vExtension + "'," + vEmergencia ;
 
                 Int32 vInformacion = vConexion.ejecutarSql(vQuery);
 
-                if (vInformacion == 1)
-                {
+                if (vInformacion == 1){
+                    // begin wpadilla
+                    vQuery = "[RSP_IngresarEmpleados] 4," + DDLEmpleado.SelectedValue + ", '0'";
+                    vConexion.ejecutarSql(vQuery);
+                    // end  wpadilla
+
                     vQuery = "RSP_ObtenerEmpleados 2," + DDLJefe.SelectedValue;
                     DataTable vDatosJefatura = vConexion.obtenerDataTable(vQuery);
                     vQuery = "RSP_ObtenerEmpleados 2," + DDLEmpleado.SelectedValue;
@@ -323,10 +329,8 @@ namespace BiometricoWeb.pages
 
                     SmtpService vService = new SmtpService();
                     Boolean vFlagEnvioSupervisor = false;
-                    foreach (DataRow item in vDatosJefatura.Rows)
-                    {
-                        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                        {
+                    foreach (DataRow item in vDatosJefatura.Rows){
+                        if (!item["emailEmpresa"].ToString().Trim().Equals("")){
                             vService.EnviarMensaje(item["emailEmpresa"].ToString(),
                                 typeBody.Supervisor,
                                 item["nombre"].ToString(),
@@ -335,10 +339,9 @@ namespace BiometricoWeb.pages
                             vFlagEnvioSupervisor = true;
                         }
                     }
-                    if (vFlagEnvioSupervisor)
-                    {
-                        foreach (DataRow item in vDatosEmpleado.Rows)
-                        {
+
+                    if (vFlagEnvioSupervisor){
+                        foreach (DataRow item in vDatosEmpleado.Rows){
                             if (!item["emailEmpresa"].ToString().Trim().Equals(""))
                                 vService.EnviarMensaje(item["emailEmpresa"].ToString(),
                                     typeBody.Solicitante,
@@ -351,9 +354,7 @@ namespace BiometricoWeb.pages
                     }
                     else
                         Mensaje("Permiso ingresado con exito, Fallo envio de correo ponte en contacto con tu Jefe", WarningType.Success);
-                }
-                else
-                {
+                }else{
                     Mensaje("Permiso no se ingreso, contacte a Recursos Humanos", WarningType.Success);
                 }
                 LimpiarPermiso();
@@ -365,23 +366,22 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void DDLTipoPermiso_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void DDLTipoPermiso_SelectedIndexChanged(object sender, EventArgs e){
+            try{
                 DIVCompensacion.Visible = false;
                 DIVCompensacionFecha.Visible = false;
                 DIVDocumentos.Visible = false;
                 DIVParientes.Visible = false;
 
-                switch (DDLTipoPermiso.SelectedValue)
-                {
+                switch (DDLTipoPermiso.SelectedValue){
                     case "1000":
                         TxFechaInicio.TextMode = TextBoxMode.DateTimeLocal;
                         TxFechaRegreso.TextMode = TextBoxMode.DateTimeLocal;
                         UpdatePanelFechas.Update();
                         break;          
                     case "1001":
+                        Mensaje("Debe solicitar acceso a RRHH para ingresar este permiso. Si ya lo tiene, continue.", WarningType.Warning);
+                        break;
                     case "1002":
                         TxFechaInicio.TextMode = TextBoxMode.Date;
                         TxFechaRegreso.TextMode = TextBoxMode.Date;
@@ -648,5 +648,40 @@ namespace BiometricoWeb.pages
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
+
+        private Decimal Calculo(DataTable vDatosSIM, int vSec) {
+            Decimal vRes = 0;
+            DateTime desde, hasta;
+
+            if (vSec < 0){
+                desde = Convert.ToDateTime(TxFechaInicio.Text);
+                hasta = Convert.ToDateTime(TxFechaRegreso.Text);
+            }else{
+                desde = Convert.ToDateTime(vDatosSIM.Rows[vSec]["fechaInicio"]);
+                hasta = Convert.ToDateTime(vDatosSIM.Rows[vSec]["fechaRegreso"]);
+            }
+            TimeSpan tsHorario = Convert.ToDateTime(hasta) - Convert.ToDateTime(desde);
+            DateTime inicio = desde;
+            int dias = 0;
+
+            while (inicio <= hasta){
+                if (inicio.DayOfWeek != DayOfWeek.Saturday && inicio.DayOfWeek != DayOfWeek.Sunday)
+                    dias++;
+                
+                inicio = inicio.AddDays(1);
+            }
+
+            int days = 1;
+            if (tsHorario.Days >= 1)
+                days = dias; //ts.Days + 1 - 
+            else if (tsHorario.Hours > 0 || tsHorario.Minutes > 0)
+                days = 0;
+
+            float vHorasSAP = float.Parse(tsHorario.Hours.ToString()) / 8;
+            vRes = Convert.ToDecimal(days + vHorasSAP);
+
+            return vRes;
+        }
+
     }
 }

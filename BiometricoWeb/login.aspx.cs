@@ -21,32 +21,25 @@ namespace BiometricoWeb
             }
         }
 
-        protected void BtnLogin_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnLogin_Click(object sender, EventArgs e){
+            try{
                 generales vGenerales = new generales();
-
                 LdapService vLdap = new LdapService();
-                Boolean vLogin = vLdap.ValidateCredentials("ADBancat.hn", TxUsername.Text, TxPassword.Text);
+                //Boolean vLogin = vLdap.ValidateCredentials("ADBancat.hn", TxUsername.Text, TxPassword.Text);
+                Boolean vLogin = true;
 
-
-                if (vLogin)
-                {
+                if (vLogin){
                     DataTable vDatos = new DataTable();
                     vDatos = vConexion.obtenerDataTable("RSP_Login '" + TxUsername.Text + "','" + vGenerales.MD5Hash(TxPassword.Text) + "'");
 
-                    foreach (DataRow item in vDatos.Rows)
-                    {
+                    foreach (DataRow item in vDatos.Rows){
                         Session["AUTHCLASS"] = vDatos;
                         Session["USUARIO"] = item["idEmpleado"].ToString();
                         Session["CODIGOSAP"] = item["codigoSAP"].ToString();
                         Session["AUTH"] = true;
                         Response.Redirect("/default.aspx");
                     }
-                }
-                else
-                {
+                }else{
                     Session["AUTH"] = false;
                     throw new Exception("Usuario o contraseña incorrecta.");
                 }

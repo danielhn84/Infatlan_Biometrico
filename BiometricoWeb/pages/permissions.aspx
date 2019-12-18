@@ -77,10 +77,11 @@
         <div class="tab-pane fade show active" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab">
             <div class="form-check form-check-flat form-check-primary" style="margin-left: auto;">
                 <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" runat="server" id="CbEmergencias">
-                    Presione aqui si su solicitud es de emergencia
+                    <input type="checkbox" class="form-check-input" runat="server" id="CbEmergencias" onclick="ModalToken();">Presione aqui si su solicitud es de emergencia
                 </label>
+
             </div>
+
             <div class="row">
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
@@ -296,8 +297,8 @@
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:BoundField DataField="idPermiso" HeaderText="No." />
-                                                            <asp:BoundField DataField="fechaInicio" HeaderText="Salida" />
-                                                            <asp:BoundField DataField="fechaRegreso" HeaderText="Regreso" />
+                                                            <asp:BoundField DataField="fechaInicio" HeaderText="Inicio" />
+                                                            <asp:BoundField DataField="fechaRegreso" HeaderText="Fin" />
                                                             <asp:BoundField DataField="idTipoPermiso" HeaderText="Permiso" />
                                                             <asp:BoundField DataField="fechaSolicitud" HeaderText="Solicitud" />
                                                             <asp:BoundField DataField="autorizado" HeaderText="Autorizado" />
@@ -324,9 +325,7 @@
 
                     <asp:UpdatePanel ID="UpdateLabelPermiso" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <h4 class="modal-title" id="ModalLabelUsuario">Permiso Solicitado
-
-                            </h4>
+                            <h4 class="modal-title" id="ModalLabelUsuario">Permiso Solicitado</h4>
                         </ContentTemplate>
                     </asp:UpdatePanel>
 

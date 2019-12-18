@@ -116,8 +116,9 @@
                                                     <asp:BoundField DataField="Empleado" HeaderText="Nombre" />
                                                     <asp:BoundField DataField="TipoPermiso" HeaderText="Tipo" />
                                                     <asp:BoundField DataField="FechaInicio" HeaderText="Inicio" />
-                                                    <asp:BoundField DataField="FechaRegreso" HeaderText="Regreso" />
+                                                    <asp:BoundField DataField="FechaRegreso" HeaderText="Fin" />
                                                     <asp:BoundField DataField="autorizadoResolucion" HeaderText="Resolución" />
+                                                    <asp:BoundField DataField="Detalle" HeaderText="Detalle" />
                                                 </Columns>
                                             </asp:GridView>
                                         </ContentTemplate>

@@ -34,6 +34,7 @@ namespace BiometricoWeb
                             LIEmpleados.Visible = true;
                             LIAutorizaciones.Visible = true;
                             LIPermisos.Visible = true;
+                            LIMantenimientos.Visible = true;
                         }
                     }
                     else

@@ -17,7 +17,8 @@ namespace BiometricoWeb.clases
         RecursosHumanos,
         Solicitante,
         Aprobado,
-        Rechazado
+        Rechazado,
+        Token
     }
     public class SmtpService : Page
     {
@@ -79,6 +80,15 @@ namespace BiometricoWeb.clases
                             "Te informamos que el permiso que has solicitado ha sido rechazado."
                             ), Server.MapPath("/images/logo.png")));
                         break;
+                    case typeBody.Token:
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBody(
+                            Usuario,
+                            "Se ha creado un Token para emergencias",
+                            "Token: " + Nombre,
+                            "Ingresa este token en la pagina de permisos despues de haber seleccionado la opción de emergencias, este token solo puede ser utilizado una sola vez."
+                            ), Server.MapPath("/images/logo.png")));
+                        break;
+
                 }
                 client.Send(mail);
                 vRespuesta = true;

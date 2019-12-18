@@ -7,119 +7,164 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace BiometricoWeb
+namespace BiometricoWeb.pages
 {
 
 
-    public partial class main
+    public partial class puestos
     {
 
         /// <summary>
-        /// Control head.
+        /// Control UpdateDivBusquedas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
 
         /// <summary>
-        /// Control FrmCambios.
+        /// Control DivBusqueda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm FrmCambios;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivBusqueda;
 
         /// <summary>
-        /// Control ScriptManager1.
+        /// Control UpdatePanel5.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
 
         /// <summary>
-        /// Control LitConfiguraciones.
+        /// Control TxBuscarPuesto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitConfiguraciones;
+        protected global::System.Web.UI.WebControls.TextBox TxBuscarPuesto;
 
         /// <summary>
-        /// Control LitUsuario.
+        /// Control btnNuevo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitUsuario;
+        protected global::System.Web.UI.WebControls.Button btnNuevo;
 
         /// <summary>
-        /// Control LIEmpleados.
+        /// Control UpdateGridView.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIEmpleados;
+        protected global::System.Web.UI.UpdatePanel UpdateGridView;
 
         /// <summary>
-        /// Control LIBiometricos.
+        /// Control GVBusqueda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIBiometricos;
+        protected global::System.Web.UI.WebControls.GridView GVBusqueda;
 
         /// <summary>
-        /// Control LIPermisos.
+        /// Control UpdatePanel2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIPermisos;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
 
         /// <summary>
-        /// Control LIAutorizaciones.
+        /// Control LbModPuesto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIAutorizaciones;
+        protected global::System.Web.UI.WebControls.Label LbModPuesto;
 
         /// <summary>
-        /// Control LIMantenimientos.
+        /// Control UpdateModificarPuesto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIMantenimientos;
+        protected global::System.Web.UI.UpdatePanel UpdateModificarPuesto;
 
         /// <summary>
-        /// Control ContentPlaceHolder1.
+        /// Control TxIdPuesto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.TextBox TxIdPuesto;
 
         /// <summary>
-        /// Control ContentPlaceHolder2.
+        /// Control TxPuesto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder2;
+        protected global::System.Web.UI.WebControls.TextBox TxPuesto;
+
+        /// <summary>
+        /// Control DDLDepto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDLDepto;
+
+        /// <summary>
+        /// Control DivEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivEstado;
+
+        /// <summary>
+        /// Control DDLEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDLEstado;
+
+        /// <summary>
+        /// Control UpdateModificacionBotones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdateModificacionBotones;
+
+        /// <summary>
+        /// Control BtnCrear.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnCrear;
     }
 }

@@ -118,6 +118,8 @@
                             <div class="collapse" id="ui-basic">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link" href="/pages/employees.aspx">Crear Empleado</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/pages/UpdateEmployees.aspx">Gestionar Empleados</a></li>
+                                    <%--<li class="nav-item"><a class="nav-link" href="/pages/cargarConsolidado.aspx">Cargar Consolidado</a></li>--%>
                                 </ul>
                             </div>
                         </li>
@@ -147,7 +149,7 @@
 
                         <li class="nav-item" id="LIAutorizaciones" runat="server" visible="true">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
-                                <i class="mdi mdi-calendar menu-icon"></i>
+                                <i class="mdi mdi-clipboard-check menu-icon"></i>
                                 <span class="menu-title">Autorizaciones</span>
                                 <i class="menu-arrow"></i>
                             </a>
@@ -155,10 +157,24 @@
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link" href="/pages/authorizations.aspx">Pendientes</a></li>
                                     <li class="nav-item"><a class="nav-link" href="/pages/finished.aspx">Finalizados</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/pages/canceled.aspx">Cancelados</a></li>
                                 </ul>
                             </div>
                         </li>
 
+                        <li class="nav-item" id="LIMantenimientos" runat="server" visible="false">
+                            <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+                                <i class="mdi mdi-wrench menu-icon"></i>
+                                <span class="menu-title">Administración</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic4">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" href="/pages/areas.aspx">Departamentos</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/pages/puestos.aspx">Posiciones</a></li>
+                                </ul>
+                            </div>
+                        </li>
                        
                         
           

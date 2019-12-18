@@ -39,30 +39,54 @@ namespace BiometricoWeb.pages
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "$('#" + vModal + "').modal('hide');", true);
         }
 
-        void CargarAutorizaciones()
-        {
-            try
-            {
+        void CargarAutorizaciones(){
+            try{
                 String vQuery = "RSP_ObtenerPermisos 1," + Session["USUARIO"];
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
 
+                //begin wpadilla
+                vDatos.Columns.Add("Detalle");
+
+                for (int i = 0; i < vDatos.Rows.Count; i++){
+                    DateTime desde = Convert.ToDateTime(vDatos.Rows[i]["FechaInicio"]);
+                    DateTime hasta = Convert.ToDateTime(vDatos.Rows[i]["FechaRegreso"]);
+
+                    DateTime inicio = desde;
+                    int dias = 0;
+
+                    while (inicio <= hasta){
+                        if (inicio.DayOfWeek != DayOfWeek.Saturday && inicio.DayOfWeek != DayOfWeek.Sunday)
+                            dias++;
+
+                        inicio = inicio.AddDays(1);
+                    }
+
+                    TimeSpan ts = Convert.ToDateTime(hasta) - Convert.ToDateTime(desde);
+                    int days = 1;
+                    if (ts.Days >= 1)
+                        days = dias; //ts.Days + 1 - 
+                    else if (ts.Hours > 0)
+                        days = 0;
+                    
+                    vDatos.Rows[i]["Detalle"] = days + " días, " + ts.Hours + " horas, " + ts.Minutes + " minutos";
+                }
+                //end wpadilla
+
                 GVBusqueda.DataSource = vDatos;
                 GVBusqueda.DataBind();
-                foreach (GridViewRow row in GVBusqueda.Rows)
-                {
+                foreach (GridViewRow row in GVBusqueda.Rows){
                     vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + row.Cells[4].Text;
                     DataTable vDatosBusqueda = vConexion.obtenerDataTable(vQuery);
 
-                    foreach (DataRow item in vDatosBusqueda.Rows)
-                    {
-                        if (item["Autorizado"].ToString().Equals("True"))
-                        {
+                    foreach (DataRow item in vDatosBusqueda.Rows){
+                        if (item["Autorizado"].ToString().Equals("True")){
                             Button button = row.FindControl("BtnAutorizar") as Button;
                             button.Text = "Listo";
                             button.CssClass = "btn btn-inverse-success mr-2 ";
                             button.Enabled = false;
                             button.CommandName = "Cerrado";
                         }
+                        /*
                         if (item["Autorizado"].ToString().Equals("False") && !item["fechaAutorizacion"].ToString().Equals(""))
                         {
                             Button button = row.FindControl("BtnAutorizar") as Button;
@@ -77,6 +101,7 @@ namespace BiometricoWeb.pages
                             buttonRH.Enabled = false;
                             buttonRH.CommandName = "Cerrado";
                         }
+                        */
                         if (item["autorizadoSAP"].ToString().Equals("True"))
                         {
                             Button button = row.FindControl("BtnAutorizarRecursosHumanos") as Button;
@@ -88,18 +113,17 @@ namespace BiometricoWeb.pages
                     }
                 }
                 DataTable vDatosLogin = (DataTable)Session["AUTHCLASS"];
-                if (!vDatosLogin.Rows[0]["tipoEmpleado"].ToString().Equals(""))
-                {
-                    if (vDatosLogin.Rows[0]["tipoEmpleado"].ToString().Equals("1"))
-                    {
+                if (!vDatosLogin.Rows[0]["tipoEmpleado"].ToString().Equals("")){
+                    if (vDatosLogin.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
                         GVBusqueda.Columns[0].Visible = true;
                     }
                 }
 
                 Session["DATOSAUTORIZAR"] = vDatos;
                 UpdateDivBusquedas.Update();
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
         protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -300,26 +324,19 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e){
+            try{
                 CargarAutorizaciones();
-
                 String vBusqueda = TxBuscarEmpleado.Text;
                 DataTable vDatos = (DataTable)Session["DATOSAUTORIZAR"];
 
-                if (vBusqueda.Equals(""))
-                {
+                if (vBusqueda.Equals("")){
                     GVBusqueda.DataSource = vDatos;
                     GVBusqueda.DataBind();
                     UpdateGridView.Update();
-                }
-                else
-                {
+                }else{
                     EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
                         .Where(r => r.Field<String>("Empleado").Contains(vBusqueda.ToUpper()));
-
 
                     DataTable vDatosFiltrados = new DataTable();
                     vDatosFiltrados.Columns.Add("idPermiso");
@@ -330,8 +347,9 @@ namespace BiometricoWeb.pages
                     vDatosFiltrados.Columns.Add("FechaSolicitud");
                     vDatosFiltrados.Columns.Add("Autorizado");
                     vDatosFiltrados.Columns.Add("AutorizadoSAP");
-                    foreach (DataRow item in filtered)
-                    {
+                    vDatosFiltrados.Columns.Add("Detalle");
+
+                    foreach (DataRow item in filtered){
                         vDatosFiltrados.Rows.Add(
                             item["idPermiso"].ToString(),
                             item["Empleado"].ToString(),
@@ -340,18 +358,18 @@ namespace BiometricoWeb.pages
                             item["FechaRegreso"].ToString(),
                             item["FechaSolicitud"].ToString(),
                             item["Autorizado"].ToString(),
-                            item["AutorizadoSAP"].ToString()
+                            item["AutorizadoSAP"].ToString(),
+                            item["Detalle"].ToString()
                             );
                     }
-
                     GVBusqueda.DataSource = vDatosFiltrados;
                     GVBusqueda.DataBind();
                     Session["DATOSAUTORIZAR"] = vDatosFiltrados;
                     UpdateGridView.Update();
                 }
-
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
         protected void BtnFinalizarPermiso_Click(object sender, EventArgs e)
@@ -436,6 +454,7 @@ namespace BiometricoWeb.pages
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
+
         protected void BtnDescargarArchivo_Click(object sender, EventArgs e)
         {
             try
@@ -466,6 +485,7 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
             finally { CerrarModal("DescargaModal"); }
         }
+        
         private string GetExtension(string Extension)
         {
             switch (Extension)
