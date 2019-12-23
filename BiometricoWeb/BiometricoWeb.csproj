@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CryptoToken">
+      <HintPath>..\Biometrico\bin\Debug\CryptoToken.dll</HintPath>
+    </Reference>
     <Reference Include="CuteWebUI.AjaxUploader">
       <HintPath>..\Biometrico\bin\Debug\CuteWebUI.AjaxUploader.dll</HintPath>
     </Reference>
@@ -148,6 +151,7 @@
     <Content Include="pages\permissions.aspx" />
     <Content Include="pages\puestos.aspx" />
     <Content Include="pages\settings.aspx" />
+    <Content Include="pages\token.aspx" />
     <Content Include="pages\UpdateEmployees.aspx" />
     <Content Include="vendors\base\vendor.bundle.base.css" />
     <Content Include="vendors\base\vendor.bundle.base.js" />
@@ -273,6 +277,13 @@
     </Compile>
     <Compile Include="pages\settings.aspx.designer.cs">
       <DependentUpon>settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\token.aspx.cs">
+      <DependentUpon>token.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\token.aspx.designer.cs">
+      <DependentUpon>token.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\UpdateEmployees.aspx.cs">
       <DependentUpon>UpdateEmployees.aspx</DependentUpon>

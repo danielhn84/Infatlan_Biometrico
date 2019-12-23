@@ -129,8 +129,13 @@ namespace BiometricoWeb.pages
         protected void BtnCrear_Click(object sender, EventArgs e){
             try{
                 if (Session["ACCION"].ToString() == "1") { //MODIFICAR
-
-                } else if (Session["ACCION"].ToString() == "2") { //CREAR 
+                    String vQuery = "[RSP_IngresaMantenimientos] 4, '" + TxIdArea.Text + "','" + TxArea.Text.ToUpper() + "'," + DDLEstado.SelectedValue;
+                    Int32 vInformacion = vConexion.ejecutarSql(vQuery);
+                    if (vInformacion == 1){
+                        Mensaje("Actualizado con Exito!", WarningType.Success);
+                        ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "$('#AreaModal').modal('hide');", true);
+                    }
+                }else if (Session["ACCION"].ToString() == "2") { //CREAR 
                     validaDepto();
                     String vQuery = "[RSP_IngresaMantenimientos] 2, '" + TxArea.Text.ToUpper() + "', '" + TxIdArea.Text + "'";
                     Int32 vInformacion = vConexion.ejecutarSql(vQuery);
@@ -139,10 +144,10 @@ namespace BiometricoWeb.pages
                         Mensaje("Creado con Exito!", WarningType.Success);
                         ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "$('#AreaModal').modal('hide');", true);
                     }
-                    CargarDepartamento();
-                    limpiarModal();
+                    
                 }
-                
+                CargarDepartamento();
+                limpiarModal();
 
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);

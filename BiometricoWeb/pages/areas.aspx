@@ -23,6 +23,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:UpdatePanel ID="UpdateDivBusquedas" runat="server">
         <ContentTemplate>
+
             <div class="row" id="DivBusqueda" runat="server">
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
@@ -41,10 +42,19 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <asp:Button ID="btnNuevo" runat="server" Text="Crear Área" class="btn btn-primary" OnClick="btnNuevo_Click" />
-                                        <%--<input type="Button" class="btn btn-primary" value="Nuevo" onclick="openModal();" />--%>
                                     </div>
                                 </div>
                             </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="Div1" runat="server">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="table-responsive">
                                     <asp:UpdatePanel ID="UpdateGridView" runat="server">
@@ -52,30 +62,33 @@
                                             <asp:GridView ID="GVBusqueda" runat="server"
                                                 CssClass="mydatagrid"
                                                 PagerStyle-CssClass="pgr"
-                                                HeaderStyle-CssClass="header"
+                                                HeaderStyle-CssClass="align-self-lg-start"
                                                 RowStyle-CssClass="rows"
                                                 GridLines="None"
                                                 AllowPaging="true"
                                                 PageSize="10"
                                                 AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging" OnRowCommand="GVBusqueda_RowCommand">
                                                 <Columns>
-                                                    <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="60px">
+                                                    <asp:TemplateField HeaderStyle-Width="60px">
                                                         <ItemTemplate>
                                                             <asp:Button ID="BtnAreaModificar" Enabled="true" runat="server" Text="Modificar" class="btn btn-inverse-primary  mr-2" CommandArgument='<%# Eval("idDepartamento") %>' CommandName="AreaModificar" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:BoundField DataField="idDepartamento" HeaderText="Id"  />
-                                                    <asp:BoundField DataField="nombre" HeaderText="Nombre" />
+                                                    <asp:BoundField DataField="idDepartamento" HeaderText="Id" ItemStyle-HorizontalAlign="Left" />
+                                                    <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
                                                 </Columns>
                                             </asp:GridView>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </ContentTemplate>
     </asp:UpdatePanel>
 

@@ -13,39 +13,31 @@ namespace BiometricoWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Convert.ToBoolean(Session["AUTH"]))
-            {
+            if (!Convert.ToBoolean(Session["AUTH"])){
                 Response.Redirect("/login.aspx");
             }
 
-            if (!Page.IsPostBack)
-            {
+            if (!Page.IsPostBack){
                 String vError = "";
-                try
-                {
+                try{
                     DataTable vDatos = (DataTable)Session["AUTHCLASS"];
                     LitUsuario.Text = ((DataRow)vDatos.Rows[0])["nombre"].ToString();
 
-                    if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals(""))
-                    {
-                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1"))
-                        {
+                    if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")){
+                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
                             LIBiometricos.Visible = true;
                             LIEmpleados.Visible = true;
                             LIAutorizaciones.Visible = true;
                             LIPermisos.Visible = true;
                             LIMantenimientos.Visible = true;
+                            LIToken.Visible = true;
                         }
-                    }
-                    else
-                    {
+                    }else{
                         LIAutorizaciones.Visible = true;
                         LIPermisos.Visible = true;
                     }
 
-                }
-                catch (Exception Ex)
-                {
+                }catch (Exception Ex){
                     vError = Ex.Message;
                 }
             }

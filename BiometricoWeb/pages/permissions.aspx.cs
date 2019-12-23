@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
 
 namespace BiometricoWeb.pages
 {
@@ -40,8 +41,7 @@ namespace BiometricoWeb.pages
             }
         }
 
-        public void Mensaje(string vMensaje, WarningType type)
-        {
+        public void Mensaje(string vMensaje, WarningType type){
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
         
@@ -156,8 +156,8 @@ namespace BiometricoWeb.pages
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
-            }catch (Exception Ex) { 
-                Mensaje(Ex.Message, WarningType.Danger);
+            }catch (Exception Ex) {
+                Mensaje(Ex.Message.StartsWith("Longitud") ? "El Token ingresado no es válido." : Ex.Message, WarningType.Danger);
             }
         }
 
@@ -228,11 +228,31 @@ namespace BiometricoWeb.pages
 
 
             //EMERGENCIAS
-            if (CBxEmergencia.Checked){
-                TimeSpan ts = Convert.ToDateTime(TxFechaInicio.Text) - DateTime.Now;
-                if (ts.Days < -15)
-                    throw new Exception("No se pueden agregar permisos por incumplimiento de politica (15 dias maximo para ingresar permisos pasados)");
+            if (CbEmergencias.Checked){
 
+                if (TxToken.Text != "" || TxToken.Text != string.Empty){
+                    CryptoToken.CryptoToken vDec = new CryptoToken.CryptoToken();
+                    String vWord = ConfigurationManager.AppSettings["TokenWord"].ToString();
+                    String vPass = ConfigurationManager.AppSettings["TokenPass"].ToString();
+                    String vTok = vDec.Decrypt(TxToken.Text, vPass);
+                    String vQuery2 = "RSP_ObtenerGenerales 17," + vEmpleado;
+                    DataTable vDatosVerificacion = vConexion.obtenerDataTable(vQuery2);
+                    if (vDatosVerificacion != null){
+                        Session["IDTOKEN"] = vDatosVerificacion.Rows[0]["id"].ToString();
+                        if (vTok == vWord && TxToken.Text == vDatosVerificacion.Rows[0]["idToken"].ToString()){
+                            TimeSpan ts = Convert.ToDateTime(TxFechaInicio.Text) - DateTime.Now;
+                            if (ts.Days < -15)
+                                throw new Exception("No se pueden agregar permisos por incumplimiento de politica (15 dias maximo para ingresar permisos pasados)");
+                        }else{
+                            throw new Exception("El Token ingresado no es válido.");
+                        }
+                    }else{ 
+                        throw new Exception("No tiene token asignado, comuníquese con Recursos Humanos.");
+                    }
+                }
+                else{ 
+                    throw new Exception("Para solicitar permisos de emergencia, debe ingresar un Token. Solicítelo a Recursos Humanos.");
+                }
             }else{
                 String vQuery = "RSP_ValidacionesPermisos 1," + vEmpleado + ",'" + vFechaInicio + "','" + vFechaRegreso + "'";
                 DataTable vDatosVerificacion = vConexion.obtenerDataTable(vQuery);
@@ -299,7 +319,7 @@ namespace BiometricoWeb.pages
                 if (vFileDeposito1 != null)
                     vArchivo = Convert.ToBase64String(vFileDeposito1);
 
-                Int32 vEmergencia = CBxEmergencia.Checked ? 1 : 0;
+                Int32 vEmergencia = CbEmergencias.Checked ? 1 : 0;
 
                 String vQuery = "RSP_IngresarPermisos 1," + DDLEmpleado.SelectedValue + "," +
                     "" + DDLJefe.SelectedValue + "," +
@@ -317,8 +337,12 @@ namespace BiometricoWeb.pages
                 Int32 vInformacion = vConexion.ejecutarSql(vQuery);
 
                 if (vInformacion == 1){
+                    
                     // begin wpadilla
                     vQuery = "[RSP_IngresarEmpleados] 4," + DDLEmpleado.SelectedValue + ", '0'";
+                    vConexion.ejecutarSql(vQuery);
+
+                    vQuery = "[RSP_IngresaMantenimientos] 6, " + Session["IDTOKEN"].ToString();
                     vConexion.ejecutarSql(vQuery);
                     // end  wpadilla
 
@@ -355,7 +379,7 @@ namespace BiometricoWeb.pages
                     else
                         Mensaje("Permiso ingresado con exito, Fallo envio de correo ponte en contacto con tu Jefe", WarningType.Success);
                 }else{
-                    Mensaje("Permiso no se ingreso, contacte a Recursos Humanos", WarningType.Success);
+                    Mensaje("Permiso no se ingreso o ya está creado, revise sus permisos.", WarningType.Success);
                 }
                 LimpiarPermiso();
                 CargarPermisos();
@@ -681,6 +705,15 @@ namespace BiometricoWeb.pages
             vRes = Convert.ToDecimal(days + vHorasSAP);
 
             return vRes;
+        }
+
+        protected void BtnContinuar_Click(object sender, EventArgs e){
+            try{
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "$('#ModalToken').modal('hide');", true);
+                Mensaje("Token de emergencias ingresado.", WarningType.Info);
+            }catch (Exception ex){
+
+            }
         }
 
     }

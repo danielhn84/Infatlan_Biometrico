@@ -11,8 +11,7 @@ using System.Web.UI;
 
 namespace BiometricoWeb.clases
 {
-    public enum typeBody
-    {
+    public enum typeBody{
         Supervisor,
         RecursosHumanos,
         Solicitante,
@@ -20,15 +19,14 @@ namespace BiometricoWeb.clases
         Rechazado,
         Token
     }
-    public class SmtpService : Page
-    {
+
+    public class SmtpService : Page{
+
         public SmtpService() { }
 
-        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre)
-        {
+        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre){
             Boolean vRespuesta = false;
-            try
-            {
+            try{
                 MailMessage mail = new MailMessage("Recursos Humanos<" + ConfigurationManager.AppSettings["SmtpFrom"] + ">", To);
                 SmtpClient client = new SmtpClient();
                 client.Port = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]);
@@ -38,8 +36,7 @@ namespace BiometricoWeb.clases
                 mail.Subject = "Recursos Humanos - Información de empleado";
                 mail.IsBodyHtml = true;
 
-                switch (Body)
-                {
+                switch (Body){
                     case typeBody.Supervisor:
                         mail.AlternateViews.Add(CreateHtmlMessage(PopulateBody(
                             Usuario,
@@ -92,20 +89,16 @@ namespace BiometricoWeb.clases
                 }
                 client.Send(mail);
                 vRespuesta = true;
-            }
-            catch (System.Net.Mail.SmtpException Ex)
-            {
+            }catch (System.Net.Mail.SmtpException Ex){
                 String vError = Ex.Message;
                 throw;
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 throw;
             }
             return vRespuesta;
         }
-        private AlternateView CreateHtmlMessage(string message, string logoPath)
-        {
+        
+        private AlternateView CreateHtmlMessage(string message, string logoPath){
             var inline = new LinkedResource(logoPath, "image/png");
             inline.ContentId = "companyLogo";
 
@@ -118,13 +111,12 @@ namespace BiometricoWeb.clases
             return alternateView;
         }
 
-        public string PopulateBody(string vNombre, string vTitulo, string vUrl, string vDescripcion)
-        {
+        public string PopulateBody(string vNombre, string vTitulo, string vUrl, string vDescripcion){
             string body = string.Empty;
-            using (StreamReader reader = new StreamReader(Server.MapPath("/pages/mail/TemplateMail.html")))
-            {
+            using (StreamReader reader = new StreamReader(Server.MapPath("/pages/mail/TemplateMail.html"))){
                 body = reader.ReadToEnd();
             }
+
             body = body.Replace("{Host}", ConfigurationManager.AppSettings["Host"]);
             body = body.Replace("{Nombre}", vNombre);
             body = body.Replace("{Titulo}", vTitulo);

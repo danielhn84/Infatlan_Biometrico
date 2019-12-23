@@ -21,19 +21,9 @@
         }
     </script>
     <script type="text/javascript">
-        function openModal() {
-            $('#InformativoModal').modal('show');
-        }
-    </script>
-    <script type="text/javascript">
-        function openEdicionModal() {
-            $('#DocumentoModal').modal('show');
-        }
-    </script>
-    <script type="text/javascript">
-        function openDescargarModal() {
-            $('#DescargaModal').modal('show');
-        }
+        function openModal() {$('#InformativoModal').modal('show');}
+        function openEdicionModal() {$('#DocumentoModal').modal('show');}
+        function openDescargarModal() {$('#DescargaModal').modal('show');}
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -65,9 +55,7 @@
             <a class="nav-item nav-link" id="nav_tecnicos_tab" data-toggle="tab" href="#nav-tecnicos" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-book" > </i>Mis Permisos</a>
 
             <a style="margin-left: auto; font-size: large; color: lightslategray" class="nav-item nav-link align-content-lg-end">Dias de vacaciones pendientes
-                <b>
-                    <asp:Label ID="LbNumeroVaciones" runat="server" Text="0"></asp:Label>
-                </b>
+                <b><asp:Label ID="LbNumeroVaciones" runat="server" Text="0"></asp:Label></b>
             </a>
         </div>
     </nav>
@@ -77,9 +65,8 @@
         <div class="tab-pane fade show active" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab">
             <div class="form-check form-check-flat form-check-primary" style="margin-left: auto;">
                 <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" runat="server" id="CbEmergencias" onclick="ModalToken();">Presione aqui si su solicitud es de emergencia
+                    <input type="checkbox" name="CbEmergencias"  value="0" class="form-check-input" onclick="if (this.checked) { $('#ModalToken').modal('show'); }" runat="server" id="CbEmergencias"  />Presione aqui si su solicitud es de emergencia
                 </label>
-
             </div>
 
             <div class="row">
@@ -172,8 +159,8 @@
                             <h4 class="card-title">Ingreso de Solicitud</h4>
 
                             <p class="card-description">
-                                Ingrese los campos requeridos              
-                                    
+                                Ingrese los campos requeridos
+
                             </p>
                             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                 <ContentTemplate>
@@ -479,6 +466,49 @@
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <asp:Button ID="BtnDescargarArchivo" runat="server" Text="Descargar" class="btn btn-success" OnClick="BtnDescargarArchivo_Click"  />
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID="BtnDescargarArchivo" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalToken" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 600px; top: 200px; left: 50%; transform: translate(-50%, -50%);">
+                <div class="modal-header">
+
+                    <asp:UpdatePanel ID="UpdatePanel12" runat="server" >
+                        <ContentTemplate>
+                            <h4 class="modal-title" id="ModalLabel">Token de Emergencias</h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdatePanel ID="UpdatePanel13" runat="server" >
+                        <ContentTemplate>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-form-label">Ingrese el Token</label>
+                                    <asp:TextBox runat="server" ID="TxToken" CssClass="form-control"></asp:TextBox>
+                                </div>
+                            </div>       
+                        </ContentTemplate>
+                        
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel15" runat="server">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="BtnContinuar" runat="server" Text="Continuar" class="btn btn-success" OnClick="BtnContinuar_Click"/>
                         </ContentTemplate>
                         <Triggers>
                             <asp:PostBackTrigger ControlID="BtnDescargarArchivo" />

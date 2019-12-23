@@ -176,8 +176,12 @@
                             </div>
                         </li>
                        
-                        
-          
+                        <li class="nav-item" id="LIToken" runat="server" visible="false">
+                            <a class="nav-link" href="/pages/token.aspx" >
+                                <i class="mdi mdi-key menu-icon"></i>
+                                <span class="menu-title">Token</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 
