@@ -7,13 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace BiometricoWeb.pages
-{
-
-
-    public partial class token
-    {
-
+namespace BiometricoWeb.pages {
+    
+    
+    public partial class token {
+        
         /// <summary>
         /// Control UpdateProgress1.
         /// </summary>
@@ -22,7 +20,7 @@ namespace BiometricoWeb.pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdateProgress UpdateProgress1;
-
+        
         /// <summary>
         /// Control UpdateDivBusquedas.
         /// </summary>
@@ -31,7 +29,7 @@ namespace BiometricoWeb.pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
-
+        
         /// <summary>
         /// Control DivBusqueda.
         /// </summary>
@@ -40,7 +38,7 @@ namespace BiometricoWeb.pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivBusqueda;
-
+        
         /// <summary>
         /// Control TxToken.
         /// </summary>
@@ -49,7 +47,7 @@ namespace BiometricoWeb.pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxToken;
-
+        
         /// <summary>
         /// Control BtnGenerar.
         /// </summary>
@@ -58,7 +56,16 @@ namespace BiometricoWeb.pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnGenerar;
-
+        
+        /// <summary>
+        /// Control UpdatePanel1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
         /// <summary>
         /// Control Div1.
         /// </summary>
@@ -67,7 +74,7 @@ namespace BiometricoWeb.pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
-
+        
         /// <summary>
         /// Control DDLEmpleado.
         /// </summary>
@@ -76,7 +83,7 @@ namespace BiometricoWeb.pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLEmpleado;
-
+        
         /// <summary>
         /// Control BtnEnviar.
         /// </summary>

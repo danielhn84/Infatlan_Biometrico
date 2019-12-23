@@ -81,8 +81,8 @@ namespace BiometricoWeb.clases
                         mail.AlternateViews.Add(CreateHtmlMessage(PopulateBody(
                             Usuario,
                             "Se ha creado un Token para emergencias",
-                            "Token: " + Nombre,
-                            "Ingresa este token en la pagina de permisos despues de haber seleccionado la opción de emergencias, este token solo puede ser utilizado una sola vez."
+                            ConfigurationManager.AppSettings["Host"] + "/pages/permissions.aspx",
+                            "Token: <b>" + Nombre + @"</b> <br \> Ingresa este token en la pagina de permisos despues de haber seleccionado la opción de emergencias, este token solo puede ser utilizado una sola vez."
                             ), Server.MapPath("/images/logo.png")));
                         break;
 

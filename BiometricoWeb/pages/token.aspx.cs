@@ -22,9 +22,12 @@ namespace BiometricoWeb.pages
                     if (!vGenerales.PermisosRecursosHumanos(vDatos))
                         Response.Redirect("/default.aspx");
 
+                    
+
                     Cargar();
                 }
             }
+            DDLEmpleado.CssClass = "fstdropdown-select form-control";
         }
 
         private void Cargar() {
@@ -50,6 +53,7 @@ namespace BiometricoWeb.pages
 
             Session["TOKEN"] = vTok;
             TxToken.Text = vTok;
+
         }
 
         protected void BtnEnviar_Click(object sender, EventArgs e){
@@ -76,8 +80,7 @@ namespace BiometricoWeb.pages
                     int vVerificacion = vConexion.ejecutarSql(vQuery);
                     if (vVerificacion == 1){
                         Mensaje("Token enviado con exito!", WarningType.Success);
-                        TxToken.Text = String.Empty;
-                        DDLEmpleado.Enabled = false;
+                        LimpiarToken();
                     }
 
                 }
@@ -88,6 +91,19 @@ namespace BiometricoWeb.pages
 
         public void Mensaje(string vMensaje, WarningType type){
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
+        }
+
+        protected void LimpiarToken()
+        {
+            try
+            {
+                DDLEmpleado.SelectedIndex = -1;
+                TxToken.Text = String.Empty;
+            }
+            catch (Exception Ex)
+            {
+                Mensaje(Ex.Message, WarningType.Danger);
+            }
         }
     }
 }

@@ -10,7 +10,7 @@
     <link href="/css/breadcrumb.css" rel="stylesheet" />
     <link href="/css/fstdropdown.css" rel="stylesheet" />
     <link href="/css/alert.css" rel="stylesheet" />
-    
+
     <script type="text/javascript">
         var updateProgress = null;
 
@@ -53,17 +53,28 @@
                             <h4 class="card-title">Generar Token</h4>
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                    <asp:TextBox runat="server" ID="TxToken" CssClass="form-control col-md-7" ReadOnly="true"></asp:TextBox>
-                                    <div style="margin-left:10px" class="col-md-2">
-                                        <asp:Button runat="server" CssClass="btn btn-info form-control" Text="Generar" ID="BtnGenerar" OnClick="BtnGenerar_Click"/>
+                                    <div class="col-md-6">
+                                        <asp:TextBox runat="server" ID="TxToken" CssClass="form-control " ReadOnly="true"></asp:TextBox>
                                     </div>
+                                    <div>
+                                        <asp:Button runat="server" CssClass="btn btn-inverse-primary form-control" Text="Generar" ID="BtnGenerar" OnClick="BtnGenerar_Click" />
+
+                                    </div>
+
                                 </div>
+                                <p style="font-size: smaller; color: darkblue">Genere el token y despues seleccione el empleado al cual se le enviara el token</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+        </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="BtnGenerar" />
+        </Triggers>
+    </asp:UpdatePanel>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
             <div class="row" id="Div1" runat="server">
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
@@ -74,8 +85,8 @@
                                     <div class="col-md-6">
                                         <asp:DropDownList ID="DDLEmpleado" Enabled="false" runat="server" class="fstdropdown-select form-control"></asp:DropDownList>
                                     </div>
-                                    <div style="margin-left:10px" class="col-md-2">
-                                        <asp:Button runat="server" ID="BtnEnviar" CssClass="btn btn-primary" Text="Enviar" OnClick="BtnEnviar_Click"/>
+                                    <div>
+                                        <asp:Button runat="server" ID="BtnEnviar" CssClass="btn btn-inverse-success" Text="Enviar" OnClick="BtnEnviar_Click" />
                                     </div>
                                 </div>
                             </div>
