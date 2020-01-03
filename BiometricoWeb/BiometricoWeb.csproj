@@ -140,7 +140,7 @@
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
     <Content Include="pages\canceled.aspx" />
-    <Content Include="pages\cargaConsolidado.aspx" />
+    <Content Include="pages\cargarArchivos.aspx" />
     <Content Include="pages\clockuser.aspx" />
     <Content Include="pages\employees.aspx" />
     <Content Include="pages\finished.aspx" />
@@ -226,12 +226,12 @@
     <Compile Include="pages\canceled.aspx.designer.cs">
       <DependentUpon>canceled.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cargaConsolidado.aspx.cs">
-      <DependentUpon>cargaConsolidado.aspx</DependentUpon>
+    <Compile Include="pages\cargarArchivos.aspx.cs">
+      <DependentUpon>cargarArchivos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cargaConsolidado.aspx.designer.cs">
-      <DependentUpon>cargaConsolidado.aspx</DependentUpon>
+    <Compile Include="pages\cargarArchivos.aspx.designer.cs">
+      <DependentUpon>cargarArchivos.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\clockuser.aspx.cs">
       <DependentUpon>clockuser.aspx</DependentUpon>

@@ -28,6 +28,7 @@ namespace BiometricoWeb.pages
                     CargarTipoPermisos();
                     CargarPermisos();
                     CargarDiasSAP();
+                    CargarCompensatorio();
 
                     if (vEx != null){
                         if (vEx.Equals("1"))
@@ -44,7 +45,11 @@ namespace BiometricoWeb.pages
         public void Mensaje(string vMensaje, WarningType type){
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
-        
+
+        public void MensajeBlock(string vMensaje, WarningType type){
+            ScriptManager.RegisterClientScriptBlock(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
+        }
+
         public void CerrarModal(String vModal)
         {
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "$('#" + vModal + "').modal('hide');", true);
@@ -53,7 +58,9 @@ namespace BiometricoWeb.pages
         void CargarEmpleados(){
             try{
                 DataTable vDatos = new DataTable();
-                vDatos = vConexion.obtenerDataTable("RSP_ObtenerGenerales 8,'" + Convert.ToString(Session["USUARIO"]) + "'");
+                String vQuery = "RSP_ObtenerGenerales 8,'" + Convert.ToString(Session["USUARIO"]) + "'";
+
+                vDatos = vConexion.obtenerDataTable(vQuery);
 
                 Session["PERMISOSCGS"] = Convert.ToBoolean(vDatos.Rows[0]["PermisosCGS"]);
                 
@@ -85,10 +92,8 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        void CargarPermisos()
-        {
-            try
-            {
+        void CargarPermisos(){
+            try{
                 DataTable vDatos = new DataTable();
                 vDatos = vConexion.obtenerDataTable("RSP_ObtenerGenerales 5,'" + Convert.ToString(Session["USUARIO"]) + "'"); //2902
                 GVBusqueda.DataSource = vDatos;
@@ -110,32 +115,60 @@ namespace BiometricoWeb.pages
             }
         }
 
+        void CargarCompensatorio() {
+            String vQuery = "RSP_ObtenerGenerales 18," + Convert.ToString(Session["USUARIO"]);
+            DataTable vData = vConexion.obtenerDataTable(vQuery);
+            if (vData.Rows[0][0].ToString() != ""){
+                LbCompensatorio.Text = vData.Rows[0][0].ToString();
+            }
+            Session["DIASCOMPENSATORIO"] = LbCompensatorio.Text;
+        }
+
         protected void BtnCrearPermiso_Click(object sender, EventArgs e){
             try{
+                String vtipo = DDLTipoPermiso.SelectedValue;
                 String vFechaInicio = Convert.ToDateTime(TxFechaInicio.Text).ToString("yyyy-MM-dd HH:mm:ss");
                 String vFechaRegreso = Convert.ToDateTime(TxFechaRegreso.Text).ToString("yyyy-MM-dd HH:mm:ss");
-                ValidacionesPermisos(DDLEmpleado.SelectedValue, vFechaInicio, vFechaRegreso, DDLTipoPermiso.SelectedValue);
+                ValidacionesPermisos(DDLEmpleado.SelectedValue, vFechaInicio, vFechaRegreso, vtipo);
 
                 DateTime desde = Convert.ToDateTime(TxFechaInicio.Text);
                 DateTime hasta = Convert.ToDateTime(TxFechaRegreso.Text);
 
                 DateTime inicio = desde;
                 int dias = 0;
-
-                while (inicio <= hasta){
-                    if (inicio.DayOfWeek != DayOfWeek.Saturday && inicio.DayOfWeek != DayOfWeek.Sunday)
-                        dias++;
-
-                    inicio = inicio.AddDays(1);
-                }
-
+                int days;
                 TimeSpan ts = Convert.ToDateTime(vFechaRegreso) - Convert.ToDateTime(vFechaInicio);
-                int days = 1;
-                if (ts.Days >= 1)
-                    days = dias; //ts.Days + 1 - 
-                else if (ts.Hours > 0 || ts.Minutes > 0){
+
+                if (vtipo == "1002" || vtipo == "1004" || vtipo == "1012" || vtipo == "1013" || vtipo == "1018" || vtipo == "1022") { 
+                    while (inicio <= hasta){
+                        if (inicio.DayOfWeek != DayOfWeek.Saturday && inicio.DayOfWeek != DayOfWeek.Sunday)
+                            dias++;
+
+                        inicio = inicio.AddDays(1);
+                    }
+
+                    days = 1;
+                    if (ts.Days >= 1)
+                        days = dias; //ts.Days + 1 - 
+                    else if (ts.Hours > 0 || ts.Minutes > 0){
+                        days = 0;
+                    }
+                }else{
+                    while (inicio.Day < hasta.Day){
+                        if (inicio.DayOfWeek != DayOfWeek.Saturday && inicio.DayOfWeek != DayOfWeek.Sunday)
+                            dias++;
+
+                        inicio = inicio.AddDays(1);
+                    }
+
                     days = 0;
+                    if (ts.Days >= 1)
+                        days = dias; //ts.Days + 1 - 
+                    else if (ts.Hours > 0 || ts.Minutes > 0)
+                        days = 0;
                 }
+
+                
 
                 generales vGenerales = new generales();
                 int vDias = vGenerales.BusinessDaysUntil(Convert.ToDateTime(TxFechaInicio.Text), Convert.ToDateTime(TxFechaRegreso.Text));
@@ -178,11 +211,11 @@ namespace BiometricoWeb.pages
                 throw new Exception("Ingrese una fecha de regreso valida");
             if (Convert.ToDateTime(TxFechaRegreso.Text) < Convert.ToDateTime(TxFechaInicio.Text))
                 throw new Exception("Las fechas ingresadas son incorrectas, el regreso es menor que el inicio");
-            
+
             //ESPECIFICAS
             if (vTipo == "1004" || vTipo == "1007"){
                 if (vDiasHoras > vDiasDisponibles)
-                    throw new Exception("Usted solo tiene <b>" + vDiasDisponibles + "</b> días disponibles.");
+                    throw new Exception("Usted no cuenta con suficientes vacaciones disponibles.");
                 if (vDiasDisponibles <= 0)
                     throw new Exception("Usted no cuenta con vacaciones disponibles.");
 
@@ -226,11 +259,14 @@ namespace BiometricoWeb.pages
             if (tsHorario.Hours < 4 && tsHorario.Days < 1 && vFechaInicio != vFechaRegreso && (vTipo == "1001" || vTipo == "1002" || vTipo == "1006" || vTipo == "1007" || vTipo == "1008" || vTipo == "1010" || vTipo == "1018" || vTipo == "1019" || vTipo == "1020" || vTipo == "1021"))
                 throw new Exception("No se pueden agregar permisos menores a 4 horas.");
 
+            if (vTipo == "1011"){
+                if (vDiasHoras > Convert.ToDecimal(LbCompensatorio.Text))
+                    throw new Exception("No tiene suficiente tiempo compensatorio.");
+            }
 
             //EMERGENCIAS
             if (CbEmergencias.Checked){
-
-                if (TxToken.Text != "" || TxToken.Text != string.Empty){
+                if ((vTipo == "1004" || vTipo == "1007" || vTipo == "1011") && (TxToken.Text != "" || TxToken.Text != string.Empty)){
                     CryptoToken.CryptoToken vDec = new CryptoToken.CryptoToken();
                     String vWord = ConfigurationManager.AppSettings["TokenWord"].ToString();
                     String vPass = ConfigurationManager.AppSettings["TokenPass"].ToString();
@@ -239,22 +275,22 @@ namespace BiometricoWeb.pages
                     DataTable vDatosVerificacion = vConexion.obtenerDataTable(vQuery2);
                     if (vDatosVerificacion != null){
                         Session["IDTOKEN"] = vDatosVerificacion.Rows[0]["id"].ToString();
-                        if (vTok == vWord && TxToken.Text == vDatosVerificacion.Rows[0]["idToken"].ToString()){
-                            TimeSpan ts = Convert.ToDateTime(TxFechaInicio.Text) - DateTime.Now;
-                            if (ts.Days < -15)
-                                throw new Exception("No se pueden agregar permisos por incumplimiento de politica (15 dias maximo para ingresar permisos pasados)");
-                        }else{
-                            throw new Exception("El Token ingresado no es válido.");
-                        }
-                    }else{ 
+                        DateTime vFecVence = Convert.ToDateTime(vDatosVerificacion.Rows[0]["fechaVencimiento"].ToString());
+                        if (vFecVence > DateTime.Now){
+                            if (vTok == vWord && TxToken.Text == vDatosVerificacion.Rows[0]["idToken"].ToString()){
+                                TimeSpan ts = Convert.ToDateTime(TxFechaInicio.Text) - DateTime.Now;
+                                if (ts.Days < -15)
+                                    throw new Exception("No se pueden agregar permisos por incumplimiento de politica (15 dias maximo para ingresar permisos pasados)");
+                            }else
+                                throw new Exception("El Token ingresado no es válido.");
+                        }else 
+                            throw new Exception("Token vencido.");
+                    }else 
                         throw new Exception("No tiene token asignado, comuníquese con Recursos Humanos.");
-                    }
-                }
-                else{ 
+                }else
                     throw new Exception("Para solicitar permisos de emergencia, debe ingresar un Token. Solicítelo a Recursos Humanos.");
-                }
             }else{
-                String vQuery = "RSP_ValidacionesPermisos 1," + vEmpleado + ",'" + vFechaInicio + "','" + vFechaRegreso + "'";
+                String vQuery = "RSP_ValidacionesPermisos 300," + vEmpleado + ",'" + vFechaInicio + "','" + vFechaRegreso + "'";
                 DataTable vDatosVerificacion = vConexion.obtenerDataTable(vQuery);
 
                 if (vDatosVerificacion.Rows.Count > 0){
@@ -274,10 +310,8 @@ namespace BiometricoWeb.pages
             }
         }
 
-        protected void BtnCancelar_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnCancelar_Click(object sender, EventArgs e){
+            try{
                 LimpiarPermiso();
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
@@ -334,16 +368,31 @@ namespace BiometricoWeb.pages
                     "'" + vArchivo + "'," +
                     "'" + vExtension + "'," + vEmergencia ;
 
-                Int32 vInformacion = vConexion.ejecutarSql(vQuery);
+                Int32 vInformacion = 1;//vConexion.ejecutarSql(vQuery);
 
-                if (vInformacion == 1){
-                    
+                if (vInformacion == 1) {
+                    String vRe = "";
+
                     // begin wpadilla
                     vQuery = "[RSP_IngresarEmpleados] 4," + DDLEmpleado.SelectedValue + ", '0'";
                     vConexion.ejecutarSql(vQuery);
 
-                    vQuery = "[RSP_IngresaMantenimientos] 6, " + Session["IDTOKEN"].ToString();
-                    vConexion.ejecutarSql(vQuery);
+                    if (CbEmergencias.Checked && Session["IDTOKEN"] != null){
+                        vQuery = "[RSP_IngresaMantenimientos] 6, " + Session["IDTOKEN"].ToString();
+                        vConexion.ejecutarSql(vQuery);
+                    }
+                    
+                    if (DDLTipoPermiso.SelectedValue == "1011"){
+                        Decimal vDiasHoras = Calculo(null, -1);
+                        String vCalculo = vDiasHoras.ToString().Contains(",") ? vDiasHoras.ToString().Replace(",",".") : vDiasHoras.ToString();
+
+                        vQuery = "[RSP_Compensatorio] 1, " + DDLEmpleado.SelectedValue + "," + vCalculo + ",0,null,'" + Session["USUARIO"].ToString() + "'";
+                        int vRespuesta = vConexion.ejecutarSql(vQuery);
+                        if (vRespuesta == 2)
+                            vRe = ", se actualizó el tiempo compensatorio.";
+                        else
+                            vRe = ", no se actualizó el tiempo compensatorio.";
+                    }
                     // end  wpadilla
 
                     vQuery = "RSP_ObtenerEmpleados 2," + DDLJefe.SelectedValue;
@@ -352,7 +401,8 @@ namespace BiometricoWeb.pages
                     DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQuery);
 
                     SmtpService vService = new SmtpService();
-                    Boolean vFlagEnvioSupervisor = false;
+                    Boolean vFlagEnvioSupervisor = true;
+                    /*
                     foreach (DataRow item in vDatosJefatura.Rows){
                         if (!item["emailEmpresa"].ToString().Trim().Equals("")){
                             vService.EnviarMensaje(item["emailEmpresa"].ToString(),
@@ -363,8 +413,9 @@ namespace BiometricoWeb.pages
                             vFlagEnvioSupervisor = true;
                         }
                     }
-
+                    */
                     if (vFlagEnvioSupervisor){
+                        /*
                         foreach (DataRow item in vDatosEmpleado.Rows){
                             if (!item["emailEmpresa"].ToString().Trim().Equals(""))
                                 vService.EnviarMensaje(item["emailEmpresa"].ToString(),
@@ -373,18 +424,19 @@ namespace BiometricoWeb.pages
                                     item["nombre"].ToString()
                                     );
                         }
-                        Mensaje("Permiso ingresado con exito", WarningType.Success);
+                        */
+                        Mensaje("Permiso ingresado con exito" + vRe, WarningType.Success);
                         Response.Redirect("/pages/permissions.aspx?ex=3");
                     }
                     else
-                        Mensaje("Permiso ingresado con exito, Fallo envio de correo ponte en contacto con tu Jefe", WarningType.Success);
+                        Mensaje("Permiso ingresado con exito, Fallo envio de correo ponte en contacto con tu Jefe" + vRe, WarningType.Success);
                 }else{
                     Mensaje("Permiso no se ingreso o ya está creado, revise sus permisos.", WarningType.Success);
                 }
                 LimpiarPermiso();
                 CargarPermisos();
                 CargarDiasSAP();
-
+                CargarCompensatorio();
                 CerrarModal("InformativoModal");
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
@@ -419,6 +471,10 @@ namespace BiometricoWeb.pages
                         DIVDocumentos.Visible = true;
                         break;
                     case "1004":
+                        if (CbEmergencias.Checked){
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#ModalToken').modal('show');", true);
+                        }
+
                         TxFechaInicio.TextMode = TextBoxMode.Date;
                         TxFechaRegreso.TextMode = TextBoxMode.Date;
                         UpdatePanelFechas.Update();
@@ -446,6 +502,7 @@ namespace BiometricoWeb.pages
                         DIVDocumentos.Visible = true;
                         break;
                     case "1010":
+                        Mensaje("Debe solicitar acceso a RRHH para ingresar este permiso. Si ya lo tiene, continue.", WarningType.Warning);
                         TxFechaInicio.TextMode = TextBoxMode.DateTimeLocal;
                         TxFechaRegreso.TextMode = TextBoxMode.DateTimeLocal;
                         UpdatePanelFechas.Update();
@@ -473,6 +530,8 @@ namespace BiometricoWeb.pages
                         break;
                     case "1014":
                     case "1018":
+                        Mensaje("Debe solicitar acceso a RRHH para ingresar este permiso. Si ya lo tiene, continue.", WarningType.Warning);
+                        break;
                     case "1020":
                     case "1021":
                         TxFechaInicio.TextMode = TextBoxMode.DateTimeLocal;
@@ -676,6 +735,7 @@ namespace BiometricoWeb.pages
         private Decimal Calculo(DataTable vDatosSIM, int vSec) {
             Decimal vRes = 0;
             DateTime desde, hasta;
+            String vtipo = DDLTipoPermiso.SelectedValue;
 
             if (vSec < 0){
                 desde = Convert.ToDateTime(TxFechaInicio.Text);
@@ -686,35 +746,66 @@ namespace BiometricoWeb.pages
             }
             TimeSpan tsHorario = Convert.ToDateTime(hasta) - Convert.ToDateTime(desde);
             DateTime inicio = desde;
-            int dias = 0;
+            int dias = 0, weekend = 0;
 
-            while (inicio <= hasta){
-                if (inicio.DayOfWeek != DayOfWeek.Saturday && inicio.DayOfWeek != DayOfWeek.Sunday)
-                    dias++;
-                
-                inicio = inicio.AddDays(1);
+            int days;
+
+            if (vtipo == "1002" || vtipo == "1004" || vtipo == "1012" || vtipo == "1013" || vtipo == "1018" || vtipo == "1022"){
+                while (inicio <= hasta){
+                    if (inicio.DayOfWeek != DayOfWeek.Saturday && inicio.DayOfWeek != DayOfWeek.Sunday)
+                        dias++;
+                    
+                    inicio = inicio.AddDays(1);
+                }
+
+                days = 1;
+                if (tsHorario.Days >= 1)
+                    days = dias; //ts.Days + 1 - 
+                else if (tsHorario.Hours > 0 || tsHorario.Minutes > 0)
+                    days = 0;
+            }else{
+                while (inicio.Day < hasta.Day){
+                    if (inicio.DayOfWeek != DayOfWeek.Saturday && inicio.DayOfWeek != DayOfWeek.Sunday)
+                        dias++;
+
+                    inicio = inicio.AddDays(1);
+                }
+
+                days = 0;
+                if (tsHorario.Days >= 1)
+                    days = dias; //ts.Days + 1 - 
+                else if (tsHorario.Hours > 0 || tsHorario.Minutes > 0)
+                    days = 0;
             }
 
-            int days = 1;
-            if (tsHorario.Days >= 1)
-                days = dias; //ts.Days + 1 - 
-            else if (tsHorario.Hours > 0 || tsHorario.Minutes > 0)
-                days = 0;
-
             float vHorasSAP = float.Parse(tsHorario.Hours.ToString()) / 8;
-            vRes = Convert.ToDecimal(days + vHorasSAP);
+            vRes = Convert.ToDecimal(days + vHorasSAP - weekend);
 
             return vRes;
         }
 
         protected void BtnContinuar_Click(object sender, EventArgs e){
             try{
-                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "$('#ModalToken').modal('hide');", true);
-                Mensaje("Token de emergencias ingresado.", WarningType.Info);
-            }catch (Exception ex){
-
+                if (TxToken.Text.Equals("")){
+                    LbMensajeToken.Text = "Ingrese un token";
+                }else{
+                    LbMensajeToken.Text = String.Empty;
+                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "$('#ModalToken').modal('hide');", true);
+                    MensajeBlock("Token ingresado.", WarningType.Success);
+                }
+            }catch (Exception ex) { 
+                Mensaje(ex.Message, WarningType.Danger); 
             }
         }
 
+        protected void BtnCancelTk_Click(object sender, EventArgs e){
+            /*
+            CbEmergencias.Checked = false;
+            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "$('#ModalToken').modal('hide');", true);
+            TxToken.Text = String.Empty;
+            LbMensajeToken.Text = String.Empty;
+            */
+            Response.Redirect(Request.RawUrl);
+        }
     }
 }

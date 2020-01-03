@@ -13,27 +13,24 @@ namespace BiometricoWeb.pages
     public partial class authorizations : System.Web.UI.Page
     {
         db vConexion;
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected void Page_Load(object sender, EventArgs e){
             vConexion = new db();
-            if (!Page.IsPostBack)
-            {
-                if (Convert.ToBoolean(Session["AUTH"]))
-                {
+            if (!Page.IsPostBack){
+                if (Convert.ToBoolean(Session["AUTH"])){
                     CargarAutorizaciones();
 
-                    if (GVBusqueda.Rows.Count > 0)
-                    {
+                    if (GVBusqueda.Rows.Count > 0){
                         GVBusqueda.UseAccessibleHeader = true;
                         GVBusqueda.HeaderRow.TableSection = TableRowSection.TableHeader;
                     }
                 }
             }
         }
-        public void Mensaje(string vMensaje, WarningType type)
-        {
+        
+        public void Mensaje(string vMensaje, WarningType type){
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
+
         public void CerrarModal(String vModal)
         {
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "$('#" + vModal + "').modal('hide');", true);
@@ -126,26 +123,30 @@ namespace BiometricoWeb.pages
             }
         }
 
-        protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            try
-            {
-                if (e.CommandName == "AutorizarEmpleado")
-                {
+        protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                if (e.CommandName == "AutorizarEmpleado"){
                     string vIdPermiso = e.CommandArgument.ToString();
                     LbNumeroPermiso.Text = vIdPermiso;
                     UpdateLabelPermiso.Update();
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-                if (e.CommandName == "AutorizarEmpleadoRecursosHumanos")
-                {
+
+                if (e.CommandName == "AutorizarEmpleadoRecursosHumanos"){
+                    String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + e.CommandArgument.ToString();
+                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+
+                    if (!Convert.ToBoolean(vDatos.Rows[0]["Autorizado"].ToString()))
+                        throw new Exception("Este permiso no ha sido autorizado por el jefe inmediato.");
+                    
+
                     string vIdPermiso = e.CommandArgument.ToString();
                     LbFinalizarPermiso.Text = vIdPermiso;
                     UpdatePanel1.Update();
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openFinalizarModal();", true);
                 }
-                if (e.CommandName == "MotivoPermiso")
-                {
+                
+                if (e.CommandName == "MotivoPermiso"){
                     string vIdPermiso = e.CommandArgument.ToString();
 
                     String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + vIdPermiso;
@@ -161,10 +162,9 @@ namespace BiometricoWeb.pages
 
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vMensaje + "')", true);
                 }
-                if (e.CommandName == "DocumentoPermiso")
-                {
-                    string vIdPermiso = e.CommandArgument.ToString();
 
+                if (e.CommandName == "DocumentoPermiso"){
+                    string vIdPermiso = e.CommandArgument.ToString();
 
                     String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + vIdPermiso;
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
@@ -173,8 +173,7 @@ namespace BiometricoWeb.pages
                     if (!vDatos.Rows[0]["documento"].ToString().Equals(""))
                         vDocumento = vDatos.Rows[0]["documento"].ToString();
 
-                    if (!vDocumento.Equals(""))
-                    {
+                    if (!vDocumento.Equals("")){
                         LbPermisoDescarga.Text = vIdPermiso;
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDescargarModal();", true);
                     }
@@ -255,10 +254,8 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void BtnAutorizarPermiso_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnAutorizarPermiso_Click(object sender, EventArgs e){
+            try{
                 SmtpService vService = new SmtpService();
                 String vQuery = "RSP_ObtenerPermisos 2," 
                     + Session["USUARIO"] + "," 
@@ -266,15 +263,12 @@ namespace BiometricoWeb.pages
                     + DDLOpciones.SelectedValue;
                 int vDatos = vConexion.ejecutarSql(vQuery);
 
-                if (vDatos.Equals(1))
-                {
-                    if (DDLOpciones.SelectedValue.Equals("1"))
-                    {
+                if (vDatos.Equals(1)){
+                    if (DDLOpciones.SelectedValue.Equals("1")){
                         vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + LbNumeroPermiso.Text;
                         DataTable vDatosBusqueda = vConexion.obtenerDataTable(vQuery);
 
-                        foreach (DataRow item in vDatosBusqueda.Rows)
-                        {
+                        foreach (DataRow item in vDatosBusqueda.Rows){
                             vService.EnviarMensaje(ConfigurationManager.AppSettings["RHMail"],
                                     typeBody.RecursosHumanos,
                                     "Recursos Humanos",
@@ -283,8 +277,7 @@ namespace BiometricoWeb.pages
 
                             vQuery = "RSP_ObtenerGenerales 8,'" + item["EmpleadoCodigo"].ToString() + "'";
                             DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQuery);
-                            foreach (DataRow itemEmpleado in vDatosEmpleado.Rows)
-                            {
+                            foreach (DataRow itemEmpleado in vDatosEmpleado.Rows){
                                 vService.EnviarMensaje(itemEmpleado["correo"].ToString(),
                                     typeBody.Aprobado,
                                     itemEmpleado["nombre"].ToString(),
@@ -295,18 +288,15 @@ namespace BiometricoWeb.pages
 
                         Mensaje("El empleado ha sido autorizado", WarningType.Success);
                         CerrarModal("AutorizarModal");
-                    }
-                    else
-                    {
+
+                    }else{
                         vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + LbNumeroPermiso.Text;
                         DataTable vDatosBusqueda = vConexion.obtenerDataTable(vQuery);
 
-                        foreach (DataRow item in vDatosBusqueda.Rows)
-                        {
+                        foreach (DataRow item in vDatosBusqueda.Rows){
                             vQuery = "RSP_ObtenerGenerales 8,'" + item["EmpleadoCodigo"].ToString() + "'";
                             DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQuery);
-                            foreach (DataRow itemEmpleado in vDatosEmpleado.Rows)
-                            {
+                            foreach (DataRow itemEmpleado in vDatosEmpleado.Rows){
                                 vService.EnviarMensaje(itemEmpleado["correo"].ToString(),
                                     typeBody.Rechazado,
                                     itemEmpleado["nombre"].ToString(),
@@ -372,19 +362,15 @@ namespace BiometricoWeb.pages
             }
         }
 
-        protected void BtnFinalizarPermiso_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (DDlFinalizarPermiso.SelectedValue.Equals("1"))
-                {
+        protected void BtnFinalizarPermiso_Click(object sender, EventArgs e){
+            try{
+                if (DDlFinalizarPermiso.SelectedValue.Equals("1")){
                     String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + LbFinalizarPermiso.Text;
                     DataTable vDatosPermiso = vConexion.obtenerDataTable(vQuery);
 
                     String vResponse = String.Empty;
                     String vMensaje = String.Empty;
-                    foreach (DataRow item in vDatosPermiso.Rows)
-                    {
+                    foreach (DataRow item in vDatosPermiso.Rows){
                         SapConnector vConnector = new SapConnector();
                         vResponse = vConnector.postPermiso(
                             Convert.ToDateTime(item["fechaInicio"].ToString()),
@@ -397,8 +383,7 @@ namespace BiometricoWeb.pages
                             );
                     }
 
-                    switch (vResponse)
-                    {
+                    switch (vResponse){
                         case "":
                             Mensaje("Error al enviar a SAP", WarningType.Success);
                             break;
@@ -410,47 +395,48 @@ namespace BiometricoWeb.pages
                             int vDatos = vConexion.ejecutarSql(vQuery);
 
                             if (vDatos.Equals(1))
-                            {
                                 Mensaje("El empleado ha sido autorizado en SAP", WarningType.Success);
-                            }
                             else
-                            {
                                 Mensaje("El empleado ha sido autorizado en SAP, pero no inserto la verificación", WarningType.Success);
-                            }
+                            
                             break;
                         case "1":
                             Mensaje(vMensaje, WarningType.Success);
                             break;
                     }
-                }
-                else
-                {
-                    String vQuery = "RSP_ObtenerPermisos 4,"
+
+                    CerrarModal("FinalizarModal");
+                    CargarAutorizaciones();
+                }else{
+
+                    if (TxMotivo.Text == string.Empty || TxMotivo.Text == "")
+                        Label2.Text = "Favor ingresar el motivo de cancelación.";
+                    else { 
+
+                        String vQuery = "RSP_ObtenerPermisos 4,"
+                                    + Session["USUARIO"] + ","
+                                    + LbFinalizarPermiso.Text + ",0,'" + TxMotivo.Text + "'";
+                        int vDatos = vConexion.ejecutarSql(vQuery);
+
+                        if (vDatos.Equals(1)){
+
+                            String vQueryCancelacion = "RSP_ObtenerPermisos 2,"
                                 + Session["USUARIO"] + ","
-                                + LbFinalizarPermiso.Text + ",0";
-                    int vDatos = vConexion.ejecutarSql(vQuery);
+                                + LbFinalizarPermiso.Text + ","
+                                + 0;
+                            int vDatosCancelacion = vConexion.ejecutarSql(vQueryCancelacion);
 
-                    if (vDatos.Equals(1))
-                    {
+                            Mensaje("Se ha cancelado el permiso", WarningType.Success);
+                        }else{
+                            Mensaje("No se ha podido cancelar el servicio en el sistema, contacte a sistemas", WarningType.Success);
+                        }
 
-                        String vQueryCancelacion = "RSP_ObtenerPermisos 2,"
-                            + Session["USUARIO"] + ","
-                            + LbFinalizarPermiso.Text + ","
-                            + 0;
-                        int vDatosCancelacion = vConexion.ejecutarSql(vQueryCancelacion);
-
-                        Mensaje("Se ha cancelado el permiso", WarningType.Success);
-                    }
-                    else
-                    {
-                        Mensaje("No se ha podido cancelar el servicio en el sistema, contacte a sistemas", WarningType.Success);
+                        CerrarModal("FinalizarModal");
+                        CargarAutorizaciones();
                     }
                 }
-                CerrarModal("FinalizarModal");
-                CargarAutorizaciones();
-            }
-            catch (Exception Ex)
-            {
+                
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
@@ -533,6 +519,9 @@ namespace BiometricoWeb.pages
             }
         }
 
-
+        protected void DDlFinalizarPermiso_SelectedIndexChanged(object sender, EventArgs e){
+            DivMotivo.Visible = DDlFinalizarPermiso.SelectedValue == "0" ? true : false;
+            Label2.Text = string.Empty;
+        }
     }
 }

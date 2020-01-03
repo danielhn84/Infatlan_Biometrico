@@ -58,9 +58,7 @@
                                     </div>
                                     <div>
                                         <asp:Button runat="server" CssClass="btn btn-inverse-primary form-control" Text="Generar" ID="BtnGenerar" OnClick="BtnGenerar_Click" />
-
                                     </div>
-
                                 </div>
                                 <p style="font-size: smaller; color: darkblue">Genere el token y despues seleccione el empleado al cual se le enviara el token</p>
                             </div>

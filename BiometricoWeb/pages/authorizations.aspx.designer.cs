@@ -7,11 +7,13 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace BiometricoWeb.pages {
-    
-    
-    public partial class authorizations {
-        
+namespace BiometricoWeb.pages
+{
+
+
+    public partial class authorizations
+    {
+
         /// <summary>
         /// Control UpdatePrincipalBotones.
         /// </summary>
@@ -20,7 +22,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePrincipalBotones;
-        
+
         /// <summary>
         /// Control BtnPermisos.
         /// </summary>
@@ -29,7 +31,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnPermisos;
-        
+
         /// <summary>
         /// Control UpdateDivBusquedas.
         /// </summary>
@@ -38,7 +40,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
-        
+
         /// <summary>
         /// Control DivBusqueda.
         /// </summary>
@@ -47,7 +49,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivBusqueda;
-        
+
         /// <summary>
         /// Control UpdatePanel5.
         /// </summary>
@@ -56,7 +58,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel5;
-        
+
         /// <summary>
         /// Control TxBuscarEmpleado.
         /// </summary>
@@ -65,7 +67,16 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxBuscarEmpleado;
-        
+
+        /// <summary>
+        /// Control Div1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+
         /// <summary>
         /// Control UpdateGridView.
         /// </summary>
@@ -74,7 +85,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateGridView;
-        
+
         /// <summary>
         /// Control GVBusqueda.
         /// </summary>
@@ -83,7 +94,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GVBusqueda;
-        
+
         /// <summary>
         /// Control UpdateLabelPermiso.
         /// </summary>
@@ -92,7 +103,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateLabelPermiso;
-        
+
         /// <summary>
         /// Control LbNumeroPermiso.
         /// </summary>
@@ -101,7 +112,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LbNumeroPermiso;
-        
+
         /// <summary>
         /// Control UpdateAutorizar.
         /// </summary>
@@ -110,7 +121,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateAutorizar;
-        
+
         /// <summary>
         /// Control UpdateUsuario.
         /// </summary>
@@ -119,7 +130,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateUsuario;
-        
+
         /// <summary>
         /// Control DDLOpciones.
         /// </summary>
@@ -128,7 +139,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLOpciones;
-        
+
         /// <summary>
         /// Control UpdateAutorizarMensaje.
         /// </summary>
@@ -137,7 +148,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateAutorizarMensaje;
-        
+
         /// <summary>
         /// Control LbAutorizarMensaje.
         /// </summary>
@@ -146,7 +157,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LbAutorizarMensaje;
-        
+
         /// <summary>
         /// Control UpdateUsuarioBotones.
         /// </summary>
@@ -155,7 +166,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateUsuarioBotones;
-        
+
         /// <summary>
         /// Control BtnAutorizarPermiso.
         /// </summary>
@@ -164,7 +175,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnAutorizarPermiso;
-        
+
         /// <summary>
         /// Control UpdatePanel1.
         /// </summary>
@@ -173,7 +184,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
+
         /// <summary>
         /// Control LbFinalizarPermiso.
         /// </summary>
@@ -182,7 +193,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LbFinalizarPermiso;
-        
+
         /// <summary>
         /// Control UpdatePanel2.
         /// </summary>
@@ -191,7 +202,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-        
+
         /// <summary>
         /// Control UpdatePanel3.
         /// </summary>
@@ -200,7 +211,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel3;
-        
+
         /// <summary>
         /// Control DDlFinalizarPermiso.
         /// </summary>
@@ -209,16 +220,25 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDlFinalizarPermiso;
-        
+
         /// <summary>
-        /// Control UpdatePanel4.
+        /// Control DivMotivo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivMotivo;
+
+        /// <summary>
+        /// Control TxMotivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxMotivo;
+
         /// <summary>
         /// Control Label2.
         /// </summary>
@@ -227,7 +247,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label2;
-        
+
         /// <summary>
         /// Control UpdatePanel6.
         /// </summary>
@@ -236,7 +256,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel6;
-        
+
         /// <summary>
         /// Control BtnFinalizarPermiso.
         /// </summary>
@@ -245,7 +265,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnFinalizarPermiso;
-        
+
         /// <summary>
         /// Control UpdatePanel7.
         /// </summary>
@@ -254,7 +274,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel7;
-        
+
         /// <summary>
         /// Control LbPermisoDescarga.
         /// </summary>
@@ -263,7 +283,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LbPermisoDescarga;
-        
+
         /// <summary>
         /// Control UpdatePanel9.
         /// </summary>
@@ -272,7 +292,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel9;
-        
+
         /// <summary>
         /// Control UpdatePanel10.
         /// </summary>
@@ -281,7 +301,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel10;
-        
+
         /// <summary>
         /// Control Label1.
         /// </summary>
@@ -290,7 +310,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// Control UpdatePanel11.
         /// </summary>
@@ -299,7 +319,7 @@ namespace BiometricoWeb.pages {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel11;
-        
+
         /// <summary>
         /// Control BtnDescargarArchivo.
         /// </summary>

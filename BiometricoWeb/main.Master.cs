@@ -32,6 +32,11 @@ namespace BiometricoWeb
                             LIMantenimientos.Visible = true;
                             LIToken.Visible = true;
                         }
+
+                        //MODULO PARA SEGURIDAD
+                        //if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2")){
+
+                        //}
                     }else{
                         LIAutorizaciones.Visible = true;
                         LIPermisos.Visible = true;

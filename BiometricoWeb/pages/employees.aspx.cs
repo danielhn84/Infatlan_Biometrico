@@ -15,10 +15,8 @@ namespace BiometricoWeb.pages
         protected void Page_Load(object sender, EventArgs e)
         {
             vConexion = new db();
-            if (!Page.IsPostBack)
-            {
-                if (Convert.ToBoolean(Session["AUTH"]))
-                {
+            if (!Page.IsPostBack){
+                if (Convert.ToBoolean(Session["AUTH"])){
                     generales vGenerales = new generales();
                     DataTable vDatos = (DataTable)Session["AUTHCLASS"];
                     if (!vGenerales.PermisosRecursosHumanos(vDatos))
@@ -100,7 +98,7 @@ namespace BiometricoWeb.pages
 
                 DDLCrearArea.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
-                    DDLCrearArea.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["idDepartamento"].ToString() + " - " + item["nombre"].ToString() });
+                    DDLCrearArea.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["nombre"].ToString() });
                 }
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
