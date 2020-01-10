@@ -15,10 +15,12 @@ namespace BiometricoWeb.pages
 {
     public partial class cargaConsolidado : System.Web.UI.Page
     {
+        db vConexion = new db();
         protected void Page_Load(object sender, EventArgs e){
             try{
                 if (!IsPostBack){
-
+                    if (Convert.ToBoolean(Session["AUTH"])) { 
+                    }
                 }
             }catch (Exception Ex){
 
@@ -109,21 +111,26 @@ namespace BiometricoWeb.pages
 
                     //COMPENSATORIOS
                     if (TipoProceso == "COMPENSATORIO"){
-                        Boolean cantidadDias = false;
+                        Boolean fechainicio = false, fechafin = false;
                         foreach (DataColumn item in vDatos.Columns){
-                            if (item.ColumnName.ToString() == "ID_EMPLEADO")
+                            if (item.ColumnName.ToString() == "ID_EMPLEADO_SAP")
                                 idEmpleado = true;
-                            if (item.ColumnName.ToString() == "CANTIDAD_DIAS")
-                                cantidadDias = true;
+                            if (item.ColumnName.ToString() == "FECHA")
+                                fechainicio = true;
+                            if (item.ColumnName.ToString() == "CANTIDAD_HORAS")
+                                fechafin = true;
                         }
 
-                        if (idEmpleado && cantidadDias){
+                        if (idEmpleado && fechainicio && fechafin){
                             for (int i = 0; i < vDatos.Rows.Count; i++){
-                                String vEmpleado = vDatos.Rows[i]["ID_EMPLEADO"].ToString();
-                                String vCantidad = vDatos.Rows[i]["CANTIDAD_DIAS"].ToString();
+                                String vEmpleado = vDatos.Rows[i]["ID_EMPLEADO_SAP"].ToString();
+                                String vFechaCompensacion = vDatos.Rows[i]["FECHA"].ToString();
+                                String vCantidadHoras = vDatos.Rows[i]["CANTIDAD_HORAS"].ToString();
+                                String vHoras2 = vCantidadHoras.Contains(",") ? vCantidadHoras.ToString().Replace(',', '.') : vCantidadHoras.ToString();
+
                                 string[] varr = DireccionCarga.Split('/');
                             
-                                vQuery = "RSP_Compensatorio 1," + vEmpleado + "," + vCantidad + ", 1,'" + varr[4].ToString() + "','" + Session["USUARIO"].ToString() + "'";
+                                vQuery = "RSP_Compensatorio 1,'" + vEmpleado + "', 1,'" + varr[4].ToString() + "','" + Session["USUARIO"].ToString() + "','" + vFechaCompensacion + "'," + vHoras2;
                                 int vRespuesta = vConexion.ejecutarSql(vQuery);
                                 if (vRespuesta == 2)
                                     vSuccess++;
@@ -133,11 +140,7 @@ namespace BiometricoWeb.pages
 
                     // PERMISOS
                     if (TipoProceso == "PERMISOS"){
-                        Boolean idJefe = false;
-                        Boolean tipoPermiso = false;
-                        Boolean motivo = false;
-                        Boolean inicio = false;
-                        Boolean fin = false;
+                        Boolean idJefe = false, tipoPermiso = false, motivo = false, inicio = false, fin = false;
 
                         foreach (DataColumn item in vDatos.Columns){
                             if (item.ColumnName.ToString() == "ID_EMPLEADO")
@@ -208,6 +211,62 @@ namespace BiometricoWeb.pages
             }catch (Exception Ex){
                 LabelPermisos.Text = Ex.Message;
             }
+        }
+
+        protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            GVBusqueda.PageIndex = e.NewPageIndex;
+            GVBusqueda.DataSource = (DataTable)Session["COMPENSATORIO"];
+            GVBusqueda.DataBind();
+        }
+
+        protected void TxBusqueda_TextChanged(object sender, EventArgs e){
+            try{
+                limpiarGrid();
+                if (TxBusqueda.Text != ""){
+                    String vEmpleado = Cargar();
+                    if (vEmpleado != ""){
+                        String vQuery = "[RSP_ObtenerGenerales] 18, " + vEmpleado;
+                        DataTable vData = vConexion.obtenerDataTable(vQuery);
+                        LbTotal.Text = vData.Rows.Count > 0 ? "Tiempo Comensatorio Actual: <b> " + vData.Rows[0]["compensatorio"].ToString() + "</b>": "";
+                    }else
+                        LbTotal.Text = "No se han encontrado registros en la búsqueda.";
+                }
+            }catch (Exception Ex){
+
+            }
+        }
+
+        private String Cargar(){
+            String vNombre = "";
+            try{
+                String vQuery = "[RSP_Compensatorio] 2,'" + TxBusqueda.Text + "'";
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+
+                if (vDatos.Rows.Count > 0){
+                    vDatos.Columns.Add("Detalle");
+
+                    for (int i = 0; i < vDatos.Rows.Count; i++){
+                        int vHoras = Convert.ToInt32(vDatos.Rows[i]["cantidadHoras"].ToString());
+                        Decimal vMinutos = Convert.ToDecimal(vDatos.Rows[i]["cantidadHoras"].ToString());
+                        vMinutos = vMinutos - vHoras;
+                        vDatos.Rows[i]["Detalle"] = vHoras + " Horas " + vMinutos + " Minutos";
+                    }
+
+                    Session["COMPENSATORIO"] = vDatos;
+                    GVBusqueda.DataSource = vDatos;
+                    GVBusqueda.DataBind();
+                    vNombre = vDatos.Rows[0]["idEmpleado"].ToString();
+                }
+
+            }catch (Exception ex){ }
+
+            return vNombre;
+        }
+
+        void limpiarGrid() {
+            GVBusqueda.DataSource = null;
+            GVBusqueda.DataBind();
+            LbTotal.Text = string.Empty;
         }
     }
 }

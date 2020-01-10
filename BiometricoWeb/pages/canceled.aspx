@@ -30,7 +30,6 @@
                         <h2>Autorizaciones Canceladas</h2>
                         <p class="mb-md-0">Recursos Humanos</p>
                     </div>
-
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
                     <asp:UpdatePanel ID="UpdatePrincipalBotones" runat="server">

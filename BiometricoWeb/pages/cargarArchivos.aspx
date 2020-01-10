@@ -36,7 +36,7 @@
         <nav>
             <div class="nav nav-pills " id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Compensatorio" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-alarm-plus" > </i>Compensatorio</a>
-                <a class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#nav-Permisos" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-door-open" > </i>Permisos</a>
+                <a hidden="hidden" class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#nav-Permisos" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-door-open" > </i>Permisos</a>
             </div>
         </nav>
     </div>
@@ -91,6 +91,58 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">BUSQUEDA DE MOVIMIENTOS</h4>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <asp:Label runat="server" CssClass="col-form-label col-md-2" Text="Empleado:"></asp:Label>
+                                    <asp:TextBox runat="server" CssClass="form-control col-md-9" AutoPostBack="true" ID="TxBusqueda" OnTextChanged="TxBusqueda_TextChanged" placeholder="Ej. Elvin - Presione afuera para proceder"></asp:TextBox>
+                                </div>
+                                
+                                <br />
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <asp:UpdatePanel ID="UpdateGridView" runat="server">
+                                            <ContentTemplate>
+                                                <asp:GridView ID="GVBusqueda" runat="server"
+                                                    CssClass="mydatagrid"
+                                                    PagerStyle-CssClass="pgr"
+                                                    HeaderStyle-CssClass="align-self-lg-start"
+                                                    RowStyle-CssClass="rows"
+                                                    GridLines="None"
+                                                    AllowPaging="true"
+                                                    PageSize="10" HeaderStyle-HorizontalAlign="Left"
+                                                    AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
+                                                    <Columns>
+                                                        <asp:BoundField DataField="IdSAP" HeaderText="Id" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Empleado" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="tipo" HeaderText="Tipo Movimiento" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField HeaderText="Estado" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" ItemStyle-HorizontalAlign="Left"/>
+                                                        <asp:BoundField DataField="Detalle" HeaderText="Horas" ItemStyle-HorizontalAlign="Left"/>
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <div class="form-group row">
+                                            <asp:Label runat="server" ID="LbTotal" CssClass="col-form-label " Text=""></asp:Label>
+                                        </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
                     </div>

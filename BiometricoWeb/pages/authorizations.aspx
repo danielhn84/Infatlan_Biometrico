@@ -172,19 +172,22 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Acciones</label>
                                 <div class="col-sm-9">
-                                    <asp:DropDownList ID="DDLOpciones" class="form-control" runat="server">
+                                    <asp:DropDownList ID="DDLOpciones" AutoPostBack="true" class="form-control" runat="server" OnSelectedIndexChanged="DDLOpciones_SelectedIndexChanged">
                                         <asp:ListItem Value="1">Autorizar</asp:ListItem>
                                         <asp:ListItem Value="0">No Autorizar</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <asp:UpdatePanel ID="UpdateAutorizarMensaje" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <div class="form-group row">
-                                <asp:Label ID="LbAutorizarMensaje" runat="server" Text="" Class="col-sm-12" Style="color: indianred; text-align: center;"></asp:Label>
+
+                            <div class="form-group row" runat="server" visible="false" id="DivMotivoJefe">
+                                <label class="col-sm-3 col-form-label">Motivo</label>
+                                <div class="col-sm-9">
+                                    <asp:TextBox TextMode="MultiLine" Font-Size="Medium" MaxLength="500" Height="100%" runat="server" CssClass="form-control" ID="TxMotivoJefe"></asp:TextBox>
+                                    <br />
+                                    <asp:Label ID="LbAutorizarMensaje" runat="server" Text="" Style="color: indianred;"></asp:Label>
+                                </div>
                             </div>
+                            <br />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>

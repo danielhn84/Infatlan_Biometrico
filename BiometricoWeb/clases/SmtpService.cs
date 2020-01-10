@@ -74,7 +74,7 @@ namespace BiometricoWeb.clases
                             Usuario,
                             "Se ha rechazado tu solicitud de permiso",
                             ConfigurationManager.AppSettings["Host"] + "/pages/permissions.aspx",
-                            "Te informamos que el permiso que has solicitado ha sido rechazado."
+                            Nombre
                             ), Server.MapPath("/images/logo.png")));
                         break;
                     case typeBody.Token:

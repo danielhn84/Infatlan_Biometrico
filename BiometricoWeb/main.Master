@@ -182,6 +182,13 @@
                                 <span class="menu-title">Token</span>
                             </a>
                         </li>
+
+                        <li class="nav-item" id="LISecurity" runat="server" visible="false">
+                            <a class="nav-link" href="/pages/security.aspx" >
+                                <i class="mdi mdi-key menu-icon"></i>
+                                <span class="menu-title">Seguridad</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 

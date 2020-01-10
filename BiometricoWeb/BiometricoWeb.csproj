@@ -147,6 +147,7 @@
     <Content Include="pages\mail\TemplateMail.html" />
     <Content Include="pages\permissions.aspx" />
     <Content Include="pages\puestos.aspx" />
+    <Content Include="pages\security.aspx" />
     <Content Include="pages\settings.aspx" />
     <Content Include="pages\token.aspx" />
     <Content Include="pages\UpdateEmployees.aspx" />
@@ -268,6 +269,13 @@
     <Compile Include="pages\puestos.aspx.designer.cs">
       <DependentUpon>puestos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\security.aspx.cs">
+      <DependentUpon>security.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\security.aspx.designer.cs">
+      <DependentUpon>security.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\settings.aspx.cs">
       <DependentUpon>settings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -340,6 +348,8 @@
     <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.ttf" />
     <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.woff" />
     <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.woff2" />
+    <Content Include="pages\plantilla\PlantillaCompensatorio.xlsx" />
+    <Content Include="pages\plantilla\PlantillaPermisos.xlsx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -397,6 +407,9 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>BiometricoWeb_SapServicesH_ZWS_HR_VACACIONES</CachedSettingsPropName>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Carga\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

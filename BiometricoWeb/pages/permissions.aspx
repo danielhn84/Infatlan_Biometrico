@@ -66,8 +66,9 @@
             </a>
             
         </div>
+        <%--compensatorio--%>
         <div class="col-md-6" style="float:right; height:100%; visibility:visible">
-            <a style="margin-left:auto; text-align:right; font-size: large; color: lightslategray" class="nav-item nav-link align-content-lg-end">Días de tiempo compensatorio
+            <a style="margin-left:auto; text-align:right; font-size: large; color: lightslategray" class="nav-item nav-link align-content-lg-end">Horas de tiempo compensatorio
                 <b style="margin-right:-10px;"><asp:Label ID="LbCompensatorio" runat="server" Text="0"></asp:Label></b>
             </a>
         </div>
@@ -499,9 +500,7 @@
 
                 <div class="modal-header">
                     <h4 class="modal-title" id="ModalLabel">Token de Emergencias</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    
                 </div>
                 <div class="modal-body">
                     <asp:UpdatePanel ID="UpdatePanel13" runat="server">

@@ -158,31 +158,26 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            try
-            {
+        protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            try{
                 GVBusqueda.PageIndex = e.NewPageIndex;
                 GVBusqueda.DataSource = (DataTable)Session["DATOSAUTORIZAR"];
                 GVBusqueda.DataBind();
 
-                foreach (GridViewRow row in GVBusqueda.Rows)
-                {
+                foreach (GridViewRow row in GVBusqueda.Rows){
                     String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + row.Cells[4].Text;
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
 
-                    foreach (DataRow item in vDatos.Rows)
-                    {
-                        if (item["Autorizado"].ToString().Equals("True"))
-                        {
+                    foreach (DataRow item in vDatos.Rows){
+                        if (item["Autorizado"].ToString().Equals("True")){
                             Button button = row.FindControl("BtnAutorizar") as Button;
                             button.Text = "Autorizado";
                             button.CssClass = "btn btn-inverse-success mr-2 ";
                             button.Enabled = false;
                             button.CommandName = "Cerrado";
                         }
-                        if (item["autorizadoSAP"].ToString().Equals("True"))
-                        {
+
+                        if (item["autorizadoSAP"].ToString().Equals("True")){
                             Button button = row.FindControl("BtnAutorizarRecursosHumanos") as Button;
                             button.Text = "Listo";
                             button.CssClass = "btn btn-inverse-success mr-2 ";
@@ -191,9 +186,7 @@ namespace BiometricoWeb.pages
                         }
                     }
                 }
-                
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
+            }catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
         protected void BtnPermisos_Click(object sender, EventArgs e)

@@ -9,14 +9,11 @@ using System.Web.UI.WebControls;
 
 namespace BiometricoWeb
 {
-    public partial class login : System.Web.UI.Page
-    {
+    public partial class login : System.Web.UI.Page{
         db vConexion;
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected void Page_Load(object sender, EventArgs e){
             vConexion = new db();
-            if (!Page.IsPostBack)
-            {
+            if (!Page.IsPostBack){
                
             }
         }

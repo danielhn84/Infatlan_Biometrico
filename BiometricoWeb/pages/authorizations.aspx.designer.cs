@@ -141,13 +141,22 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.WebControls.DropDownList DDLOpciones;
 
         /// <summary>
-        /// Control UpdateAutorizarMensaje.
+        /// Control DivMotivoJefe.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdateAutorizarMensaje;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivMotivoJefe;
+
+        /// <summary>
+        /// Control TxMotivoJefe.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxMotivoJefe;
 
         /// <summary>
         /// Control LbAutorizarMensaje.
