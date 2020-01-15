@@ -10,6 +10,8 @@ using System.Xml;
 using System.Configuration;
 using System.IO;
 using Excel;
+using System.Drawing;
+using System.Globalization;
 
 namespace BiometricoWeb.pages
 {
@@ -130,7 +132,7 @@ namespace BiometricoWeb.pages
 
                                 string[] varr = DireccionCarga.Split('/');
                             
-                                vQuery = "RSP_Compensatorio 1,'" + vEmpleado + "', 1,'" + varr[4].ToString() + "','" + Session["USUARIO"].ToString() + "','" + vFechaCompensacion + "'," + vHoras2;
+                                vQuery = "RSP_Compensatorio 1,'" + vEmpleado + "', 1,'" + varr[4].ToString() + "','" + Session["USUARIO"].ToString() + "','" + vFechaCompensacion + "'," + vHoras2 + ",null";
                                 int vRespuesta = vConexion.ejecutarSql(vQuery);
                                 if (vRespuesta == 2)
                                     vSuccess++;
@@ -232,8 +234,8 @@ namespace BiometricoWeb.pages
                         LbTotal.Text = "No se han encontrado registros en la búsqueda.";
                 }
             }catch (Exception Ex){
-
-            }
+                LbTotal.Text = Ex.Message.ToString();
+            } 
         }
 
         private String Cargar(){
@@ -244,21 +246,66 @@ namespace BiometricoWeb.pages
 
                 if (vDatos.Rows.Count > 0){
                     vDatos.Columns.Add("Detalle");
+                    vDatos.Columns.Add("Horas");
 
                     for (int i = 0; i < vDatos.Rows.Count; i++){
-                        int vHoras = Convert.ToInt32(vDatos.Rows[i]["cantidadHoras"].ToString());
-                        Decimal vMinutos = Convert.ToDecimal(vDatos.Rows[i]["cantidadHoras"].ToString());
-                        vMinutos = vMinutos - vHoras;
-                        vDatos.Rows[i]["Detalle"] = vHoras + " Horas " + vMinutos + " Minutos";
+                        String vCantHoras = vDatos.Rows[i]["cantidadHoras"].ToString();
+                        string[] vArray = null;
+                        
+                        if (vCantHoras.Contains(',')) 
+                            vArray = vCantHoras.Split(',');
+                        else if (vCantHoras.Contains('.'))
+                            vArray = vCantHoras.Split('.');
+                        else{
+                            vArray[0] = vCantHoras;
+                            vArray[1] = "0";
+                        }
+
+                        String vM = vArray[1];
+                        double vMin = Math.Round(float.Parse(vM) * float.Parse("0,6"));
+                        String vQMin = vMin.ToString();
+                        
+                        vQMin = vQMin.Length > 2 ? vQMin.Substring(0,2) : vQMin;
+                        vDatos.Rows[i]["Detalle"] = vArray[0].ToString() + " Horas " + vQMin + " Minutos";
+
+                        if (vDatos.Rows[i]["tipoMovimiento"].ToString() == "0"){
+                            String vPermiso = vDatos.Rows[i]["idPermiso"].ToString();
+                            String vConsulta = "RSP_Compensatorio 3," + vPermiso;
+                            DataTable vInfo = vConexion.obtenerDataTable(vConsulta);
+
+                            vDatos.Rows[i]["Estado"] = vInfo.Rows[0][0].ToString() == "1" ? "APROBADO" : "PENDIENTE";
+                            vDatos.Rows[i]["Horas"] = "-" + vDatos.Rows[i]["cantidadHoras"].ToString();
+                        }else
+                            vDatos.Rows[i]["Horas"] = vDatos.Rows[i]["cantidadHoras"].ToString();
+
+                        
                     }
+
+                    for (int i = 0; i < vDatos.Rows.Count; i++){
+                        if (vDatos.Rows[i]["tipoMovimiento"].ToString() == "2"){
+                            vDatos.Rows[i]["Horas"] = "0.00";
+
+                            foreach (DataRow item in vDatos.Rows){
+                                String vPermisoRow = item["idPermiso"].ToString();
+                                String vPermisoData = vDatos.Rows[i]["idPermiso"].ToString();
+
+                                if (vPermisoData == vPermisoRow){
+                                    vDatos.Rows.Remove(item);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
 
                     Session["COMPENSATORIO"] = vDatos;
                     GVBusqueda.DataSource = vDatos;
                     GVBusqueda.DataBind();
                     vNombre = vDatos.Rows[0]["idEmpleado"].ToString();
                 }
-
-            }catch (Exception ex){ }
+            }catch (Exception ex){
+                LbTotal.Text = ex.Message.ToString();
+            }
 
             return vNombre;
         }
@@ -267,6 +314,21 @@ namespace BiometricoWeb.pages
             GVBusqueda.DataSource = null;
             GVBusqueda.DataBind();
             LbTotal.Text = string.Empty;
+        }
+
+        protected void GVBusqueda_RowDataBound(object sender, GridViewRowEventArgs e){
+            try{
+                if (e.Row.RowType == DataControlRowType.DataRow){
+                    DataRowView drv = e.Row.DataItem as DataRowView;
+
+                    TableCell vCel = new TableCell();
+                    if (drv["tipoMovimiento"].ToString().Equals("0"))
+                        e.Row.Cells[6].Attributes.CssStyle.Value = "color : red;"; //System.Drawing.Color.LimeGreen;
+                }
+            }catch (Exception Ex){
+                throw new Exception(Ex.Message);
+            }
+            
         }
     }
 }

@@ -120,14 +120,19 @@
                                                     GridLines="None"
                                                     AllowPaging="true"
                                                     PageSize="10" HeaderStyle-HorizontalAlign="Left"
-                                                    AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
+                                                    AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging"
+                                                    OnRowDataBound="GVBusqueda_RowDataBound">
                                                     <Columns>
                                                         <asp:BoundField DataField="IdSAP" HeaderText="Id" ItemStyle-HorizontalAlign="Left" />
                                                         <asp:BoundField DataField="Empleado" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left" />
-                                                        <asp:BoundField DataField="tipo" HeaderText="Tipo Movimiento" ItemStyle-HorizontalAlign="Left" />
-                                                        <asp:BoundField HeaderText="Estado" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="tipo" HeaderText="Movimiento" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="idPermiso" HeaderText="Permiso" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Estado" HeaderText="Estado" ItemStyle-HorizontalAlign="Left" />
                                                         <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" ItemStyle-HorizontalAlign="Left"/>
-                                                        <asp:BoundField DataField="Detalle" HeaderText="Horas" ItemStyle-HorizontalAlign="Left"/>
+                                                        <asp:BoundField DataField="Horas" HeaderText="Horas" ItemStyle-HorizontalAlign="Left" SortExpression="CantidadHora"/>
+                                                        <asp:BoundField DataField="Detalle" HeaderText="Detalle" ItemStyle-HorizontalAlign="Left"/>
+                                                        <asp:BoundField DataField="Inicio" HeaderText="Inicio" ItemStyle-HorizontalAlign="Left"/>
+                                                        <asp:BoundField DataField="Fin" HeaderText="Fin" ItemStyle-HorizontalAlign="Left"/>
                                                     </Columns>
                                                 </asp:GridView>
                                             </ContentTemplate>

@@ -306,19 +306,15 @@ namespace BiometricoWeb.pages
                                     Decimal vDiasHoras = tsHorario.Hours + (Convert.ToDecimal(tsHorario.Minutes) / 60);
                                     String vCalculo = vDiasHoras.ToString().Contains(",") ? vDiasHoras.ToString().Replace(",", ".") : vDiasHoras.ToString();
 
-                                    vQuery = "RSP_Compensatorio 1,'" + item["CodigoSAP"].ToString() + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo;
+                                    vQuery = "RSP_Compensatorio 1,'" + item["CodigoSAP"].ToString() + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo + "," + item["idPermiso"].ToString();
                                     int vInfo = vConexion.ejecutarSql(vQuery);
                                 }
-
                             }
-                            
-
 
                             Mensaje("El empleado no ha sido autorizado", WarningType.Success);
                             CerrarModal("AutorizarModal");
                         }else
                             LbAutorizarMensaje.Text = "Favor ingresar el motivo de cancelación.";
-
                     }
                 }
                 CargarAutorizaciones();
@@ -454,7 +450,7 @@ namespace BiometricoWeb.pages
                                     Decimal vDiasHoras = tsHorario.Hours + (Convert.ToDecimal(tsHorario.Minutes) / 60);
                                     String vCalculo = vDiasHoras.ToString().Contains(",") ? vDiasHoras.ToString().Replace(",", ".") : vDiasHoras.ToString();
 
-                                    vQuery = "RSP_Compensatorio 1,'" + itemEmpleado["CodigoSAP"].ToString() + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo;
+                                    vQuery = "RSP_Compensatorio 1,'" + itemEmpleado["CodigoSAP"].ToString() + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo + "," + itemEmpleado["idPermiso"].ToString();
                                     int vInfo = vConexion.ejecutarSql(vQuery);
                                 }
                             }
