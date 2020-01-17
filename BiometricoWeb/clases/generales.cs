@@ -27,28 +27,38 @@ namespace BiometricoWeb.clases
         }
 
 
-        public bool PermisosRecursosHumanos(DataTable vDatosLogin)
-        {
+        public bool PermisosRecursosHumanos(DataTable vDatosLogin){
             Boolean vFlag = false;
-            try
-            {
+            try{
                 DataTable vDatos = vDatosLogin;
 
-                if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals(""))
-                {
-                    if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1"))
-                    {
+                if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")){
+                    if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
                         vFlag = true;
                     }
-                }
-                else
-                {
+                }else{
                     vFlag = false;
                 }
-            }
-            catch { vFlag = false; }
+            }catch { vFlag = false; }
             return vFlag;
         }
+
+        public bool PermisosPersonalSeguridad(DataTable vDatosLogin){
+            Boolean vFlag = false;
+            try{
+                DataTable vDatos = vDatosLogin;
+
+                if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")){
+                    if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2") || vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
+                        vFlag = true;
+                    }
+                }else{
+                    vFlag = false;
+                }
+            }catch { vFlag = false; }
+            return vFlag;
+        }
+
         /// <summary>
         /// Calculates number of business days, taking into account:
         ///  - weekends (Saturdays and Sundays)

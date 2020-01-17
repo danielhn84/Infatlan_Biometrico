@@ -102,7 +102,7 @@
                 <nav class="sidebar sidebar-offcanvas sidebar-toggle-display sidebar-hidden" id="sidebar" >
                     <ul class="nav">
                        
-                        <li class="nav-item">
+                        <li class="nav-item" runat="server" visible="true" id="LIDashboard">
                             <a class="nav-link" href="/default.aspx">
                                 <i class="mdi mdi-home menu-icon"></i>
                                 <span class="menu-title">Dashboard</span>
@@ -184,10 +184,17 @@
                         </li>
 
                         <li class="nav-item" id="LISecurity" runat="server" visible="true">
-                            <a class="nav-link" href="/pages/security.aspx" >
+                            <a class="nav-link" data-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
                                 <i class="mdi mdi-security menu-icon"></i>
                                 <span class="menu-title">Seguridad</span>
+                                <i class="menu-arrow"></i>
                             </a>
+                            <div class="collapse" id="ui-basic5">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" href="/pages/security.aspx">Entradas</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/pages/salidas.aspx">Salidas</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </nav>

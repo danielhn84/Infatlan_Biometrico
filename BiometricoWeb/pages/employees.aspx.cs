@@ -118,10 +118,8 @@ namespace BiometricoWeb.pages
             return vIndex;
         }
 
-        protected void BtnGuardarCambio_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnGuardarCambio_Click(object sender, EventArgs e){
+            try{
                 ValidacionesEmpleado();
 
                 String vQuery = "RSP_IngresarEmpleados 1," + TxCrearNoEmpleado.Text + "," +
@@ -143,33 +141,24 @@ namespace BiometricoWeb.pages
 
                 Int32 vInformacion = vConexion.ejecutarSql(vQuery);
 
-                if (vInformacion == 1)
-                {
-                    if (!DDLCrearRelojes.SelectedValue.Equals("0"))
-                    {
+                if (vInformacion == 1){
+                    if (!DDLCrearRelojes.SelectedValue.Equals("0")){
                         String vErrorSuccess = "";
                         biometricos vRelojes = new biometricos(DDLCrearRelojes.SelectedValue);
                         Int32 vRelojReturn = vRelojes.CrearUsuarioBiometrico(TxCrearNoEmpleado.Text, TxCrearNombre.Text, Convert.ToInt32(DDLCrearRole.SelectedValue), ref vErrorSuccess);
 
-                        if (vRelojReturn == 1)
-                        {
+                        if (vRelojReturn == 1){
                             Mensaje("Usuario ingresado con exito", WarningType.Success);
-                        }
-                        else
-                        {
+                        }else{
                             Mensaje("Usuario ingresado con exito, fallo ingreso en Reloj", WarningType.Warning);
                             Mensaje(vErrorSuccess, WarningType.Danger);
                         }                       
-                    }
-                    else
-                    {
+                    }else{
                         Mensaje("Usuario ingresado con exito, falta ingresar en Reloj", WarningType.Warning);
                     }
                     LimpiarIngresoEmpleados();
                 }
-
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
+            }catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
         void LimpiarIngresoEmpleados(){
@@ -196,8 +185,7 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        private void ValidacionesEmpleado()
-        {
+        private void ValidacionesEmpleado(){
             if (TxCrearNoEmpleado.Text.Equals(""))
                 throw new Exception("Por favor ingrese un codigo de empleado");
             if (TxCrearNombre.Text.Equals(""))

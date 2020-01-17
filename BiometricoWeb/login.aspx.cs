@@ -34,7 +34,11 @@ namespace BiometricoWeb
                         Session["USUARIO"] = item["idEmpleado"].ToString();
                         Session["CODIGOSAP"] = item["codigoSAP"].ToString();
                         Session["AUTH"] = true;
-                        Response.Redirect("/default.aspx");
+
+                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2"))
+                            Response.Redirect("pages/security.aspx");
+                        else
+                            Response.Redirect("/default.aspx");
                     }
                 }else{
                     Session["AUTH"] = false;

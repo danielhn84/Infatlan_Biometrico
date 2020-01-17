@@ -6,13 +6,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-
 namespace BiometricoWeb
 {
     public partial class main : System.Web.UI.MasterPage
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected void Page_Load(object sender, EventArgs e){
             if (!Convert.ToBoolean(Session["AUTH"])){
                 Response.Redirect("/login.aspx");
             }
@@ -31,12 +29,20 @@ namespace BiometricoWeb
                             LIPermisos.Visible = true;
                             LIMantenimientos.Visible = true;
                             LIToken.Visible = true;
+                            LISecurity.Visible = true;
                         }
 
                         //MODULO PARA SEGURIDAD
-                        //if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2")){
-
-                        //}
+                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2")){
+                            LIBiometricos.Visible = false;
+                            LIEmpleados.Visible = false;
+                            LIAutorizaciones.Visible = false;
+                            LIPermisos.Visible = false;
+                            LIMantenimientos.Visible = false;
+                            LIToken.Visible = false;
+                            LIDashboard.Visible = false;
+                            LISecurity.Visible = true;
+                        }
                     }else{
                         LIAutorizaciones.Visible = true;
                         LIPermisos.Visible = true;

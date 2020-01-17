@@ -147,6 +147,7 @@
     <Content Include="pages\mail\TemplateMail.html" />
     <Content Include="pages\permissions.aspx" />
     <Content Include="pages\puestos.aspx" />
+    <Content Include="pages\salidas.aspx" />
     <Content Include="pages\security.aspx" />
     <Content Include="pages\settings.aspx" />
     <Content Include="pages\token.aspx" />
@@ -268,6 +269,13 @@
     </Compile>
     <Compile Include="pages\puestos.aspx.designer.cs">
       <DependentUpon>puestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\salidas.aspx.cs">
+      <DependentUpon>salidas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\salidas.aspx.designer.cs">
+      <DependentUpon>salidas.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\security.aspx.cs">
       <DependentUpon>security.aspx</DependentUpon>

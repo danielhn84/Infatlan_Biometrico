@@ -24,22 +24,22 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.UpdateProgress UpdateProgress1;
 
         /// <summary>
-        /// Control UpdateDivBusquedas.
+        /// Control TxSerie.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
+        protected global::System.Web.UI.WebControls.TextBox TxSerie;
 
         /// <summary>
-        /// Control DivBusqueda.
+        /// Control DDLArticulos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivBusqueda;
+        protected global::System.Web.UI.WebControls.DropDownList DDLArticulos;
 
         /// <summary>
         /// Control TxNombre.
@@ -51,24 +51,6 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.WebControls.TextBox TxNombre;
 
         /// <summary>
-        /// Control DDLArticulo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLArticulo;
-
-        /// <summary>
-        /// Control TxSerie.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxSerie;
-
-        /// <summary>
         /// Control TxInventario.
         /// </summary>
         /// <remarks>
@@ -78,57 +60,66 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.WebControls.TextBox TxInventario;
 
         /// <summary>
-        /// Control TxDestino.
+        /// Control TxDestinatario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxDestino;
+        protected global::System.Web.UI.WebControls.TextBox TxDestinatario;
 
         /// <summary>
-        /// Control TxDepartamento.
+        /// Control UpdatePrincipalBotones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxDepartamento;
+        protected global::System.Web.UI.UpdatePanel UpdatePrincipalBotones;
 
         /// <summary>
-        /// Control DropDownList1.
+        /// Control BtnGuardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.Button BtnGuardar;
 
         /// <summary>
-        /// Control TextBox2.
+        /// Control BtnCancelar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.Button BtnCancelar;
 
         /// <summary>
-        /// Control TextBox3.
+        /// Control TxBusqueda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox TxBusqueda;
 
         /// <summary>
-        /// Control TextBox4.
+        /// Control UpdateDivBusquedas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
+
+        /// <summary>
+        /// Control GVBusqueda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVBusqueda;
     }
 }
