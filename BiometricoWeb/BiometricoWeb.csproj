@@ -149,6 +149,7 @@
     <Content Include="pages\puestos.aspx" />
     <Content Include="pages\salidas.aspx" />
     <Content Include="pages\security.aspx" />
+    <Content Include="pages\sec_historico.aspx" />
     <Content Include="pages\settings.aspx" />
     <Content Include="pages\token.aspx" />
     <Content Include="pages\UpdateEmployees.aspx" />
@@ -283,6 +284,13 @@
     </Compile>
     <Compile Include="pages\security.aspx.designer.cs">
       <DependentUpon>security.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\sec_historico.aspx.cs">
+      <DependentUpon>sec_historico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\sec_historico.aspx.designer.cs">
+      <DependentUpon>sec_historico.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\settings.aspx.cs">
       <DependentUpon>settings.aspx</DependentUpon>

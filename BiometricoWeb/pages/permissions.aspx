@@ -233,7 +233,7 @@
                             <h4 class="card-title">Crear permiso</h4>
 
                             <div class="form-group">
-                                <asp:UpdatePanel ID="UpdatePrincipalBotones" runat="server">
+                                <asp:UpdatePanel ID="UpdatePrincipalBotones" runat="server" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <asp:Button ID="BtnCrearPermiso" class="btn btn-primary mr-2" runat="server" Text="Crear Permiso" OnClick="BtnCrearPermiso_Click" />
                                         <asp:Button ID="BtnCancelar" class="btn btn-danger mr-2" runat="server" Text="Cancelar" OnClick="BtnCancelar_Click" />

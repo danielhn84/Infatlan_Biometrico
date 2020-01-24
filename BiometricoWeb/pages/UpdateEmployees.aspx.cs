@@ -94,7 +94,7 @@ namespace BiometricoWeb.pages
 
                 DDLModArea.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
-                    DDLModArea.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["nombre"].ToString() });
+                    DDLModArea.Items.Add(new ListItem { Value = item["nombre"].ToString(), Text = item["nombre"].ToString() });
                 }
             }catch (Exception Ex) { 
                 Mensaje(Ex.Message, WarningType.Danger); 

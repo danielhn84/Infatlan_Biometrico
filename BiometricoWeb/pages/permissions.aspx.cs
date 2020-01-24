@@ -104,8 +104,8 @@ namespace BiometricoWeb.pages
         void CargarDiasSAP(){
             try{
                 SapConnector vTest = new SapConnector();
-                String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
-                //String vDias = "5";
+                //String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
+                String vDias = "5";
                 LbNumeroVaciones.Text = vDias;
                 Session["DIASSAP"] = vDias;
             }catch (Exception Ex){
@@ -126,11 +126,13 @@ namespace BiometricoWeb.pages
             try{
                 String vTipo = DDLTipoPermiso.SelectedValue;
                 String vEmpleado = DDLEmpleado.SelectedValue;
-                DateTime desde = Convert.ToDateTime(TxFechaInicio.Text);
-                DateTime hasta = Convert.ToDateTime(TxFechaRegreso.Text);
 
-                String vFechaInicio = desde.ToString("yyyy-MM-dd HH:mm:ss");
-                String vFechaRegreso = hasta.ToString("yyyy-MM-dd HH:mm:ss");
+                String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";
+                String vFF = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";
+
+                DateTime desde = Convert.ToDateTime(vFI);
+                DateTime hasta = Convert.ToDateTime(vFF);
+
                 TimeSpan tsHorario = hasta - desde;
                 ValidacionesPermisos(vEmpleado, desde, hasta, vTipo, tsHorario);
                 
@@ -154,7 +156,7 @@ namespace BiometricoWeb.pages
                 int vDias = vGenerales.BusinessDaysUntil(Convert.ToDateTime(TxFechaInicio.Text), Convert.ToDateTime(TxFechaRegreso.Text));
 
                 LbInformacionPermiso.Text = "Informacion de Permiso de empleado " + DDLEmpleado.SelectedValue + "<br /><br />" +
-                    "Fechas solicitadas del <b>" + vFechaInicio + "</b> al <b>" + vFechaRegreso + "</b><br /><br />" +
+                    "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b><br /><br />" +
                     "Total: <b>" + days + "</b> días <b>" + tsHorario.Hours + "</b> horas <b>" + tsHorario.Minutes + "</b> minutos<br /><br />" +
                     "Tipo de permiso solicitado: <b>" + DDLTipoPermiso.SelectedItem.Text + "</b><br /><br />" +
                     "¿Estas seguro que estas fechas quieres solicitar?";
@@ -167,7 +169,7 @@ namespace BiometricoWeb.pages
                 }else
                     LbIncapacidadInformacion.Text = String.Empty;
 
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "openModal();", true);
 
             }catch (Exception Ex) {
                 Mensaje(Ex.Message.StartsWith("Longitud") ? "El Token ingresado no es válido." : Ex.Message, WarningType.Danger);
@@ -176,9 +178,7 @@ namespace BiometricoWeb.pages
 
         private void ValidacionesPermisos(String vEmpleado, DateTime vFechaInicio, DateTime vFechaRegreso, String vTipo, TimeSpan tsHorario){
             Decimal vDiasDisponibles = Convert.ToDecimal((LbNumeroVaciones.Text == String.Empty ? "0" : LbNumeroVaciones.Text));
-            Decimal vDiasHoras = Calculo(null, -1);
             //GENERALES
-
             if (vEmpleado.Equals("0"))
                 throw new Exception("Seleccione un empleado valido para el permiso.");
             if (DDLJefe.SelectedValue.Equals("0"))
@@ -191,6 +191,8 @@ namespace BiometricoWeb.pages
                 throw new Exception("Ingrese una fecha de regreso valida");
             if (vFechaRegreso < vFechaInicio)
                 throw new Exception("Las fechas ingresadas son incorrectas, el regreso es menor que el inicio");
+
+            Decimal vDiasHoras = Calculo(null, -1);
 
             //ESPECIFICAS
             if (vTipo != "1002" || vTipo != "1004" || vTipo != "1012" || vTipo != "1013" || vTipo != "1018" || vTipo != "1022"){
@@ -351,6 +353,9 @@ namespace BiometricoWeb.pages
                     vExtension = System.IO.Path.GetExtension(FUDocumentoPermiso.FileName);
                 }
 
+                if (DDLTipoPermiso.SelectedValue == "1006" && !FUDocumentoPermiso.HasFiles)
+                    throw new Exception("Debe ingresar un documento que justifique el permiso.");
+
                 String vArchivo = String.Empty;
                 if (vFileDeposito1 != null)
                     vArchivo = Convert.ToBase64String(vFileDeposito1);
@@ -497,6 +502,7 @@ namespace BiometricoWeb.pages
                         TxFechaInicio.TextMode = TextBoxMode.DateTimeLocal;
                         TxFechaRegreso.TextMode = TextBoxMode.DateTimeLocal;
                         UpdatePanelFechas.Update();
+                        DIVDocumentos.Visible = true;
                         break;
                     case "1007":
                         if (CbEmergencias.Checked)

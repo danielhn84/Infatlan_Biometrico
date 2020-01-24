@@ -183,7 +183,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item" id="LISecurity" runat="server" visible="true">
+                        <li class="nav-item" id="LISecurity" runat="server" visible="false">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
                                 <i class="mdi mdi-security menu-icon"></i>
                                 <span class="menu-title">Seguridad</span>
@@ -193,6 +193,7 @@
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link" href="/pages/security.aspx">Entradas</a></li>
                                     <li class="nav-item"><a class="nav-link" href="/pages/salidas.aspx">Salidas</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="/pages/sec_historico.aspx">Historico</a></li>
                                 </ul>
                             </div>
                         </li>

@@ -24,7 +24,7 @@ namespace BiometricoWeb.pages
                     if (!vGenerales.PermisosPersonalSeguridad(vDatos))
                         Response.Redirect("/login.aspx");
 
-                    TxSerie.Focus();
+                    TxBusqueda.Focus();
                     cargarDatos();
                 }
             }
@@ -46,12 +46,30 @@ namespace BiometricoWeb.pages
 
                 DDLArticulos.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
-                    DDLArticulos.Items.Add(new ListItem { Value = item["idArticulo"].ToString(), Text = item["descripcion"].ToString() });
+                    DDLArticulos.Items.Add(new ListItem { Value = item["idDetalle"].ToString(), Text = item["descripcion"].ToString() });
                 }
 
+                vQuery = "RSP_ObtenerGenerales 12";
+                vDatos = vConexion.obtenerDataTable(vQuery);
 
-            }
-            catch (Exception ex){
+                if (vDatos.Rows.Count > 0){
+                    DDLDepartamento.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    foreach (DataRow item in vDatos.Rows){
+                        DDLDepartamento.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["nombre"].ToString() });
+                    }
+                }
+
+                vQuery = "RSP_Seguridad 9";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+
+                if (vDatos.Rows.Count > 0){
+                    DDLMotivo.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    foreach (DataRow item in vDatos.Rows){
+                        DDLMotivo.Items.Add(new ListItem { Value = item["idDetalle"].ToString(), Text = item["descripcion"].ToString() });
+                    }
+                }
+
+            }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
 
@@ -62,25 +80,56 @@ namespace BiometricoWeb.pages
         }
 
         protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            try{
+                GVBusqueda.PageIndex = e.NewPageIndex;
+                GVBusqueda.DataSource = (DataTable)Session["SEG_ENTRADAS"];
+                GVBusqueda.DataBind();
 
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
 
         protected void BtnGuardar_Click(object sender, EventArgs e){
             try{
                 validaciones();
-                String vQuery = "[RSP_Seguridad] 1,'"+ TxNombre.Text + "'" +
-                    "," + DDLArticulos.SelectedValue +
-                    ",'" + TxSerie.Text + "'" +
-                    ",'" + TxInventario.Text + "'" +
-                    ",'" + TxDestinatario.Text + "'" +
-                    ",'" + Session["USUARIO"].ToString() + "'";
+                String vQuery = "";
 
-                int vInfo = vConexion.ejecutarSql(vQuery);
-                if (vInfo == 1)
-                    Mensaje("Registro ingresado con éxito", WarningType.Success);
-                else
-                    Mensaje("Hubo un error al inresar la entrada.", WarningType.Danger);
-                limpiarEntradas();
+                if (Session["ID_SALIDA"] != null) {
+                    vQuery = "[RSP_Seguridad] 7" +
+                        "," + Session["ID_SALIDA"].ToString() +
+                        ",'" + TxNombre.Text + "'" +
+                        ",'" + TxDestinatario.Text + "'" +
+                        "," + DDLDepartamento.SelectedValue +
+                        "," + DDLMotivo.SelectedValue +
+                        ",'" + TxObservaciones.Text + "'";
+                    int vInfo = vConexion.ejecutarSql(vQuery);
+                    if (vInfo == 3){
+                        cargarDatos();
+                        UpdateDivBusquedas.Update();
+                        Mensaje("Entrada guardada con éxito", WarningType.Success);
+                    }else
+                        Mensaje("Hubo un error al guardar la entrada.", WarningType.Danger);
+                }else{
+                    vQuery = "[RSP_Seguridad] 1,'" + TxNombre.Text + "'" +
+                        "," + DDLArticulos.SelectedValue +
+                        ",'" + TxSerie.Text + "'" +
+                        ",'" + TxInventario.Text + "'" +
+                        ",'" + TxDestinatario.Text + "'" +
+                        ",'" + Session["USUARIO"].ToString() + "'" +
+                        "," + DDLMotivo.SelectedValue +
+                        ",'" + TxObservaciones.Text + "'" +
+                        "," + DDLDepartamento.SelectedValue ;
+                    int vInfo = vConexion.ejecutarSql(vQuery);
+                    if (vInfo == 1){ 
+                        cargarDatos();
+                        UpdateDivBusquedas.Update();
+                        Mensaje("Entrada guardada con éxito", WarningType.Success);
+                    }else
+                        Mensaje("Hubo un error al guardar la entrada.", WarningType.Danger);
+                }
+                limpiarFormulario();
+
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -95,21 +144,90 @@ namespace BiometricoWeb.pages
                 throw new Exception("Favor ingrese la serie del articulo.");
             if (TxInventario.Text == "" || TxInventario.Text == string.Empty)
                 throw new Exception("Favor ingrese el número de inventario.");
+            if (DDLDepartamento.SelectedValue.Equals("0"))
+                throw new Exception("Favor seleccione el departamento de destino.");
             if (TxDestinatario.Text == "" || TxDestinatario.Text == string.Empty)
                 throw new Exception("Favor ingrese el destinatario.");
+            if (DDLMotivo.SelectedValue.Equals("0"))
+                throw new Exception("Favor seleccione un motivo de entrada.");
+
         }
 
-        protected void BtnCancelar_Click(object sender, EventArgs e){
-            limpiarEntradas();
-        }
-
-        void limpiarEntradas() {
+        private void limpiarFormulario(){
+            TxMensaje.Text = string.Empty;
             TxBusqueda.Text = string.Empty;
+
+            DivSalidas.Visible = false;
+            LbIdSalida.Text = string.Empty;
+            LbNombreSalida.Text = string.Empty;
+            LbArticuloSalida.Text = string.Empty;
+            LbSerieSalida.Text = string.Empty;
+            LbInventarioSalida.Text = string.Empty;
+            LbFechaSalida.Text = string.Empty;
+
             TxNombre.Text = string.Empty;
             TxSerie.Text = string.Empty;
             TxDestinatario.Text = string.Empty;
             TxInventario.Text = string.Empty;
             DDLArticulos.SelectedIndex = -1;
+            DDLMotivo.SelectedIndex = -1;
+            TxObservaciones.Text = string.Empty;
+            DDLDepartamento.SelectedIndex = -1;
+
+            TxBusqueda.Focus();
+
+            UpdatePanel3.Update();
+            UpdatePanel1.Update();
+            UpdatePanel2.Update();
+        }
+
+        protected void TxBusqueda_TextChanged(object sender, EventArgs e){
+            try{
+                if (TxBusqueda.Text != "" || TxBusqueda.Text != string.Empty){
+                    String vQuery = "[RSP_Seguridad] 8,'" + TxBusqueda.Text + "'";
+                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                    if (vDatos.Rows.Count > 0){
+                        Session["ID_SALIDA"] = vDatos.Rows[0]["id"].ToString();
+
+                        DivSalidas.Visible = true;
+                        LbIdSalida.Text = vDatos.Rows[0]["id"].ToString();
+                        LbNombreSalida.Text = vDatos.Rows[0]["nombreSalida"].ToString();
+                        LbSerieSalida.Text = vDatos.Rows[0]["serie"].ToString();
+                        LbArticuloSalida.Text = vDatos.Rows[0]["articulo"].ToString();
+                        LbInventarioSalida.Text = vDatos.Rows[0]["inventario"].ToString();
+                        LbFechaSalida.Text = vDatos.Rows[0]["fechaSalida"].ToString();
+
+                        TxInventario.Text = vDatos.Rows[0]["inventario"].ToString();
+                        DDLArticulos.SelectedValue = vDatos.Rows[0]["idArticulo"].ToString();
+
+                        DivBody.Visible = true;
+                        TxMensaje.Text = "";
+                        TxMensaje.Visible = false;
+                        UpdatePanel1.Update();
+                    }else{
+                        TxInventario.Text = string.Empty;
+                        DDLArticulos.SelectedIndex = -1;
+                        Session["ID_SALIDA"] = null;
+                        DivSalidas.Visible = false;
+                        DivBody.Visible = false;
+                        TxMensaje.Visible = true;
+                        TxMensaje.Text = "Cree un nuevo registro.";
+                        UpdatePanel1.Update();
+                    }
+                    TxNombre.Focus();
+                    TxSerie.Text = TxBusqueda.Text;
+                    UpdatePanel2.Update();
+
+                }else
+                    limpiarFormulario();
+
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnCancelar_Click(object sender, EventArgs e){
+            limpiarFormulario();
         }
     }
 }
