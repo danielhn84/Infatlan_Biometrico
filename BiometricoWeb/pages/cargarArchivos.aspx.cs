@@ -25,8 +25,12 @@ namespace BiometricoWeb.pages
                     }
                 }
             }catch (Exception Ex){
-
+                Mensaje(Ex.Message, WarningType.Danger);
             }
+        }
+
+        public void Mensaje(string vMensaje, WarningType type){
+            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
 
         protected void BtnSubirCompensatorio_Click(object sender, EventArgs e){
@@ -165,15 +169,15 @@ namespace BiometricoWeb.pages
                                 String vJefe = vDatos.Rows[i]["ID_JEFE"].ToString();
                                 String vTipoPermiso = vDatos.Rows[i]["COD_TIPO_PERMISO"].ToString();
                                 String vMotivo = vDatos.Rows[i]["MOTIVO"].ToString();
-                                String vInicio = vDatos.Rows[i]["INICIO"].ToString();
-                                String vFin = vDatos.Rows[i]["FIN"].ToString();
+                                DateTime vInicio = Convert.ToDateTime(vDatos.Rows[i]["INICIO"].ToString());
+                                DateTime vFin = Convert.ToDateTime(vDatos.Rows[i]["FIN"].ToString());
 
                                 vQuery = "RSP_IngresarPermisos 2," + vEmpleado + "," +
                                     "" + vJefe + "," +
                                     "" + vTipoPermiso + "," +
                                     "'" + vMotivo + "'," +
-                                    "'" + vInicio + "'," +
-                                    "'" + vFin + "'," +
+                                    "'" + vInicio.ToString("MM/dd/yyyy HH:mm:ss") + "'," +
+                                    "'" + vFin.ToString("MM/dd/yyyy HH:mm:ss") + "'," +
                                     "'" + Session["USUARIO"].ToString() + "'";
                                     
                                 int vRespuesta = vConexion.ejecutarSql(vQuery);
@@ -182,8 +186,6 @@ namespace BiometricoWeb.pages
                             }
                         }
                     }
-
-
                 }else
                     throw new Exception("No contiene ninguna hoja de excel.");
             }catch (Exception){
@@ -208,6 +210,8 @@ namespace BiometricoWeb.pages
 
                     if (vCargado)
                         LabelPermisos.Text = "Archivo cargado con exito." + "<br>" + "<b style='color:green;'>Success:</b> " + vSuccess.ToString() + "&emsp;";
+
+                    
                 }else
                     LabelPermisos.Text = "No se encontró ningún archivo a cargar.";
             }catch (Exception Ex){

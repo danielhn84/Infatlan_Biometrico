@@ -111,24 +111,28 @@ namespace BiometricoWeb.pages
                     }else
                         Mensaje("Hubo un error al guardar la entrada.", WarningType.Danger);
                 }else{
-                    vQuery = "[RSP_Seguridad] 1,'" + TxNombre.Text + "'" +
-                        "," + DDLArticulos.SelectedValue +
-                        ",'" + TxSerie.Text + "'" +
-                        ",'" + TxInventario.Text + "'" +
-                        ",'" + TxDestinatario.Text + "'" +
-                        ",'" + Session["USUARIO"].ToString() + "'" +
-                        "," + DDLMotivo.SelectedValue +
-                        ",'" + TxObservaciones.Text + "'" +
-                        "," + DDLDepartamento.SelectedValue ;
+                    String vRSP = DDLMotivo.SelectedValue == "9" ? "[RSP_Seguridad] 12," : "[RSP_Seguridad] 1,";
+
+                    vQuery = vRSP + "'" + TxNombre.Text + "'" +
+                    "," + DDLArticulos.SelectedValue +
+                    ",'" + TxSerie.Text + "'" +
+                    ",'" + TxInventario.Text + "'" +
+                    ",'" + TxDestinatario.Text + "'" +
+                    ",'" + Session["USUARIO"].ToString() + "'" +
+                    "," + DDLMotivo.SelectedValue +
+                    ",'" + TxObservaciones.Text + "'" +
+                    "," + DDLDepartamento.SelectedValue;
                     int vInfo = vConexion.ejecutarSql(vQuery);
-                    if (vInfo == 1){ 
+                    if (vInfo == 1){
                         cargarDatos();
                         UpdateDivBusquedas.Update();
                         Mensaje("Entrada guardada con éxito", WarningType.Success);
                     }else
                         Mensaje("Hubo un error al guardar la entrada.", WarningType.Danger);
+                    
                 }
                 limpiarFormulario();
+                TxBusqueda.Focus();
 
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
@@ -174,8 +178,6 @@ namespace BiometricoWeb.pages
             TxObservaciones.Text = string.Empty;
             DDLDepartamento.SelectedIndex = -1;
 
-            TxBusqueda.Focus();
-
             UpdatePanel3.Update();
             UpdatePanel1.Update();
             UpdatePanel2.Update();
@@ -184,40 +186,46 @@ namespace BiometricoWeb.pages
         protected void TxBusqueda_TextChanged(object sender, EventArgs e){
             try{
                 if (TxBusqueda.Text != "" || TxBusqueda.Text != string.Empty){
-                    String vQuery = "[RSP_Seguridad] 8,'" + TxBusqueda.Text + "'";
-                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-                    if (vDatos.Rows.Count > 0){
-                        Session["ID_SALIDA"] = vDatos.Rows[0]["id"].ToString();
-
-                        DivSalidas.Visible = true;
-                        LbIdSalida.Text = vDatos.Rows[0]["id"].ToString();
-                        LbNombreSalida.Text = vDatos.Rows[0]["nombreSalida"].ToString();
-                        LbSerieSalida.Text = vDatos.Rows[0]["serie"].ToString();
-                        LbArticuloSalida.Text = vDatos.Rows[0]["articulo"].ToString();
-                        LbInventarioSalida.Text = vDatos.Rows[0]["inventario"].ToString();
-                        LbFechaSalida.Text = vDatos.Rows[0]["fechaSalida"].ToString();
-
-                        TxInventario.Text = vDatos.Rows[0]["inventario"].ToString();
-                        DDLArticulos.SelectedValue = vDatos.Rows[0]["idArticulo"].ToString();
-
-                        DivBody.Visible = true;
-                        TxMensaje.Text = "";
-                        TxMensaje.Visible = false;
-                        UpdatePanel1.Update();
+                    String vQuery = "[RSP_Seguridad] 15,'" + TxBusqueda.Text + "'";
+                    DataTable vVerificacion = vConexion.obtenerDataTable(vQuery);
+                    if (vVerificacion.Rows.Count > 0){
+                        limpiarFormulario();
+                        Mensaje("El número de serie tiene una salida pendiente. Favor ingrese otro.", WarningType.Warning);
                     }else{
-                        TxInventario.Text = string.Empty;
-                        DDLArticulos.SelectedIndex = -1;
-                        Session["ID_SALIDA"] = null;
-                        DivSalidas.Visible = false;
-                        DivBody.Visible = false;
-                        TxMensaje.Visible = true;
-                        TxMensaje.Text = "Cree un nuevo registro.";
-                        UpdatePanel1.Update();
-                    }
-                    TxNombre.Focus();
-                    TxSerie.Text = TxBusqueda.Text;
-                    UpdatePanel2.Update();
+                        vQuery = "[RSP_Seguridad] 8,'" + TxBusqueda.Text + "'";
+                        DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                        if (vDatos.Rows.Count > 0){
+                            Session["ID_SALIDA"] = vDatos.Rows[0]["id"].ToString();
 
+                            DivSalidas.Visible = true;
+                            LbIdSalida.Text = vDatos.Rows[0]["id"].ToString();
+                            LbNombreSalida.Text = vDatos.Rows[0]["nombreSalida"].ToString();
+                            LbSerieSalida.Text = vDatos.Rows[0]["serie"].ToString();
+                            LbArticuloSalida.Text = vDatos.Rows[0]["articulo"].ToString();
+                            LbInventarioSalida.Text = vDatos.Rows[0]["inventario"].ToString();
+                            LbFechaSalida.Text = vDatos.Rows[0]["fechaSalida"].ToString();
+
+                            TxInventario.Text = vDatos.Rows[0]["inventario"].ToString();
+                            DDLArticulos.SelectedValue = vDatos.Rows[0]["idArticulo"].ToString();
+
+                            DivBody.Visible = true;
+                            TxMensaje.Text = "";
+                            TxMensaje.Visible = false;
+                            UpdatePanel1.Update();
+                        }else{
+                            TxInventario.Text = string.Empty;
+                            DDLArticulos.SelectedIndex = -1;
+                            Session["ID_SALIDA"] = null;
+                            DivSalidas.Visible = false;
+                            DivBody.Visible = false;
+                            TxMensaje.Visible = true;
+                            TxMensaje.Text = "Cree un nuevo registro.";
+                            UpdatePanel1.Update();
+                        }
+                        TxNombre.Focus();
+                        TxSerie.Text = TxBusqueda.Text;
+                    }
+                    UpdatePanel2.Update();
                 }else
                     limpiarFormulario();
 
@@ -228,6 +236,25 @@ namespace BiometricoWeb.pages
 
         protected void BtnCancelar_Click(object sender, EventArgs e){
             limpiarFormulario();
+        }
+
+        protected void TxBuscaSerie_TextChanged(object sender, EventArgs e){
+            try{
+                if (TxBuscaSerie.Text != "" || TxBuscaSerie.Text != string.Empty){
+                    String vQuery = "[RSP_Seguridad] 6,'" + TxBuscaSerie.Text + "'";
+                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+
+                    GVBusqueda.DataSource = vDatos;
+                    GVBusqueda.DataBind();
+                    Session["SEG_ENTRADAS"] = vDatos;
+
+                }else 
+                    cargarDatos();
+
+                UpdateDivBusquedas.Update();
+            }catch (Exception Ex){
+                Mensaje(Ex.Message, WarningType.Danger);
+            }
         }
     }
 }

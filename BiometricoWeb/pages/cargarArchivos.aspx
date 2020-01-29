@@ -35,13 +35,13 @@
     <div runat="server" visible="true">   
         <nav>
             <div class="nav nav-pills " id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Compensatorio" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-alarm-plus" > </i>Compensatorio</a>
-                <a hidden="hidden" class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#nav-Permisos" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-door-open" > </i>Permisos</a>
+                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#navCompensatorio" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-alarm-plus" > </i>Compensatorio</a>
+                <a class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#navPermisos" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-door-open" > </i>Permisos</a>
             </div>
         </nav>
     </div>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-Compensatorio" role="tabpanel" aria-labelledby="nav-cargar-tab">
+        <div class="tab-pane fade show active" id="navCompensatorio" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
             <div class="row">
                 <div class="col-8 grid-margin stretch-card">
@@ -105,7 +105,7 @@
                                     <asp:Label runat="server" CssClass="col-form-label col-md-2" Text="Empleado:"></asp:Label>
                                     <asp:TextBox runat="server" CssClass="form-control col-md-9" AutoPostBack="true" ID="TxBusqueda" OnTextChanged="TxBusqueda_TextChanged" placeholder="Ej. Elvin - Presione afuera para proceder"></asp:TextBox>
                                 </div>
-                                
+
                                 <br />
 
                                 <div class="row">
@@ -128,11 +128,11 @@
                                                         <asp:BoundField DataField="tipo" HeaderText="Movimiento" ItemStyle-HorizontalAlign="Left" />
                                                         <asp:BoundField DataField="idPermiso" HeaderText="Permiso" ItemStyle-HorizontalAlign="Left" />
                                                         <asp:BoundField DataField="Estado" HeaderText="Estado" ItemStyle-HorizontalAlign="Left" />
-                                                        <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" ItemStyle-HorizontalAlign="Left"/>
-                                                        <asp:BoundField DataField="Horas" HeaderText="Horas" ItemStyle-HorizontalAlign="Left" SortExpression="CantidadHora"/>
-                                                        <asp:BoundField DataField="Detalle" HeaderText="Detalle" ItemStyle-HorizontalAlign="Left"/>
-                                                        <asp:BoundField DataField="Inicio" HeaderText="Inicio" ItemStyle-HorizontalAlign="Left"/>
-                                                        <asp:BoundField DataField="Fin" HeaderText="Fin" ItemStyle-HorizontalAlign="Left"/>
+                                                        <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Horas" HeaderText="Horas" ItemStyle-HorizontalAlign="Left" SortExpression="CantidadHora" />
+                                                        <asp:BoundField DataField="Detalle" HeaderText="Detalle" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Inicio" HeaderText="Inicio" ItemStyle-HorizontalAlign="Left" />
+                                                        <asp:BoundField DataField="Fin" HeaderText="Fin" ItemStyle-HorizontalAlign="Left" />
                                                     </Columns>
                                                 </asp:GridView>
                                             </ContentTemplate>
@@ -155,7 +155,7 @@
             </div>
         </div>
 
-        <div class="tab-pane fade" id="nav-Permisos" role="tabpanel" aria-labelledby="nav-cargar-tab">
+        <div class="tab-pane fade" id="navPermisos" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
             <div class="row">
                 <div class="col-8 grid-margin stretch-card">
@@ -169,9 +169,10 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name"></label>
                                                 <div class="col-md-3 col-sm-3 col-xs-12">
-                                                    <asp:FileUpload runat="server" ID="FUPermisos"  AllowMultiple="false" ClientIDMode="AutoID" />
+                                                    <asp:FileUpload runat="server" ID="FUPermisos" AllowMultiple="false" ClientIDMode="AutoID" />
                                                 </div>
                                             </div>
+
                                             <div class="form-group col-md-3 col-sm-3 col-xs-12">
                                                 <asp:Button ID="BtnSubirPermisos" class="btn btn-sm btn-info" runat="server" Text="Subir" OnClick="BtnSubirPermisos_Click" />
                                             </div>
@@ -183,7 +184,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                                        
                                     </div>
                                 </div>
                             </div>

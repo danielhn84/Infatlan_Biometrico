@@ -14,14 +14,9 @@ namespace BiometricoWeb
         db vConexion;
         protected void Page_Load(object sender, EventArgs e){
             vConexion = new db();
-
-            
-
-
             if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"])){
                     
-
                     CargarMarcajes();
                     String vQuery = "RSP_ObtenerGenerales 6,'" + Convert.ToString(Session["USUARIO"]) + "'";
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);

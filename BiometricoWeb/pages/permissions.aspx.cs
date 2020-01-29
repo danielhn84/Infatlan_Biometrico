@@ -36,6 +36,8 @@ namespace BiometricoWeb.pages
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + "Error al subir archivo, por favor entregarlo en fisico a recursos humanos." + "')", true);
                         else if (vEx.Equals("3"))
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + "Permiso ingresado con exito." + "')", true);
+                        else if (vEx.Equals("4"))
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + "Debe ingresar un documento que justifique el permiso." + "')", true);
                     }
                 }
             }
@@ -104,8 +106,8 @@ namespace BiometricoWeb.pages
         void CargarDiasSAP(){
             try{
                 SapConnector vTest = new SapConnector();
-                //String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
-                String vDias = "5";
+                String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
+                //String vDias = "5";
                 LbNumeroVaciones.Text = vDias;
                 Session["DIASSAP"] = vDias;
             }catch (Exception Ex){
@@ -128,10 +130,11 @@ namespace BiometricoWeb.pages
                 String vEmpleado = DDLEmpleado.SelectedValue;
 
                 String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";
-                String vFF = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";
+                String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";
 
                 DateTime desde = Convert.ToDateTime(vFI);
                 DateTime hasta = Convert.ToDateTime(vFF);
+                DateTime vFechaInicio = Convert.ToDateTime(vFI);
 
                 TimeSpan tsHorario = hasta - desde;
                 ValidacionesPermisos(vEmpleado, desde, hasta, vTipo, tsHorario);
@@ -156,7 +159,7 @@ namespace BiometricoWeb.pages
                 int vDias = vGenerales.BusinessDaysUntil(Convert.ToDateTime(TxFechaInicio.Text), Convert.ToDateTime(TxFechaRegreso.Text));
 
                 LbInformacionPermiso.Text = "Informacion de Permiso de empleado " + DDLEmpleado.SelectedValue + "<br /><br />" +
-                    "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b><br /><br />" +
+                    "Fechas solicitadas del <b>" + vFechaInicio.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b><br /><br />" +
                     "Total: <b>" + days + "</b> días <b>" + tsHorario.Hours + "</b> horas <b>" + tsHorario.Minutes + "</b> minutos<br /><br />" +
                     "Tipo de permiso solicitado: <b>" + DDLTipoPermiso.SelectedItem.Text + "</b><br /><br />" +
                     "¿Estas seguro que estas fechas quieres solicitar?";
@@ -354,7 +357,7 @@ namespace BiometricoWeb.pages
                 }
 
                 if (DDLTipoPermiso.SelectedValue == "1006" && !FUDocumentoPermiso.HasFiles)
-                    throw new Exception("Debe ingresar un documento que justifique el permiso.");
+                    Response.Redirect("/pages/permissions.aspx?ex=4");
 
                 String vArchivo = String.Empty;
                 if (vFileDeposito1 != null)

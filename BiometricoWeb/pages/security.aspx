@@ -244,19 +244,23 @@
 
         <div class="tab-pane fade" id="nav-Registros" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
-            <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Búsqueda</h4>
-                        <div class="row">   
-                            <label class="col-2">Serie del artículo</label>
-                            <div class="col-7">
-                                <asp:TextBox runat="server" ID="TxBuscaSerie" CssClass="form-control"></asp:TextBox>
+            <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Búsqueda</h4>
+                                <div class="row">   
+                                    <label class="col-2">Serie del artículo</label>
+                                    <div class="col-7">
+                                        <asp:TextBox runat="server" ID="TxBuscaSerie" AutoPostBack="true" CssClass="form-control" OnTextChanged="TxBuscaSerie_TextChanged"></asp:TextBox>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
 
             <asp:UpdatePanel ID="UpdateDivBusquedas" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
