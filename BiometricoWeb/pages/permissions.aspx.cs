@@ -420,7 +420,6 @@ namespace BiometricoWeb.pages
                     DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQuery);
 
                     SmtpService vService = new SmtpService();
-                    //-PROD- Boolean vFlagEnvioSupervisor = true;
                     Boolean vFlagEnvioSupervisor = false;
 
                     foreach (DataRow item in vDatosJefatura.Rows){
@@ -784,6 +783,7 @@ namespace BiometricoWeb.pages
                     ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "$('#ModalToken').modal('hide');", true);
                     MensajeBlock("Token ingresado.", WarningType.Success);
                 }
+
             }catch (Exception ex) { 
                 Mensaje(ex.Message, WarningType.Danger); 
             }

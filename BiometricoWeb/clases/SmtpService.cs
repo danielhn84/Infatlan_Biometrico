@@ -17,7 +17,8 @@ namespace BiometricoWeb.clases
         Solicitante,
         Aprobado,
         Rechazado,
-        Token
+        Token,
+        Seguridad
     }
 
     public class SmtpService : Page{
@@ -83,6 +84,16 @@ namespace BiometricoWeb.clases
                             "Se ha creado un Token para emergencias",
                             ConfigurationManager.AppSettings["Host"] + "/pages/permissions.aspx",
                             "Token: <b>" + Nombre + @"</b> <br \> Ingresa este token en la pagina de permisos despues de haber seleccionado la opción de emergencias, este token solo puede ser utilizado una sola vez."
+                            ), Server.MapPath("/images/logo.png")));
+                        break;
+                    case typeBody.Seguridad:
+                        string[] vInfo = Nombre.Split('-');
+
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBody(
+                            Usuario,
+                            "Se ha creado un registro de <b>" + vInfo[0].ToString() + "</b> con su autorización. <br> Id: <b>" + vInfo[1].ToString() + "</b><br>Sección de " + vInfo[2].ToString() + " del módulo de seguridad.",
+                            ConfigurationManager.AppSettings["Host"] + "/pages/security.aspx",
+                            "Si no ha autorizado la salida del artículo. Favor comuníquese con el personal de seguridad."
                             ), Server.MapPath("/images/logo.png")));
                         break;
 

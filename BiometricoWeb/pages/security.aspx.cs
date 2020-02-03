@@ -34,7 +34,6 @@ namespace BiometricoWeb.pages
             try{
                 String vQuery = "RSP_Seguridad 3";
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-
                 if (vDatos.Rows.Count > 0){
                     GVBusqueda.DataSource = vDatos;
                     GVBusqueda.DataBind();
@@ -43,7 +42,7 @@ namespace BiometricoWeb.pages
 
                 vQuery = "RSP_Seguridad 5";
                 vDatos = vConexion.obtenerDataTable(vQuery);
-
+                DDLArticulos.Items.Clear();
                 DDLArticulos.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
                     DDLArticulos.Items.Add(new ListItem { Value = item["idDetalle"].ToString(), Text = item["descripcion"].ToString() });
@@ -51,8 +50,8 @@ namespace BiometricoWeb.pages
 
                 vQuery = "RSP_ObtenerGenerales 12";
                 vDatos = vConexion.obtenerDataTable(vQuery);
-
                 if (vDatos.Rows.Count > 0){
+                    DDLDepartamento.Items.Clear();
                     DDLDepartamento.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                     foreach (DataRow item in vDatos.Rows){
                         DDLDepartamento.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["nombre"].ToString() });
@@ -61,15 +60,26 @@ namespace BiometricoWeb.pages
 
                 vQuery = "RSP_Seguridad 9";
                 vDatos = vConexion.obtenerDataTable(vQuery);
-
                 if (vDatos.Rows.Count > 0){
+                    DDLMotivo.Items.Clear();
                     DDLMotivo.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                     foreach (DataRow item in vDatos.Rows){
                         DDLMotivo.Items.Add(new ListItem { Value = item["idDetalle"].ToString(), Text = item["descripcion"].ToString() });
                     }
                 }
 
-            }catch (Exception ex){
+                vQuery = "RSP_ObtenerGenerales 1";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                if (vDatos.Rows.Count > 0){
+                    DDLAutorizado.Items.Clear();
+                    DDLAutorizado.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    foreach (DataRow item in vDatos.Rows){
+                        DDLAutorizado.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
+                    }
+                }
+
+            }
+            catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
 
@@ -94,6 +104,7 @@ namespace BiometricoWeb.pages
             try{
                 validaciones();
                 String vQuery = "";
+                DataTable vInfo = new DataTable();
 
                 if (Session["ID_SALIDA"] != null) {
                     vQuery = "[RSP_Seguridad] 7" +
@@ -102,9 +113,11 @@ namespace BiometricoWeb.pages
                         ",'" + TxDestinatario.Text + "'" +
                         "," + DDLDepartamento.SelectedValue +
                         "," + DDLMotivo.SelectedValue +
-                        ",'" + TxObservaciones.Text + "'";
-                    int vInfo = vConexion.ejecutarSql(vQuery);
-                    if (vInfo == 3){
+                        ",'" + TxObservaciones.Text + "'" +
+                        "," + DDLAutorizado.SelectedValue;
+                    vInfo = vConexion.obtenerDataTable(vQuery);
+                    if (vInfo.Rows.Count > 0){
+                        enviaCorreo(vInfo);
                         cargarDatos();
                         UpdateDivBusquedas.Update();
                         Mensaje("Entrada guardada con éxito", WarningType.Success);
@@ -121,15 +134,16 @@ namespace BiometricoWeb.pages
                     ",'" + Session["USUARIO"].ToString() + "'" +
                     "," + DDLMotivo.SelectedValue +
                     ",'" + TxObservaciones.Text + "'" +
-                    "," + DDLDepartamento.SelectedValue;
-                    int vInfo = vConexion.ejecutarSql(vQuery);
-                    if (vInfo == 1){
+                    "," + DDLDepartamento.SelectedValue +
+                    "," + DDLAutorizado.SelectedValue;
+                    vInfo = vConexion.obtenerDataTable(vQuery);
+                    if (vInfo.Rows.Count > 0){
+                        enviaCorreo(vInfo);
                         cargarDatos();
                         UpdateDivBusquedas.Update();
                         Mensaje("Entrada guardada con éxito", WarningType.Success);
                     }else
                         Mensaje("Hubo un error al guardar la entrada.", WarningType.Danger);
-                    
                 }
                 limpiarFormulario();
                 TxBusqueda.Focus();
@@ -255,6 +269,24 @@ namespace BiometricoWeb.pages
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
+        }
+
+        private void enviaCorreo(DataTable vDatos) {
+            //ENVIAR CORREO
+            String vQuery = "RSP_ObtenerEmpleados 2," + DDLAutorizado.SelectedValue;
+            DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQuery);
+
+            SmtpService vService = new SmtpService();
+            foreach (DataRow item in vDatosEmpleado.Rows){
+                if (!item["emailEmpresa"].ToString().Trim().Equals("")){
+                    vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                        typeBody.Seguridad,
+                        item["nombre"].ToString(),
+                        "ENTRADA-" + vDatos.Rows[0]["id"].ToString() + "-" + vDatos.Rows[0]["tabla"].ToString()
+                        );
+                }
+            }
+
         }
     }
 }

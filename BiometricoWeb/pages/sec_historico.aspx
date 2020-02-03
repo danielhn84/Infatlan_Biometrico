@@ -65,7 +65,7 @@
                                     AutoGenerateColumns="false"
                                     AllowPaging="true"
                                     GridLines="None"
-                                    PageSize="10">
+                                    PageSize="10" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
                                     <Columns>
                                         <asp:BoundField DataField="id" HeaderText="Id" />
                                         <asp:BoundField DataField="nombre" HeaderText="Nombre Entrada" />

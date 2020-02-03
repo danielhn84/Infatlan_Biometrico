@@ -65,5 +65,16 @@ namespace BiometricoWeb.pages
                 Mensaje(ex.Message, WarningType.Danger);
             }
         }
+
+        protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            try{
+                GVBusqueda.PageIndex = e.NewPageIndex;
+                GVBusqueda.DataSource = (DataTable)Session["SEG_HISTORICO"];
+                GVBusqueda.DataBind();
+
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
     }
 }

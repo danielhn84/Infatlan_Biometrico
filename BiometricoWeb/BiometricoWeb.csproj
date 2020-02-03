@@ -146,9 +146,11 @@
     <Content Include="pages\finished.aspx" />
     <Content Include="pages\mail\TemplateMail.html" />
     <Content Include="pages\permissions.aspx" />
+    <Content Include="pages\politicas.aspx" />
     <Content Include="pages\puestos.aspx" />
     <Content Include="pages\salidas.aspx" />
     <Content Include="pages\security.aspx" />
+    <Content Include="pages\sec_aprobaciones.aspx" />
     <Content Include="pages\sec_historico.aspx" />
     <Content Include="pages\settings.aspx" />
     <Content Include="pages\token.aspx" />
@@ -264,6 +266,13 @@
     <Compile Include="pages\permissions.aspx.designer.cs">
       <DependentUpon>permissions.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\politicas.aspx.cs">
+      <DependentUpon>politicas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\politicas.aspx.designer.cs">
+      <DependentUpon>politicas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\puestos.aspx.cs">
       <DependentUpon>puestos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -284,6 +293,13 @@
     </Compile>
     <Compile Include="pages\security.aspx.designer.cs">
       <DependentUpon>security.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\sec_aprobaciones.aspx.cs">
+      <DependentUpon>sec_aprobaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\sec_aprobaciones.aspx.designer.cs">
+      <DependentUpon>sec_aprobaciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\sec_historico.aspx.cs">
       <DependentUpon>sec_historico.aspx</DependentUpon>
