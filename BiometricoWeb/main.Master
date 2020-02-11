@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="shortcut icon" href="/images/logo_mini.png" />
 
-
     <script type="text/javascript"> 
         infatlan = {
             showNotification: function (from, align, mensaje, tipo) {
@@ -38,7 +37,6 @@
             }
         }
     </script>
-
     <script>
         function closeNav() {
             $('#BtnToggle').click();
@@ -191,10 +189,10 @@
                             </a>
                             <div class="collapse" id="ui-basic5">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="/pages/security.aspx">Entradas</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="/pages/salidas.aspx">Salidas</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="/pages/sec_historico.aspx">Historico</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="/pages/sec_aprobaciones.aspx">Aprobaciones</a></li>
+                                    <li class="nav-item" runat="server" visible="false" id="LISEC_Entradas"><a class="nav-link" href="/pages/security.aspx">Entradas</a></li>
+                                    <li class="nav-item" runat="server" visible="false" id="LISEC_Salidas"><a class="nav-link" href="/pages/salidas.aspx">Salidas</a></li>
+                                    <li class="nav-item" runat="server" visible="false" id="LISEC_Historico"><a class="nav-link" href="/pages/sec_historico.aspx">Historico</a></li>
+                                    <li class="nav-item" runat="server" visible="false" id="LISEC_Aprobaciones"><a class="nav-link" href="/pages/sec_aprobaciones.aspx">Aprobaciones</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -236,7 +234,6 @@
     <script src="/js/jquery.dataTables.js"></script>
     <script src="/js/dataTables.bootstrap4.js"></script>
     <script src="/js/bootstrap-notify.js"></script>
-
 
     <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
     </asp:ContentPlaceHolder>

@@ -130,12 +130,12 @@ namespace BiometricoWeb.pages
                         if (idEmpleado && fechainicio && fechafin){
                             for (int i = 0; i < vDatos.Rows.Count; i++){
                                 String vEmpleado = vDatos.Rows[i]["ID_EMPLEADO_SAP"].ToString();
-                                String vFechaCompensacion = vDatos.Rows[i]["FECHA"].ToString();
+                                String vFechaCompensacion = Convert.ToDateTime(vDatos.Rows[i]["FECHA"].ToString()).ToString("MM-dd-yyyy HH:mm:ss");
                                 String vCantidadHoras = vDatos.Rows[i]["CANTIDAD_HORAS"].ToString();
                                 String vHoras2 = vCantidadHoras.Contains(",") ? vCantidadHoras.ToString().Replace(',', '.') : vCantidadHoras.ToString();
 
                                 string[] varr = DireccionCarga.Split('/');
-                            
+                                
                                 vQuery = "RSP_Compensatorio 1,'" + vEmpleado + "', 1,'" + varr[4].ToString() + "','" + Session["USUARIO"].ToString() + "','" + vFechaCompensacion + "'," + vHoras2 + ",null";
                                 int vRespuesta = vConexion.ejecutarSql(vQuery);
                                 if (vRespuesta == 2)
@@ -334,5 +334,6 @@ namespace BiometricoWeb.pages
             }
             
         }
+
     }
 }

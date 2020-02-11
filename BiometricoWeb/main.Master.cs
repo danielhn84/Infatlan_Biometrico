@@ -30,6 +30,10 @@ namespace BiometricoWeb
                             LIMantenimientos.Visible = true;
                             LIToken.Visible = true;
                             LISecurity.Visible = true;
+                            LISEC_Aprobaciones.Visible = true;
+                            LISEC_Entradas.Visible = true;
+                            LISEC_Salidas.Visible = true;
+                            LISEC_Historico.Visible = true;
                         }
 
                         //MODULO PARA SEGURIDAD
@@ -42,7 +46,18 @@ namespace BiometricoWeb
                             LIToken.Visible = false;
                             LIDashboard.Visible = false;
                             LISecurity.Visible = true;
+                            LISEC_Aprobaciones.Visible = false;
+                            LISEC_Entradas.Visible = true;
+                            LISEC_Salidas.Visible = true;
+                            LISEC_Historico.Visible = false;
                         }
+
+                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3")){
+                            LISecurity.Visible = true;
+                            LISEC_Aprobaciones.Visible = true;
+                            LIPermisos.Visible = true;
+                        }
+
                     }else{
                         LIAutorizaciones.Visible = true;
                         LIPermisos.Visible = true;

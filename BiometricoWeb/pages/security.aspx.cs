@@ -68,7 +68,7 @@ namespace BiometricoWeb.pages
                     }
                 }
 
-                vQuery = "RSP_ObtenerGenerales 1";
+                vQuery = "RSP_Seguridad 18";
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     DDLAutorizado.Items.Clear();
@@ -78,8 +78,7 @@ namespace BiometricoWeb.pages
                     }
                 }
 
-            }
-            catch (Exception ex){
+            }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
 
@@ -203,6 +202,7 @@ namespace BiometricoWeb.pages
                     String vQuery = "[RSP_Seguridad] 15,'" + TxBusqueda.Text + "'";
                     DataTable vVerificacion = vConexion.obtenerDataTable(vQuery);
                     if (vVerificacion.Rows.Count > 0){
+                        TxBusqueda.Focus();
                         limpiarFormulario();
                         Mensaje("El número de serie tiene una salida pendiente. Favor ingrese otro.", WarningType.Warning);
                     }else{

@@ -40,6 +40,7 @@
             <div class="nav nav-pills " id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Nuevo" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-plus" style=""> </i>Nuevo</a>
                 <a class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-clipboard" style=""> </i>Registros</a>
+                <a class="nav-item nav-link" id="nav_autorizaciones_tab" data-toggle="tab" href="#nav-Aprobaciones" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-checkbox-marked-circle" style=""> </i>Aprobaciones</a>
             </div>
         </nav>
     </div>
@@ -58,6 +59,7 @@
                                     <label class="col-2">Serie del artículo</label>
                                     <div class="col-7">
                                         <asp:TextBox runat="server" ID="TxBusqueda" AutoPostBack="true" OnTextChanged="TxBusqueda_TextChanged" CssClass="form-control"></asp:TextBox>
+                                        <b><asp:Label runat="server" ID="LbAprobacion" Visible="false" CssClass="col-form-label" Text=""></asp:Label></b>
                                     </div>
                                     <asp:Label runat="server" ID="TxMensaje" ForeColor="CornflowerBlue" CssClass="col-form-label" Text=""></asp:Label>
                                 </div>
@@ -199,7 +201,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">   
+                                <div class="row" runat="server" id="divAutorizado" >   
                                     <div class="col-6">
                                         <div class="form-group row">
                                             <label class="col-3">Autorizado Por</label>
@@ -275,6 +277,44 @@
                                                 <asp:BoundField DataField="serie" HeaderText="Serie" />
                                                 <asp:BoundField DataField="inventario" HeaderText="No. Inventario" />
                                                 <asp:BoundField DataField="fechaSalida" HeaderText="Fecha" />
+                                            </Columns>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+        <div class="tab-pane fade" id="nav-Aprobaciones" role="tabpanel" aria-labelledby="nav-cargar-tab">
+            <br />
+            <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Aprobaciones de Salida</h4>
+                                <p>Ordenados por fecha de creación</p>
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <asp:GridView ID="GVAprobaciones" runat="server"
+                                            CssClass="mydatagrid"
+                                            PagerStyle-CssClass="pgr"
+                                            HeaderStyle-CssClass="header"
+                                            RowStyle-CssClass="rows"
+                                            AutoGenerateColumns="false"
+                                            AllowPaging="true"
+                                            GridLines="None" OnRowCommand="GVAprobaciones_RowCommand"
+                                            PageSize="10" OnPageIndexChanging="GVAprobaciones_PageIndexChanging">
+                                            <Columns>
+                                                <asp:BoundField DataField="id" HeaderText="id" Visible="false" />
+                                                <asp:BoundField DataField="Empleado" HeaderText="Nombre" />
+                                                <asp:BoundField DataField="Articulo" HeaderText="Artículo" />
+                                                <asp:BoundField DataField="serie" HeaderText="Serie" />
+                                                <asp:BoundField DataField="observaciones" HeaderText="observaciones" />
+                                                <asp:BoundField DataField="fecha" HeaderText="Fecha" />
                                             </Columns>
                                         </asp:GridView>
                                     </div>

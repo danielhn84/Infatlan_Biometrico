@@ -58,7 +58,7 @@ namespace BiometricoWeb.pages
                     int days = 1;
                     if (ts.Days >= 1)
                         days = dias; //ts.Days + 1 - 
-                    else if (ts.Hours > 0)
+                    else if (ts.Hours > 0 || ts.Minutes > 0)
                         days = 0;
 
                     vDatos.Rows[i]["Detalle"] = days + " días, " + ts.Hours + " horas, " + ts.Minutes + " minutos";
@@ -96,26 +96,23 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            try
-            {
-                if (e.CommandName == "AutorizarEmpleado")
-                {
+        protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                if (e.CommandName == "AutorizarEmpleado"){
                     string vIdPermiso = e.CommandArgument.ToString();
                     LbNumeroPermiso.Text = vIdPermiso;
                     UpdateLabelPermiso.Update();
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-                if (e.CommandName == "AutorizarEmpleadoRecursosHumanos")
-                {
+
+                if (e.CommandName == "AutorizarEmpleadoRecursosHumanos"){
                     string vIdPermiso = e.CommandArgument.ToString();
                     LbFinalizarPermiso.Text = vIdPermiso;
                     UpdatePanel1.Update();
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openFinalizarModal();", true);
                 }
-                if (e.CommandName == "MotivoPermiso")
-                {
+
+                if (e.CommandName == "MotivoPermiso"){
                     string vIdPermiso = e.CommandArgument.ToString();
 
                     String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + vIdPermiso;
@@ -125,7 +122,6 @@ namespace BiometricoWeb.pages
                     if (!vDatos.Rows[0]["Motivo"].ToString().Equals(""))
                         vMotivo = vDatos.Rows[0]["Motivo"].ToString();
 
-
                     String vMensaje = String.Empty;
                     vMensaje += "Motivo: " + vMotivo + "\\n";
                     vMensaje += "Fecha Solicitud: " + vDatos.Rows[0]["FechaSolicitud"].ToString() + "\\n";
@@ -133,11 +129,9 @@ namespace BiometricoWeb.pages
 
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vMensaje + "')", true);
                 }
-                if (e.CommandName == "DocumentoPermiso")
-                {
+
+                if (e.CommandName == "DocumentoPermiso"){
                     string vIdPermiso = e.CommandArgument.ToString();
-
-
                     String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + vIdPermiso;
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
 
@@ -145,17 +139,17 @@ namespace BiometricoWeb.pages
                     if (!vDatos.Rows[0]["documento"].ToString().Equals(""))
                         vDocumento = vDatos.Rows[0]["documento"].ToString();
 
-                    if (!vDocumento.Equals(""))
-                    {
+                    if (!vDocumento.Equals("")){
                         LbPermisoDescarga.Text = vIdPermiso;
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDescargarModal();", true);
-                    }
-                    else
+                    }else
                         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('No existe documento en este permiso')", true);
                 }
                 CargarAutorizaciones();
+
+            }catch (Exception Ex){ 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
         protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){

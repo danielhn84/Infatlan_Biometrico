@@ -306,7 +306,7 @@ namespace BiometricoWeb.pages
                         throw new Exception("Ya existe un permiso en el tiempo seleccionado");
                 }
 
-                if (Convert.ToInt32(vTipo) < 2000){
+                if (Convert.ToInt32(vTipo) < 2000 && vTipo != "1003" && vTipo != "1005" && vTipo != "1011" && vTipo != "1023" && vTipo != "1024" && vTipo != "1025"){
                     TimeSpan ts = Convert.ToDateTime(TxFechaInicio.Text) - DateTime.Now;
                     if (ts.Days < -15)
                         throw new Exception("No se pueden agregar permisos por incumplimiento de politica (15 dias maximo para ingresar permisos pasados)");

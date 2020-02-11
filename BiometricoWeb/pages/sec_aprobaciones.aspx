@@ -34,69 +34,119 @@
         </div>
     </div>
 
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
-            <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Datos generales</h4>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group row">
-                                    <label class="col-3">Artículo</label>
-                                    <div class="col-9">
-                                        <asp:DropDownList ID="DDLArticulo" runat="server" class="form-control"></asp:DropDownList>
+    <div runat="server" visible="true">   
+        <nav>
+            <div class="nav nav-pills " id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav_Aprobaciones_tab" data-toggle="tab" href="#nav-Nuevo" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-plus" style=""> </i>Nuevo</a>
+                <a class="nav-item nav-link" id="nav_MisAprobaciones_tab" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-checkbox-marked-circle" style="margin-right:5px"></i>Aprobaciones</a>
+            </div>
+        </nav>
+    </div>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-Nuevo" role="tabpanel" aria-labelledby="nav-cargar-tab">
+            <br />
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Datos generales</h4>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-3">Artículo</label>
+                                            <div class="col-9">
+                                                <asp:DropDownList ID="DDLArticulo" runat="server" class="form-control"></asp:DropDownList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-3">Serie</label>
+                                            <div class="col-9">
+                                                <asp:TextBox runat="server" ID="TxSerie" CssClass="form-control"></asp:TextBox>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group row">
-                                    <label class="col-3">Serie</label>
-                                    <div class="col-9">
-                                        <asp:TextBox runat="server" ID="TxSerie" CssClass="form-control"></asp:TextBox>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group row">
-                                    <label class="col-3">Acción</label>
-                                    <div class="col-9">
-                                        <asp:DropDownList ID="DDLAccion" runat="server" class="form-control">
-                                            <asp:ListItem Value="-1" Text="Seleccione"></asp:ListItem>
-                                            <asp:ListItem Value="0" Text="Entrada"></asp:ListItem>
-                                            <asp:ListItem Value="1" Text="Salida"></asp:ListItem>
-                                        </asp:DropDownList>                                        
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-3">Acción</label>
+                                            <div class="col-9">
+                                                <asp:DropDownList ID="DDLAccion" runat="server" class="form-control">
+                                                    <asp:ListItem Value="-1" Text="Seleccione"></asp:ListItem>
+                                                    <asp:ListItem Value="0" Text="Entrada"></asp:ListItem>
+                                                    <asp:ListItem Value="1" Text="Salida"></asp:ListItem>
+                                                </asp:DropDownList>                                        
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group row">
-                                    <label class="col-3">Observaciones</label>
-                                    <div class="col-sm-9">
-                                        <asp:TextBox runat="server" ID="TxObservaciones" CssClass="form-control"></asp:TextBox>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-3">Observaciones</label>
+                                            <div class="col-sm-9">
+                                                <asp:TextBox runat="server" ID="TxObservaciones" CssClass="form-control"></asp:TextBox>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:Button runat="server" ID="BtnEnviar" Text="Aprobar" CssClass="btn btn-success" OnClick="BtnEnviar_Click"/>
+                                <asp:Button runat="server" ID="BtnCancelar" Text="Cancelar" CssClass="btn btn-secondary" OnClick="BtnCancelar_Click"/>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
                 </div>
             </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+        </div>
 
-    <div class="col-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
-                        <asp:Button runat="server" ID="BtnEnviar" Text="Aprobar" CssClass="btn btn-success" OnClick="BtnEnviar_Click"/>
-                        <asp:Button runat="server" ID="BtnCancelar" Text="Cancelar" CssClass="btn btn-secondary" OnClick="BtnCancelar_Click"/>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
-            </div>
+        <div class="tab-pane fade" id="nav-Registros" role="tabpanel" aria-labelledby="nav-cargar-tab">
+            <br />
+            <asp:UpdatePanel ID="UpdateDivBusquedas" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Aprobaciones Pendientes</h4>
+                                <p>Ordenados por fecha de creación</p>
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <asp:GridView ID="GVBusqueda" runat="server"
+                                            CssClass="mydatagrid"
+                                            PagerStyle-CssClass="pgr"
+                                            HeaderStyle-CssClass="header"
+                                            RowStyle-CssClass="rows"
+                                            AutoGenerateColumns="false"
+                                            AllowPaging="true"
+                                            GridLines="None"
+                                            PageSize="10" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
+                                            <Columns>
+                                                <asp:BoundField DataField="id" HeaderText="No." Visible="false" />
+                                                <asp:BoundField DataField="Articulo" HeaderText="Articulo" />
+                                                <asp:BoundField DataField="serie" HeaderText="Serie" />
+                                                <asp:BoundField DataField="observaciones" HeaderText="Observaciones" />
+                                                <asp:BoundField DataField="fecha" HeaderText="Fecha" />
+                                            </Columns>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </div>
 </asp:Content>

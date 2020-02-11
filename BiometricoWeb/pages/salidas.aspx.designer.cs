@@ -42,6 +42,15 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.WebControls.TextBox TxBusqueda;
 
         /// <summary>
+        /// Control LbAprobacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbAprobacion;
+
+        /// <summary>
         /// Control TxMensaje.
         /// </summary>
         /// <remarks>
@@ -195,6 +204,15 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.WebControls.TextBox TxObservaciones;
 
         /// <summary>
+        /// Control divAutorizado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAutorizado;
+
+        /// <summary>
         /// Control DDLAutorizado.
         /// </summary>
         /// <remarks>
@@ -265,5 +283,23 @@ namespace BiometricoWeb.pages
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GVBusqueda;
+
+        /// <summary>
+        /// Control UpdatePanel6.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
+
+        /// <summary>
+        /// Control GVAprobaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVAprobaciones;
     }
 }

@@ -49,7 +49,7 @@ namespace BiometricoWeb.clases
                 DataTable vDatos = vDatosLogin;
 
                 if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")){
-                    if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2") || vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
+                    if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2") || vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1") || vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3")){
                         vFlag = true;
                     }
                 }else{

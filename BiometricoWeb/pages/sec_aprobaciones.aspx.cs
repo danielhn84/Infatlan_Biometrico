@@ -40,6 +40,15 @@ namespace BiometricoWeb.pages
                         DDLArticulo.Items.Add(new ListItem { Value = item["idDetalle"].ToString(), Text = item["descripcion"].ToString() });
                     }
                 }
+
+                vQuery = "[RSP_Seguridad] 22," + Session["USUARIO"].ToString();
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                if (vDatos.Rows.Count > 0){
+                    GVBusqueda.DataSource = vDatos;
+                    GVBusqueda.DataBind();
+                    Session["SEG_SALIDAS_EMPLEADO"] = vDatos;
+                }
+
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -59,7 +68,7 @@ namespace BiometricoWeb.pages
                     "," + vUser +
                     "," + DDLArticulo.SelectedValue +
                     "," + DDLAccion.SelectedValue +
-                    "," + TxSerie.Text + "'" +
+                    ",'" + TxSerie.Text + "'" +
                     ",'" + TxObservaciones.Text + "'";
                 int vInfo = vConexion.ejecutarSql(vQuery);
                 if (vInfo == 1)
@@ -97,6 +106,17 @@ namespace BiometricoWeb.pages
             TxObservaciones.Text = string.Empty;
 
             UpdatePanel1.Update();
+        }
+
+        protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            try{
+                GVBusqueda.PageIndex = e.NewPageIndex;
+                GVBusqueda.DataSource = (DataTable)Session["SEG_SALIDAS_EMPLEADO"];
+                GVBusqueda.DataBind();
+
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
     }
 }
