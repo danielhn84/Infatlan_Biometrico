@@ -218,17 +218,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group row">
-                                            <label class="col-3">Autorizado Por</label>
-                                            <div class="col-9">
-                                                <asp:DropDownList ID="DDLAutorizado" runat="server" class="form-control"></asp:DropDownList>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

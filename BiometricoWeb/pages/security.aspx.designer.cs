@@ -213,15 +213,6 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.WebControls.TextBox TxObservaciones;
 
         /// <summary>
-        /// Control DDLAutorizado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLAutorizado;
-
-        /// <summary>
         /// Control UpdatePanel4.
         /// </summary>
         /// <remarks>

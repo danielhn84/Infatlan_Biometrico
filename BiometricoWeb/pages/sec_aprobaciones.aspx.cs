@@ -71,12 +71,14 @@ namespace BiometricoWeb.pages
                     ",'" + TxSerie.Text + "'" +
                     ",'" + TxObservaciones.Text + "'";
                 int vInfo = vConexion.ejecutarSql(vQuery);
-                if (vInfo == 1)
+                if (vInfo == 1) { 
                     Mensaje("Aprobacion de " + vAccion + " de equipo exitosa.", WarningType.Success);
-                else
+                }else
                     Mensaje("Hubo un problema al aprobar la " + vAccion + ". Comuníquese con Sistemas.", WarningType.Danger);
 
                 limpiarFormulario();
+                cargarDatos();
+                UpdateDivBusquedas.Update();
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }

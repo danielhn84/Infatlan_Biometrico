@@ -71,15 +71,15 @@ namespace BiometricoWeb.pages
                     }
                 }
 
-                vQuery = "[RSP_Seguridad] 18";
-                vDatos = vConexion.obtenerDataTable(vQuery);
-                if (vDatos.Rows.Count > 0){
-                    DDLAutorizado.Items.Clear();
-                    DDLAutorizado.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                    foreach (DataRow item in vDatos.Rows){
-                        DDLAutorizado.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
-                    }
-                }
+                //vQuery = "[RSP_Seguridad] 18";
+                //vDatos = vConexion.obtenerDataTable(vQuery);
+                //if (vDatos.Rows.Count > 0){
+                //    DDLAutorizado.Items.Clear();
+                //    DDLAutorizado.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                //    foreach (DataRow item in vDatos.Rows){
+                //        DDLAutorizado.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
+                //    }
+                //}
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -109,11 +109,11 @@ namespace BiometricoWeb.pages
 
                 if (Session["ID_ENTRADA"] != null){
                     String vId = Session["ID_ENTRADA"].ToString();
-                    vQuery = "[RSP_Seguridad] 10," + vId + 
+                    vQuery = "[RSP_Seguridad] 10," + vId +
                         ",'" + TxNombre.Text + "'" +
-                        "," + DDLMotivo.SelectedValue + 
+                        "," + DDLMotivo.SelectedValue +
                         ",'" + TxObservaciones.Text + "'" +
-                        "," + DDLAutorizado.SelectedValue;
+                        "," + vAprob.Rows[0]["id"].ToString();
 
                     vInfo = vConexion.obtenerDataTable(vQuery);
                     if (vInfo.Rows.Count > 0){
@@ -121,8 +121,9 @@ namespace BiometricoWeb.pages
                             String vIdAprob = vAprob.Rows[0]["id"].ToString();
                             vQuery = "[RSP_Seguridad] 20," + vIdAprob;
                             vConexion.ejecutarSql(vQuery);
-                        }else
-                            enviaCorreo(vInfo);
+                        }
+                        //else
+                        //    enviaCorreo(vInfo);
                         
                         cargarDatos();
                         UpdateDivBusquedas.Update();
@@ -139,16 +140,15 @@ namespace BiometricoWeb.pages
                         ",'" + TxInventario.Text + "'" +
                         "," + DDLMotivo.SelectedValue +
                         ",'" + TxObservaciones.Text + "'" +
-                        ",'" + Session["USUARIO"].ToString() + "'" +
-                        "," + DDLAutorizado.SelectedValue;
+                        ",'" + Session["USUARIO"].ToString() + "'";
                     vInfo = vConexion.obtenerDataTable(vQuery);
                     if (vInfo.Rows.Count > 0){
                         if (vAprob != null){
                             String vIdAprob = vAprob.Rows[0]["id"].ToString();
                             vQuery = "[RSP_Seguridad] 20," + vIdAprob;
                             vConexion.ejecutarSql(vQuery);
-                        }else
-                            enviaCorreo(vInfo);
+                        }//else
+                            //enviaCorreo(vInfo);
                         
                         cargarDatos();
                         UpdateDivBusquedas.Update();
@@ -176,8 +176,11 @@ namespace BiometricoWeb.pages
                 throw new Exception("Favor ingrese el número de inventario.");
             if (DDLMotivo.SelectedValue.Equals("0"))
                 throw new Exception("Favor seleccione el Motivo de salida.");
-            if (LbAprobacion.Text == "No Aprobado!" && DDLAutorizado.SelectedValue.Equals("0"))
-                throw new Exception("Favor ingrese la persona que autorizó la salida de equipo.");
+            if (LbAprobacion.Text != "Aprobado!")
+                throw new Exception("El articulo no ha sido aprobado para salir.");
+
+            //if (LbAprobacion.Text == "No Aprobado!" && DDLAutorizado.SelectedValue.Equals("0"))
+            //    throw new Exception("Favor ingrese la persona que autorizó la salida de equipo.");
         }
 
         private void limpiarFormulario(){
@@ -199,7 +202,7 @@ namespace BiometricoWeb.pages
             TxInventario.Text = string.Empty;
             DDLMotivo.SelectedIndex = -1;
             TxObservaciones.Text = string.Empty;
-            DDLAutorizado.SelectedIndex = -1;
+            //DDLAutorizado.SelectedIndex = -1;
 
             UpdatePanel3.Update();
             UpdatePanel1.Update();
@@ -222,12 +225,13 @@ namespace BiometricoWeb.pages
                         if (vDatos1.Rows.Count > 0){
                             LbAprobacion.Text = "Aprobado!";
                             LbAprobacion.Attributes.CssStyle.Value = "color:Green; margin-top:100px; margin-left:20px;";
-                            divAutorizado.Visible = false;
+                            
+                            //divAutorizado.Visible = false;
                             Session["SEC_APROBACION_SALIDA"] = vDatos1;
                         }else{
                             LbAprobacion.Text = "No Aprobado!";
                             LbAprobacion.Attributes.CssStyle.Value = "color:Tomato; margin-bottom:10px; margin-left:20px;";
-                            divAutorizado.Visible = true;
+                            //divAutorizado.Visible = true;
                         }
                         LbAprobacion.Visible = true;
 
@@ -258,7 +262,7 @@ namespace BiometricoWeb.pages
                             DivEntradas.Visible = false;
                             DivBody.Visible = false;
                             TxMensaje.Visible = true;
-                            TxMensaje.Text = "Cree un nuevo registro.";
+                            TxMensaje.Text = LbAprobacion.Text == "Aprobado!" ? "Cree un nuevo registro." : string.Empty ;
                             UpdatePanel1.Update();
                         }
                         TxNombre.Focus();
@@ -297,8 +301,8 @@ namespace BiometricoWeb.pages
         }
 
         private void enviaCorreo(DataTable vDatos){
-            String vQuery = "RSP_ObtenerEmpleados 2," + DDLAutorizado.SelectedValue;
-            DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQuery);
+            //String vQuery = "RSP_ObtenerEmpleados 2," + DDLAutorizado.SelectedValue;
+            DataTable vDatosEmpleado = vConexion.obtenerDataTable("");
 
             SmtpService vService = new SmtpService();
             foreach (DataRow item in vDatosEmpleado.Rows){
@@ -312,9 +316,15 @@ namespace BiometricoWeb.pages
             }
         }
 
-        protected void GVAprobaciones_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
+        protected void GVAprobaciones_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            try{
+                GVAprobaciones.PageIndex = e.NewPageIndex;
+                GVAprobaciones.DataSource = (DataTable)Session["SEG_APR_SALIDAS"];
+                GVAprobaciones.DataBind();
 
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
 
         protected void GVAprobaciones_RowCommand(object sender, GridViewCommandEventArgs e){

@@ -38,7 +38,7 @@
         <nav>
             <div class="nav nav-pills " id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav_Aprobaciones_tab" data-toggle="tab" href="#nav-Nuevo" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-plus" style=""> </i>Nuevo</a>
-                <a class="nav-item nav-link" id="nav_MisAprobaciones_tab" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-checkbox-marked-circle" style="margin-right:5px"></i>Aprobaciones</a>
+                <a class="nav-item nav-link" id="nav_MisAprobaciones_tab" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-checkbox-marked-circle" style="margin-right:5px"></i>Mis Aprobaciones</a>
             </div>
         </nav>
     </div>
@@ -54,7 +54,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">Artículo</label>
+                                            <label class="col-form-label col-2">Artículo</label>
                                             <div class="col-9">
                                                 <asp:DropDownList ID="DDLArticulo" runat="server" class="form-control"></asp:DropDownList>
                                             </div>
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">Serie</label>
+                                            <label class="col-form-label col-2">Serie</label>
                                             <div class="col-9">
                                                 <asp:TextBox runat="server" ID="TxSerie" CssClass="form-control"></asp:TextBox>
                                             </div>
@@ -73,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">Acción</label>
+                                            <label class="col-form-label col-2">Acción</label>
                                             <div class="col-9">
                                                 <asp:DropDownList ID="DDLAccion" runat="server" class="form-control">
                                                     <asp:ListItem Value="-1" Text="Seleccione"></asp:ListItem>
@@ -85,9 +85,9 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">Observaciones</label>
-                                            <div class="col-sm-9">
-                                                <asp:TextBox runat="server" ID="TxObservaciones" CssClass="form-control"></asp:TextBox>
+                                            <label class="col-form-label col-3">Observaciones</label>
+                                            <div class="col-8">
+                                                <asp:TextBox runat="server" ID="TxObservaciones" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                                             </div>
                                         </div>
                                     </div>

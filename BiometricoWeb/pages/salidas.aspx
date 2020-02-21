@@ -56,7 +56,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Búsqueda</h4>
                                 <div class="row"> 
-                                    <label class="col-2">Serie del artículo</label>
+                                    <label class="col-2 col-form-label">Serie del artículo</label>
                                     <div class="col-7">
                                         <asp:TextBox runat="server" ID="TxBusqueda" AutoPostBack="true" OnTextChanged="TxBusqueda_TextChanged" CssClass="form-control"></asp:TextBox>
                                         <b><asp:Label runat="server" ID="LbAprobacion" Visible="false" CssClass="col-form-label" Text=""></asp:Label></b>
@@ -147,7 +147,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">Nombre</label>
+                                            <label class="col-2 col-form-label">Nombre</label>
                                             <div class="col-9">
                                                 <asp:TextBox runat="server" ID="TxNombre" CssClass="form-control"></asp:TextBox>
                                             </div>
@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">Artículo</label>
+                                            <label class="col-3 col-form-label">Artículo</label>
                                             <div class="col-9">
                                                 <asp:DropDownList ID="DDLArticulo" runat="server" class="form-control"></asp:DropDownList>
                                             </div>
@@ -166,7 +166,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">Serie</label>
+                                            <label class="col-2 col-form-label">Serie</label>
                                             <div class="col-9">
                                                 <asp:TextBox runat="server" ReadOnly="true" ID="TxSerie" Text="" AutoPostBack="true" CssClass="form-control"></asp:TextBox>                                                
                                             </div>
@@ -174,7 +174,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">No. Inventario</label>
+                                            <label class="col-3 col-form-label">No. Inventario</label>
                                             <div class="col-sm-9">
                                                 <asp:TextBox runat="server" ID="TxInventario" CssClass="form-control"></asp:TextBox>
                                             </div>
@@ -185,7 +185,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">Motivo</label>
+                                            <label class="col-2 col-form-label">Motivo</label>
                                             <div class="col-9">
                                                 <asp:DropDownList ID="DDLMotivo" runat="server" class="form-control"></asp:DropDownList>
                                             </div>
@@ -193,7 +193,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-3">Observaciones</label>
+                                            <label class="col-3 col-form-label">Observaciones</label>
                                             <div class="col-sm-9">
                                                 <asp:TextBox runat="server" ID="TxObservaciones" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                                             </div>
@@ -201,7 +201,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row" runat="server" id="divAutorizado" >   
+                                <%--<div class="row" runat="server" id="divAutorizado" >   
                                     <div class="col-6">
                                         <div class="form-group row">
                                             <label class="col-3">Autorizado Por</label>
@@ -210,7 +210,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>
