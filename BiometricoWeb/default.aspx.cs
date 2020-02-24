@@ -24,8 +24,13 @@ namespace BiometricoWeb
                     LitFechaPermisos.Text = DateTime.Now.ToString("yyyy-MM-dd");
                     LitPermisosCreados.Text = vDatos.Rows[0]["TotalPermisos"].ToString();
                     LitPermisosFinalizados.Text = vDatos.Rows[0]["Autorizados"].ToString();
+
+
                 }
+
             }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#ModalInfo').modal('show');", true);
+
         }
 
         public void Mensaje(string vMensaje, WarningType type){

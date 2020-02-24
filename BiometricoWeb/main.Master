@@ -197,9 +197,9 @@
                             </div>
                         </li>
 
-                        <li class="nav-item" id="LIPoliticas" runat="server" visible="false">
+                        <li class="nav-item" id="LIPoliticas" runat="server" visible="true">
                             <a class="nav-link" href="/pages/politicas.aspx" >
-                                <i class="mdi mdi-key menu-icon"></i>
+                                <i class="mdi mdi-file-document menu-icon"></i>
                                 <span class="menu-title">Politicas</span>
                             </a>
                         </li>

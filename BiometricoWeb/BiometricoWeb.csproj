@@ -382,6 +382,7 @@
     <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.woff2" />
     <Content Include="pages\plantilla\PlantillaCompensatorio.xlsx" />
     <Content Include="pages\plantilla\PlantillaPermisos.xlsx" />
+    <Content Include="pages\plantilla\PoliticaVestimenta.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

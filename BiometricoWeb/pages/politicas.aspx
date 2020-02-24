@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="politicas.aspx.cs" Inherits="BiometricoWeb.pages.politicas" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <script type="text/javascript">
         var updateProgress = null;
 
@@ -8,6 +9,20 @@
             window.setTimeout("updateProgress.set_visible(true)", updateProgress.get_displayAfter());
             return true;
         }
+
+        function showMe() {
+            var x = document.getElementById("DivVestimenta");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            }
+            $('a#LIVestimenta').attr({
+                target: '_blank',
+                href: 'plantilla/PoliticaVestimenta.pdf'
+            });
+
+            //window.open('plantilla/PoliticaVestimenta.pdf');
+        }
+
     </script>
     <link href="/css/GridStyle.css" rel="stylesheet" />
     <link href="/css/pager.css" rel="stylesheet" />
@@ -21,13 +36,46 @@
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
+
     <div class="row">
         <div class="col-md-12 grid-margin">
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h2>Aprobación de Entradas y Salidas</h2>
+                        <h2>Politicas</h2>
                         <p class="mb-md-0">Recursos Humanos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">POLITICAS DE VESTIMENTA</h4>
+                <p style="font-weight:500;" class="card-description">
+                    Descargue y lea el documento. Luego confirme que leyó las políticas.
+                </p>
+
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <ul class="list-unstyled project_files">
+                            <li><a id="LIVestimenta" style="color:cornflowerblue; cursor:pointer;" onclick="showMe();">DESCARGAR AQUI</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="row"  id="DivVestimenta" style="display:none">
+                        <div class="row col-12 form-check" style="margin-left:5%">
+                            <input type="checkbox" runat="server" ID="CBVestimenta" name="CBVestimenta" value="0" class="form-check-input" />He leído las politicas
+                        </div>
+                        <br />
+                        <asp:UpdatePanel runat="server" ID="UPBtn">
+                            <ContentTemplate>
+                                <asp:Button runat="server" ID="BtnEnviarPV" OnClick="BtnEnviarPV_Click" CssClass="btn btn-info col-12" Text="Enviar" />                                
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </div>
             </div>

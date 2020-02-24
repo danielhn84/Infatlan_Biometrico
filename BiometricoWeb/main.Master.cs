@@ -50,6 +50,7 @@ namespace BiometricoWeb
                             LISEC_Entradas.Visible = true;
                             LISEC_Salidas.Visible = true;
                             LISEC_Historico.Visible = false;
+                            LIPoliticas.Visible = false;
                         }
 
                         if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3")){
