@@ -106,8 +106,8 @@ namespace BiometricoWeb.pages
         void CargarDiasSAP(){
             try{
                 SapConnector vTest = new SapConnector();
-                String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
-                //String vDias = "5";
+                //String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
+                String vDias = "18";
                 LbNumeroVaciones.Text = vDias;
                 Session["DIASSAP"] = vDias;
             }catch (Exception Ex){

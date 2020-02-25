@@ -146,6 +146,7 @@
     <Content Include="pages\finished.aspx" />
     <Content Include="pages\mail\TemplateMail.html" />
     <Content Include="pages\permissions.aspx" />
+    <Content Include="pages\politicaDetalle.aspx" />
     <Content Include="pages\politicas.aspx" />
     <Content Include="pages\puestos.aspx" />
     <Content Include="pages\salidas.aspx" />
@@ -265,6 +266,13 @@
     </Compile>
     <Compile Include="pages\permissions.aspx.designer.cs">
       <DependentUpon>permissions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\politicaDetalle.aspx.cs">
+      <DependentUpon>politicaDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\politicaDetalle.aspx.designer.cs">
+      <DependentUpon>politicaDetalle.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\politicas.aspx.cs">
       <DependentUpon>politicas.aspx</DependentUpon>

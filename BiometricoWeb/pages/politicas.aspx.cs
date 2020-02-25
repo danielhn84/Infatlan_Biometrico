@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
 
 namespace BiometricoWeb.pages
 {
@@ -15,11 +16,29 @@ namespace BiometricoWeb.pages
         protected void Page_Load(object sender, EventArgs e){
             if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"])){
-                    generales vGenerales = new generales();
-                    DataTable vDatos = (DataTable)Session["AUTHCLASS"];
-                    if (!vGenerales.PermisosRecursosHumanos(vDatos))
-                        Response.Redirect("/default.aspx");
+                    cargar();
                 }
+            }
+        }
+
+        private void cargar() {
+            try{
+                String vQuery = "[RSP_Politicas] 2";
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+
+                vQuery = "[RSP_Politicas] 3," + Session["USUARIO"].ToString();
+                DataTable vInfo = vConexion.obtenerDataTable(vQuery);
+                String vEstado = vInfo.Rows.Count > 0 ? "Aceptado" : "Pendiente";
+
+                vDatos.Columns.Add("estadoLeido");
+                vDatos.Rows[0]["estadoLeido"] = vEstado;
+
+                Session["POLITICAS"] = vDatos;
+                GVBusqueda.DataSource = vDatos;
+                GVBusqueda.DataBind();
+                
+            }catch (Exception ex){
+                Mensaje(ex.Message , WarningType.Danger);
             }
         }
 
@@ -27,16 +46,11 @@ namespace BiometricoWeb.pages
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
 
-        protected void BtnEnviarPV_Click(object sender, EventArgs e){
+        protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){
             try{
-                if (!CBVestimenta.Checked) { 
-                    Mensaje("Falta confirmar en la casilla de lectura.", WarningType.Danger);
-                }else{
-                    String vQuery = "RSP_Politicas 1, " + Session["USUARIO"].ToString() +
-                    ",'" + CBVestimenta.Checked + "'";
-                    int vInfo = vConexion.ejecutarSql(vQuery);
-                    if (vInfo == 1)
-                        Mensaje("Gracias!", WarningType.Success);
+                if (e.CommandName == "verPolitica"){
+                    Session["TITULO_POLITICA"] = e.CommandArgument;
+                    Response.Redirect("politicaDetalle.aspx");
                 }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);

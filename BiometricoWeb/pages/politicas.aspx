@@ -54,29 +54,41 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">POLITICAS DE VESTIMENTA</h4>
+                <h4 class="card-title">POLITICAS INGRESADAS</h4>
                 <p style="font-weight:500;" class="card-description">
-                    Descargue y lea el documento. Luego confirme que leyó las políticas.
+                    Lea el documento y confirme que leyó las políticas.
                 </p>
 
-                <div class="col-md-6">
-                    <div class="form-group row">
-                        <ul class="list-unstyled project_files">
-                            <li><a id="LIVestimenta" style="color:cornflowerblue; cursor:pointer;" onclick="showMe();">DESCARGAR AQUI</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="row"  id="DivVestimenta" style="display:none">
-                        <div class="row col-12 form-check" style="margin-left:5%">
-                            <input type="checkbox" runat="server" ID="CBVestimenta" name="CBVestimenta" value="0" class="form-check-input" />He leído las politicas
-                        </div>
-                        <br />
-                        <asp:UpdatePanel runat="server" ID="UPBtn">
-                            <ContentTemplate>
-                                <asp:Button runat="server" ID="BtnEnviarPV" OnClick="BtnEnviarPV_Click" CssClass="btn btn-info col-12" Text="Enviar" />                                
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                    </div>
+                <div class="col-md-12">
+                    <asp:UpdatePanel runat="server" ID="UPPoliticas">
+                        <ContentTemplate>
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <asp:GridView ID="GVBusqueda" runat="server"
+                                        CssClass="mydatagrid"
+                                        PagerStyle-CssClass="pgr"
+                                        HeaderStyle-CssClass="header"
+                                        RowStyle-CssClass="rows"
+                                        AutoGenerateColumns="false"
+                                        AllowPaging="true"
+                                        GridLines="None"
+                                        PageSize="10" OnRowCommand="GVBusqueda_RowCommand">
+                                        <Columns>
+                                            <asp:BoundField DataField="idPolitica" HeaderText="No." Visible="false"  />
+                                            <asp:BoundField DataField="nombre" HeaderText="Nombre" />
+                                            <asp:BoundField DataField="estadoLeido" HeaderText="Estado" />
+                                            <asp:BoundField DataField="fechaCreacion" HeaderText="Fecha de Creación" />
+                                            <asp:TemplateField HeaderText="Ver" HeaderStyle-Width="50px">
+                                                <ItemTemplate>
+                                                    <asp:Button ID="BtnVer" runat="server" Text="Ver" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idPolitica") %>' CommandName="verPolitica" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
         </div>
