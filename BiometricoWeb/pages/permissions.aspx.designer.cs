@@ -33,6 +33,15 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.WebControls.Label LbNumeroVaciones;
 
         /// <summary>
+        /// Control LbCompensatorio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbCompensatorio;
+
+        /// <summary>
         /// Control CbEmergencias.
         /// </summary>
         /// <remarks>
@@ -456,15 +465,6 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.WebControls.Button BtnDescargarArchivo;
 
         /// <summary>
-        /// Control UpdatePanel12.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel12;
-
-        /// <summary>
         /// Control UpdatePanel13.
         /// </summary>
         /// <remarks>
@@ -483,13 +483,40 @@ namespace BiometricoWeb.pages
         protected global::System.Web.UI.WebControls.TextBox TxToken;
 
         /// <summary>
-        /// Control UpdatePanel15.
+        /// Control UpdatePanel14.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel15;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel14;
+
+        /// <summary>
+        /// Control LbMensajeToken.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbMensajeToken;
+
+        /// <summary>
+        /// Control UpdatePanel12.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel12;
+
+        /// <summary>
+        /// Control BtnCancelTk.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnCancelTk;
 
         /// <summary>
         /// Control BtnContinuar.

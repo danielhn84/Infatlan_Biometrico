@@ -7,9 +7,7 @@
 
 
     <script type="text/javascript">
-        function openModal() {
-            $('#AutorizarModal').modal('show');
-        }
+        function openModal() {$('#AutorizarModal').modal('show');}
     </script>
     <script type="text/javascript">
         function openFinalizarModal() {
@@ -64,6 +62,16 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="Div1" runat="server">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="table-responsive">
                                     <asp:UpdatePanel ID="UpdateGridView" runat="server">
@@ -78,7 +86,6 @@
                                                 PageSize="10"
                                                 AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging" OnRowCommand="GVBusqueda_RowCommand">
                                                 <Columns>
-
                                                     <asp:TemplateField HeaderText="Select" HeaderStyle-Width="60px" Visible="false">
                                                         <HeaderTemplate>
                                                         </HeaderTemplate>
@@ -112,13 +119,15 @@
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:BoundField DataField="idPermiso" HeaderText="No.Permiso" />
+                                                    <asp:BoundField DataField="idPermiso" HeaderText="No." />
                                                     <asp:BoundField DataField="Empleado" HeaderText="Nombre" />
                                                     <asp:BoundField DataField="TipoPermiso" HeaderText="Tipo" />
                                                     <asp:BoundField DataField="FechaInicio" HeaderText="Inicio" />
                                                     <asp:BoundField DataField="FechaRegreso" HeaderText="Fin" />
                                                     <asp:BoundField DataField="autorizadoResolucion" HeaderText="Resolución" />
                                                     <asp:BoundField DataField="Detalle" HeaderText="Detalle" />
+                                                    <%--<asp:BoundField DataField="AprobadoPor" HeaderText="User" />
+                                                    <asp:BoundField DataField="fechaAutorizacion" HeaderText="Fecha" />--%>
                                                 </Columns>
                                             </asp:GridView>
                                         </ContentTemplate>

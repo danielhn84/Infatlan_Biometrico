@@ -30,7 +30,6 @@
                         <h2>Autorizaciones Canceladas</h2>
                         <p class="mb-md-0">Recursos Humanos</p>
                     </div>
-
                 </div>
                 <div class="d-flex justify-content-between align-items-end flex-wrap">
                     <asp:UpdatePanel ID="UpdatePrincipalBotones" runat="server">
@@ -63,6 +62,14 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="Div1" runat="server">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="table-responsive">
                                     <asp:UpdatePanel ID="UpdateGridView" runat="server">
@@ -77,46 +84,46 @@
                                                 PageSize="10"
                                                 AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging" OnRowCommand="GVBusqueda_RowCommand">
                                                 <Columns>
-
-                                                    <asp:TemplateField HeaderText="Select" HeaderStyle-Width="60px" Visible="false">
-                                                        <HeaderTemplate>
-                                                        </HeaderTemplate>
+                                                    <asp:TemplateField HeaderText="Select" HeaderStyle-Width="30px" Visible="false">
+                                                        <HeaderTemplate></HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:Button ID="BtnAutorizarRecursosHumanos" runat="server" Enabled="false" Text="Cancelado" class="btn btn-inverse-danger mr-2" CommandArgument='<%# Eval("idPermiso") %>' CommandName="Cerrado" />
+                                                            <asp:Button ID="BtnAutorizarRecursosHumanos" runat="server" Enabled="false" Text="Cancelado" CssClass="btn btn-inverse-danger btn-sm" CommandArgument='<%# Eval("idPermiso") %>' CommandName="Cerrado" />
+                                                        </ItemTemplate>
+                                                        
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderText="Select" HeaderStyle-Width="30px">
+                                                        <HeaderTemplate></HeaderTemplate>
+                                                        <ItemTemplate >
+                                                            <asp:Button ID="BtnAutorizar" runat="server" Enabled="false" CssClass="btn btn-inverse-danger btn-sm" Text="Cancelado" CommandArgument='<%# Eval("idPermiso") %>' CommandName="Cerrado" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="Select" HeaderStyle-Width="60px">
-                                                        <HeaderTemplate>
-                                                        </HeaderTemplate>
-                                                        <ItemTemplate>
-                                                            <asp:Button ID="BtnAutorizar" runat="server" Enabled="false" Text="Cancelado" class="btn btn-inverse-danger mr-2" CommandArgument='<%# Eval("idPermiso") %>' CommandName="Cerrado" />
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Select" HeaderStyle-Width="50px">
-                                                        <HeaderTemplate>
-                                                        </HeaderTemplate>
+                                                        <HeaderTemplate></HeaderTemplate>
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="BtnMotivo" runat="server" Text="Motivo" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idPermiso") %>' CommandName="MotivoPermiso">
                                                                 <i class="mdi mdi-comment-search-outline text-primary" ></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+
                                                     <asp:TemplateField HeaderText="Select" HeaderStyle-Width="50px">
-                                                        <HeaderTemplate>
-                                                        </HeaderTemplate>
+                                                        <HeaderTemplate></HeaderTemplate>
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="BtnDocumento" runat="server" Text="Download" class="btn btn-inverse-success mr-2 " CommandArgument='<%# Eval("idPermiso") %>' CommandName="DocumentoPermiso">
                                                                 <i class="mdi mdi-download text-primary"></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:BoundField DataField="idPermiso" HeaderText="No.Permiso"  />
+                                                    <asp:BoundField DataField="idPermiso" HeaderText="No."  />
                                                     <asp:BoundField DataField="Empleado" HeaderText="Nombre" />
                                                     <asp:BoundField DataField="TipoPermiso" HeaderText="Tipo" />
                                                     <asp:BoundField DataField="FechaInicio" HeaderText="Inicio" />
                                                     <asp:BoundField DataField="FechaRegreso" HeaderText="Fin" />
                                                     <asp:BoundField DataField="Detalle" HeaderText="Detalle" />
+                                                    <asp:BoundField DataField="CanceladoPor" HeaderText="User" />
+                                                    <asp:BoundField DataField="fechaAutorizacion" HeaderText="Fecha" />
                                                 </Columns>
                                             </asp:GridView>
                                         </ContentTemplate>

@@ -17,7 +17,8 @@ namespace BiometricoWeb.clases
         Solicitante,
         Aprobado,
         Rechazado,
-        Token
+        Token,
+        Seguridad
     }
 
     public class SmtpService : Page{
@@ -74,7 +75,7 @@ namespace BiometricoWeb.clases
                             Usuario,
                             "Se ha rechazado tu solicitud de permiso",
                             ConfigurationManager.AppSettings["Host"] + "/pages/permissions.aspx",
-                            "Te informamos que el permiso que has solicitado ha sido rechazado."
+                            Nombre
                             ), Server.MapPath("/images/logo.png")));
                         break;
                     case typeBody.Token:
@@ -83,6 +84,15 @@ namespace BiometricoWeb.clases
                             "Se ha creado un Token para emergencias",
                             ConfigurationManager.AppSettings["Host"] + "/pages/permissions.aspx",
                             "Token: <b>" + Nombre + @"</b> <br \> Ingresa este token en la pagina de permisos despues de haber seleccionado la opción de emergencias, este token solo puede ser utilizado una sola vez."
+                            ), Server.MapPath("/images/logo.png")));
+                        break;
+                    case typeBody.Seguridad:
+                        string[] vInfo = Nombre.Split('-');
+
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyES(
+                            Usuario,
+                            "Se ha creado un registro de <b>" + vInfo[0].ToString() + "</b> con su autorización. " +
+                            "Id: <b>" + vInfo[1].ToString() + "</b><br> Si no ha autorizado la salida del artículo. Favor comuníquese con el personal de seguridad."
                             ), Server.MapPath("/images/logo.png")));
                         break;
 
@@ -121,6 +131,19 @@ namespace BiometricoWeb.clases
             body = body.Replace("{Nombre}", vNombre);
             body = body.Replace("{Titulo}", vTitulo);
             body = body.Replace("{Url}", vUrl);
+            body = body.Replace("{Descripcion}", vDescripcion);
+            return body;
+        }
+
+        public string PopulateBodyES(string vNombre, string vDescripcion){
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("/pages/mail/TemplateMail.html"))){
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{Host}", ConfigurationManager.AppSettings["Host"]);
+            body = body.Replace("{Nombre}", vNombre);
+            body = body.Replace("{Titulo}", "");
             body = body.Replace("{Descripcion}", vDescripcion);
             return body;
         }

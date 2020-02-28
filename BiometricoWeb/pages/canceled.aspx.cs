@@ -72,15 +72,16 @@ namespace BiometricoWeb.pages
                         if (item["Autorizado"].ToString().Equals("False") && !item["fechaAutorizacion"].ToString().Equals("")){
                             Button button = row.FindControl("BtnAutorizar") as Button;
                             button.Text = "Cancelado";
-                            button.CssClass = "btn btn-inverse-danger mr-2 ";
+                            button.CssClass = "btn btn-inverse-danger btn-sm ";
                             button.Enabled = false;
                             button.CommandName = "Cerrado";
 
                             Button buttonRH = row.FindControl("BtnAutorizarRecursosHumanos") as Button;
                             buttonRH.Text = "Cancelado";
-                            buttonRH.CssClass = "btn btn-inverse-danger mr-2 ";
+                            buttonRH.CssClass = "btn btn-inverse-danger btn-sm ";
                             buttonRH.Enabled = false;
                             buttonRH.CommandName = "Cerrado";
+
                         }
                     }
                     
@@ -93,7 +94,7 @@ namespace BiometricoWeb.pages
                 }
 
                 Session["DATOSAUTORIZAR"] = vDatos;
-                UpdateDivBusquedas.Update();
+                //UpdateDivBusquedas.Update();
             }catch (Exception Ex) { 
                 Mensaje(Ex.Message, WarningType.Danger); 
             }

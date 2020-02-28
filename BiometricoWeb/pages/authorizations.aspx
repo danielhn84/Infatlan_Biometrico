@@ -65,6 +65,15 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="Div1" runat="server">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="table-responsive">
                                     <asp:UpdatePanel ID="UpdateGridView" runat="server">
@@ -79,7 +88,6 @@
                                                 PageSize="10"
                                                 AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging" OnRowCommand="GVBusqueda_RowCommand">
                                                 <Columns>
-
                                                     <asp:TemplateField HeaderText="Select" HeaderStyle-Width="60px" Visible="false">
                                                         <HeaderTemplate>
                                                         </HeaderTemplate>
@@ -113,12 +121,12 @@
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:BoundField DataField="idPermiso" HeaderText="No.Permiso"  />
+                                                    <asp:BoundField DataField="idPermiso" HeaderText="No."  />
                                                     <asp:BoundField DataField="Empleado" HeaderText="Nombre" />
                                                     <asp:BoundField DataField="TipoPermiso" HeaderText="Tipo" />
                                                     <asp:BoundField DataField="FechaInicio" HeaderText="Inicio" />
                                                     <asp:BoundField DataField="FechaRegreso" HeaderText="Fin" />
-                                                    <asp:BoundField DataField="Detalle" HeaderText="Detalle" />                                                    
+                                                    <asp:BoundField DataField="Detalle" HeaderText="Detalle" />  
                                                 </Columns>
                                             </asp:GridView>
                                         </ContentTemplate>
@@ -164,19 +172,22 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Acciones</label>
                                 <div class="col-sm-9">
-                                    <asp:DropDownList ID="DDLOpciones" class="form-control" runat="server">
+                                    <asp:DropDownList ID="DDLOpciones" AutoPostBack="true" class="form-control" runat="server" OnSelectedIndexChanged="DDLOpciones_SelectedIndexChanged">
                                         <asp:ListItem Value="1">Autorizar</asp:ListItem>
                                         <asp:ListItem Value="0">No Autorizar</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <asp:UpdatePanel ID="UpdateAutorizarMensaje" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <div class="form-group row">
-                                <asp:Label ID="LbAutorizarMensaje" runat="server" Text="" Class="col-sm-12" Style="color: indianred; text-align: center;"></asp:Label>
+
+                            <div class="form-group row" runat="server" visible="false" id="DivMotivoJefe">
+                                <label class="col-sm-3 col-form-label">Motivo</label>
+                                <div class="col-sm-9">
+                                    <asp:TextBox TextMode="MultiLine" Font-Size="Medium" MaxLength="500" Height="100%" runat="server" CssClass="form-control" ID="TxMotivoJefe"></asp:TextBox>
+                                    <br />
+                                    <asp:Label ID="LbAutorizarMensaje" runat="server" Text="" Style="color: indianred;"></asp:Label>
+                                </div>
                             </div>
+                            <br />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
@@ -224,19 +235,22 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Acciones</label>
                                 <div class="col-sm-9">
-                                    <asp:DropDownList ID="DDlFinalizarPermiso" class="form-control" runat="server">
+                                    <asp:DropDownList ID="DDlFinalizarPermiso" class="form-control" AutoPostBack="true" runat="server" OnSelectedIndexChanged="DDlFinalizarPermiso_SelectedIndexChanged">
                                         <asp:ListItem Value="1">Finalizar Permiso</asp:ListItem>
                                         <asp:ListItem Value="0">Cancelar Permiso</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <div class="form-group row">
-                                <asp:Label ID="Label2" runat="server" Text="" Class="col-sm-12" Style="color: indianred; text-align: center;"></asp:Label>
+
+                            <div class="form-group row" runat="server" visible="false" id="DivMotivo">
+                                <label class="col-sm-3 col-form-label">Motivo</label>
+                                <div class="col-sm-9">
+                                    <asp:TextBox TextMode="MultiLine" Font-Size="Medium" MaxLength="500" Height="100%" runat="server" CssClass="form-control" ID="TxMotivo"></asp:TextBox>
+                                    <br />
+                                    <asp:Label ID="Label2" runat="server" Text="" Style="color: indianred;"></asp:Label>
+                                </div>
                             </div>
+                            <br />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
@@ -251,6 +265,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="DescargaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">

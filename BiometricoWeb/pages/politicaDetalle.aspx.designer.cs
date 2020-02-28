@@ -7,66 +7,21 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace BiometricoWeb
+namespace BiometricoWeb.pages
 {
 
 
-    public partial class _default
+    public partial class politicaDetalle
     {
 
         /// <summary>
-        /// Control LitFechaPermisos.
+        /// Control UpdateProgress1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitFechaPermisos;
-
-        /// <summary>
-        /// Control LitPermisosCreados.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitPermisosCreados;
-
-        /// <summary>
-        /// Control LitPermisosFinalizados.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitPermisosFinalizados;
-
-        /// <summary>
-        /// Control UpdateDivBusquedas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
-
-        /// <summary>
-        /// Control UpdateGridView.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdateGridView;
-
-        /// <summary>
-        /// Control GVBusqueda.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVBusqueda;
+        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
 
         /// <summary>
         /// Control LbTitulo.
@@ -78,12 +33,39 @@ namespace BiometricoWeb
         protected global::System.Web.UI.WebControls.Label LbTitulo;
 
         /// <summary>
-        /// Control LbMensaje.
+        /// Control IFramePDF.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbMensaje;
+        protected global::System.Web.UI.HtmlControls.HtmlIframe IFramePDF;
+
+        /// <summary>
+        /// Control CBVestimenta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox CBVestimenta;
+
+        /// <summary>
+        /// Control UPBtn.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UPBtn;
+
+        /// <summary>
+        /// Control BtnEnviarPV.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnEnviarPV;
     }
 }

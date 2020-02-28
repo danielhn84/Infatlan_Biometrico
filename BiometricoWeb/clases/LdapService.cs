@@ -13,7 +13,6 @@ namespace BiometricoWeb.clases
     {
         public LdapService() { }
 
-
         public bool ValidateCredentials(string domain, string username, string password)
         {
             using (var context = new PrincipalContext(ContextType.Domain, domain))

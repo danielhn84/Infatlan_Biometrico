@@ -7,56 +7,47 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace BiometricoWeb
+namespace BiometricoWeb.pages
 {
 
 
-    public partial class login
+    public partial class sec_historico
     {
 
         /// <summary>
-        /// Control form1.
+        /// Control UpdateProgress1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
 
         /// <summary>
-        /// Control TxUsername.
+        /// Control TxBusqueda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxUsername;
+        protected global::System.Web.UI.WebControls.TextBox TxBusqueda;
 
         /// <summary>
-        /// Control TxPassword.
+        /// Control UpdateDivBusquedas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxPassword;
+        protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
 
         /// <summary>
-        /// Control BtnLogin.
+        /// Control GVBusqueda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnLogin;
-
-        /// <summary>
-        /// Control LbMensaje.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbMensaje;
+        protected global::System.Web.UI.WebControls.GridView GVBusqueda;
     }
 }

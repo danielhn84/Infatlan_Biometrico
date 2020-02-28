@@ -9,14 +9,11 @@ using System.Web.UI.WebControls;
 
 namespace BiometricoWeb
 {
-    public partial class login : System.Web.UI.Page
-    {
+    public partial class login : System.Web.UI.Page{
         db vConexion;
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected void Page_Load(object sender, EventArgs e){
             vConexion = new db();
-            if (!Page.IsPostBack)
-            {
+            if (!Page.IsPostBack){
                
             }
         }
@@ -37,15 +34,17 @@ namespace BiometricoWeb
                         Session["USUARIO"] = item["idEmpleado"].ToString();
                         Session["CODIGOSAP"] = item["codigoSAP"].ToString();
                         Session["AUTH"] = true;
-                        Response.Redirect("/default.aspx");
+
+                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2"))
+                            Response.Redirect("pages/security.aspx");
+                        else
+                            Response.Redirect("/default.aspx");
                     }
                 }else{
                     Session["AUTH"] = false;
                     throw new Exception("Usuario o contraseña incorrecta.");
                 }
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 LbMensaje.Text = "Usuario o contraseña incorrecta.";
                 String vErrorLog = Ex.Message;
             }

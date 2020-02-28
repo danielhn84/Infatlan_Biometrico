@@ -81,7 +81,7 @@ namespace BiometricoWeb.pages
 
                 DDLModJefatura.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
-                    DDLModJefatura.Items.Add(new ListItem { Value = item["codigoSAP"].ToString(), Text = item["codigoSAP"].ToString() + " - " + item["nombre"].ToString() });
+                    DDLModJefatura.Items.Add(new ListItem { Value = item["codigoSAP"].ToString(), Text =  item["nombre"].ToString() });
                 }
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
@@ -94,7 +94,7 @@ namespace BiometricoWeb.pages
 
                 DDLModArea.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
-                    DDLModArea.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["idDepartamento"].ToString() + " - " + item["nombre"].ToString() });
+                    DDLModArea.Items.Add(new ListItem { Value = item["nombre"].ToString(), Text = item["nombre"].ToString() });
                 }
             }catch (Exception Ex) { 
                 Mensaje(Ex.Message, WarningType.Danger); 
@@ -245,7 +245,7 @@ namespace BiometricoWeb.pages
             try{
                 String vQuery = "RSP_IngresarEmpleados 2," + LbModNoEmpleado.Text + "," +
                     "'" + TxModNombre.Text + "'," +
-                    "'" + DDLModArea.SelectedValue + "'," +
+                    "'" + DDLModArea.SelectedItem.Text + "'," +
                     "'" + DDLModCiudad.SelectedValue + "'," +
                     "'" + null + "'," +
                     "'" + TxModIdentidad.Text + "'," +
@@ -271,6 +271,8 @@ namespace BiometricoWeb.pages
                     if (vInformacion == 1){
                         Mensaje("Actualizado con Exito!", WarningType.Success);
                         CerrarModal("EmpleadoModal");
+                        CargarEmpleados();
+                        UpdateGridView.Update();
                     }
                 }
             }

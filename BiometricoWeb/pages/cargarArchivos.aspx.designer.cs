@@ -7,48 +7,57 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace BiometricoWeb
+namespace BiometricoWeb.pages
 {
 
 
-    public partial class _default
+    public partial class cargaConsolidado
     {
 
         /// <summary>
-        /// Control LitFechaPermisos.
+        /// Control UpdateProgress1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitFechaPermisos;
+        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
 
         /// <summary>
-        /// Control LitPermisosCreados.
+        /// Control FUCompensatorio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitPermisosCreados;
+        protected global::System.Web.UI.WebControls.FileUpload FUCompensatorio;
 
         /// <summary>
-        /// Control LitPermisosFinalizados.
+        /// Control BtnSubirCompensatorio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitPermisosFinalizados;
+        protected global::System.Web.UI.WebControls.Button BtnSubirCompensatorio;
 
         /// <summary>
-        /// Control UpdateDivBusquedas.
+        /// Control LabelMensaje.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
+        protected global::System.Web.UI.WebControls.Label LabelMensaje;
+
+        /// <summary>
+        /// Control TxBusqueda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxBusqueda;
 
         /// <summary>
         /// Control UpdateGridView.
@@ -69,21 +78,39 @@ namespace BiometricoWeb
         protected global::System.Web.UI.WebControls.GridView GVBusqueda;
 
         /// <summary>
-        /// Control LbTitulo.
+        /// Control LbTotal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbTitulo;
+        protected global::System.Web.UI.WebControls.Label LbTotal;
 
         /// <summary>
-        /// Control LbMensaje.
+        /// Control FUPermisos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbMensaje;
+        protected global::System.Web.UI.WebControls.FileUpload FUPermisos;
+
+        /// <summary>
+        /// Control BtnSubirPermisos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnSubirPermisos;
+
+        /// <summary>
+        /// Control LabelPermisos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelPermisos;
     }
 }

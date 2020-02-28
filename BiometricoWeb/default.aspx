@@ -3,6 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/css/GridStyle.css" rel="stylesheet" />
     <link href="/css/breadcrumb.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        
+        window.onload = openModal1();
+
+        function openModal1() {
+            $('#ModalInfo').modal('show');
+        };
+        
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
@@ -46,11 +57,8 @@
                                             <asp:Literal ID="LitPermisosFinalizados" runat="server"></asp:Literal></h5>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -97,8 +105,22 @@
         </ContentTemplate>
     </asp:UpdatePanel>
 
-
-
+    <%--MODAL DE INFORMACION--%>
+    <div class="modal fade" id="ModalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="ModalLabelConfirmar">
+                        <b><asp:Label runat="server" ID="LbTitulo" Text="OJO" CssClass="col-form-label"></asp:Label></b>
+                    </h4>
+                    <asp:Label runat="server" ID="LbMensaje" Text="Seguro que desea enviar sin Leer las políticas?" CssClass="col-form-label"></asp:Label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
