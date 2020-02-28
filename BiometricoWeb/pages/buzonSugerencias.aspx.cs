@@ -151,7 +151,7 @@ namespace BiometricoWeb.pages
             SmtpService vService = new SmtpService();
             vService.EnviarMensaje(vCorreo,
                 typeBody.Sugerencias,
-                "Te informamos que se ha recibido una nueva sugerencia.",
+                "",
                 "Se ha creado una nueva sugerencia en el buzón de mensajes del módulo de sugerencias.",
                 TxMensaje.Text
                 );

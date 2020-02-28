@@ -97,11 +97,11 @@ namespace BiometricoWeb.clases
                             ), Server.MapPath("/images/logo.png")));
                         break;
                     case typeBody.Sugerencias:
-                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyES(
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBody(
                             Usuario,
-                            Nombre,
-                            "El mensaje es el siguiente:<br>" + vMessage 
-                            
+                            "Te informamos que se ha recibido una nueva sugerencia.",
+                            "El mensaje es el siguiente:<br>" + vMessage ,
+                            "Para más detalles, ingresa al portal de RRHH."
                             ), Server.MapPath("/images/logo.png")));
                         break;
 
