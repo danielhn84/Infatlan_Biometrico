@@ -38,30 +38,29 @@ namespace BiometricoWeb
 
                         //MODULO PARA SEGURIDAD
                         if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2")){
-                            LIBiometricos.Visible = false;
                             LIEmpleados.Visible = false;
-                            LIAutorizaciones.Visible = false;
-                            LIPermisos.Visible = false;
-                            LIMantenimientos.Visible = false;
-                            LIToken.Visible = false;
                             LIDashboard.Visible = false;
                             LISecurity.Visible = true;
-                            LISEC_Aprobaciones.Visible = false;
                             LISEC_Entradas.Visible = true;
                             LISEC_Salidas.Visible = true;
                             LISEC_Historico.Visible = false;
                             LIPoliticas.Visible = false;
+                            LIConfig.Visible= false;
+                            LIServicios.Visible = false;
                         }
 
                         if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3")){
                             LISecurity.Visible = true;
                             LISEC_Aprobaciones.Visible = true;
                             LIPermisos.Visible = true;
+                            LIConfig.Visible = false;
                         }
 
-                    }else{
+                    }
+                    else{
                         LIAutorizaciones.Visible = true;
                         LIPermisos.Visible = true;
+                        LIConfig.Visible = false;
                     }
 
                 }catch (Exception Ex){

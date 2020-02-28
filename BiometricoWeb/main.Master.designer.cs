@@ -69,13 +69,13 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDashboard;
 
         /// <summary>
-        /// Control LI1.
+        /// Control LIServicios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LI1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIServicios;
 
         /// <summary>
         /// Control LIAutorizaciones.
@@ -87,6 +87,15 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIAutorizaciones;
 
         /// <summary>
+        /// Control LIBuzon.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIBuzon;
+
+        /// <summary>
         /// Control LIPermisos.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace BiometricoWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIPermisos;
+
+        /// <summary>
+        /// Control LIToken.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIToken;
 
         /// <summary>
         /// Control LIPoliticas.
@@ -114,13 +132,13 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIEmpleados;
 
         /// <summary>
-        /// Control LI2.
+        /// Control LIConfig.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LI2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIConfig;
 
         /// <summary>
         /// Control LIMantenimientos.
@@ -139,15 +157,6 @@ namespace BiometricoWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIBiometricos;
-
-        /// <summary>
-        /// Control LIToken.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIToken;
 
         /// <summary>
         /// Control LISecurity.

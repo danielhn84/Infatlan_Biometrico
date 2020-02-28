@@ -18,14 +18,15 @@ namespace BiometricoWeb.clases
         Aprobado,
         Rechazado,
         Token,
-        Seguridad
+        Seguridad,
+        Sugerencias
     }
 
     public class SmtpService : Page{
 
         public SmtpService() { }
 
-        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre){
+        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre, String vMessage = null){
             Boolean vRespuesta = false;
             try{
                 MailMessage mail = new MailMessage("Recursos Humanos<" + ConfigurationManager.AppSettings["SmtpFrom"] + ">", To);
@@ -93,6 +94,14 @@ namespace BiometricoWeb.clases
                             Usuario,
                             "Se ha creado un registro de <b>" + vInfo[0].ToString() + "</b> con su autorización. " +
                             "Id: <b>" + vInfo[1].ToString() + "</b><br> Si no ha autorizado la salida del artículo. Favor comuníquese con el personal de seguridad."
+                            ), Server.MapPath("/images/logo.png")));
+                        break;
+                    case typeBody.Sugerencias:
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBody(
+                            Usuario,
+                            "Te informamos que se ha recibido una nueva sugerencia.",
+                            "El mensaje es el siguiente:<br>" + vMessage ,
+                            "Para más detalles, ingresa al portal de RRHH."
                             ), Server.MapPath("/images/logo.png")));
                         break;
 

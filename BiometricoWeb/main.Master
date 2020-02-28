@@ -109,13 +109,13 @@
 
                         <!-- SERVICIOS -->
                         
-                        <li class="nav-item" id="LI1" runat="server" visible="true" style="list-style-type: none;">
+                        <li class="nav-item" id="LIServicios" runat="server" visible="true" style="list-style-type: none;">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic6" aria-expanded="false" aria-controls="ui-basic6">
                                 <i class="mdi mdi-folder menu-icon"></i><span class="menu-title">Servicios</span><i class="menu-arrow"></i>
                             </a>
                             <div class="collapse" id="ui-basic6">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="" id="LIAutorizaciones" runat="server" visible="true" style="margin-left:-20%">
+                                    <li class="" id="LIAutorizaciones" runat="server" visible="true" style="margin-left:-20%; cursor:pointer;">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-clipboard-check menu-icon"></i>
                                             <span class="menu-title">Autorizaciones</span>
@@ -127,6 +127,13 @@
                                         </div>
                                     </li>
 
+                                    <li class="" id="LIBuzon" runat="server" visible="true" style="margin-left:-20%">
+                                        <a class="nav-link" href="/pages/buzonSugerencias.aspx" >
+                                            <i class="mdi mdi-email menu-icon text-success"></i>
+                                            <span class="menu-title text-success">Buzon de Sugerencias</span>
+                                        </a>
+                                    </li>
+
                                     <li class="" id="LIPermisos" runat="server" visible="false" style="margin-left:-20%">
                                         <a class="nav-link" href="/pages/permissions.aspx" >
                                             <i class="mdi mdi-door-open menu-icon"></i>
@@ -134,14 +141,21 @@
                                         </a>
                                     </li>
 
-                                    <li class="" id="LIPoliticas" runat="server" visible="true" style="margin-left:-20%">
-                                        <a class="nav-link" href="/pages/politicas.aspx" >
-                                            <i class="mdi mdi-file-document menu-icon"></i>
-                                            <span class="menu-title">Politicas</span>
+                                    <li class="" id="LIToken" runat="server" visible="false" style="margin-left:-20%">
+                                        <a class="nav-link" href="/pages/token.aspx" >
+                                            <i class="mdi mdi-key menu-icon"></i>
+                                            <span class="menu-title">Token</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
+                        </li>
+
+                        <li class="nav-item" id="LIPoliticas" runat="server" visible="true">
+                            <a class="nav-link" href="/pages/politicas.aspx" >
+                                <i class="mdi mdi-file-document menu-icon"></i>
+                                <span class="menu-title">Politicas</span>
+                            </a>
                         </li>
 
                         <li class="nav-item" id="LIEmpleados" runat="server" visible="false">
@@ -161,14 +175,14 @@
 
                         <!-- CONFIG -->
 
-                        <li class="nav-item" id="LI2" runat="server" visible="true" style="list-style-type: none;">
+                        <li class="nav-item" id="LIConfig" runat="server" visible="true" style="list-style-type: none;">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic9" aria-expanded="false" aria-controls="ui-basic6">
                                 <i class="mdi mdi-settings menu-icon"></i><span class="menu-title">Configuración</span><i class="menu-arrow"></i>
                             </a>
                             <div class="collapse" id="ui-basic9">
                                 <ul class="nav flex-column sub-menu">
 
-                                    <li class="" id="LIMantenimientos" runat="server" visible="false" style="margin-left:-20%">
+                                    <li class="" id="LIMantenimientos" runat="server" visible="false" style="margin-left:-20%; cursor:pointer;">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-wrench menu-icon"></i>
                                             <span class="menu-title">Administración</span>
@@ -179,7 +193,7 @@
                                         </div>
                                     </li>
 
-                                    <li class="" id="LIBiometricos" runat="server" visible="false" style="margin-left:-20%">
+                                    <li class="" id="LIBiometricos" runat="server" visible="false" style="margin-left:-20%; cursor:pointer;">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">                                        
                                             <i class="mdi mdi-calendar menu-icon"></i>
                                             <span class="menu-title">Biometricos</span>
@@ -188,13 +202,6 @@
                                             <a class="nav-link" href="/pages/access.aspx">Accesos Grupos</a>
                                             <a class="nav-link" href="/pages/clockuser.aspx">Usuarios Biometrico</a>
                                         </div>
-                                    </li>
-
-                                    <li class="" id="LIToken" runat="server" visible="false" style="margin-left:-20%">
-                                        <a class="nav-link" href="/pages/token.aspx" >
-                                            <i class="mdi mdi-key menu-icon"></i>
-                                            <span class="menu-title">Token</span>
-                                        </a>
                                     </li>
                                 </ul>
                             </div>

@@ -139,6 +139,7 @@
     <Content Include="pages\access.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
+    <Content Include="pages\buzonSugerencias.aspx" />
     <Content Include="pages\canceled.aspx" />
     <Content Include="pages\cargarArchivos.aspx" />
     <Content Include="pages\clockuser.aspx" />
@@ -224,6 +225,13 @@
     </Compile>
     <Compile Include="pages\authorizations.aspx.designer.cs">
       <DependentUpon>authorizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\buzonSugerencias.aspx.cs">
+      <DependentUpon>buzonSugerencias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\buzonSugerencias.aspx.designer.cs">
+      <DependentUpon>buzonSugerencias.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\canceled.aspx.cs">
       <DependentUpon>canceled.aspx</DependentUpon>

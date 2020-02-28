@@ -5,21 +5,10 @@
     <link href="/css/breadcrumb.css" rel="stylesheet" />
     <link href="/css/pager.css" rel="stylesheet" />
 
-
     <script type="text/javascript">
-        function openModal() {
-            $('#AutorizarModal').modal('show');
-        }
-    </script>
-    <script type="text/javascript">
-        function openFinalizarModal() {
-            $('#FinalizarModal').modal('show');
-        }
-    </script>
-    <script type="text/javascript">
-        function openDescargarModal() {
-            $('#DescargaModal').modal('show');
-        }
+        function openModal() { $('#AutorizarModal').modal('show'); }
+        function openFinalizarModal() { $('#FinalizarModal').modal('show'); }
+        function openDescargarModal() { $('#DescargaModal').modal('show'); }
     </script>
 
 </asp:Content>
