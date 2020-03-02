@@ -99,9 +99,11 @@ namespace BiometricoWeb.clases
                     case typeBody.Sugerencias:
                         mail.AlternateViews.Add(CreateHtmlMessage(PopulateBody(
                             Usuario,
-                            "Te informamos que se ha recibido una nueva sugerencia.",
-                            "El mensaje es el siguiente:<br>" + vMessage ,
-                            "Para más detalles, ingresa al portal de RRHH."
+                            "Te informamos que se ha recibido una nueva sugerencia.<br>" +
+                            "El mensaje es el siguiente:<br>" + vMessage + "<br><br>" +
+                            "Para más detalles, ingresa al portal de RRHH:",
+                            ConfigurationManager.AppSettings["Host"] + "/login.aspx",
+                            ""
                             ), Server.MapPath("/images/logo.png")));
                         break;
 
