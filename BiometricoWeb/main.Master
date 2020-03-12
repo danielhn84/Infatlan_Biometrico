@@ -127,17 +127,17 @@
                                         </div>
                                     </li>
 
-                                    <li class="" id="LIBuzon" runat="server" visible="true" style="margin-left:-20%">
-                                        <a class="nav-link" href="/pages/buzonSugerencias.aspx" >
-                                            <i class="mdi mdi-email menu-icon text-success"></i>
-                                            <span class="menu-title text-success">Buzon de Sugerencias</span>
-                                        </a>
-                                    </li>
-
                                     <li class="" id="LIPermisos" runat="server" visible="false" style="margin-left:-20%">
                                         <a class="nav-link" href="/pages/permissions.aspx" >
                                             <i class="mdi mdi-door-open menu-icon"></i>
                                             <span class="menu-title">Permisos</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="" id="LIConstancias" runat="server" visible="false" style="margin-left:-20%">
+                                        <a class="nav-link" href="/pages/constancias.aspx" >
+                                            <i class="mdi mdi-file-outline menu-icon"></i>
+                                            <span class="menu-title">Constancias</span>
                                         </a>
                                     </li>
 
@@ -221,6 +221,13 @@
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Aprobaciones"><a class="nav-link" href="/pages/sec_aprobaciones.aspx">Aprobaciones</a></li>
                                 </ul>
                             </div>
+                        </li>
+
+                        <li class="nav-item" id="LIBuzon" runat="server" visible="true">
+                            <a class="nav-link" href="/pages/buzonSugerencias.aspx" >
+                                <i class="mdi mdi-email menu-icon text-success"></i>
+                                <span class="menu-title text-success">Sugerencias</span>
+                            </a>
                         </li>
 
                     </ul>

@@ -125,7 +125,7 @@ namespace BiometricoWeb.pages
                     GVBusqueda.DataSource = vDatosFiltrados;
                     GVBusqueda.DataBind();
                     Session["DATAPUESTOS"] = vDatosFiltrados;
-                    UpdateGridView.Update();
+                    //UpdateGridView.Update();
                 }
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }

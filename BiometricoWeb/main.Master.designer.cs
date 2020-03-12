@@ -87,15 +87,6 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIAutorizaciones;
 
         /// <summary>
-        /// Control LIBuzon.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIBuzon;
-
-        /// <summary>
         /// Control LIPermisos.
         /// </summary>
         /// <remarks>
@@ -103,6 +94,15 @@ namespace BiometricoWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIPermisos;
+
+        /// <summary>
+        /// Control LIConstancias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIConstancias;
 
         /// <summary>
         /// Control LIToken.
@@ -202,6 +202,15 @@ namespace BiometricoWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Aprobaciones;
+
+        /// <summary>
+        /// Control LIBuzon.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIBuzon;
 
         /// <summary>
         /// Control ContentPlaceHolder1.

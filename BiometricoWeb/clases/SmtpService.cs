@@ -97,13 +97,10 @@ namespace BiometricoWeb.clases
                             ), Server.MapPath("/images/logo.png")));
                         break;
                     case typeBody.Sugerencias:
-                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBody(
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyBuzon(
                             Usuario,
-                            "Te informamos que se ha recibido una nueva sugerencia.<br>" +
-                            "El mensaje es el siguiente:<br>" + vMessage + "<br><br>" +
-                            "Para más detalles, ingresa al portal de RRHH:",
-                            ConfigurationManager.AppSettings["Host"] + "/login.aspx",
-                            ""
+                            Nombre,
+                            vMessage
                             ), Server.MapPath("/images/logo.png")));
                         break;
 
@@ -155,6 +152,19 @@ namespace BiometricoWeb.clases
             body = body.Replace("{Host}", ConfigurationManager.AppSettings["Host"]);
             body = body.Replace("{Nombre}", vNombre);
             body = body.Replace("{Titulo}", "");
+            body = body.Replace("{Descripcion}", vDescripcion);
+            return body;
+        }
+
+        public string PopulateBodyBuzon(string vNombre, string vTitulo, string vDescripcion){
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("/pages/mail/TemplateMailSugerencias.html"))){
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{Host}", ConfigurationManager.AppSettings["Host"]);
+            body = body.Replace("{Nombre}", vNombre);
+            body = body.Replace("{Titulo}", vTitulo);
             body = body.Replace("{Descripcion}", vDescripcion);
             return body;
         }

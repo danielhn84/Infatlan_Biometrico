@@ -12,7 +12,7 @@
     <link href="/css/alert.css" rel="stylesheet" />
 
     <script type="text/javascript">
-        var updateProgress = null;com
+        var updateProgress = null;
 
         function postbackButtonClick() {
             updateProgress = $find("<%= UpdateProgress1.ClientID %>");
@@ -77,7 +77,13 @@
     <div class="tab-content" id="nav-tabContent">
         <br />
         <div class="tab-pane fade show active" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab">
-            <div class="form-check form-check-flat form-check-primary" style="margin-left: auto;">
+            <div class="form-check form-check-flat form-check-primary" style="margin-left: auto;" runat="server">
+                <label class="form-check-label">
+                    <input type="checkbox" id="Checkbox1" name="Checkbox1" value="0" class="form-check-input" onclick="javas(this);" runat="server"  />Presione aqui si su solicitud es de emergencia
+                </label>
+            </div>
+
+            <div class="form-check form-check-flat form-check-primary" style="margin-left: auto;" runat="server">
                 <label class="form-check-label">
                     <input type="checkbox" name="CbEmergencias" value="0" class="form-check-input" onclick="javas(this);" runat="server" id="CbEmergencias" />Presione aqui si su solicitud es de emergencia
                 </label>
@@ -377,7 +383,10 @@
 
     <div class="modal fade" id="DocumentoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
+            <div class="modal-content" style="                    width: 600px;
+                    top: 320px;
+                    left: 50%;
+                    transform: translate(-50%, -50%);">
                 <div class="modal-header">
 
                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">

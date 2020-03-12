@@ -232,7 +232,7 @@ namespace BiometricoWeb.pages
                         "Para consultar los permisos pendientes comuníquese con Recursos Humanos.");
             }
 
-            if ((vTipo == "1001" || vTipo == "1010" || vTipo == "1018") && !Convert.ToBoolean(Session["PERMISOSCGS"]))
+            if ((vTipo == "1001" || vTipo == "1010" || vTipo == "1018" || vTipo == "1026") && !Convert.ToBoolean(Session["PERMISOSCGS"]))
                 throw new Exception("Debe solicitar acceso a RRHH para ingresar este permiso.");
 
             if (vTipo == "1006"){
@@ -573,7 +573,9 @@ namespace BiometricoWeb.pages
                         UpdatePanelFechas.Update();
                         DIVDocumentos.Visible = true;
                         break;
-
+                    case "1026":
+                        Mensaje("Debe solicitar acceso a RRHH para ingresar este permiso. Si ya lo tiene, continue.", WarningType.Warning);
+                        break;
                     default:
                         break;
 

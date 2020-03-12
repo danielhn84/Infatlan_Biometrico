@@ -143,8 +143,10 @@
     <Content Include="pages\canceled.aspx" />
     <Content Include="pages\cargarArchivos.aspx" />
     <Content Include="pages\clockuser.aspx" />
+    <Content Include="pages\constancias.aspx" />
     <Content Include="pages\employees.aspx" />
     <Content Include="pages\finished.aspx" />
+    <Content Include="pages\mail\TemplateMailSugerencias.html" />
     <Content Include="pages\mail\TemplateMail.html" />
     <Content Include="pages\permissions.aspx" />
     <Content Include="pages\politicaDetalle.aspx" />
@@ -253,6 +255,13 @@
     </Compile>
     <Compile Include="pages\clockuser.aspx.designer.cs">
       <DependentUpon>clockuser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\constancias.aspx.cs">
+      <DependentUpon>constancias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\constancias.aspx.designer.cs">
+      <DependentUpon>constancias.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\employees.aspx.cs">
       <DependentUpon>employees.aspx</DependentUpon>

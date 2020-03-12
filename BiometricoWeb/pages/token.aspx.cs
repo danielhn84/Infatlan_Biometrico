@@ -58,7 +58,7 @@ namespace BiometricoWeb.pages
                 DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQuery);
 
                 SmtpService vService = new SmtpService();
-                Boolean vFlagEnviado = true;
+                Boolean vFlagEnviado = false;
                 
                 foreach (DataRow item in vDatosEmpleado.Rows) {
                     if (!item["emailEmpresa"].ToString().Trim().Equals("")) {

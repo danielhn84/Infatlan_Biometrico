@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BiometricoWeb.clases;
 using System.Data;
+using System.Configuration;
 
 namespace BiometricoWeb.pages
 {
@@ -147,13 +148,13 @@ namespace BiometricoWeb.pages
 
         private void enviarCorreo(){
             //ENVIAR CORREO
-            String vCorreo = "wpadilla@bancatlan.hn";
+            String vCorreo = ConfigurationManager.AppSettings["SmtpFromDev"];
             SmtpService vService = new SmtpService();
             vService.EnviarMensaje(vCorreo,
                 typeBody.Sugerencias,
-                "",
-                "Se ha creado una nueva sugerencia en el buzón de mensajes del módulo de sugerencias.",
-                TxMensaje.Text
+                "Estimado Usuario",
+                "Te informamos que se ha recibido un nuevo mensaje en el buzón de sugerencias.",
+                "El mensaje es el siguiente:<b><br>" + TxMensaje.Text + "<b>"
                 );
         }
 

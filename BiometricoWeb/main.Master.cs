@@ -34,6 +34,7 @@ namespace BiometricoWeb
                             LISEC_Entradas.Visible = true;
                             LISEC_Salidas.Visible = true;
                             LISEC_Historico.Visible = true;
+                            LIConstancias.Visible = true;
                         }
 
                         //MODULO PARA SEGURIDAD
@@ -47,6 +48,7 @@ namespace BiometricoWeb
                             LIPoliticas.Visible = false;
                             LIConfig.Visible= false;
                             LIServicios.Visible = false;
+                            LIBuzon.Visible = false;
                         }
 
                         if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3")){
@@ -54,6 +56,7 @@ namespace BiometricoWeb
                             LISEC_Aprobaciones.Visible = true;
                             LIPermisos.Visible = true;
                             LIConfig.Visible = false;
+                            LIConstancias.Visible = true;
                         }
 
                     }
