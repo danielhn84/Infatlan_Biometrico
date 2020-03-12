@@ -24,8 +24,8 @@ namespace Biometrico
             DataTable vDatos = vConexion.obtenerDataTable("RSP_ObtenerRelojes 1");
             foreach (DataRow item in vDatos.Rows)
             {
-                vKeeper.SetCommPassword(Convert.ToInt32(item["compass"].ToString()));
-                vConnect = vKeeper.Connect_Net(item["ip"].ToString(), Convert.ToInt32(item["puerto"].ToString()));
+                vKeeper.SetCommPassword(1983);//Convert.ToInt32(item["compass"].ToString()));
+                vConnect = vKeeper.Connect_Net("150.150.10.211", 4370);//item["ip"].ToString(), Convert.ToInt32(item["puerto"].ToString()));
                 ObtenerData(item["ciudad"].ToString());
                 vKeeper.Disconnect();
             }
@@ -54,16 +54,16 @@ namespace Biometrico
 
                     foreach (DataRow item in vDatos.Rows)
                     {
-                    //    if (vConexion.ejecutarSql("RSP_IngresarMarcajes 1," +
-                    //        "'" + item["User ID"].ToString() + "'," +
-                    //        "'" + item["Verify Date"].ToString() + "'," +
-                    //        item["Verify Type"].ToString() + "," +
-                    //        item["Verify State"].ToString() + "," +
-                    //        vCiudad + ""
-                    //        ) == 0)
-                    //    {
-                    //        vRevisionInsercion = false;
-                    //    }
+                        if (vConexion.ejecutarSql("RSP_IngresarMarcajes_datacenter 1," +
+                            "'" + item["User ID"].ToString() + "'," +
+                            "'" + item["Verify Date"].ToString() + "'," +
+                            item["Verify Type"].ToString() + "," +
+                            item["Verify State"].ToString() + "," +
+                            vCiudad + ",'SALIDA DATA'"
+                            ) == 0)
+                        {
+                            vRevisionInsercion = false;
+                        }
                     }
 
                     if (vRevisionInsercion)
