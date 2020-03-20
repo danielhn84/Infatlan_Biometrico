@@ -125,7 +125,7 @@
                                                     <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" />
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnEditar2" runat="server" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSugerencia") %>' CommandName="VerMensaje">
+                                                            <asp:LinkButton ID="BtnEditar2" runat="server" style="background-color:transparent" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSugerencia") %>' CommandName="VerMensaje">
                                                                 <i class="mdi mdi-email text-success" ></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
@@ -171,7 +171,7 @@
                                                     <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" />
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnEditar2" runat="server" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSugerencia") %>' CommandName="VerMensaje">
+                                                            <asp:LinkButton ID="BtnEditar2" runat="server" style="background-color:transparent" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSugerencia") %>' CommandName="VerMensaje">
                                                                 <i class="mdi mdi-email text-success" ></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>

@@ -139,6 +139,7 @@
     <Content Include="pages\access.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
+    <Content Include="pages\birthdayCalendar.aspx" />
     <Content Include="pages\buzonSugerencias.aspx" />
     <Content Include="pages\canceled.aspx" />
     <Content Include="pages\cargarArchivos.aspx" />
@@ -179,6 +180,7 @@
     <Compile Include="clases\SmtpService.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="clases\xml.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -227,6 +229,13 @@
     </Compile>
     <Compile Include="pages\authorizations.aspx.designer.cs">
       <DependentUpon>authorizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\birthdayCalendar.aspx.cs">
+      <DependentUpon>birthdayCalendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\birthdayCalendar.aspx.designer.cs">
+      <DependentUpon>birthdayCalendar.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\buzonSugerencias.aspx.cs">
       <DependentUpon>buzonSugerencias.aspx</DependentUpon>

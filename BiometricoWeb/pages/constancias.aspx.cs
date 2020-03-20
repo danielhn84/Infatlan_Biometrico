@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using System.IO;
 
 namespace BiometricoWeb.pages
 {
@@ -16,7 +17,11 @@ namespace BiometricoWeb.pages
         protected void Page_Load(object sender, EventArgs e){
             if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"])){
+                    DataTable vDatos = (DataTable)Session["AUTHCLASS"];
+                    if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1"))
+                        ConstanciasGenerales.Visible = true;
                     cargarDatos();
+                    Session["CONTEO"] = null;
                 }
             }
         }
@@ -39,6 +44,20 @@ namespace BiometricoWeb.pages
                 foreach (DataRow item in vDatos.Rows){
                     DDLCategoria.Items.Add(new ListItem { Value = item["idAgrupacion"].ToString(), Text = item["nombre"].ToString() });
                 }
+
+                // MIS SOLICITUDES
+                vQuery = "[RSP_Constancias] 8," + Session["USUARIO"].ToString();
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                GvMisConstancias.DataSource = vDatos;
+                GvMisConstancias.DataBind();
+                Session["CONSTANCIAS_EMPLEADO"] = vDatos;
+
+                // SOLICITUDES GENERALES
+                vQuery = "[RSP_Constancias] 9";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                GVBusqueda.DataSource = vDatos;
+                GVBusqueda.DataBind();
+                Session["CONSTANCIAS_GENERAL"] = vDatos;
 
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
@@ -93,117 +112,189 @@ namespace BiometricoWeb.pages
 
         protected void BtnEnviar_Click(object sender, EventArgs e){
             try{
-                limpiarFormulario();
-
-                if (DDLTipoConstancia.SelectedValue == "0")
-                    throw new Exception("Favor seleccione el tipo de constancia.");
+                validarDatos();
 
                 String vTipo = DDLTipoConstancia.SelectedValue;
                 String vQuery = "";
                 DataTable vDatos = new DataTable();
-                String vCat = DDLCategoria.SelectedValue;
-                String vDest = DDLDestinoCL.SelectedValue;
+                String vCat = DDLCategoria.SelectedValue == "0" ? "null" : DDLCategoria.SelectedValue;
+                String vDest = DDLDestinoCL.SelectedValue == "" ? "null" : DDLDestinoCL.SelectedValue;
+                int vInfo = 0;
 
+                vQuery = "[RSP_Constancias] 2" +
+                    "," + Session["USUARIO"].ToString() +
+                    "," + vTipo +
+                    "," + vCat +
+                    "," + vDest;
+                vDatos = vConexion.obtenerDataTable(vQuery);
 
                 if (vTipo == "2"){
-                    validarFinanciamiento();
-                    vQuery = "[RSP_Constancias] 2" +
-                        "," + Session["USUARIO"].ToString() +
-                        "," + vTipo + 
-                        "," + vCat + 
-                        "," + vDest ;
-                    vDatos = vConexion.obtenerDataTable(vQuery);
-
                     if (vDatos.Rows.Count > 0){
-                        Mensaje("Solicitud creada con éxito.", WarningType.Success);
+                        String vIdSolicitud = vDatos.Rows[0][0].ToString();
+                        // xml
+                        xml vMaestro = new xml();
+                        Object[] vDatosMaestro = new object[8];
+                        vDatosMaestro[0] = TxDest1.Text;
+                        vDatosMaestro[1] = TxMont1.Text;
+                        vDatosMaestro[2] = TxDest2.Text;
+                        vDatosMaestro[3] = TxMont2.Text;
+                        vDatosMaestro[4] = TxDest3.Text;
+                        vDatosMaestro[5] = TxMont3.Text;
+                        vDatosMaestro[6] = TxDest4.Text;
+                        vDatosMaestro[7] = TxMont4.Text;
+                        String vXML = vMaestro.ObtenerMaestroString(vDatosMaestro);
+                        vXML = vXML.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
+
+                        vQuery = "[RSP_Constancias] 3" +
+                                "," + vIdSolicitud +
+                                ",'" + TxMonto.Text + "'" +
+                                ",'" + TxPlazo.Text + "'" +
+                                ",'" + vXML + "'";
+                        vInfo = vConexion.ejecutarSql(vQuery);
+
+                        if (vInfo == 1){
+                            Mensaje("Solicitud creada con éxito.", WarningType.Success);
+                        }else
+                            Mensaje("Solicitud no completada, favor comuníquese con sistemas.", WarningType.Success);
                         limpiarFormulario();
                     }
 
                 }else{
-                    validarConstancia();
-                    String vSPTipo = "";
-                    vQuery = "[RSP_Constancias] 2" +
-                        "," + Session["USUARIO"].ToString() +
-                        "," + vTipo + 
-                        "," + vCat + 
-                        "," + vDest ;
-                    vDatos = vConexion.obtenerDataTable(vQuery);
-                    if (vCat == "")
-                        vSPTipo = "";
-
                     if (vDatos.Rows.Count > 0){
-                        vQuery = "[RSP_Constancias] ";
-                    }
+                        Boolean vDA = true;
+                        String vIdSolicitud = vDatos.Rows[0][0].ToString();
+                        if (vDest == "6") {
+                            vQuery = "[RSP_Constancias] 4" +
+                                "," + vIdSolicitud +
+                                ",'" + TxAval.Text + "'" +
+                                ",'" + DDLParentezco.SelectedItem + "'";
+                            vInfo = vConexion.ejecutarSql(vQuery);
+                        }else if (vDest == "11") {
+                            vQuery = "[RSP_Constancias] 5" +
+                                "," + vIdSolicitud +
+                                ",'" + TxEmbajada.Text + "'" +
+                                ",'" + TxFechaCita.Text + "'";
+                            vInfo = vConexion.ejecutarSql(vQuery);
+                        }else if (vDest == "12") {
+                            vQuery = "[RSP_Constancias] 6" +
+                                "," + vIdSolicitud +
+                                ",'" + TxRepresentante.Text + "'" +
+                                ",'" + TxFecha.Text + "'" +
+                                ",'" + TxPasaporte.Text + "'" +
+                                ",'" + TxRTN.Text + "'" +
+                                ",'" + TxDomicilio1.Text + "'" +
+                                ",'" + TxDomicilio2.Text + "'" +
+                                ",'" + TxContacto.Text + "'" +
+                                ",'" + TxLugar.Text + "'" +
+                                ",'" + TxTelefono.Text + "'" +
+                                ",'" + TxEvento.Text + "'" +
+                                ",'" + TxFechaInicio.Text + "'" +
+                                ",'" + TxFechaFin.Text + "'" +
+                                ",'" + TxConsulado.Text + "'" +
+                                ",'" + TxDirConsul.Text + "'";
+                            vInfo = vConexion.ejecutarSql(vQuery);
+                        }else
+                            vDA = false;
 
+                        if (vDA){
+                            if (vInfo == 1)
+                                Mensaje("Constancia solicitada con éxito.", WarningType.Success);
+                            else
+                                Mensaje("Solicitud no completada, favor comuníquese con sistemas.", WarningType.Success);
+                        }else
+                            Mensaje("Constancia solicitada con éxito.", WarningType.Success);
+                    }else
+                        Mensaje("Solicitud no completada, favor comuníquese con sistemas.", WarningType.Warning);
+                    limpiarFormulario();
                 }
+                cargarDatos();
+                UPBuzonGeneral.Update();
+                UpdatePanel1.Update();
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
         }
-
-        private void validarFinanciamiento() {
-            if (TxMonto.Text == "" || TxMonto.Text == string.Empty)
-                throw new Exception("Favor ingrese el monto.");
-            if (TxPlazo.Text == "" || TxPlazo.Text == string.Empty)
-                throw new Exception("Favor ingrese el plazo.");
-            if (TxDestino.Text == "" || TxDestino.Text == string.Empty)
-                throw new Exception("Favor ingrese el destino.");
-        }
         
-        private void validarConstancia() {
-            if (DDLCategoria.SelectedValue == "0")
-                throw new Exception("Favor seleccione el tipo de constancia laboral.");
-            if (DDLDestinoCL.SelectedValue == "0")
-                throw new Exception("Favor seleccione el destino de la constancia.");
+        private void validarDatos() {
+            if (DDLTipoConstancia.SelectedValue == "0")
+                throw new Exception("Favor seleccione el tipo de constancia.");
 
-            if (DDLDestinoCL.SelectedValue == "6") {
-                if (TxAval.Text == "" || TxAval.Text == string.Empty)
-                    throw new Exception("Favor ingrese el nombre del aval.");
-                if (DDLParentezco.SelectedValue == "0")
-                    throw new Exception("Favor seleccione el parentezco del aval.");
+            if (DDLTipoConstancia.SelectedValue == "2"){
+                if (TxMonto.Text == "" || TxMonto.Text == string.Empty)
+                    throw new Exception("Favor ingrese el monto.");
+                if (TxPlazo.Text == "" || TxPlazo.Text == string.Empty)
+                    throw new Exception("Favor ingrese el plazo.");
+                if (TxDest1.Text == "" || TxDest1.Text == string.Empty)
+                    throw new Exception("Favor ingrese al menos un destino.");
+                if (TxMont1.Text == "" || TxMont1.Text == string.Empty)
+                    throw new Exception("Favor ingrese al menos un monto.");
             }
+            else{
+                if (DDLCategoria.SelectedValue == "0")
+                    throw new Exception("Favor seleccione el tipo de constancia laboral.");
+                if (DDLDestinoCL.SelectedValue == "0")
+                    throw new Exception("Favor seleccione el destino de la constancia.");
 
-            if (DDLDestinoCL.SelectedValue == "11") {
-                if (TxEmbajada.Text == "" || TxEmbajada.Text == string.Empty)
-                    throw new Exception("Favor ingrese el nombre de la embajada.");
-            }
+                if (DDLDestinoCL.SelectedValue == "6") {
+                    if (TxAval.Text == "" || TxAval.Text == string.Empty)
+                        throw new Exception("Favor ingrese el nombre del aval.");
+                    if (DDLParentezco.SelectedValue == "0")
+                        throw new Exception("Favor seleccione el parentezco del aval.");
+                }
 
-            if (DDLDestinoCL.SelectedValue == "12") {
-                if (TxRepresentante.Text == "" || TxRepresentante.Text == string.Empty)
-                    throw new Exception("Favor ingrese el representante.");
-                if (TxFecha.Text == "" || TxFecha.Text == string.Empty)
-                    throw new Exception("Favor ingrese la Fecha de emisión.");
-                if (TxPasaporte.Text == "" || TxPasaporte.Text == string.Empty)
-                    throw new Exception("Favor ingrese el pasaporte.");
-                if (TxRTN.Text == "" || TxRTN.Text == string.Empty)
-                    throw new Exception("Favor ingrese el RTN.");
-                if (TxDomicilio1.Text == "" || TxDomicilio1.Text == string.Empty)
-                    throw new Exception("Favor ingrese el domicilio 1.");
-                if (TxContacto.Text == "" || TxContacto.Text == string.Empty)
-                    throw new Exception("Favor ingrese el contacto.");
-                if (TxDomicilio2.Text == "" || TxDomicilio2.Text == string.Empty)
-                    throw new Exception("Favor ingrese el domicilio 2.");
-                if (TxLugar.Text == "" || TxLugar.Text == string.Empty)
-                    throw new Exception("Favor ingrese el Lugar.");
-                if (TxCiudad.Text == "" || TxCiudad.Text == string.Empty)
-                    throw new Exception("Favor ingrese la Ciudad.");
-                if (TxTelefono.Text == "" || TxTelefono.Text == string.Empty)
-                    throw new Exception("Favor ingrese el teléfono.");
-                if (TxFechaInicio.Text == "" || TxFechaInicio.Text == string.Empty)
-                    throw new Exception("Favor ingrese la Fecha Inicial.");
-                if (TxEvento.Text == "" || TxEvento.Text == string.Empty)
-                    throw new Exception("Favor ingrese el evento.");
-                if (TxFechaFin.Text == "" || TxFechaFin.Text == string.Empty)
-                    throw new Exception("Favor ingrese la Fecha Final.");
-                if (TxConsulado.Text == "" || TxConsulado.Text == string.Empty)
-                    throw new Exception("Favor ingrese el consulado.");
-                if (TxDirConsul.Text == "" || TxDirConsul.Text == string.Empty)
-                    throw new Exception("Favor ingrese la dirección del consulado.");
+                if (DDLDestinoCL.SelectedValue == "11") {
+                    if (TxEmbajada.Text == "" || TxEmbajada.Text == string.Empty)
+                        throw new Exception("Favor ingrese el nombre de la embajada.");
+                    if (TxFechaCita.Text == "" || TxFechaCita.Text == string.Empty)
+                        throw new Exception("Favor ingrese la fecha de la cita.");
+                }
+
+                if (DDLDestinoCL.SelectedValue == "12") {
+                    if (TxRepresentante.Text == "" || TxRepresentante.Text == string.Empty)
+                        throw new Exception("Favor ingrese el representante.");
+                    if (TxFecha.Text == "" || TxFecha.Text == string.Empty)
+                        throw new Exception("Favor ingrese la Fecha de emisión.");
+                    if (TxPasaporte.Text == "" || TxPasaporte.Text == string.Empty)
+                        throw new Exception("Favor ingrese el pasaporte.");
+                    if (TxRTN.Text == "" || TxRTN.Text == string.Empty)
+                        throw new Exception("Favor ingrese el RTN.");
+                    if (TxDomicilio1.Text == "" || TxDomicilio1.Text == string.Empty)
+                        throw new Exception("Favor ingrese el domicilio 1.");
+                    if (TxContacto.Text == "" || TxContacto.Text == string.Empty)
+                        throw new Exception("Favor ingrese el contacto.");
+                    if (TxDomicilio2.Text == "" || TxDomicilio2.Text == string.Empty)
+                        throw new Exception("Favor ingrese el domicilio 2.");
+                    if (TxLugar.Text == "" || TxLugar.Text == string.Empty)
+                        throw new Exception("Favor ingrese el Lugar.");
+                    if (TxCiudad.Text == "" || TxCiudad.Text == string.Empty)
+                        throw new Exception("Favor ingrese la Ciudad.");
+                    if (TxTelefono.Text == "" || TxTelefono.Text == string.Empty)
+                        throw new Exception("Favor ingrese el teléfono.");
+                    if (TxFechaInicio.Text == "" || TxFechaInicio.Text == string.Empty)
+                        throw new Exception("Favor ingrese la Fecha Inicial.");
+                    if (TxEvento.Text == "" || TxEvento.Text == string.Empty)
+                        throw new Exception("Favor ingrese el evento.");
+                    if (TxFechaFin.Text == "" || TxFechaFin.Text == string.Empty)
+                        throw new Exception("Favor ingrese la Fecha Final.");
+                    if (TxConsulado.Text == "" || TxConsulado.Text == string.Empty)
+                        throw new Exception("Favor ingrese el consulado.");
+                    if (TxDirConsul.Text == "" || TxDirConsul.Text == string.Empty)
+                        throw new Exception("Favor ingrese la dirección del consulado.");
+                }
             }
         }
 
         protected void GvMisConstancias_RowCommand(object sender, GridViewCommandEventArgs e){
-
+            try{
+                String vId = e.CommandArgument.ToString();
+                Session["CONSTANCIA_ID"] = vId;
+                if (e.CommandName == "EliminarMensaje"){
+                    LbTitulo.Text = "Eliminar Solicitud " + vId;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+            }catch (Exception Ex){
+                Mensaje(Ex.Message, WarningType.Danger);
+            }
         }
 
         protected void GvMisConstancias_PageIndexChanging(object sender, GridViewPageEventArgs e){
@@ -211,7 +302,130 @@ namespace BiometricoWeb.pages
         }
 
         protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                String vId = e.CommandArgument.ToString();
+                Session["SOLICITUD_RESPUESTA"] = vId;
+                Session["CONSTANCIA_ID"] = null;
+                if (e.CommandName == "ResponderSolicitud"){
+                    LbTitulo.Text = "Responder Solicitud " + vId;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
 
+                if (e.CommandName == "VerSolicitud"){
+                    DataTable vDatos = (DataTable)Session["CONSTANCIAS_GENERAL"];
+                    DataTable vDataFiltro = new DataTable();
+                    vDataFiltro.Columns.Add("Tipo");
+                    vDataFiltro.Columns.Add("Categoria");
+                    vDataFiltro.Columns.Add("Destino");
+
+                    DivModFinanc.Visible = false;
+                    DivModAval.Visible = false;
+                    DivModEmbajada.Visible = false;
+                    DivModCapa.Visible = false;
+                    EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
+                        .Where(r => r.Field<Int32>("idSolicitud").Equals(Convert.ToInt32(vId)));
+
+                    foreach (DataRow item in filtered){
+                        vDataFiltro.Rows.Add(
+                            item["Tipo"].ToString(),
+                            item["Categoria"].ToString(),
+                            item["Destino"].ToString()
+
+                            );
+                    }
+
+                    Boolean vFlag = true;
+
+                    if (vDataFiltro.Rows[0]["Tipo"].ToString() == "Financiamiento")
+                        DivModFinanc.Visible = true;
+                    else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Aval")
+                        DivModAval.Visible = true;
+                    else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Visa Embajada")
+                        DivModEmbajada.Visible = true;
+                    else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Visa para capacitacion")
+                        DivModCapa.Visible = true;
+                    else
+                        vFlag = false;
+
+                    if (vFlag){
+                        verInfo(vId);
+                        LbTituloInfo.Text = "Información de Solicitud " + vId;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openInfo();", true);
+                    }
+                }
+            }catch (Exception Ex){
+                Mensaje(Ex.Message, WarningType.Danger);
+            }
+        }
+
+        private void verInfo(String vId) {
+            DataTable vDatos = (DataTable)Session["CONSTANCIAS_GENERAL"];
+            for (int i = 0; i < vDatos.Rows.Count; i++){
+                if (vDatos.Rows[i]["idSolicitud"].ToString() == vId){
+                    String vResultado = "";
+                    if (vDatos.Rows[i]["Tipo"].ToString() == "Financiamiento"){
+                        String vsDest = vDatos.Rows[i]["financDestino"].ToString();
+                        DataTable vData = stam(vsDest);
+                        for (int j = 0; j < vData.Rows.Count; j++){
+                            String vDest1 = vData.Rows[j]["Destino1"].ToString();
+                            String vMont1 = vData.Rows[j]["Monto1"].ToString();
+                            String vDest2 = vData.Rows[j]["Destino2"].ToString();
+                            String vMont2 = vData.Rows[j]["Monto2"].ToString();
+                            String vDest3 = vData.Rows[j]["Destino3"].ToString();
+                            String vMont3 = vData.Rows[j]["Monto3"].ToString();
+                            String vDest4 = vData.Rows[j]["Destino4"].ToString();
+                            String vMont4 = vData.Rows[j]["Monto4"].ToString();
+
+                            vMont1 = vMont1.Substring(vMont1.Length -3 , 1) == "." ? vMont1 : vMont1 + ".00";
+                            if (vMont2 != null)
+                                vMont2 = vMont2.Substring(vMont2.Length - 3, 1) == "." ? vMont2 : vMont2 + ".00";
+                            if (vMont3 != "")
+                                vMont3 = vMont3.Substring(vMont3.Length - 3, 1) == "." ? vMont3 : vMont3 + ".00";
+                            if (vMont4 != "")
+                                vMont4 = vMont4.Substring(vMont4.Length - 3, 1) == "." ? vMont4 : vMont4 + ".00";
+
+                            vResultado = vDest1 + " " + vMont1 + ", " + vDest2 + " " + vMont2 + ", " + vDest3 + " " + vMont3 + ", " + vDest4 + " " + vMont4;
+                            vResultado = vResultado.TrimEnd();
+                            vResultado = vResultado.Replace(",  ,  ,", "");
+                            vResultado = vResultado.Replace(",  ,", "");
+                        }
+                        String NewString = vResultado.Substring(vResultado.Length - 1, 1);
+                        if (NewString == ",")
+                            vResultado = vResultado.Remove(vResultado.Length - 1, 1);
+                    }
+
+                    LbMonto.Text = vDatos.Rows[i]["financMonto"].ToString();
+                    LbPlazo.Text = vDatos.Rows[i]["financPlazo"].ToString() + " meses";
+                    LbDetalle.Text = vResultado;
+                    LbAval.Text = vDatos.Rows[i]["avalNombre"].ToString();
+                    LbParentezco.Text = vDatos.Rows[i]["avalParentezco"].ToString();
+                    LbEmbajada.Text = vDatos.Rows[i]["embajadaNombre"].ToString();
+                    LbFechaCita.Text = vDatos.Rows[i]["embajadaFecha"].ToString();
+
+                    LbRepresentante.Text = vDatos.Rows[i]["representante"].ToString();
+                    LbEmision.Text = vDatos.Rows[i]["fechaEmision"].ToString();
+                    LbPasaporte.Text = vDatos.Rows[i]["pasaporte"].ToString();
+                    LbRTN.Text = vDatos.Rows[i]["rtn"].ToString();
+                    LbDomicilio1.Text = vDatos.Rows[i]["domicilio1"].ToString();
+                    LbDomicilio2.Text = vDatos.Rows[i]["domicilio2"].ToString();
+                    LbContacto.Text = vDatos.Rows[i]["contacto"].ToString();
+                    LbLugar.Text = vDatos.Rows[i]["lugar"].ToString();
+                    LbTelefono.Text = vDatos.Rows[i]["telefono"].ToString();
+                    LbEvento.Text = vDatos.Rows[i]["eventoParticipacion"].ToString();
+                    LbInicio.Text = vDatos.Rows[i]["fechaInicio"].ToString();
+                    LbFin.Text = vDatos.Rows[i]["fechaFin"].ToString();
+                    LbConsulado.Text = vDatos.Rows[i]["consulado"].ToString();
+                    LbDirConsul.Text = vDatos.Rows[i]["direccionConsulado"].ToString();
+                    break;
+                }
+            }
+        }
+
+        public DataTable stam(String vXml){
+            StringReader theReader = new StringReader(vXml);
+            DataSet theDataSet = new DataSet();
+            theDataSet.ReadXml(theReader);
+            return theDataSet.Tables[0];
         }
 
         protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
@@ -246,35 +460,99 @@ namespace BiometricoWeb.pages
             DDLTipoConstancia.SelectedValue = "0";
             DDLCategoria.SelectedValue = "0";
             DDLDestinoCL.SelectedValue = "0";
+            
+            //financ
+            TxDestino.Text = string.Empty;
+            TxMonto.Text = string.Empty;
+            TxPlazo.Text = string.Empty;
+            
+            //visa
+            TxEmbajada.Text = string.Empty;
+            TxFechaCita.Text = string.Empty;
+
+            //aval
+            TxAval.Text = string.Empty;
             DDLParentezco.SelectedValue = "0";
 
-            foreach (TextBox item in Controls){
-                if (item is TextBox){
-                    item.Controls.Clear();
-                }
-            }
-            /*
-
-            TxMonto.Text = string.Empty;
-            TxAval.Text = string.Empty;
-            TxCiudad.Text = string.Empty;
-            TxConsulado.Text = string.Empty;
-            TxContacto.Text = string.Empty;
-            TxDestino.Text = string.Empty;
-            TxDirConsul.Text = string.Empty;
+            //visa capacitacion
+            TxRepresentante.Text = string.Empty;
+            TxFecha.Text = string.Empty;
+            TxPasaporte.Text = string.Empty;
+            TxRTN.Text = string.Empty;
             TxDomicilio1.Text = string.Empty;
             TxDomicilio2.Text = string.Empty;
-            TxEmbajada.Text = string.Empty;
-            TxEvento.Text = string.Empty;
-            TxFecha.Text = string.Empty;
-            TxFechaFin.Text = string.Empty;
-            TxFechaInicio.Text = string.Empty;
+            TxContacto.Text = string.Empty;
             TxLugar.Text = string.Empty;
-            TxMonto.Text = string.Empty;
-            TxPasaporte.Text = string.Empty;
-            TxPlazo.Text = string.Empty;
+            TxCiudad.Text = string.Empty;
+            TxTelefono.Text = string.Empty;
+            TxEvento.Text = string.Empty;
+            TxFechaInicio.Text = string.Empty;
             TxFechaFin.Text = string.Empty;
-            */
+            TxConsulado.Text = string.Empty;
+            TxDirConsul.Text = string.Empty;
+        }
+
+        protected void GvMisConstancias_RowDataBound(object sender, GridViewRowEventArgs e){
+            try{
+                if (e.Row.RowType == DataControlRowType.DataRow){
+                    DataRowView drv = e.Row.DataItem as DataRowView;
+
+                    TableCell vCel = new TableCell();
+                    if (drv["estado"].ToString().Equals("Aprobado"))
+                        e.Row.Attributes.CssStyle.Value = "color : LimeGreen; font-weight: bold;"; //System.Drawing.Color.LimeGreen;
+                }
+            }catch (Exception Ex){
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        protected void BtnConfirmar_Click(object sender, EventArgs e){
+            try{
+                String vId = HttpContext.Current.Session["CONSTANCIA_ID"] != null ? Session["CONSTANCIA_ID"].ToString() : Session["SOLICITUD_RESPUESTA"].ToString();
+                String vEstado = HttpContext.Current.Session["CONSTANCIA_ID"] != null ? "2" : "1" ;
+                String vMensaje = vEstado == "2" ? "Solicitud eliminada con éxito." : "Constancia aprobada con éxito." ;
+
+                String vQuery = "[RSP_Constancias] 10" +
+                    "," + vId + "," + vEstado;
+                int vInfo = vConexion.ejecutarSql(vQuery);
+                if (vInfo == 1){
+                    Mensaje(vMensaje, WarningType.Success);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
+                }else
+                    Mensaje("Solicitud no fue eliminada, comuníquese con sistemas.", WarningType.Danger);
+
+                cargarDatos();
+                UpdatePanel1.Update();
+                UPBuzonGeneral.Update();
+            }catch (Exception Ex){
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        protected void BtnAgregar_Click(object sender, EventArgs e){
+            try{
+                int vCuenta = 0;
+                Line2.Visible = false;
+                Line3.Visible = false;
+                Line4.Visible = false;
+
+                if (HttpContext.Current.Session["CONTEO"] != null){
+                    Line2.Visible = true;
+                    vCuenta = Convert.ToInt32(Session["CONTEO"].ToString());
+                    if (vCuenta == 1)
+                        Line3.Visible = true;
+                    else if( vCuenta > 1) { 
+                        Line3.Visible = true;
+                        Line4.Visible = true;
+                    }
+                }else{
+                    Line2.Visible = true;
+                }
+                
+                Session["CONTEO"] = vCuenta + 1;
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
     }
 }

@@ -77,15 +77,9 @@
     <div class="tab-content" id="nav-tabContent">
         <br />
         <div class="tab-pane fade show active" id="nav-datos" role="tabpanel" aria-labelledby="nav-datos-tab">
-            <div class="form-check form-check-flat form-check-primary" style="margin-left: auto;" runat="server">
+            <div class="" style="margin-left: auto;" runat="server">
                 <label class="form-check-label">
-                    <input type="checkbox" id="Checkbox1" name="Checkbox1" value="0" class="form-check-input" onclick="javas(this);" runat="server"  />Presione aqui si su solicitud es de emergencia
-                </label>
-            </div>
-
-            <div class="form-check form-check-flat form-check-primary" style="margin-left: auto;" runat="server">
-                <label class="form-check-label">
-                    <input type="checkbox" name="CbEmergencias" value="0" class="form-check-input" onclick="javas(this);" runat="server" id="CbEmergencias" />Presione aqui si su solicitud es de emergencia
+                    <input type="checkbox" name="CbEmergencias" value="0" class="" onclick="javas(this);" runat="server" id="CbEmergencias" />Presione aqui si su solicitud es de emergencia
                 </label>
             </div>
 

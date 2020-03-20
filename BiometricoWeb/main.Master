@@ -127,17 +127,24 @@
                                         </div>
                                     </li>
 
-                                    <li class="" id="LIPermisos" runat="server" visible="false" style="margin-left:-20%">
-                                        <a class="nav-link" href="/pages/permissions.aspx" >
-                                            <i class="mdi mdi-door-open menu-icon"></i>
-                                            <span class="menu-title">Permisos</span>
-                                        </a>
-                                    </li>
-
                                     <li class="" id="LIConstancias" runat="server" visible="false" style="margin-left:-20%">
                                         <a class="nav-link" href="/pages/constancias.aspx" >
                                             <i class="mdi mdi-file-outline menu-icon"></i>
                                             <span class="menu-title">Constancias</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="" id="LICumpleaños" runat="server" visible="false" style="margin-left:-20%">
+                                        <a class="nav-link" href="/pages/birthdayCalendar.aspx" >
+                                            <i class="mdi mdi-cake menu-icon"></i>
+                                            <span class="menu-title">Cumpleaños</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="" id="LIPermisos" runat="server" visible="false" style="margin-left:-20%">
+                                        <a class="nav-link" href="/pages/permissions.aspx" >
+                                            <i class="mdi mdi-door-open menu-icon"></i>
+                                            <span class="menu-title">Permisos</span>
                                         </a>
                                     </li>
 

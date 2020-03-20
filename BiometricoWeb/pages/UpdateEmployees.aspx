@@ -301,7 +301,6 @@
                                                 <asp:ListItem Value="0">Seleccione una opción</asp:ListItem>
                                                 <asp:ListItem Value="True">Activado</asp:ListItem>
                                                 <asp:ListItem Value="False">Desactivado</asp:ListItem>
-
                                             </asp:DropDownList>
                                         </div>
                                     </div>
@@ -311,7 +310,6 @@
                                         <label class="col-sm-3 col-form-label">Identidad</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox ID="TxModIdentidad" placeholder="ej. 0801190000123" class="form-control" runat="server"></asp:TextBox>
-
                                         </div>
                                     </div>
                                 </div>

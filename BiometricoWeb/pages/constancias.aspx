@@ -10,7 +10,9 @@
         }
     </script>
     <script type="text/javascript">
-        function openModal() { $('#ModalInfo').modal('show'); }
+        function openModal() { $('#ModalConfirmar').modal('show'); }
+        function closeModal() { $('#ModalConfirmar').modal('hide'); }
+        function openInfo() { $('#ModalInfo').modal('show'); }
     </script>
 
     <link href="/css/GridStyle.css" rel="stylesheet" />
@@ -30,8 +32,8 @@
         <nav>
             <div class="nav nav-pills " id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#navCompensatorio" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-message-text"> </i>Nuevo</a>
-                <a class="nav-item nav-link" id="A1" data-toggle="tab" href="#navMiBuzon" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-account" > </i>Mis Solicitudes</a>
-                <a runat="server" visible="false" class="nav-item nav-link" id="BuzonGenerales" data-toggle="tab" href="#navRegistros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-folder" > </i>Solicitudes</a>
+                <a class="nav-item nav-link" id="A1" data-toggle="tab" href="#navMisSolicitudes" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-account" > </i>Mis Solicitudes</a>
+                <a runat="server" visible="false" class="nav-item nav-link" id="ConstanciasGenerales" data-toggle="tab" href="#navRegistros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-folder" > </i>Solicitudes</a>
             </div>
         </nav>
     </div>
@@ -97,8 +99,50 @@
                                             <div class="col-12">
                                                 <div class="form-group row">
                                                     <label class="col-1 col-form-label">Destino (detalle)</label>
-                                                    <div class="col-11">
-                                                        <asp:TextBox runat="server" TextMode="MultiLine" Rows="6" PlaceHolder="T/C, Banco X, L." ID="TxDestino" CssClass="form-control"></asp:TextBox>
+                                                    <div class="col-5">
+                                                        <asp:TextBox runat="server" ID="TxDest1" PlaceHolder="Deudor1" CssClass="form-control"></asp:TextBox>
+                                                        <asp:TextBox Visible="false" runat="server" TextMode="MultiLine" Rows="6" PlaceHolder="Favor detallar los montos y el nombre de sus deudores." ID="TxDestino" CssClass="form-control"></asp:TextBox>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <asp:TextBox runat="server" ID="TxMont1" PlaceHolder="Lps." CssClass="form-control"></asp:TextBox>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <asp:LinkButton runat="server"  CssClass="btn btn-success" ID="BtnAgregar" OnClick="BtnAgregar_Click">
+                                                            <i class="mdi mdi-plus" ></i>
+                                                        </asp:LinkButton>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" runat="server" id="Line2" style="margin-top:-3%" visible="false">
+                                                <div class="form-group row">
+                                                    <div class="col-1"></div>
+                                                    <div class="col-5">
+                                                        <asp:TextBox runat="server" ID="TxDest2" PlaceHolder="Deudor2" CssClass="form-control"></asp:TextBox>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <asp:TextBox runat="server" ID="TxMont2" PlaceHolder="Lps." CssClass="form-control"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" runat="server" id="Line3" visible="false">
+                                                <div class="form-group row">
+                                                    <div class="col-1"></div>
+                                                    <div class="col-5">
+                                                        <asp:TextBox runat="server" ID="TxDest3" PlaceHolder="Deudor3" CssClass="form-control"></asp:TextBox>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <asp:TextBox runat="server" ID="TxMont3" PlaceHolder="Lps." CssClass="form-control"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" runat="server" id="Line4" visible="false">
+                                                <div class="form-group row">
+                                                    <div class="col-1"></div>
+                                                    <div class="col-5">
+                                                        <asp:TextBox runat="server" ID="TxDest4" PlaceHolder="Deudor4" CssClass="form-control"></asp:TextBox>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <asp:TextBox runat="server" ID="TxMont4" PlaceHolder="Lps." CssClass="form-control"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -275,6 +319,14 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-6">
+                                                <div class="form-group row">
+                                                    <label class="col-2">Fecha de la Cita</label>
+                                                    <div class="col-10">
+                                                        <asp:TextBox runat="server" ID="TxFechaCita" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -307,15 +359,20 @@
                                                 HeaderStyle-CssClass="header"
                                                 RowStyle-CssClass="rows"
                                                 AutoGenerateColumns="false"
-                                                AllowPaging="true"
+                                                AllowPaging="true" OnRowDataBound="GvMisConstancias_RowDataBound"
                                                 GridLines="None" OnRowCommand="GvMisConstancias_RowCommand"
                                                 PageSize="10" OnPageIndexChanging="GvMisConstancias_PageIndexChanging">
                                                 <Columns>
-                                                    <asp:BoundField HeaderText="Fecha" />
+                                                    <asp:BoundField DataField="idSolicitud" HeaderText="No." />
+                                                    <asp:BoundField DataField="Tipo" HeaderText="Tipo" />
+                                                    <asp:BoundField DataField="Categoria" HeaderText="Categoría" />
+                                                    <asp:BoundField DataField="fecha" HeaderText="Fecha" />                                                    
+                                                    <asp:BoundField DataField="estado" HeaderText="Estado" />
+                                                    <asp:BoundField DataField="Mensaje" HeaderText="Mensaje" ItemStyle-Width="40%" />
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnEditar2" runat="server" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSugerencia") %>' CommandName="VerMensaje">
-                                                                <i class="mdi mdi-email text-success" ></i>
+                                                            <asp:LinkButton ID="BtnEditar2" runat="server" title="Eliminar" style="background-color:transparent" class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="EliminarMensaje">
+                                                                <i class="mdi mdi-delete text-gray"></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
@@ -353,11 +410,19 @@
                                                 GridLines="None" OnRowCommand="GVBusqueda_RowCommand"
                                                 PageSize="10" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
                                                 <Columns>
-                                                    <asp:BoundField HeaderText="Fecha" />
+                                                    <asp:BoundField DataField="idSolicitud" HeaderText="ID" />
+                                                    <asp:BoundField DataField="Tipo" HeaderText="Tipo" />
+                                                    <asp:BoundField DataField="Categoria" HeaderText="Categoría" />
+                                                    <asp:BoundField DataField="Destino" HeaderText="Destino" />
+                                                    <asp:BoundField DataField="estado" HeaderText="Estado"/>
+                                                    <asp:BoundField DataField="fecha" HeaderText="Fecha" />                                                    
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnEditar2" runat="server" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSugerencia") %>' CommandName="VerMensaje">
-                                                                <i class="mdi mdi-email text-success" ></i>
+                                                            <asp:LinkButton ID="BtnEditar2" runat="server" title="Responder" style="background-color:transparent;"  class="btn btn-inverse mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="ResponderSolicitud">
+                                                                <i class="mdi mdi-reply text-gray" ></i>
+                                                            </asp:LinkButton>
+                                                            <asp:LinkButton ID="LbVer" runat="server" title="Abrir" style="background-color:transparent;"  class="btn btn-inverse mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="VerSolicitud">
+                                                                <i class="mdi mdi-email-open text-gray" ></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
@@ -371,6 +436,244 @@
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
+        </div>
+    </div>
+
+    <%--MODAL DE INFO--%>
+    <div class="modal fade" id="ModalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="ModalLabelModificacion">
+                        <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                            <ContentTemplate>
+                                <asp:Label ID="LbTituloInfo" runat="server" Text=""></asp:Label>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdatePanel ID="UpdatePanelModal" runat="server">
+                        <ContentTemplate>
+                            <div class="row">
+                                <div runat="server" id="DivModFinanc" class="col-12" visible="false"> 
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Monto:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbMonto"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Plazo:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbPlazo"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="form-group row">
+                                                <label class="col-2" style="text-align:right">Detalle:</label>
+                                                <div class="col-10">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbDetalle"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div runat="server" id="DivModAval" class="col-12" visible="false"> 
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Nombre:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbAval"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-4" style="text-align:right">Parentezco:</label>
+                                                <div class="col-8">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbParentezco"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div runat="server" id="DivModEmbajada" class="col-12" visible="false"> 
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-4" style="text-align:right">Embajada:</label>
+                                                <div class="col-8">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbEmbajada"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Fecha:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbFechaCita"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div runat="server" id="DivModCapa" class="col-12" visible="false"> 
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-4" style="text-align:right">Representante:</label>
+                                                <div class="col-8">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbRepresentante"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-4" style="text-align:right">Fecha Emisión:</label>
+                                                <div class="col-8">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbEmision"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Pasaporte:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbPasaporte"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">RTN:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbRTN"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Domicilio 1:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbDomicilio1"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Domicilio 2:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbDomicilio2"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Contacto:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbContacto"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Lugar:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbLugar"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Telefono:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbTelefono"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Evento:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbEvento"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Inicio:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbInicio"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Fin:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbFin"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3" style="text-align:right">Consulado:</label>
+                                                <div class="col-9">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbConsulado"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-4" style="text-align:right">Dirección del Consulado:</label>
+                                                <div class="col-8">
+                                                    <asp:Label runat="server" CssClass="col-form-label" Font-Bold="true" ID="LbDirConsul"></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%--MODAL DE CONFIRMACION--%>
+    <div class="modal fade" id="ModalConfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate>
+                            <h4 class="modal-title" id="ModalLabelConfirmar">
+                                <b><asp:Label runat="server" ID="LbTitulo" CssClass="col-form-label"></asp:Label></b>
+                            </h4>
+                            <asp:Label runat="server" ID="LbMensaje" CssClass="col-form-label"></asp:Label>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <asp:Button ID="BtnConfirmar" runat="server" Text="Aceptar" class="btn btn-success" OnClick="BtnConfirmar_Click"/>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
         </div>
     </div>
 </asp:Content>

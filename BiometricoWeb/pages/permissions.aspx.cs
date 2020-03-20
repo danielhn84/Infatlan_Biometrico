@@ -106,8 +106,8 @@ namespace BiometricoWeb.pages
         void CargarDiasSAP(){
             try{
                 SapConnector vTest = new SapConnector();
-                //String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
-                String vDias = "12.62";
+                String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
+                //String vDias = "12.62";
                 LbNumeroVaciones.Text = vDias;
                 Session["DIASSAP"] = vDias;
             }catch (Exception Ex){
@@ -358,6 +358,8 @@ namespace BiometricoWeb.pages
 
                 if (DDLTipoPermiso.SelectedValue == "1006" && !FUDocumentoPermiso.HasFiles)
                     Response.Redirect("/pages/permissions.aspx?ex=4");
+                if (DDLTipoPermiso.SelectedValue == "1026" && !FUDocumentoPermiso.HasFiles)
+                    Response.Redirect("/pages/permissions.aspx?ex=4");
 
                 String vArchivo = String.Empty;
                 if (vFileDeposito1 != null)
@@ -574,6 +576,7 @@ namespace BiometricoWeb.pages
                         DIVDocumentos.Visible = true;
                         break;
                     case "1026":
+                        DIVDocumentos.Visible = true;
                         Mensaje("Debe solicitar acceso a RRHH para ingresar este permiso. Si ya lo tiene, continue.", WarningType.Warning);
                         break;
                     default:

@@ -59,11 +59,11 @@ namespace BiometricoWeb
                             LIConstancias.Visible = true;
                         }
 
-                    }
-                    else{
+                    }else{
                         LIAutorizaciones.Visible = true;
                         LIPermisos.Visible = true;
                         LIConfig.Visible = false;
+                        LIConstancias.Visible = true;
                     }
 
                 }catch (Exception Ex){
