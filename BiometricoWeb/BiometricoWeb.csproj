@@ -157,6 +157,7 @@
     <Content Include="pages\security.aspx" />
     <Content Include="pages\sec_aprobaciones.aspx" />
     <Content Include="pages\sec_historico.aspx" />
+    <Content Include="pages\servicios\organizationalChart.aspx" />
     <Content Include="pages\settings.aspx" />
     <Content Include="pages\token.aspx" />
     <Content Include="pages\UpdateEmployees.aspx" />
@@ -341,6 +342,13 @@
     </Compile>
     <Compile Include="pages\sec_historico.aspx.designer.cs">
       <DependentUpon>sec_historico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\servicios\organizationalChart.aspx.cs">
+      <DependentUpon>organizationalChart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\servicios\organizationalChart.aspx.designer.cs">
+      <DependentUpon>organizationalChart.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\settings.aspx.cs">
       <DependentUpon>settings.aspx</DependentUpon>

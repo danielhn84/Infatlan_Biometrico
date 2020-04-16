@@ -8,6 +8,8 @@
 
     <script type="text/javascript">
         function openModal() {$('#AutorizarModal').modal('show');}
+        function openModalCambio() { $('#ModalCambio').modal('show');}
+        function cerrarModalCambio() { $('#ModalCambio').modal('hide');}
     </script>
     <script type="text/javascript">
         function openFinalizarModal() {
@@ -105,7 +107,7 @@
                                                         <HeaderTemplate>
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnMotivo" runat="server" Text="Motivo" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idPermiso") %>' CommandName="MotivoPermiso">
+                                                            <asp:LinkButton ID="BtnMotivo" runat="server" style="background-color:transparent;" Text="Motivo" class="btn btn-inverse-info mr-2" CommandArgument='<%# Eval("idPermiso") %>' CommandName="MotivoPermiso">
                                                                 <i class="mdi mdi-comment-search-outline text-primary" ></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
@@ -114,8 +116,15 @@
                                                         <HeaderTemplate>
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnDocumento" runat="server" Text="Download" class="btn btn-inverse-success mr-2 " CommandArgument='<%# Eval("idPermiso") %>' CommandName="DocumentoPermiso">
+                                                            <asp:LinkButton ID="BtnDocumento" runat="server" style="background-color:transparent;" Text="Download" class="btn btn-inverse-info mr-2 " CommandArgument='<%# Eval("idPermiso") %>' CommandName="DocumentoPermiso">
                                                                 <i class="mdi mdi-download text-primary"></i>
+                                                            </asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-Width="50px">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="BtnCambiar" runat="server" style="background-color:transparent;" Text="Cambiar" class="btn btn-inverse-info mr-2 " CommandArgument='<%# Eval("idPermiso") %>' CommandName="CambiarAprobacion">
+                                                                <i class="mdi mdi-refresh text-primary"></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
@@ -310,6 +319,50 @@
                         <Triggers>
                             <asp:PostBackTrigger ControlID="BtnDescargarArchivo" />
                         </Triggers>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%--Modal de cambio de permiso--%>
+    <div class="modal fade" id="ModalCambio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <asp:UpdatePanel runat="server" ID="UPCambio" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <h4 class="modal-title" id="ModalLabe">Cambiar Aprobación de Permiso
+                                <asp:Literal ID="LtPermiso" Text="" runat="server" />
+                            </h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdatePanel ID="UpdatePanel13" runat="server">
+                        <ContentTemplate>
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label">Acciones</label>
+                                <div class="col-9">
+                                    <asp:DropDownList ID="DDLCambiar" class="form-control" AutoPostBack="true" runat="server">
+                                        <asp:ListItem Value="0">Pasar a Cancelado</asp:ListItem>
+                                        <asp:ListItem Value="1">Pasar a Pendiente</asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel14" runat="server">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="BtnCambiarEstado" runat="server" Text="Ok" class="btn btn-success" OnClick="BtnCambiarEstado_Click" />
+                        </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
             </div>

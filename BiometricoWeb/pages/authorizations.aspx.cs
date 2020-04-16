@@ -12,9 +12,8 @@ namespace BiometricoWeb.pages
 {
     public partial class authorizations : System.Web.UI.Page
     {
-        db vConexion;
+        db vConexion = new db();
         protected void Page_Load(object sender, EventArgs e){
-            vConexion = new db();
             if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"])){
                     CargarAutorizaciones();

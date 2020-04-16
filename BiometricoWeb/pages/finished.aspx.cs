@@ -68,7 +68,7 @@ namespace BiometricoWeb.pages
                 GVBusqueda.DataSource = vDatos;
                 GVBusqueda.DataBind();
                 foreach (GridViewRow row in GVBusqueda.Rows){
-                    vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + row.Cells[4].Text;
+                    vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + row.Cells[5].Text;
                     DataTable vDatosBusqueda = vConexion.obtenerDataTable(vQuery);
 
                     foreach (DataRow item in vDatosBusqueda.Rows){
@@ -145,6 +145,13 @@ namespace BiometricoWeb.pages
                     }else
                         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('No existe documento en este permiso')", true);
                 }
+
+                if (e.CommandName == "CambiarAprobacion"){
+                    string vIdPermiso = e.CommandArgument.ToString();
+                    LtPermiso.Text = vIdPermiso;
+                    UPCambio.Update();
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalCambio();", true);
+                }
                 CargarAutorizaciones();
 
             }catch (Exception Ex){ 
@@ -159,7 +166,7 @@ namespace BiometricoWeb.pages
                 GVBusqueda.DataBind();
 
                 foreach (GridViewRow row in GVBusqueda.Rows){
-                    String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + row.Cells[4].Text;
+                    String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + row.Cells[5].Text;
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
 
                     foreach (DataRow item in vDatos.Rows){
@@ -459,6 +466,23 @@ namespace BiometricoWeb.pages
                     return "application/xml";
                 default:
                     return "application/octet-stream";
+            }
+        }
+
+        protected void BtnCambiarEstado_Click(object sender, EventArgs e){
+            try{
+                String vQuery = "";
+                String vId = LtPermiso.Text;
+                vQuery = DDLCambiar.SelectedValue == "0" ? "RSP_ActualizarPermiso 1," + vId : "RSP_ActualizarPermiso 2," + vId ;
+                int vInfo = vConexion.ejecutarSql(vQuery);
+
+                if (vInfo == 1){
+                    Mensaje("Permiso actualizado con éxito.", WarningType.Success);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "cerrarModalCambio();", true);
+                }
+                CargarAutorizaciones();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
             }
         }
     }

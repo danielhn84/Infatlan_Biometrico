@@ -110,6 +110,7 @@
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+
                                                     <asp:BoundField DataField="idPermiso" HeaderText="No."  />
                                                     <asp:BoundField DataField="Empleado" HeaderText="Nombre" />
                                                     <asp:BoundField DataField="TipoPermiso" HeaderText="Tipo" />
