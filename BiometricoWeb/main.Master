@@ -134,8 +134,8 @@
                                         </a>
                                     </li>
 
-                                    <li class="" id="LICumpleaños" runat="server" visible="false" style="margin-left:-20%">
-                                        <a class="nav-link" href="/pages/birthdayCalendar.aspx" >
+                                    <li class="" id="LICumpleaños" runat="server" visible="true" style="margin-left:-20%">
+                                        <a class="nav-link" href="/pages/servicios/birthdayCalendar.aspx" >
                                             <i class="mdi mdi-cake menu-icon"></i>
                                             <span class="menu-title">Cumpleaños</span>
                                         </a>
