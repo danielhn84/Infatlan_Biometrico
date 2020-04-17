@@ -24,6 +24,15 @@ namespace BiometricoWeb.pages.servicios
         protected global::System.Web.UI.WebControls.DropDownList ddlMes;
 
         /// <summary>
+        /// Control cardCumpleaños.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl cardCumpleaños;
+
+        /// <summary>
         /// Control UpTitulo.
         /// </summary>
         /// <remarks>
@@ -670,6 +679,15 @@ namespace BiometricoWeb.pages.servicios
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label35;
+
+        /// <summary>
+        /// Control ocultarDiv.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ocultarDiv;
 
         /// <summary>
         /// Control Img36.

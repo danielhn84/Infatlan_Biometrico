@@ -7,8 +7,6 @@ using System.Web.UI.WebControls;
 using System.Globalization;
 using BiometricoWeb.clases;
 using System.Data;
-
-
 namespace BiometricoWeb.pages.servicios
 {
     public partial class birthdayCalendar : System.Web.UI.Page
@@ -25,8 +23,8 @@ namespace BiometricoWeb.pages.servicios
 
         protected void ddlMes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-
+            cardCumpleaños.Visible = true;
+            limpiar();
             DateTimeFormatInfo dtfi = DateTimeFormatInfo.CurrentInfo;
             int year = 2020;
             int mes1 = Convert.ToInt32(ddlMes.SelectedValue);
@@ -238,6 +236,8 @@ namespace BiometricoWeb.pages.servicios
                     Img28.Src = "https://img.icons8.com/color/40/000000/28.png";
                     Label28.Text = dia28;
 
+                    ocultarDiv.Visible = false;
+
                 }
                 else if (dia == 29)
                 {
@@ -298,6 +298,8 @@ namespace BiometricoWeb.pages.servicios
                     Label27.Text = dia27;
                     Label28.Text = dia28;
                     Label29.Text = dia29;
+
+                    ocultarDiv.Visible = false;
                 }
                 else if (dia == 30)
                 {
@@ -360,6 +362,8 @@ namespace BiometricoWeb.pages.servicios
                     Label28.Text = dia28;
                     Label29.Text = dia29;
                     Label30.Text = dia30;
+
+                    ocultarDiv.Visible = false;
 
                 }
                 else if (dia == 31)
@@ -425,6 +429,8 @@ namespace BiometricoWeb.pages.servicios
                     Label29.Text = dia29;
                     Label30.Text = dia30;
                     Label31.Text = dia31;
+
+                    ocultarDiv.Visible = false;
                 }
             }
             else if (diaSemana == "Tuesday")
@@ -490,6 +496,8 @@ namespace BiometricoWeb.pages.servicios
                     Label28.Text = dia27;
                     Label29.Text = dia28;
 
+                    ocultarDiv.Visible = false;
+
                 }
                 else if (dia == 29)
                 {
@@ -550,6 +558,8 @@ namespace BiometricoWeb.pages.servicios
                     Label28.Text = dia27;
                     Label29.Text = dia28;
                     Label30.Text = dia29;
+
+                    ocultarDiv.Visible = false;
                 }
                 else if (dia == 30)
                 {
@@ -613,6 +623,7 @@ namespace BiometricoWeb.pages.servicios
                     Label30.Text = dia29;
                     Label31.Text = dia30;
 
+                    ocultarDiv.Visible = false;
                 }
                 else if (dia == 31)
                 {
@@ -677,6 +688,8 @@ namespace BiometricoWeb.pages.servicios
                     Label30.Text = dia29;
                     Label31.Text = dia30;
                     Label32.Text = dia31;
+
+                    ocultarDiv.Visible = false;
                 }
             }
             else if (diaSemana == "Wednesday")
@@ -742,6 +755,8 @@ namespace BiometricoWeb.pages.servicios
                     Label29.Text = dia27;
                     Label30.Text = dia28;
 
+                    ocultarDiv.Visible = false;
+
 
 
                 }
@@ -804,6 +819,8 @@ namespace BiometricoWeb.pages.servicios
                     Label29.Text = dia27;
                     Label30.Text = dia28;
                     Label31.Text = dia29;
+
+                    ocultarDiv.Visible = false;
 
                 }
                 else if (dia == 30)
@@ -869,6 +886,8 @@ namespace BiometricoWeb.pages.servicios
                     Label31.Text = dia29;
                     Label32.Text = dia30;
 
+                    ocultarDiv.Visible = false;
+
                 }
                 else if (dia == 31)
                 {
@@ -933,6 +952,8 @@ namespace BiometricoWeb.pages.servicios
                     Label31.Text = dia29;
                     Label32.Text = dia30;
                     Label33.Text = dia31;
+
+                    ocultarDiv.Visible = false;
                 }
 
             }
@@ -999,6 +1020,8 @@ namespace BiometricoWeb.pages.servicios
                     Label30.Text = dia27;
                     Label31.Text = dia28;
 
+                    ocultarDiv.Visible = false;
+
 
 
                 }
@@ -1062,6 +1085,8 @@ namespace BiometricoWeb.pages.servicios
                     Label31.Text = dia28;
                     Label32.Text = dia29;
 
+                    ocultarDiv.Visible = false;
+
                 }
                 else if (dia == 30)
                 {
@@ -1124,6 +1149,8 @@ namespace BiometricoWeb.pages.servicios
                     Label31.Text = dia28;
                     Label32.Text = dia29;
                     Label33.Text = dia30;
+
+                    ocultarDiv.Visible = false;
 
                 }
                 else if (dia == 31)
@@ -1189,6 +1216,8 @@ namespace BiometricoWeb.pages.servicios
                     Label32.Text = dia29;
                     Label33.Text = dia30;
                     Label34.Text = dia31;
+
+                    ocultarDiv.Visible = false;
                 }
 
             }
@@ -1254,6 +1283,8 @@ namespace BiometricoWeb.pages.servicios
                     Label31.Text = dia27;
                     Label32.Text = dia28;
 
+                    ocultarDiv.Visible = false;
+
 
 
                 }
@@ -1317,6 +1348,8 @@ namespace BiometricoWeb.pages.servicios
                     Label32.Text = dia28;
                     Label33.Text = dia29;
 
+                    ocultarDiv.Visible = false;
+
                 }
                 else if (dia == 30)
                 {
@@ -1379,6 +1412,8 @@ namespace BiometricoWeb.pages.servicios
                     Label32.Text = dia28;
                     Label33.Text = dia29;
                     Label34.Text = dia30;
+
+                    ocultarDiv.Visible = false;
 
                 }
                 else if (dia == 31)
@@ -1444,13 +1479,14 @@ namespace BiometricoWeb.pages.servicios
                     Label33.Text = dia29;
                     Label34.Text = dia30;
                     Label35.Text = dia31;
+
+                    ocultarDiv.Visible = false;
                 }
             }
             else if (diaSemana == "Saturday")
             {
                 Img6.Src = "https://img.icons8.com/color/40/000000/1.png";
                 Label6.Text = dia1;
-                //Label6Generales.Text = dia1DatosGenerales;
                 if (dia == 28)
                 {
                     Img7.Src = "https://img.icons8.com/color/40/000000/2.png";
@@ -1508,6 +1544,8 @@ namespace BiometricoWeb.pages.servicios
                     Label31.Text = dia26;
                     Label32.Text = dia27;
                     Label33.Text = dia28;
+
+                    ocultarDiv.Visible = false;
 
                 }
                 else if (dia == 29)
@@ -1569,6 +1607,8 @@ namespace BiometricoWeb.pages.servicios
                     Label32.Text = dia27;
                     Label33.Text = dia28;
                     Label34.Text = dia29;
+
+                    ocultarDiv.Visible = false;
 
                 }
                 else if (dia == 30)
@@ -1632,6 +1672,8 @@ namespace BiometricoWeb.pages.servicios
                     Label33.Text = dia28;
                     Label34.Text = dia29;
                     Label35.Text = dia30;
+
+                    ocultarDiv.Visible = false;
 
                 }
                 else if (dia == 31)
@@ -1761,6 +1803,8 @@ namespace BiometricoWeb.pages.servicios
                     Label33.Text = dia27;
                     Label34.Text = dia28;
 
+                    ocultarDiv.Visible = false;
+
                 }
                 else if (dia == 29)
                 {
@@ -1821,6 +1865,8 @@ namespace BiometricoWeb.pages.servicios
                     Label33.Text = dia27;
                     Label34.Text = dia28;
                     Label35.Text = dia29;
+
+                    ocultarDiv.Visible = false;
 
                 }
                 else if (dia == 30)
@@ -1952,7 +1998,24 @@ namespace BiometricoWeb.pages.servicios
                     Label37.Text = dia31;
                 }
             }
-
+        }
+   
+        void limpiar()
+        {
+            Img1.Src = ""; Img2.Src = ""; Img3.Src = ""; Img4.Src = ""; Img5.Src = ""; Img6.Src = ""; Img7.Src = "";
+            Img8.Src = ""; Img9.Src = ""; Img10.Src = ""; Img11.Src = ""; Img12.Src = ""; Img13.Src = ""; Img14.Src = "";
+            Img15.Src = ""; Img16.Src = ""; Img17.Src = ""; Img18.Src = ""; Img19.Src = ""; Img20.Src = ""; Img21.Src = "";
+            Img22.Src = ""; Img23.Src = ""; Img24.Src = ""; Img25.Src = ""; Img26.Src = ""; Img27.Src = ""; Img28.Src = "";
+            Img29.Src = ""; Img30.Src = ""; Img31.Src = ""; Img32.Src = ""; Img33.Src = ""; Img34.Src = ""; Img35.Src = "";
+            Img36.Src = ""; Img37.Src = ""; Img38.Src = ""; Img39.Src = ""; Img40.Src = ""; Img41.Src = ""; Img42.Src = "";
+            Label1.Text = ""; Label2.Text = ""; Label3.Text = ""; Label4.Text = ""; Label5.Text = ""; Label6.Text = ""; Label7.Text = "";
+            Label8.Text = ""; Label9.Text = ""; Label10.Text = ""; Label11.Text = ""; Label12.Text = ""; Label13.Text = ""; Label14.Text = "";
+            Label15.Text = ""; Label16.Text = ""; Label17.Text = ""; Label18.Text = ""; Label19.Text = ""; Label20.Text = ""; Label21.Text = "";
+            Label22.Text = ""; Label23.Text = ""; Label24.Text = ""; Label25.Text = ""; Label26.Text = ""; Label27.Text = ""; Label28.Text = "";
+            Label29.Text = ""; Label30.Text = ""; Label31.Text = ""; Label32.Text = ""; Label33.Text = ""; Label34.Text = ""; Label35.Text = "";
+            Label29.Text = ""; Label30.Text = ""; Label31.Text = ""; Label32.Text = ""; Label33.Text = ""; Label34.Text = ""; Label35.Text = "";
+            Label36.Text = ""; Label37.Text = ""; Label38.Text = ""; Label39.Text = ""; Label40.Text = ""; Label41.Text = ""; Label42.Text = "";
+            ocultarDiv.Visible = true;
         }
     }
 }
