@@ -52,7 +52,7 @@
                     </div>
 
                     <center>
-	                     <img src="../../images/bannerCumple.png" width="400" height="300" >
+	                     <img src="../../images/bannerCumple.png" width="400" height="300">
                     </center>
 
                     <asp:UpdatePanel ID="UpTitulo" runat="server" UpdateMode="Conditional">
