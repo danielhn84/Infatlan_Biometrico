@@ -103,6 +103,7 @@
     <Content Include="images\auth\lockscreen-bg.jpg" />
     <Content Include="images\auth\login-bg2.jpg" />
     <Content Include="images\auth\login-bg.jpg" />
+    <Content Include="images\banner2.png" />
     <Content Include="images\bannerCumple.png" />
     <Content Include="images\faces\face5.jpg" />
     <Content Include="images\favicon.png" />

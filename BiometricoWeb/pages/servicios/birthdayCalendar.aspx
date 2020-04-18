@@ -17,6 +17,7 @@
 
     <div class="row">
         <div class="col-12 grid-margin stretch-card">
+            
             <div class="card">
                 <div class="card-body">
                     <h1 class="card-title">CALENDARIO DE CUMPLEAÑOS</h1>
@@ -54,7 +55,8 @@
 
                     <div  runat="server" visible="false" id="cardCumpleaños">
                         <center>
-	                     <img src="../../images/bannerCumple.png" width="400" height="300">
+	                     <img src="../../images/banner2.png" width="500" height="310">
+                            <br /><br />
                     </center>
 
                         <asp:UpdatePanel ID="UpTitulo" runat="server" UpdateMode="Conditional">

@@ -20,7 +20,6 @@ namespace BiometricoWeb.pages.servicios
 
             }
         }
-
         protected void ddlMes_SelectedIndexChanged(object sender, EventArgs e)
         {
             cardCumpleaños.Visible = true;
@@ -1998,8 +1997,7 @@ namespace BiometricoWeb.pages.servicios
                     Label37.Text = dia31;
                 }
             }
-        }
-   
+        } 
         void limpiar()
         {
             Img1.Src = ""; Img2.Src = ""; Img3.Src = ""; Img4.Src = ""; Img5.Src = ""; Img6.Src = ""; Img7.Src = "";
