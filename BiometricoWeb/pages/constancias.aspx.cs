@@ -377,7 +377,7 @@ namespace BiometricoWeb.pages
                             String vMont4 = vData.Rows[j]["Monto4"].ToString();
 
                             vMont1 = vMont1.Substring(vMont1.Length -3 , 1) == "." ? vMont1 : vMont1 + ".00";
-                            if (vMont2 != null)
+                            if (vMont2 != "")
                                 vMont2 = vMont2.Substring(vMont2.Length - 3, 1) == "." ? vMont2 : vMont2 + ".00";
                             if (vMont3 != "")
                                 vMont3 = vMont3.Substring(vMont3.Length - 3, 1) == "." ? vMont3 : vMont3 + ".00";

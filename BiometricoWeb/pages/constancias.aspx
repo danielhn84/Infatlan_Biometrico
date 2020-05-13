@@ -415,6 +415,7 @@
                                                     <asp:BoundField DataField="Categoria" HeaderText="Categoría" />
                                                     <asp:BoundField DataField="Destino" HeaderText="Destino" />
                                                     <asp:BoundField DataField="estado" HeaderText="Estado"/>
+                                                    <asp:BoundField DataField="usuario" HeaderText="Usuario" />                                                    
                                                     <asp:BoundField DataField="fecha" HeaderText="Fecha" />                                                    
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>

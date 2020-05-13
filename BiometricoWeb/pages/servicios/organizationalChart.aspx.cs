@@ -9,9 +9,14 @@ namespace BiometricoWeb.pages.servicios
 {
     public partial class organizationalChart : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        public string EmployeeName { get; set; }
+        public string ManagerName { get; set; }
+        public string Role { get; set; }
+        public string ClassStyle { get; set; }
+
+        protected void Page_Load(object sender, EventArgs e){
 
         }
+
     }
 }

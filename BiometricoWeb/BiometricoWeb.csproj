@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -23,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.7</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -134,6 +136,8 @@
     <Content Include="js\off-canvas.js" />
     <Content Include="js\tabs.js" />
     <Content Include="js\template.js" />
+    <Content Include="lib\tree_maker-min.css" />
+    <Content Include="lib\tree_maker-min.js" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="pages\access.aspx" />
@@ -145,6 +149,7 @@
     <Content Include="pages\cargarArchivos.aspx" />
     <Content Include="pages\clockuser.aspx" />
     <Content Include="pages\constancias.aspx" />
+    <Content Include="pages\descriptorPuestos.aspx" />
     <Content Include="pages\employees.aspx" />
     <Content Include="pages\finished.aspx" />
     <Content Include="pages\mail\TemplateMailSugerencias.html" />
@@ -161,6 +166,10 @@
     <Content Include="pages\settings.aspx" />
     <Content Include="pages\token.aspx" />
     <Content Include="pages\UpdateEmployees.aspx" />
+    <Content Include="Scripts\go-2.1.14-debug.js" />
+    <Content Include="Scripts\go-2.1.14.js" />
+    <Content Include="src\tree_maker.js" />
+    <Content Include="style\tree_maker.css" />
     <Content Include="vendors\base\vendor.bundle.base.css" />
     <Content Include="vendors\base\vendor.bundle.base.js" />
     <Content Include="vendors\chart.js\Chart.min.js" />
@@ -272,6 +281,13 @@
     </Compile>
     <Compile Include="pages\constancias.aspx.designer.cs">
       <DependentUpon>constancias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\descriptorPuestos.aspx.cs">
+      <DependentUpon>descriptorPuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\descriptorPuestos.aspx.designer.cs">
+      <DependentUpon>descriptorPuestos.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\employees.aspx.cs">
       <DependentUpon>employees.aspx</DependentUpon>
@@ -486,11 +502,18 @@
   <ItemGroup>
     <Folder Include="Carga\" />
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\typings\go\go-2.1.14.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

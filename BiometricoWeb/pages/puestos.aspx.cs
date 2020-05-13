@@ -62,24 +62,27 @@ namespace BiometricoWeb.pages
         protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){
             try{
                 string vIdPuesto = e.CommandArgument.ToString();
-                if (e.CommandName == "PuestoModificar"){
+                if (e.CommandName == "PuestoModificar") {
                     LbModPuesto.Text = vIdPuesto;
                     Session["ACCION"] = "1";
                     DivEstado.Visible = true;
                     TxIdPuesto.ReadOnly = true;
                     DataTable vDatos = new DataTable();
                     vDatos = vConexion.obtenerDataTable("RSP_ObtenerGenerales 11,'" + vIdPuesto + "'");
-                    
-                    foreach (DataRow item in vDatos.Rows){
+
+                    foreach (DataRow item in vDatos.Rows) {
                         TxIdPuesto.Text = item["idPuesto"].ToString();
                         TxPuesto.Text = item["nombre"].ToString();
                         DDLDepto.SelectedValue = (item["idDepartamento"].ToString() == "" ? "0" : item["idDepartamento"].ToString());
                     }
-                    
+
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }else if(e.CommandName == "DescriptorPuesto") { 
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalDescriptor();", true);
                 }
 
-            }catch (Exception Ex){
+            }
+            catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
@@ -184,6 +187,10 @@ namespace BiometricoWeb.pages
             TxIdPuesto.ReadOnly = false;
             Session["ACCION"] = "2";
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "openModal();", true);
+        }
+
+        protected void BtnSubirDescriptor_Click(object sender, EventArgs e){
+
         }
     }
 }

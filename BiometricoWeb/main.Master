@@ -141,13 +141,6 @@
                                         </a>
                                     </li>
 
-                                    <li class="" id="LIOrganigrama" runat="server" visible="false" style="margin-left:-20%">
-                                        <a class="nav-link" href="/pages/servicios/organizationalChart.aspx" >
-                                            <i class="mdi mdi-google-circles-extended menu-icon"></i>
-                                            <span class="menu-title">Organigrama</span>
-                                        </a>
-                                    </li>
-
                                     <li class="" id="LIPermisos" runat="server" visible="false" style="margin-left:-20%">
                                         <a class="nav-link" href="/pages/permissions.aspx" >
                                             <i class="mdi mdi-door-open menu-icon"></i>
@@ -183,6 +176,32 @@
                                     <li class="nav-item"><a class="nav-link" href="/pages/employees.aspx">Crear Empleado</a></li>
                                     <li class="nav-item"><a class="nav-link" href="/pages/UpdateEmployees.aspx">Gestionar Empleados</a></li>
                                     <li class="nav-item"><a class="nav-link" href="/pages/cargarArchivos.aspx">Cargar Archivos</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- ESTRUCTURA -->
+
+                        <li class="nav-item" id="LIEstructura" runat="server" visible="true" style="list-style-type: none;">
+                            <a class="nav-link" data-toggle="collapse" href="#ui-basic10" aria-expanded="false" aria-controls="ui-basic6">
+                                <i class="mdi mdi-vector-square menu-icon"></i><span class="menu-title">Estructura</span><i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic10">
+                                <ul class="nav flex-column sub-menu">
+
+                                    <li class="" id="LIOrganigrama" runat="server" visible="True" style="margin-left:-20%">
+                                        <a class="nav-link" href="/pages/servicios/organizationalChart.aspx" >
+                                            <i class="mdi mdi-google-circles-extended menu-icon"></i>
+                                            <span class="menu-title">Organigrama</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="" id="LIDescriptor" runat="server" visible="True" style="margin-left:-20%; cursor:pointer;">
+                                        <a class="nav-link" href="/pages/servicios/descriptorPuestos.aspx" >                                  
+                                            <i class="mdi mdi-message-text-outline menu-icon"></i>
+                                            <span class="menu-title">Mis Puestos</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

@@ -18,6 +18,7 @@
     </script>--%>
     <script type="text/javascript">
         function openModal() {$('#PuestosModal').modal('show');}
+        function openModalDescriptor() { $('#ModalDescriptor').modal('show'); }
 
         var url = document.location.toString();
         if (url.match('#')) {
@@ -27,7 +28,11 @@
         $('.nav-tabs a').on('shown.bs.tab', function (e) {
             window.location.hash = e.target.hash;
         })
+
+
     </script>
+
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -81,7 +86,14 @@
                                                         <ItemTemplate>
                                                             <asp:Button ID="BtnPuestoModificar" runat="server" Text="Modificar" class="btn btn-inverse-primary  mr-2" CommandArgument='<%# Eval("idPuesto") %>' CommandName="PuestoModificar" />
                                                         </ItemTemplate>
+                                                        
                                                     </asp:TemplateField>
+                                                    <asp:TemplateField  HeaderStyle-Width="60px" Visible="true">
+                                                        <ItemTemplate>
+                                                            <asp:Button ID="BtnDescriptor" Enabled="true" runat="server" Text="Descriptor" class="btn btn-inverse-success  mr-2" CommandArgument='<%# Eval("idPuesto") %>' CommandName="DescriptorPuesto" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
                                                     <asp:BoundField DataField="idPuesto" HeaderText="Id Puesto" ItemStyle-HorizontalAlign="Left" />
                                                     <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left" />
                                                     <asp:BoundField DataField="Departamento" HeaderText="Departamento" ItemStyle-HorizontalAlign="Left"/>
@@ -174,6 +186,73 @@
             </div>
         </div>
     </div>
+
+    <%--MODAL PARA SUBIR DESCRIPTORES--%>
+    <div class="modal fade" id="ModalDescriptor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style=" width: 600px;
+                    top: 320px;
+                    left: 50%;
+                    transform: translate(-50%, -50%);">
+                <div class="modal-header">
+
+                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                        <ContentTemplate>
+                            <h4 class="modal-title" id="ModalLabelPermiso">Subir archivos - 
+                                <asp:Label ID="LbPermisoSubir" runat="server" Text=""></asp:Label>
+                            </h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                        <ContentTemplate>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">
+                                        <h4>Documentos</h4>
+                                    </label>
+                                    <div class="col-sm-12">
+                                        <asp:FileUpload ID="FUSubirArchivoEdicion" runat="server" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-12" style="text-align: justify;">
+                                        Recuerda que los documentos aqui ingresados son de alta confidencialidad, por favor te pedimos que no compartas tu clave para que estos documentos sean solo para el area de recursos humanos.
+                                    </div>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="form-group row">
+                                <asp:Label ID="Label3" runat="server" Text="" Class="col-sm-12" Style="color: indianred; text-align: center;"></asp:Label>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="BtnSubirDescriptor" runat="server" Text="Enviar" class="btn btn-success" OnClick="BtnSubirDescriptor_Click" />
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID="BtnSubirDescriptor" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
