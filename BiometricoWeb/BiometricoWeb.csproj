@@ -45,15 +45,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CryptoToken">
-      <HintPath>..\Biometrico\bin\Debug\CryptoToken.dll</HintPath>
+    <Reference Include="CryptoToken, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\CryptoToken.dll</HintPath>
     </Reference>
     <Reference Include="Excel.4.5">
       <HintPath>..\Biometrico\bin\Debug\Excel.4.5.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.zkemkeeper">
-      <HintPath>..\Biometrico\bin\Debug\Interop.zkemkeeper.dll</HintPath>
+    <Reference Include="Interop.zkemkeeper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>bin\Interop.zkemkeeper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.DirectoryServices" />
@@ -103,6 +105,8 @@
     <Content Include="images\auth\lockscreen-bg.jpg" />
     <Content Include="images\auth\login-bg2.jpg" />
     <Content Include="images\auth\login-bg.jpg" />
+    <Content Include="images\banner2.png" />
+    <Content Include="images\bannerCumple.png" />
     <Content Include="images\faces\face5.jpg" />
     <Content Include="images\favicon.png" />
     <Content Include="images\loading.gif" />
@@ -143,7 +147,7 @@
     <Content Include="pages\access.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
-    <Content Include="pages\birthdayCalendar.aspx" />
+    <Content Include="pages\servicios\birthdayCalendar.aspx" />
     <Content Include="pages\buzonSugerencias.aspx" />
     <Content Include="pages\canceled.aspx" />
     <Content Include="pages\cargarArchivos.aspx" />
@@ -240,11 +244,11 @@
     <Compile Include="pages\authorizations.aspx.designer.cs">
       <DependentUpon>authorizations.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\birthdayCalendar.aspx.cs">
+    <Compile Include="pages\servicios\birthdayCalendar.aspx.cs">
       <DependentUpon>birthdayCalendar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\birthdayCalendar.aspx.designer.cs">
+    <Compile Include="pages\servicios\birthdayCalendar.aspx.designer.cs">
       <DependentUpon>birthdayCalendar.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\buzonSugerencias.aspx.cs">
