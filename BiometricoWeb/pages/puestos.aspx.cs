@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,6 +13,7 @@ namespace BiometricoWeb.pages
     public partial class puestos : System.Web.UI.Page
     {
         db vConexion;
+        Boolean vArchivoDescrip = false;
         protected void Page_Load(object sender, EventArgs e){
             vConexion = new db();
             if (!Page.IsPostBack){
@@ -20,8 +22,11 @@ namespace BiometricoWeb.pages
                     DataTable vDatos = (DataTable)Session["AUTHCLASS"];
                     if (!vGenerales.PermisosRecursosHumanos(vDatos))
                         Response.Redirect("/default.aspx");
-                    
+
+                    HFSubirPDF.Value = string.Empty;
+
                     CargarPuesto();
+                    
                 }
             }
         }
@@ -62,13 +67,14 @@ namespace BiometricoWeb.pages
         protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){
             try{
                 string vIdPuesto = e.CommandArgument.ToString();
+                DataTable vDatos = new DataTable();
+                vDatos = vConexion.obtenerDataTable("RSP_ObtenerGenerales 11,'" + vIdPuesto + "'");
+
                 if (e.CommandName == "PuestoModificar") {
                     LbModPuesto.Text = vIdPuesto;
                     Session["ACCION"] = "1";
                     DivEstado.Visible = true;
                     TxIdPuesto.ReadOnly = true;
-                    DataTable vDatos = new DataTable();
-                    vDatos = vConexion.obtenerDataTable("RSP_ObtenerGenerales 11,'" + vIdPuesto + "'");
 
                     foreach (DataRow item in vDatos.Rows) {
                         TxIdPuesto.Text = item["idPuesto"].ToString();
@@ -77,8 +83,28 @@ namespace BiometricoWeb.pages
                     }
 
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                }else if(e.CommandName == "DescriptorPuesto") { 
+                }else if(e.CommandName == "DescriptorPuesto") {
+
+                    DataTable vDatosDescrip = new DataTable();
+                    vDatosDescrip = vConexion.obtenerDataTable("RSP_DescriptorPuestos 5,'" + vIdPuesto + "'");
+                    
+                    LbSubir.Text = vIdPuesto;
+
+                    if (vDatosDescrip.Rows.Count.ToString()!="0")
+                    {
+                        DivAlertaDescriptor.Visible = true;
+                        LbAlertaDescriptor.Text = "Puesto " + vDatos.Rows[0]["nombre"].ToString() + " ya contiene archivo. " +
+                            "<br>Si desea cambiarlo, ingrese uno nuevo.";
+                        
+
+                    }
+                    else
+                    {
+                        DivAlertaDescriptor.Visible = false;
+                    }
+                   
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalDescriptor();", true);
+                    
                 }
 
             }
@@ -190,6 +216,64 @@ namespace BiometricoWeb.pages
         }
 
         protected void BtnSubirDescriptor_Click(object sender, EventArgs e){
+
+            try
+            {
+                //IMAGENES1
+                String vNombreDepot = String.Empty;
+                HttpPostedFile bufferDepositoT = FUSubirPDF.PostedFile;
+                if (!FUSubirPDF.HasFile)
+                {
+                    //DivAlertaDescriptor.Visible = true;
+                    //LbAlertaDescriptor.Text = "Favor ingresar archivo.";
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','Favor ingresar archivo.','" + WarningType.Danger.ToString().ToLower() + "')", true);
+                }
+                else
+                {
+
+                    byte[] vFileDeposito = null;
+                    string vExtension = string.Empty;
+
+                    if (bufferDepositoT != null)
+                    {
+                        vNombreDepot = FUSubirPDF.FileName;
+
+                        Stream vStream = bufferDepositoT.InputStream;
+                        BinaryReader vReader = new BinaryReader(vStream);
+                        vFileDeposito = vReader.ReadBytes((int)vStream.Length);
+                        vExtension = System.IO.Path.GetExtension(FUSubirPDF.FileName);
+                    }
+                    String vArchivo = String.Empty;
+                    if (vFileDeposito != null)
+                        vArchivo = Convert.ToBase64String(vFileDeposito);
+
+                    DataTable vDatosDescrip = new DataTable();
+                    vDatosDescrip = vConexion.obtenerDataTable("RSP_DescriptorPuestos 5,'" + LbSubir.Text + "'");
+
+                    String vQuery;
+                    if (vDatosDescrip.Rows.Count.ToString() != "0")
+                    {
+                        vQuery = "RSP_DescriptorPuestos 6," + Session["USUARIO"].ToString() + "," +
+                                                            "'" + LbSubir.Text + "'," +
+                                                           "'" + vArchivo + "'";
+                    }
+                    else
+                    {
+                        vQuery = "RSP_DescriptorPuestos 2," + Session["USUARIO"].ToString() + "," +
+                                                            "'" + LbSubir.Text + "'," +
+                                                            "'" + vNombreDepot + "'," +
+                                                            "'" + vArchivo + "'";
+                    }
+
+
+
+                    Int32 vInformacion = vConexion.ejecutarSql(vQuery);
+               
+
+                }
+
+            }
+            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
 
         }
     }

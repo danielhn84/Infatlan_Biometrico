@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="puestos.aspx.cs" Inherits="BiometricoWeb.pages.puestos" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/css/smart_wizard.css" rel="stylesheet" type="text/css" />
     <link href="/css/smart_wizard_theme_circles.css" rel="stylesheet" type="text/css" />
@@ -17,7 +18,7 @@
         }
     </script>--%>
     <script type="text/javascript">
-        function openModal() {$('#PuestosModal').modal('show');}
+        function openModal() { $('#PuestosModal').modal('show'); }
         function openModalDescriptor() { $('#ModalDescriptor').modal('show'); }
 
         var url = document.location.toString();
@@ -28,10 +29,23 @@
         $('.nav-tabs a').on('shown.bs.tab', function (e) {
             window.location.hash = e.target.hash;
         })
-
-
     </script>
 
+    <script type="text/javascript">
+        //Guardar PDF
+        function PDF(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var ruta1 = e.target.result;
+                    document.getElementById('<%=FUSubirPDF.ClientID%>').src = ruta1;
+                    document.getElementById('<%=HFSubirPDF.ClientID%>').value = 'si';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 </asp:Content>
 
@@ -55,7 +69,7 @@
                                         </asp:UpdatePanel>
                                     </div>
                                     <div class="col-sm-3">
-                                        <asp:Button ID="btnNuevo" runat="server" Text="Crear Puesto" class="btn btn-primary" OnClick="btnNuevo_Click" />                                        
+                                        <asp:Button ID="btnNuevo" runat="server" Text="Crear Puesto" class="btn btn-primary" OnClick="btnNuevo_Click" />
                                     </div>
                                 </div>
                             </div>
@@ -82,13 +96,13 @@
                                                 PageSize="10"
                                                 AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging" OnRowCommand="GVBusqueda_RowCommand">
                                                 <Columns>
-                                                    <asp:TemplateField  HeaderStyle-Width="60px" Visible="true">
+                                                    <asp:TemplateField HeaderStyle-Width="60px" Visible="true">
                                                         <ItemTemplate>
                                                             <asp:Button ID="BtnPuestoModificar" runat="server" Text="Modificar" class="btn btn-inverse-primary  mr-2" CommandArgument='<%# Eval("idPuesto") %>' CommandName="PuestoModificar" />
                                                         </ItemTemplate>
-                                                        
+
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField  HeaderStyle-Width="60px" Visible="true">
+                                                    <asp:TemplateField HeaderStyle-Width="60px" Visible="true">
                                                         <ItemTemplate>
                                                             <asp:Button ID="BtnDescriptor" Enabled="true" runat="server" Text="Descriptor" class="btn btn-inverse-success  mr-2" CommandArgument='<%# Eval("idPuesto") %>' CommandName="DescriptorPuesto" />
                                                         </ItemTemplate>
@@ -96,9 +110,9 @@
 
                                                     <asp:BoundField DataField="idPuesto" HeaderText="Id Puesto" ItemStyle-HorizontalAlign="Left" />
                                                     <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left" />
-                                                    <asp:BoundField DataField="Departamento" HeaderText="Departamento" ItemStyle-HorizontalAlign="Left"/>
+                                                    <asp:BoundField DataField="Departamento" HeaderText="Departamento" ItemStyle-HorizontalAlign="Left" />
                                                 </Columns>
-                                                
+
                                             </asp:GridView>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
@@ -124,6 +138,7 @@
                         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                             <ContentTemplate>
                                 Gestionar Puesto
+                               
                                 <asp:Label ID="LbModPuesto" runat="server" Text=""></asp:Label>
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -190,16 +205,14 @@
     <%--MODAL PARA SUBIR DESCRIPTORES--%>
     <div class="modal fade" id="ModalDescriptor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style=" width: 600px;
-                    top: 320px;
-                    left: 50%;
-                    transform: translate(-50%, -50%);">
+            <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
                 <div class="modal-header">
 
                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                         <ContentTemplate>
                             <h4 class="modal-title" id="ModalLabelPermiso">Subir archivos - 
-                                <asp:Label ID="LbPermisoSubir" runat="server" Text=""></asp:Label>
+                               
+                                <asp:Label ID="LbSubir" runat="server" Text=""></asp:Label>
                             </h4>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -209,31 +222,33 @@
                     </button>
                 </div>
                 <div class="modal-body">
+
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">
+                                <h4>Documentos</h4>
+                            </label>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-sm-12" style="text-align: justify;">
+                                        Recuerde subir los documentos PDF.
+                                           
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <asp:FileUpload ID="FUSubirPDF" runat="server" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                         <ContentTemplate>
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">
-                                        <h4>Documentos</h4>
-                                    </label>
-                                    <div class="col-sm-12">
-                                        <asp:FileUpload ID="FUSubirArchivoEdicion" runat="server" class="form-control" />
+                                    <div class="col-sm-12" runat="server" id="DivAlertaDescriptor" visible="false" style="display: flex; background-color: tomato; justify-content: center">
+                                        <asp:Label runat="server" CssClass="col-form-label text-white" ID="LbAlertaDescriptor"></asp:Label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <div class="col-sm-12" style="text-align: justify;">
-                                        Recuerda que los documentos aqui ingresados son de alta confidencialidad, por favor te pedimos que no compartas tu clave para que estos documentos sean solo para el area de recursos humanos.
-                                    </div>
-                                </div>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                    <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <div class="form-group row">
-                                <asp:Label ID="Label3" runat="server" Text="" Class="col-sm-12" Style="color: indianred; text-align: center;"></asp:Label>
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -242,7 +257,7 @@
                     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="BtnSubirDescriptor" runat="server" Text="Enviar" class="btn btn-success" OnClick="BtnSubirDescriptor_Click" />
+                            <asp:Button ID="BtnSubirDescriptor" runat="server" Text="Subir" class="btn btn-success" OnClick="BtnSubirDescriptor_Click" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:PostBackTrigger ControlID="BtnSubirDescriptor" />
@@ -252,6 +267,12 @@
             </div>
         </div>
     </div>
+
+    <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <asp:HiddenField ID="HFSubirPDF" runat="server" />
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
 </asp:Content>
 

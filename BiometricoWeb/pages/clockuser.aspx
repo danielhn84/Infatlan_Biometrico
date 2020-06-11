@@ -69,6 +69,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">No. Tarjeta</label>
+                                        <div class="col-sm-9">
+                                            <asp:TextBox ID="TxCardNumber" placeholder="ej. 80000" class="form-control" runat="server"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>

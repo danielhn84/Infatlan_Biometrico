@@ -166,6 +166,8 @@
     <Content Include="pages\security.aspx" />
     <Content Include="pages\sec_aprobaciones.aspx" />
     <Content Include="pages\sec_historico.aspx" />
+    <Content Include="pages\servicios\descriptorDetalle.aspx" />
+    <Content Include="pages\servicios\descriptorPuestos.aspx" />
     <Content Include="pages\servicios\organizationalChart.aspx" />
     <Content Include="pages\settings.aspx" />
     <Content Include="pages\token.aspx" />
@@ -288,7 +290,6 @@
     </Compile>
     <Compile Include="pages\descriptorPuestos.aspx.cs">
       <DependentUpon>descriptorPuestos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\descriptorPuestos.aspx.designer.cs">
       <DependentUpon>descriptorPuestos.aspx</DependentUpon>
@@ -362,6 +363,20 @@
     </Compile>
     <Compile Include="pages\sec_historico.aspx.designer.cs">
       <DependentUpon>sec_historico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\servicios\descriptorDetalle.aspx.cs">
+      <DependentUpon>descriptorDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\servicios\descriptorDetalle.aspx.designer.cs">
+      <DependentUpon>descriptorDetalle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\servicios\descriptorPuestos.aspx.cs">
+      <DependentUpon>descriptorPuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\servicios\descriptorPuestos.aspx.designer.cs">
+      <DependentUpon>descriptorPuestos.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\servicios\organizationalChart.aspx.cs">
       <DependentUpon>organizationalChart.aspx</DependentUpon>

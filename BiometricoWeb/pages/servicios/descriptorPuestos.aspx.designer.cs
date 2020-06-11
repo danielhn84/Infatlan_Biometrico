@@ -11,106 +11,79 @@ namespace BiometricoWeb.pages
 {
 
 
-    public partial class clockuser
+    public partial class descriptorPuestos
     {
 
         /// <summary>
-        /// Control UpdateProgress1.
+        /// Control UpdateDivBusquedas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
+        protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
 
         /// <summary>
-        /// Control UpdatePanel1.
+        /// Control Label1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// Control TxCrearNoEmpleado.
+        /// Control udpDescriptorActual.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxCrearNoEmpleado;
+        protected global::System.Web.UI.UpdatePanel udpDescriptorActual;
 
         /// <summary>
-        /// Control TxCrearNombre.
+        /// Control GVDescriptorActual.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxCrearNombre;
+        protected global::System.Web.UI.WebControls.GridView GVDescriptorActual;
 
         /// <summary>
-        /// Control TxCardNumber.
+        /// Control updGVAsignados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxCardNumber;
+        protected global::System.Web.UI.UpdatePanel updGVAsignados;
 
         /// <summary>
-        /// Control UpdatePanel2.
+        /// Control lbDescripcionPuesto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        protected global::System.Web.UI.WebControls.Label lbDescripcionPuesto;
 
         /// <summary>
-        /// Control DDLCrearRelojes.
+        /// Control udpGVDescriptor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLCrearRelojes;
+        protected global::System.Web.UI.UpdatePanel udpGVDescriptor;
 
         /// <summary>
-        /// Control DDLCrearRole.
+        /// Control GVDescriptor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLCrearRole;
-
-        /// <summary>
-        /// Control UpdatePrincipalBotones.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePrincipalBotones;
-
-        /// <summary>
-        /// Control BtnGuardarCambio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnGuardarCambio;
-
-        /// <summary>
-        /// Control BtnCancelarCambio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCancelarCambio;
+        protected global::System.Web.UI.WebControls.GridView GVDescriptor;
     }
 }
