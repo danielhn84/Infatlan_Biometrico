@@ -11,18 +11,11 @@ namespace BiometricoWeb.pages
 {
     public partial class descriptorPuestos : System.Web.UI.Page
     {
-        db vConexion;
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            vConexion = new db();
-            if (!Page.IsPostBack)
-            {
+        db vConexion = new db();
+        protected void Page_Load(object sender, EventArgs e){
+            if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"]))
-                {
                     CargarPuesto();
-
-                }
-
             }
         }
 
@@ -130,26 +123,16 @@ namespace BiometricoWeb.pages
 
         }
 
-        protected void GVDescriptor_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-
-            try
-            {
+        protected void GVDescriptor_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
                 string vIdPuesto = e.CommandArgument.ToString();
-                if (e.CommandName == "EntrarDescriptor")
-                {
+                if (e.CommandName == "EntrarDescriptor"){
                     Response.Redirect("descriptorDetalle.aspx?i=" + vIdPuesto);
-
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-                
-
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
-
         }
 
         protected void GVDescriptorActual_PageIndexChanging(object sender, GridViewPageEventArgs e){
@@ -182,23 +165,14 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void GVDescriptorActual_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-
-            try
-            {
+        protected void GVDescriptorActual_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
                 string vIdPuesto = e.CommandArgument.ToString();
-                if (e.CommandName == "EntrarDescriptorActual")
-                {
+                if (e.CommandName == "EntrarDescriptorActual"){
                     Response.Redirect("descriptorDetalle.aspx?i=" + vIdPuesto);
-
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-
-
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
 

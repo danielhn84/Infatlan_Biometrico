@@ -81,11 +81,11 @@ namespace BiometricoWeb.pages
         void CargarJefes(){
             try{
                 DataTable vDatos = new DataTable();
-                vDatos = vConexion.obtenerDataTable("RSP_ObtenerGenerales 16");
+                vDatos = vConexion.obtenerDataTable("RSP_ObtenerGenerales 20");
 
                 DDLJefatura2.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
-                    DDLJefatura2.Items.Add(new ListItem { Value = item["codigoSAP"].ToString(), Text = item["codigoSAP"].ToString() + " - " + item["nombre"].ToString() });
+                    DDLJefatura2.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["codigoSAP"].ToString() + " - " + item["nombre"].ToString() });
                 }
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }

@@ -170,6 +170,16 @@
     <Content Include="pages\servicios\descriptorPuestos.aspx" />
     <Content Include="pages\servicios\organizationalChart.aspx" />
     <Content Include="pages\settings.aspx" />
+    <Content Include="pages\tiempoExtraordinario\PendientesAprobarJefe.aspx" />
+    <Content Include="pages\tiempoExtraordinario\pendientesAprobarRRHH.aspx" />
+    <Content Include="pages\tiempoExtraordinario\pendientesAprobarSubgerente.aspx" />
+    <Content Include="pages\tiempoExtraordinario\solicitudesAprobadasJefe.aspx" />
+    <Content Include="pages\tiempoExtraordinario\solicitudesAprobadasRRHH.aspx" />
+    <Content Include="pages\tiempoExtraordinario\solicitudesAprobadasSubgerente.aspx" />
+    <Content Include="pages\tiempoExtraordinario\solicitudesCanceladasJefe.aspx" />
+    <Content Include="pages\tiempoExtraordinario\solicitudesCanceladasRRHH.aspx" />
+    <Content Include="pages\tiempoExtraordinario\solicitudesCanceladasSubgerente.aspx" />
+    <Content Include="pages\tiempoExtraordinario\solicitudTE.aspx" />
     <Content Include="pages\token.aspx" />
     <Content Include="pages\UpdateEmployees.aspx" />
     <Content Include="Scripts\go-2.1.14-debug.js" />
@@ -391,6 +401,76 @@
     </Compile>
     <Compile Include="pages\settings.aspx.designer.cs">
       <DependentUpon>settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\PendientesAprobarJefe.aspx.cs">
+      <DependentUpon>PendientesAprobarJefe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\PendientesAprobarJefe.aspx.designer.cs">
+      <DependentUpon>PendientesAprobarJefe.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\pendientesAprobarRRHH.aspx.cs">
+      <DependentUpon>pendientesAprobarRRHH.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\pendientesAprobarRRHH.aspx.designer.cs">
+      <DependentUpon>pendientesAprobarRRHH.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\pendientesAprobarSubgerente.aspx.cs">
+      <DependentUpon>pendientesAprobarSubgerente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\pendientesAprobarSubgerente.aspx.designer.cs">
+      <DependentUpon>pendientesAprobarSubgerente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesAprobadasJefe.aspx.cs">
+      <DependentUpon>solicitudesAprobadasJefe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesAprobadasJefe.aspx.designer.cs">
+      <DependentUpon>solicitudesAprobadasJefe.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesAprobadasRRHH.aspx.cs">
+      <DependentUpon>solicitudesAprobadasRRHH.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesAprobadasRRHH.aspx.designer.cs">
+      <DependentUpon>solicitudesAprobadasRRHH.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesAprobadasSubgerente.aspx.cs">
+      <DependentUpon>solicitudesAprobadasSubgerente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesAprobadasSubgerente.aspx.designer.cs">
+      <DependentUpon>solicitudesAprobadasSubgerente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesCanceladasJefe.aspx.cs">
+      <DependentUpon>solicitudesCanceladasJefe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesCanceladasJefe.aspx.designer.cs">
+      <DependentUpon>solicitudesCanceladasJefe.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesCanceladasRRHH.aspx.cs">
+      <DependentUpon>solicitudesCanceladasRRHH.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesCanceladasRRHH.aspx.designer.cs">
+      <DependentUpon>solicitudesCanceladasRRHH.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesCanceladasSubgerente.aspx.cs">
+      <DependentUpon>solicitudesCanceladasSubgerente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudesCanceladasSubgerente.aspx.designer.cs">
+      <DependentUpon>solicitudesCanceladasSubgerente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudTE.aspx.cs">
+      <DependentUpon>solicitudTE.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\solicitudTE.aspx.designer.cs">
+      <DependentUpon>solicitudTE.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\token.aspx.cs">
       <DependentUpon>token.aspx</DependentUpon>

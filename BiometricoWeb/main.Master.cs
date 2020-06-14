@@ -22,7 +22,7 @@ namespace BiometricoWeb
                     LitUsuario.Text = ((DataRow)vDatos.Rows[0])["nombre"].ToString();
 
                     if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")){
-                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
+                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1") && (vDatos.Rows[0]["flagHorasExtra"].ToString().Equals("False") || vDatos.Rows[0]["flagHorasExtra"].ToString().Equals(""))){
                             LIBiometricos.Visible = true;
                             LIEmpleados.Visible = true;
                             LIAutorizaciones.Visible = true;
@@ -35,6 +35,12 @@ namespace BiometricoWeb
                             LISEC_Salidas.Visible = true;
                             LISEC_Historico.Visible = true;
                             LIConstancias.Visible = true;
+
+                            LITEx.Visible = true;
+                            LITExJefatura.Visible = true;
+                            LITExSubgerencia.Visible = true;
+                            LITExRRHH.Visible = true;
+                            LITExMantenimiento.Visible = true;
                         }
 
                         //MODULO PARA SEGURIDAD
@@ -49,24 +55,63 @@ namespace BiometricoWeb
                             LIConfig.Visible= false;
                             LIServicios.Visible = false;
                             LIBuzon.Visible = false;
+                            LITEx.Visible = false;
                         }
 
-                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3")){
+                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3") && (vDatos.Rows[0]["flagHorasExtra"].ToString().Equals("False") || vDatos.Rows[0]["flagHorasExtra"].ToString().Equals(""))) {
                             LISecurity.Visible = true;
                             LISEC_Aprobaciones.Visible = true;
                             LIPermisos.Visible = true;
                             LIConfig.Visible = false;
                             LIConstancias.Visible = true;
+                            LITEx.Visible = false;
                         }
 
+                        if(vDatos.Rows[0]["flagHorasExtra"].ToString().Equals("True")){
+                            LITEx.Visible = true;
+                            if (vDatos.Rows[0]["idTExPerfil"].ToString().Equals("1")) {
+                                LITExJefatura.Visible = true;
+                                LITExMantenimiento.Visible = true;
+                                LITExManEquipos.Visible = true;
+                            }else if (vDatos.Rows[0]["idTExPerfil"].ToString().Equals("2")) {
+                                LITExJefatura.Visible = true;
+                                LITExMantenimiento.Visible = true;
+                                LITExManEquipos.Visible = true;
+                                LITExSubgerencia.Visible = true;
+
+                                LITExManPropuesta.Visible = vDatos.Rows[0]["idEmpleado"].ToString() == "389" && vDatos.Rows[0]["idEmpleado"].ToString() == "391" ? true : false;
+                            }else if (vDatos.Rows[0]["idTExPerfil"].ToString().Equals("3")){
+                                LIBiometricos.Visible = true;
+                                LIEmpleados.Visible = true;
+                                LIAutorizaciones.Visible = true;
+                                LIPermisos.Visible = true;
+                                LIMantenimientos.Visible = true;
+                                LIToken.Visible = true;
+                                LISecurity.Visible = true;
+                                LISEC_Aprobaciones.Visible = true;
+                                LISEC_Entradas.Visible = true;
+                                LISEC_Salidas.Visible = true;
+                                LISEC_Historico.Visible = true;
+                                LIConstancias.Visible = true;
+
+                                LITExManFeriados.Visible = true;
+                                LITExRRHH.Visible = true;
+                                LITExMantenimiento.Visible = true;
+                            }else if (vDatos.Rows[0]["idTExPerfil"].ToString().Equals("5")){
+                                LITExMantenimiento.Visible = true;
+                                LITExSubgerencia.Visible = true;
+                            }
+                        }
                     }else{
                         LIAutorizaciones.Visible = true;
                         LIPermisos.Visible = true;
                         LIConfig.Visible = false;
                         LIConstancias.Visible = true;
+                        LITEx.Visible = false;
                     }
 
-                }catch (Exception Ex){
+                }
+                catch (Exception Ex){
                     vError = Ex.Message;
                 }
             }

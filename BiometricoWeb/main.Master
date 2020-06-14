@@ -158,6 +158,75 @@
                             </div>
                         </li>
 
+                        <!-- TIEMPO EXTRAORDINARIO -->
+                        <li class="nav-item" id="LITEx" runat="server" visible="false">
+                            <a class="nav-link" data-toggle="collapse" href="#ui-basic7" aria-expanded="false" aria-controls="ui-basic7">
+                                <i class="mdi  mdi-calendar-clock menu-icon"></i>
+                                <span class="menu-title">Tiempo Extraordinario</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic7">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="" id="LITExSolicitud" runat="server" visible="true" style="margin-left: -20%">
+                                        <a class="nav-link" href="/pages/tiempoExtraordinario/solicitudTE.aspx">
+                                            <i class="mdi   mdi-file menu-icon"></i>
+                                            <span class="menu-title">Solicitud TE</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="" id="LITExJefatura" runat="server" visible="false" style="margin-left: -20%; cursor: pointer;">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-folder-clock-outline menu-icon"></i>
+                                            <span class="menu-title">Aprobar TE Jefatura</span>
+                                        </a>
+                                        <div class="dropdown-menu" id="ui-basic8">
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/PendientesAprobarJefe.aspx">Pendientes</a>
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/solicitudesCanceladasJefe.aspx">Cancelados</a>
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/solicitudesAprobadasJefe.aspx">Aprobados</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="" id="LITExSubgerencia" runat="server" visible="false" style="margin-left: -20%; cursor: pointer;">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-folder-clock-outline menu-icon"></i>
+                                            <span class="menu-title">Aprobar TE Subgerentes</span>
+                                        </a>
+                                        <div class="dropdown-menu" id="ui-basic11">
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/pendientesAprobarSubgerente.aspx">Pendientes</a>
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/solicitudesCanceladasSubgerente.aspx">Cancelados</a>
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/solicitudesAprobadasSubgerente.aspx">Aprobados</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="" id="LITExRRHH" runat="server" visible="false" style="margin-left: -20%; cursor: pointer;">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-folder-clock-outline menu-icon"></i>
+                                            <span class="menu-title">Aprobar TE RRHH</span>
+                                        </a>
+                                        <div class="dropdown-menu" id="ui-basic12">
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/pendientesAprobarRRHH.aspx">Pendientes</a>
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/solicitudesCanceladasRRHH.aspx">Cancelados</a>
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/solicitudesAprobadasRRHH.aspx">Aprobadas</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="" id="LITExMantenimiento" runat="server" visible="false" style="margin-left: -20%; cursor: pointer;">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi  mdi-toolbox menu-icon"></i>
+                                            <span class="menu-title">Mantenimiento</span>
+                                        </a>
+                                        <div class="dropdown-menu" id="ui-basic13">
+                                            <a class="nav-link" runat="server" id="LITExManFeriados" visible="false" href="/pages/tiempoExtraordinario/pendientesAprobarRRHH.aspx">Feriados</a>
+                                            <a class="nav-link" runat="server" id="LITExManProyectos" visible="false" href="/pages/tiempoExtraordinario/solicitudesCanceladasRRHH.aspx">Proyectos</a>
+                                            <a class="nav-link" runat="server" id="LITExManPropuesta" visible="false" href="/pages/tiempoExtraordinario/solicitudesAprobadasRRHH.aspx">Propuesta</a>
+                                            <a class="nav-link" runat="server" id="LITExManEquipos" visible="false" href="/pages/tiempoExtraordinario/solicitudesAprobadasRRHH.aspx">Tipos de Trabajo</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+
                         <li class="nav-item" id="LIPoliticas" runat="server" visible="true">
                             <a class="nav-link" href="/pages/politicas.aspx" >
                                 <i class="mdi mdi-file-document menu-icon"></i>

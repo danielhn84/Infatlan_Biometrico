@@ -19,19 +19,23 @@ namespace BiometricoWeb.clases
         Rechazado,
         Token,
         Seguridad,
-        Sugerencias
+        Sugerencias,
+        TiempoExtraordinario
     }
 
     public class SmtpService : Page{
 
         public SmtpService() { }
 
-        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre, String vMessage = null){
+        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre, String vMessage = null, String vCopia = null){
             Boolean vRespuesta = false;
             try{
                 MailMessage mail = new MailMessage("Recursos Humanos<" + ConfigurationManager.AppSettings["SmtpFrom"] + ">", To);
                 SmtpClient client = new SmtpClient();
                 client.Port = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]);
+
+                mail.CC.Add(vCopia);
+
                 //client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
                 client.Host = ConfigurationManager.AppSettings["SmtpServer"];
@@ -103,7 +107,13 @@ namespace BiometricoWeb.clases
                             vMessage
                             ), Server.MapPath("/images/logo.png")));
                         break;
-
+                    case typeBody.TiempoExtraordinario:
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyBuzon(
+                            Usuario,
+                            Nombre,
+                            vMessage
+                            ), Server.MapPath("/images/logo.png")));
+                        break;
                 }
                 client.Send(mail);
                 vRespuesta = true;
