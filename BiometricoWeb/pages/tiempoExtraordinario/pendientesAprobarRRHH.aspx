@@ -88,7 +88,7 @@
                                         PagerStyle-CssClass="pgr"
                                         HeaderStyle-CssClass="header"
                                         RowStyle-CssClass="rows"
-                                        AutoGenerateColumns="false"
+                                        AutoGenerateColumns="false" OnPageIndexChanging="GVBusquedaPendientesRRHH_PageIndexChanging"
                                         AllowPaging="true" OnRowCommand="GVBusquedaPendientesRRHH_RowCommand"
                                         GridLines="None" OnRowDataBound="GVBusquedaPendientesRRHH_RowDataBound"
                                         PageSize="10">
