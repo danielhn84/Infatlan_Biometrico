@@ -24,11 +24,13 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             vConexion = new db();
             CargarSolicitudesPendientesAprobar();
         }
+        
         void CargarSolicitudesPendientesAprobar()
         {
             try
@@ -49,6 +51,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
+        
         protected void GVBusquedaPendientesJefe_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string vIdSolicitud =e.CommandArgument.ToString();
@@ -72,6 +75,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
 
         }
+        
         protected void GVBusquedaPendientesJefe_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -97,6 +101,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
 
         }
+        
         protected void GVBusquedaPendientesJefe_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
@@ -108,6 +113,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
+        
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)
         {
             CargarSolicitudesPendientesAprobar();

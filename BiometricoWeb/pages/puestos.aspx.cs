@@ -12,10 +12,11 @@ namespace BiometricoWeb.pages
 {
     public partial class puestos : System.Web.UI.Page
     {
-        db vConexion;
+        db vConexion = new db();
         Boolean vArchivoDescrip = false;
         protected void Page_Load(object sender, EventArgs e){
-            vConexion = new db();
+            String vEx = Request.QueryString["ex"];
+
             if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"])){
                     generales vGenerales = new generales();
@@ -26,7 +27,12 @@ namespace BiometricoWeb.pages
                     HFSubirPDF.Value = string.Empty;
 
                     CargarPuesto();
-                    
+                    if (vEx != null){
+                        if (vEx.Equals("1"))
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + "Archivo subido con exito" + "')", true);
+                        else if (vEx.Equals("2"))
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + "No se encontró archivo." + "')", true);
+                    }
                 }
             }
         }
@@ -216,20 +222,13 @@ namespace BiometricoWeb.pages
         }
 
         protected void BtnSubirDescriptor_Click(object sender, EventArgs e){
-
-            try
-            {
+            try{
                 //IMAGENES1
                 String vNombreDepot = String.Empty;
                 HttpPostedFile bufferDepositoT = FUSubirPDF.PostedFile;
-                if (!FUSubirPDF.HasFile)
-                {
-                    //DivAlertaDescriptor.Visible = true;
-                    //LbAlertaDescriptor.Text = "Favor ingresar archivo.";
-                   // ScriptManager.RegisterClientScriptBlock(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','Favor ingresar archivo.','" + WarningType.Danger.ToString().ToLower() + "')", true);
-                }
-                else
-                {
+                if (!FUSubirPDF.HasFile){
+                    Response.Redirect("puestos.aspx?ex=2");
+                }else{
 
                     byte[] vFileDeposito = null;
                     string vExtension = string.Empty;
@@ -251,27 +250,25 @@ namespace BiometricoWeb.pages
                     vDatosDescrip = vConexion.obtenerDataTable("RSP_DescriptorPuestos 5,'" + LbSubir.Text + "'");
 
                     String vQuery;
-                    if (vDatosDescrip.Rows.Count.ToString() != "0")
-                    {
+                    
+                    if (vDatosDescrip.Rows.Count.ToString() != "0"){
                         vQuery = "RSP_DescriptorPuestos 6," + Session["USUARIO"].ToString() + "," +
-                                                            "'" + LbSubir.Text + "'," +
-                                                           "'" + vArchivo + "'";
-                    }
-                    else
-                    {
+                                "'" + LbSubir.Text + "'," +
+                                "'" + vArchivo + "'";
+                    }else{
                         vQuery = "RSP_DescriptorPuestos 2," + Session["USUARIO"].ToString() + "," +
-                                                            "'" + LbSubir.Text + "'," +
-                                                            "'" + vNombreDepot + "'," +
-                                                            "'" + vArchivo + "'";
+                                "'" + LbSubir.Text + "'," +
+                                "'" + vNombreDepot + "'," +
+                                "'" + vArchivo + "'";
                     }
-
-
 
                     Int32 vInformacion = vConexion.ejecutarSql(vQuery);
-               
+                    if (vInformacion == 1){
+                        TxBuscarPuesto.Text = string.Empty;
+                        Response.Redirect("puestos.aspx?ex=1");
+                    }
 
                 }
-
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
 
