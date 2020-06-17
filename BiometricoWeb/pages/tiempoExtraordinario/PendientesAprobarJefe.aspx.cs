@@ -71,9 +71,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
                 }
             }
-
-
-
            
         }
         void CargarSolicitudesPendientesAprobar()

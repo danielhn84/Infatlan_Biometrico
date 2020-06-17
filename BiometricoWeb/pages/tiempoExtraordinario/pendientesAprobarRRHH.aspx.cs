@@ -228,5 +228,18 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 UpdateDivBusquedasRRHH.Update();
             }
         }
+
+        protected void GVBusquedaPendientesRRHH_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                GVBusquedaPendientesRRHH.PageIndex = e.NewPageIndex;
+                GVBusquedaPendientesRRHH.DataSource = (DataTable)Session["STESOLICITUDESPENDIENTESRRHH"];
+                GVBusquedaPendientesRRHH.DataBind();
+                UpdateDivBusquedasRRHH.Update();
+            }
+            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
+        }
     }
+    
 }
