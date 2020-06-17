@@ -78,20 +78,22 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
            
         }
         
-        void CargarSolicitudesPendientesAprobar()
-        {
-            try
-            {
+        void CargarSolicitudesPendientesAprobar(){
+            try{
                 DataTable vDatos = new DataTable();
                 String vQuery = "RSP_TiempoExtraordinarioGenerales 18,'" + Convert.ToString(Session["USUARIO"]) + "'" ;
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
-                GVBusquedaPendientesJefe.DataSource = vDatos;
-                GVBusquedaPendientesJefe.DataBind();
-                UpdateDivBusquedasJefes.Update();
-                Session["STESOLICITUDESPENDIENTESJEFE"] = vDatos;
+                if (vDatos.Rows.Count > 0){
+                    GVBusquedaPendientesJefe.DataSource = vDatos;
+                    GVBusquedaPendientesJefe.DataBind();
+                    UpdateDivBusquedasJefes.Update();
+                    Session["STESOLICITUDESPENDIENTESJEFE"] = vDatos;
+                }
+                
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
         
         protected void GVBusquedaPendientesJefe_RowCommand(object sender, GridViewCommandEventArgs e)

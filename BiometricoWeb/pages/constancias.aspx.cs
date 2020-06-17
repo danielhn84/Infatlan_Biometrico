@@ -538,10 +538,6 @@ namespace BiometricoWeb.pages
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
                     }else
                         Mensaje("Solicitud no fue eliminada, comuníquese con sistemas.", WarningType.Danger);
-
-                    cargarDatos();
-                    UpdatePanel1.Update();
-                    UPBuzonGeneral.Update();
                 }else{
                     String vId = Session["CONSTANCIA_ELIMINAR"].ToString();
                     String vQuery = "[RSP_Constancias] 10," + vId + ",4";
@@ -552,10 +548,11 @@ namespace BiometricoWeb.pages
                     }else
                         Mensaje("Solicitud no fue eliminada, comuníquese con sistemas.", WarningType.Danger);
                 }
-
-            }
-            catch (Exception Ex){
-                throw new Exception(Ex.Message);
+                cargarDatos();
+                UpdatePanel1.Update();
+                UPBuzonGeneral.Update();
+            }catch (Exception Ex){
+                ScriptManager.RegisterClientScriptBlock(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + Ex.Message + "','" + WarningType.Danger.ToString().ToLower() + "')", true);
             }
         }
 
