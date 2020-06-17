@@ -251,14 +251,14 @@
 
                         <!-- ESTRUCTURA -->
 
-                        <li class="nav-item" id="LIEstructura" runat="server" visible="true" style="list-style-type: none;">
+                        <li class="nav-item" id="LIEstructura" runat="server" visible="false" style="list-style-type: none;">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic10" aria-expanded="false" aria-controls="ui-basic6">
                                 <i class="mdi mdi-vector-square menu-icon"></i><span class="menu-title">Estructura</span><i class="menu-arrow"></i>
                             </a>
                             <div class="collapse" id="ui-basic10">
                                 <ul class="nav flex-column sub-menu">
 
-                                    <li class="" id="LIOrganigrama" runat="server" visible="True" style="margin-left:-20%">
+                                    <li class="" id="LIOrganigrama" runat="server" visible="false" style="margin-left:-20%">
                                         <a class="nav-link" href="/pages/servicios/organizationalChart.aspx" >
                                             <i class="mdi mdi-google-circles-extended menu-icon"></i>
                                             <span class="menu-title">Organigrama</span>

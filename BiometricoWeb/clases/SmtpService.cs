@@ -34,7 +34,9 @@ namespace BiometricoWeb.clases
                 SmtpClient client = new SmtpClient();
                 client.Port = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]);
 
-                mail.CC.Add(vCopia);
+                if (!String.IsNullOrEmpty(vCopia)){
+                    mail.CC.Add(vCopia);
+                }
 
                 //client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
