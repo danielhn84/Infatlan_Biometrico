@@ -115,6 +115,7 @@
     <Content Include="images\logo.svg" />
     <Content Include="images\logo_mini.png" />
     <Content Include="images\rh.png" />
+    <Content Include="images\vistaPrevia1.JPG" />
     <Content Include="js\bootstrap-notify.js" />
     <Content Include="js\calendarscript.js" />
     <Content Include="js\chart.js" />

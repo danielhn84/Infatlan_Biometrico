@@ -27,19 +27,61 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         protected void Page_Load(object sender, EventArgs e)
         {
             vConexion = new db();
-            CargarSolicitudesPendientesAprobar();
+            String vEx = Request.QueryString["ex"];
+            if (!IsPostBack)
+            {
+                CargarSolicitudesPendientesAprobar();
+
+
+                if (vEx == null)
+                {
+                    CargarSolicitudesPendientesAprobar();
+
+                }
+                else if (vEx.Equals("5"))
+                {
+                    vEx = null;                                 
+                    String vRe = "La solicitud de tiempo extraordinario se ha cancelado con exito (Solicitud no se va a pagar).";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                 
+                }
+                else if (vEx.Equals("6"))
+                {
+                    vEx = null;
+                    String vRe = "La solicitud de tiempo extraordinario se ha aprobado con exito, RRHH ya podra proceder con la aprobación.";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                }
+
+                else if (vEx.Equals("7"))
+                {
+                    vEx = null;
+                    String vRe = "El estado de la solicitud se ha actualizado con exito, el colaborador podrá visualizar en su bandeja la solicitud que debe de modificar.";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                }
+                else if (vEx.Equals("8"))
+                {
+                    vEx = null;
+                    String vRe = "El estado de la solicitud se ha actualizado con exito, la solicitud se va requerir aprobación del subgerente ya que la fecha de la solicitud supera los rangos establecidos.";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                }
+                else if (vEx.Equals("9"))
+                {
+                    vEx = null;
+                    String vRe = "No se pudo enviar la respuesta, pongase en contacto con el administrador de la plataforma para que verifique el problema.";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                }
+            }
+
+
+
+           
         }
         void CargarSolicitudesPendientesAprobar()
         {
             try
             {
-                //string usuario = Session["USUARIO"].ToString();
-                //vDatos = vConexion.obtenerDataTable("RSP_TiempoExtraordinarioGenerales 18,'" + Convert.ToString(Session["USUARIO"]) + "'"); //2902
-
-             
-                //vDatos = vConexion.obtenerDataTable("RSP_TiempoExtraordinarioGenerales 18") ; //2902
                 DataTable vDatos = new DataTable();
-                String vQuery = "RSP_TiempoExtraordinarioGenerales 18" ;
+                String vQuery = "RSP_TiempoExtraordinarioGenerales 18,'" + Convert.ToString(Session["USUARIO"]) + "'" ;
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
                 GVBusquedaPendientesJefe.DataSource = vDatos;

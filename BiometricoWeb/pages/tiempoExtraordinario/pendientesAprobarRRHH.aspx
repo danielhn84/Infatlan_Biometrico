@@ -125,7 +125,7 @@
                                             <asp:BoundField DataField="fechaFin" HeaderText="Creación" />
                                             <asp:BoundField DataField="fechaSolicitud" HeaderText="Trabajo" />
                                             <asp:BoundField DataField="nombreTrabajo" HeaderText="Detalle" />
-                                            <asp:BoundField DataField="detalleTrabajo" ItemStyle-HorizontalAlign="Justify" />
+                                            <asp:BoundField DataField="detalleTrabajo" HeaderText="Trabajo" ItemStyle-HorizontalAlign="Justify" />
                                             
 
                                         </Columns>

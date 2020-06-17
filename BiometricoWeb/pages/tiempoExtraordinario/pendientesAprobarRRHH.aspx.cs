@@ -27,7 +27,40 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         protected void Page_Load(object sender, EventArgs e)
         {
             vConexion = new db();
-            CargarSolicitudesPendientesAprobar();
+            String vEx = Request.QueryString["ex"];
+
+            if (!IsPostBack)
+            {
+                CargarSolicitudesPendientesAprobar();
+
+
+                if (vEx == null)
+                {
+                    CargarSolicitudesPendientesAprobar();
+
+                }
+                else if (vEx.Equals("1"))
+                {
+                    vEx = null;
+                    String vRe = "La solicitud de tiempo extraordinario se ha aprobado con exito.";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                }
+                else if (vEx.Equals("2"))
+                {
+                    vEx = null;
+                    String vRe = "La solicitud de tiempo extraordinario ha sido cancelada, solicitud no se va a pagar.";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                }
+                else if (vEx.Equals("3"))
+                {
+                    vEx = null;
+                    String vRe = "No se pudo actualizar la aprobacion de la solicitud de tiempo extraordinario, pongase en contacto con el administrador de la plataforma.";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                }
+            }
+
+
+
         }
 
 
@@ -127,8 +160,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     Session["STEDATOSGENERALESCOLABORADOR"] = vDatos;
 
                     Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=2");
-
-
 
                 }
          }

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Configuration;
 
+
 namespace BiometricoService
 {
     public partial class BioService : ServiceBase
