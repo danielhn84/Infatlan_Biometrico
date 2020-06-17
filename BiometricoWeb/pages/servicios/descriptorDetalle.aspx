@@ -25,7 +25,7 @@
         <div class="col-md-12 grid-margin">
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
-                    <div class="mr-md-3 mr-xl-5">
+                    <div class="col-12">
                         <h4><asp:Label runat="server" Text="" ID="LbTitulo"></asp:Label></h4>
                         <p class="mb-md-0">Recursos Humanos</p>
                     </div>
@@ -33,8 +33,10 @@
             </div>
         </div>
     </div>
- 
-        <iframe runat="server" id="IFramePDF" src="" style="width:100%; height:340px"></iframe>
+    <div class="row col-12">
+        <a href="descriptorPuestos.aspx" class="btn btn-primary mb-4"><i style="margin-left:-10px" class="mdi mdi-reply mr-1"></i>Regresar</a>
+    </div>
+    <iframe runat="server" id="IFramePDF" src="" style="width:100%; height:340px"></iframe>
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">

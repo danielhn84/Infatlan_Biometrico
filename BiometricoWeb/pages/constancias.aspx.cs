@@ -18,8 +18,10 @@ namespace BiometricoWeb.pages
             if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"])){
                     DataTable vDatos = (DataTable)Session["AUTHCLASS"];
-                    if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1"))
+                    if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")) { 
                         ConstanciasGenerales.Visible = true;
+                        Busquedas.Visible = true;
+                    }
                     cargarDatos();
                     Session["CONTEO"] = null;
                 }
@@ -52,12 +54,22 @@ namespace BiometricoWeb.pages
                 GvMisConstancias.DataBind();
                 Session["CONSTANCIAS_EMPLEADO"] = vDatos;
 
-                // SOLICITUDES GENERALES
+                // SOLICITUDES PENDIENTES
                 vQuery = "[RSP_Constancias] 9";
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 GVBusqueda.DataSource = vDatos;
                 GVBusqueda.DataBind();
                 Session["CONSTANCIAS_GENERAL"] = vDatos;
+
+                //BUSQUEDA 
+                vQuery = "[RSP_Constancias] 11";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+
+                DDLEstadoConstancia.Items.Clear();
+                DDLEstadoConstancia.Items.Add(new ListItem { Value = "-1", Text = "Seleccione una opción" });
+                foreach (DataRow item in vDatos.Rows){
+                    DDLEstadoConstancia.Items.Add(new ListItem { Value = item["idEstado"].ToString(), Text = item["nombre"].ToString() });
+                }
 
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
@@ -335,7 +347,6 @@ namespace BiometricoWeb.pages
                     }
 
                     Boolean vFlag = true;
-
                     if (vDataFiltro.Rows[0]["Tipo"].ToString() == "Financiamiento")
                         DivModFinanc.Visible = true;
                     else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Aval")
@@ -353,7 +364,14 @@ namespace BiometricoWeb.pages
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openInfo();", true);
                     }
                 }
-            }catch (Exception Ex){
+
+                if (e.CommandName == "EliminarSolicitud"){
+                    LbTitulo.Text = "Eliminar Solicitud " + vId;
+                    Session["CONSTANCIA_ELIMINAR"] = vId;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                }
+            }
+            catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
@@ -508,24 +526,33 @@ namespace BiometricoWeb.pages
 
         protected void BtnConfirmar_Click(object sender, EventArgs e){
             try{
-                String vId = HttpContext.Current.Session["CONSTANCIA_ID"] != null ? Session["CONSTANCIA_ID"].ToString() : Session["SOLICITUD_RESPUESTA"].ToString();
-                String vEstado = HttpContext.Current.Session["CONSTANCIA_ID"] != null ? "2" : "1" ;
-                String vMensaje = vEstado == "2" ? "Solicitud eliminada con éxito." : "Constancia aprobada con éxito." ;
-
-                String vQuery = "[RSP_Constancias] 10" +
-                    "," + vId + "," + vEstado;
-                int vInfo = vConexion.ejecutarSql(vQuery);
-                if (vInfo == 1){
-                    Mensaje(vMensaje, WarningType.Success);
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
-                }else
-                    Mensaje("Solicitud no fue eliminada, comuníquese con sistemas.", WarningType.Danger);
-
+                if (HttpContext.Current.Session["CONSTANCIA_ELIMINAR"] == null){
+                    String vId = HttpContext.Current.Session["CONSTANCIA_ID"] != null ? Session["CONSTANCIA_ID"].ToString() : Session["SOLICITUD_RESPUESTA"].ToString();
+                    String vEstado = HttpContext.Current.Session["CONSTANCIA_ID"] != null ? "2" : "1";
+                    String vMensaje = vEstado == "2" ? "Solicitud eliminada con éxito." : "Constancia aprobada con éxito.";
+                    String vQuery = "[RSP_Constancias] 10" +
+                                    "," + vId + "," + vEstado;
+                    int vInfo = vConexion.ejecutarSql(vQuery);
+                    if (vInfo == 1){
+                        Mensaje(vMensaje, WarningType.Success);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
+                    }else
+                        Mensaje("Solicitud no fue eliminada, comuníquese con sistemas.", WarningType.Danger);
+                }else{
+                    String vId = Session["CONSTANCIA_ELIMINAR"].ToString();
+                    String vQuery = "[RSP_Constancias] 10," + vId + ",4";
+                    int vInfo = vConexion.ejecutarSql(vQuery);
+                    if (vInfo == 1){
+                        Mensaje("Solicitud eliminada con éxito.", WarningType.Success);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
+                    }else
+                        Mensaje("Solicitud no fue eliminada, comuníquese con sistemas.", WarningType.Danger);
+                }
                 cargarDatos();
                 UpdatePanel1.Update();
                 UPBuzonGeneral.Update();
             }catch (Exception Ex){
-                throw new Exception(Ex.Message);
+                ScriptManager.RegisterClientScriptBlock(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + Ex.Message + "','" + WarningType.Danger.ToString().ToLower() + "')", true);
             }
         }
 
@@ -552,6 +579,79 @@ namespace BiometricoWeb.pages
                 Session["CONTEO"] = vCuenta + 1;
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void GVHistorico_PageIndexChanging(object sender, GridViewPageEventArgs e){
+
+        }
+
+        protected void DDLEstadoConstancia_SelectedIndexChanged(object sender, EventArgs e){
+            try{
+                if (DDLEstadoConstancia.SelectedValue == "-1")
+                    throw new Exception("Favor seleccione el estado de la constancia.");
+
+                String vQuery = "[RSP_Constancias] 12," + DDLEstadoConstancia.SelectedValue;
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                GVHistorico.DataSource = null;
+
+                GVHistorico.DataSource = vDatos;
+                GVHistorico.DataBind();
+                Session["CONSTANCIA_HISTORICO"] = vDatos;
+            }catch (Exception ex){
+
+            }
+        }
+
+        protected void GVHistorico_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                String vId = e.CommandArgument.ToString();
+                Session["SOLICITUD_RESPUESTA"] = vId;
+                Session["CONSTANCIA_ID"] = null;
+
+                if (e.CommandName == "VerSolicitudHistorial"){
+                    DataTable vDatos = (DataTable)Session["CONSTANCIAS_GENERAL"];
+                    DataTable vDataFiltro = new DataTable();
+                    vDataFiltro.Columns.Add("Tipo");
+                    vDataFiltro.Columns.Add("Categoria");
+                    vDataFiltro.Columns.Add("Destino");
+
+                    DivModFinanc.Visible = false;
+                    DivModAval.Visible = false;
+                    DivModEmbajada.Visible = false;
+                    DivModCapa.Visible = false;
+                    EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
+                        .Where(r => r.Field<Int32>("idSolicitud").Equals(Convert.ToInt32(vId)));
+
+                    foreach (DataRow item in filtered){
+                        vDataFiltro.Rows.Add(
+                            item["Tipo"].ToString(),
+                            item["Categoria"].ToString(),
+                            item["Destino"].ToString()
+
+                            );
+                    }
+
+                    Boolean vFlag = true;
+                    if (vDataFiltro.Rows[0]["Tipo"].ToString() == "Financiamiento")
+                        DivModFinanc.Visible = true;
+                    else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Aval")
+                        DivModAval.Visible = true;
+                    else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Visa Embajada")
+                        DivModEmbajada.Visible = true;
+                    else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Visa para capacitacion")
+                        DivModCapa.Visible = true;
+                    else
+                        vFlag = false;
+
+                    if (vFlag){
+                        verInfo(vId);
+                        LbTituloInfo.Text = "Información de Solicitud " + vId;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openInfo();", true);
+                    }
+                }
+            }catch (Exception Ex){
+                Mensaje(Ex.Message, WarningType.Danger);
             }
         }
     }

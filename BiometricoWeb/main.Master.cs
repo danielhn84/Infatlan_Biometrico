@@ -86,19 +86,20 @@ namespace BiometricoWeb
             }
         }
 
-        private void extraordinarios(DataTable vDatos) { 
-            if (vDatos.Rows[0]["flagHorasExtra"].ToString().Equals("True")){
+        private void extraordinarios(DataTable vDatos) {
+            if (vDatos.Rows[0]["idTExPerfil"].ToString() != ""){
                 LITEx.Visible = true;
                 if (vDatos.Rows[0]["idTExPerfil"].ToString().Equals("1")) {
                     LITExJefatura.Visible = true;
                     LITExMantenimiento.Visible = true;
                     LITExManEquipos.Visible = true;
                 }else if (vDatos.Rows[0]["idTExPerfil"].ToString().Equals("2")) {
+                    LITExJefatura.Visible = true;
                     LITExMantenimiento.Visible = true;
                     LITExManEquipos.Visible = true;
                     LITExSubgerencia.Visible = true;
 
-                    LITExManPropuesta.Visible = vDatos.Rows[0]["idEmpleado"].ToString() == "389" && vDatos.Rows[0]["idEmpleado"].ToString() == "391" ? true : false;
+                    LITExManPropuesta.Visible = vDatos.Rows[0]["idEmpleado"].ToString() == "389" || vDatos.Rows[0]["idEmpleado"].ToString() == "391" ? true : false;
                 }else if (vDatos.Rows[0]["idTExPerfil"].ToString().Equals("3")){
                     LITExManFeriados.Visible = true;
                     LITExRRHH.Visible = true;

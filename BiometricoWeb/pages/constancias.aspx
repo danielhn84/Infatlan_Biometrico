@@ -33,7 +33,8 @@
             <div class="nav nav-pills " id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#navCompensatorio" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-message-text"> </i>Nuevo</a>
                 <a class="nav-item nav-link" id="A1" data-toggle="tab" href="#navMisSolicitudes" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-account" > </i>Mis Solicitudes</a>
-                <a runat="server" visible="false" class="nav-item nav-link" id="ConstanciasGenerales" data-toggle="tab" href="#navRegistros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-folder" > </i>Solicitudes</a>
+                <a runat="server" visible="false" class="nav-item nav-link" id="ConstanciasGenerales" data-toggle="tab" href="#navPendientes" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-tag" > </i>Pendientes</a>
+                <a runat="server" visible="false" class="nav-item nav-link" id="Busquedas" data-toggle="tab" href="#navRegistros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-folder" > </i>Solicitudes</a>
             </div>
         </nav>
     </div>
@@ -388,7 +389,7 @@
             </asp:UpdatePanel>
         </div>
 
-        <div class="tab-pane fade" id="navRegistros" role="tabpanel" aria-labelledby="nav-tecnicos-tab">
+        <div class="tab-pane fade" id="navPendientes" role="tabpanel" aria-labelledby="nav-tecnicos-tab">
             <br />
             <asp:UpdatePanel ID="UPBuzonGeneral" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -396,7 +397,7 @@
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Solicitudes de constancias creadas</h4>
+                                    <h4 class="card-title">Solicitudes de constancias pendientes de aprobar</h4>
                                     <p>Ordenados por fecha de creación</p>
                                     <div class="row">
                                         <div class="table-responsive">
@@ -419,10 +420,70 @@
                                                     <asp:BoundField DataField="fecha" HeaderText="Fecha" />                                                    
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnEditar2" runat="server" title="Responder" style="background-color:transparent;"  class="btn btn-inverse mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="ResponderSolicitud">
+                                                            <asp:LinkButton ID="BtnEditar2" runat="server" title="Responder" style="background-color:transparent;"  class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="ResponderSolicitud">
                                                                 <i class="mdi mdi-reply text-gray" ></i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="LbVer" runat="server" title="Abrir" style="background-color:transparent;"  class="btn btn-inverse mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="VerSolicitud">
+                                                            <asp:LinkButton ID="LbVer" runat="server" title="Abrir" style="background-color:transparent;"  class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="VerSolicitud">
+                                                                <i class="mdi mdi-email-open text-gray" ></i>
+                                                            </asp:LinkButton>
+                                                            <asp:LinkButton ID="LbBorrar" runat="server" title="Borrar" style="background-color:transparent;"  class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="EliminarSolicitud">
+                                                                <i class="mdi mdi-delete text-gray" ></i>
+                                                            </asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+        <div class="tab-pane fade" id="navRegistros" role="tabpanel" aria-labelledby="nav-tecnicos-tab">
+            <br />
+            <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Solicitudes de constancias creadas</h4>
+
+                                    <div class="row">   
+                                        <div class="col-1">
+                                            <label class="col-form-label">Estado:</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control" ID="DDLEstadoConstancia" OnSelectedIndexChanged="DDLEstadoConstancia_SelectedIndexChanged"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                            <asp:GridView ID="GVHistorico" runat="server"
+                                                CssClass="mydatagrid"
+                                                PagerStyle-CssClass="pgr"
+                                                HeaderStyle-CssClass="header"
+                                                RowStyle-CssClass="rows"
+                                                AutoGenerateColumns="false"
+                                                AllowPaging="true"
+                                                GridLines="None" OnRowCommand="GVHistorico_RowCommand"
+                                                PageSize="10" OnPageIndexChanging="GVHistorico_PageIndexChanging">
+                                                <Columns>
+                                                    <asp:BoundField DataField="idSolicitud" HeaderText="ID" />
+                                                    <asp:BoundField DataField="Tipo" HeaderText="Tipo" />
+                                                    <asp:BoundField DataField="Categoria" HeaderText="Categoría" />
+                                                    <asp:BoundField DataField="Destino" HeaderText="Destino" />
+                                                    <asp:BoundField DataField="estado" HeaderText="Estado"/>
+                                                    <asp:BoundField DataField="usuario" HeaderText="Usuario" />                                                    
+                                                    <asp:BoundField DataField="fecha" HeaderText="Fecha" />                                                    
+                                                    <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="LbVer" runat="server" title="Abrir" style="background-color:transparent;"  class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="VerSolicitudHistorial">
                                                                 <i class="mdi mdi-email-open text-gray" ></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>

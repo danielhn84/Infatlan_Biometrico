@@ -24,6 +24,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             vConexion = new db();
@@ -73,21 +74,25 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
            
         }
-        void CargarSolicitudesPendientesAprobar()
-        {
-            try
-            {
+        
+        void CargarSolicitudesPendientesAprobar(){
+            try{
                 DataTable vDatos = new DataTable();
                 String vQuery = "RSP_TiempoExtraordinarioGenerales 18,'" + Convert.ToString(Session["USUARIO"]) + "'" ;
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
-                GVBusquedaPendientesJefe.DataSource = vDatos;
-                GVBusquedaPendientesJefe.DataBind();
-                UpdateDivBusquedasJefes.Update();
-                Session["STESOLICITUDESPENDIENTESJEFE"] = vDatos;
+                if (vDatos.Rows.Count > 0){
+                    GVBusquedaPendientesJefe.DataSource = vDatos;
+                    GVBusquedaPendientesJefe.DataBind();
+                    UpdateDivBusquedasJefes.Update();
+                    Session["STESOLICITUDESPENDIENTESJEFE"] = vDatos;
+                }
+                
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
+        
         protected void GVBusquedaPendientesJefe_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string vIdSolicitud =e.CommandArgument.ToString();
@@ -111,6 +116,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
 
         }
+        
         protected void GVBusquedaPendientesJefe_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -136,6 +142,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
 
         }
+        
         protected void GVBusquedaPendientesJefe_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
@@ -147,6 +154,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
+        
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)
         {
             CargarSolicitudesPendientesAprobar();
