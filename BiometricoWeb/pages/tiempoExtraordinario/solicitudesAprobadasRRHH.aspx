@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="solicitudesAprobadasRRHH.aspx.cs" Inherits="BiometricoWeb.pages.tiempoExtraordinario.solicitudesAprobadasRRHH" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
-      <link href="/css/smart_wizard.css" rel="stylesheet" type="text/css" />
+    <link href="/css/smart_wizard.css" rel="stylesheet" type="text/css" />
     <link href="/css/smart_wizard_theme_circles.css" rel="stylesheet" type="text/css" />
     <link href="/css/smart_wizard_theme_arrows.css" rel="stylesheet" type="text/css" />
     <link href="/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
@@ -11,15 +10,13 @@
     <link href="/css/fstdropdown.css" rel="stylesheet" />
     <link href="/css/alert.css" rel="stylesheet" />
 
-     <script type="text/javascript">
-         function closeDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
-         function openDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
-      
-         function openMasInformacionModal() { $('#MasInformacionModal').modal('show'); }
+    <script type="text/javascript">
+        function closeDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
+        function openDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
+
+        function openMasInformacionModal() { $('#MasInformacionModal').modal('show'); }
     </script>
 
-
-    
     <script type="text/javascript">
         var updateProgress = null;
         function postbackButtonClick() {
@@ -28,7 +25,6 @@
             return true;
         }
     </script>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <asp:UpdateProgress ID="UpdateProgress1" runat="server">
@@ -53,7 +49,7 @@
         </div>
     </div>
 
-        <%-- INICIO BUSQUEDA---%>
+    <%-- INICIO BUSQUEDA---%>
     <div class="row" id="DivBusqueda" runat="server">
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
@@ -66,7 +62,7 @@
                             <div class="col-sm-9">
                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox ID="TxBuscarEmpleado" runat="server" placeholder="Ej. Elvin - Presione afuera para proceder" class="form-control" AutoPostBack="true"  OnTextChanged="TxBuscarEmpleado_TextChanged"></asp:TextBox>
+                                        <asp:TextBox ID="TxBuscarEmpleado" runat="server" placeholder="Ej. Elvin - Presione afuera para proceder" class="form-control" AutoPostBack="true" OnTextChanged="TxBuscarEmpleado_TextChanged"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
@@ -78,16 +74,13 @@
     </div>
     <%-- FIN BUSQUEDA---%>
 
-
-        <%-- SECCION 2---%>
+    <%-- SECCION 2---%>
     <asp:UpdatePanel ID="UpBusquedaAprobadasRRHH" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <div class="row">
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-          <%--                  <h4 class="card-title">Solicitudes aprobadas</h4>
-                            <p>Ordenados por fecha de aprobación</p>--%>
                             <div class="row">
                                 <div class="table-responsive">
                                     <asp:GridView ID="GVBusquedaAprobadasRRHH" runat="server"
@@ -95,10 +88,10 @@
                                         PagerStyle-CssClass="pgr"
                                         HeaderStyle-CssClass="header"
                                         RowStyle-CssClass="rows"
-                                        AutoGenerateColumns="false" 
-                                        AllowPaging="true"  OnRowCommand="GVBusquedaAprobadasRRHH_RowCommand"
-                                        GridLines="None"  OnRowDataBound="GVBusquedaAprobadasRRHH_RowDataBound"
-                                        PageSize="10"  OnPageIndexChanging="GVBusquedaAprobadasRRHH_PageIndexChanging"  >
+                                        AutoGenerateColumns="false"
+                                        AllowPaging="true" OnRowCommand="GVBusquedaAprobadasRRHH_RowCommand"
+                                        GridLines="None" OnRowDataBound="GVBusquedaAprobadasRRHH_RowDataBound"
+                                        PageSize="10" OnPageIndexChanging="GVBusquedaAprobadasRRHH_PageIndexChanging">
                                         <Columns>
                                             <asp:TemplateField HeaderText="" HeaderStyle-Width="50px">
                                                 <HeaderTemplate>
@@ -110,16 +103,16 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="" HeaderStyle-Width="50px">
-                                                        <HeaderTemplate>
-                                                        </HeaderTemplate>
-                                                        <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnDocumento" runat="server" Text="Descargar" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="HojaServicio">
+                                            <asp:TemplateField HeaderText="" HeaderStyle-Width="50px">
+                                                <HeaderTemplate>
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="BtnDocumento" runat="server" Text="Descargar" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="HojaServicio">
                                                                         <i class="mdi mdi-download text-primary" ></i>
-                                                            </asp:LinkButton>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                 
+                                                    </asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+
                                             <asp:BoundField DataField="idSolicitud" HeaderText="No." />
                                             <asp:BoundField DataField="nombre" HeaderText="Colaborador" />
                                             <asp:BoundField DataField="descripcion" HeaderText="Hrs Solicitadas" />
@@ -129,11 +122,8 @@
                                             <asp:BoundField DataField="nombreTrabajo" HeaderText="Trabajo" />
                                             <asp:BoundField DataField="fechaSolicitud" HeaderText="Creación" />
                                             <asp:BoundField DataField="horaRrhhAprobo" HeaderText="Aprobo RRHH" />
-                                            
-                                                                                  
                                         </Columns>
                                     </asp:GridView>
-
                                 </div>
                             </div>
                         </div>
@@ -142,11 +132,9 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
     <%-- FIN SECCION 2---%>
 
-
-        <%--    MODAL DESCARGAR ARCHIVO--%>
+    <%--    MODAL DESCARGAR ARCHIVO--%>
     <div class="modal fade" id="DescargaHojaServicioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
@@ -178,15 +166,13 @@
                                 </div>
                             </div>
                         </ContentTemplate>
-
                     </asp:UpdatePanel>
-
                 </div>
                 <div class="modal-footer">
                     <asp:UpdatePanel ID="UpdatePanel11" runat="server">
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="BtnDescarga" runat="server" Text="Descargar" class="btn btn-success"  OnClick="BtnDescarga_Click"/>
+                            <asp:Button ID="BtnDescarga" runat="server" Text="Descargar" class="btn btn-success" OnClick="BtnDescarga_Click" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:PostBackTrigger ControlID="BtnDescarga" />
@@ -196,8 +182,7 @@
             </div>
         </div>
     </div>
-
-
+    <%--  FIN  MODAL DESCARGAR ARCHIVO--%>
 
     <%--   INICIO MODAL MAS INFORMACION--%>
     <div class="modal fade" id="MasInformacionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -211,7 +196,6 @@
                                 <asp:Label ID="LBTituloRRHH" runat="server" Text="" Style="margin-left: auto; margin-right: auto"></asp:Label></h4>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -239,6 +223,7 @@
             </div>
         </div>
     </div>
+    <%--   FIN MODAL MAS INFORMACION--%>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

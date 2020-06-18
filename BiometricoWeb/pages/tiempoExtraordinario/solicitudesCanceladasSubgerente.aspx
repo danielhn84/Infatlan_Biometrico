@@ -9,17 +9,13 @@
     <link href="/css/breadcrumb.css" rel="stylesheet" />
     <link href="/css/fstdropdown.css" rel="stylesheet" />
     <link href="/css/alert.css" rel="stylesheet" />
-
-
     <script type="text/javascript">
         function closeDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
         function openDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
 
-
         function closeMasInformacionModal() { $('#MasInformacion').modal('show'); }
         function openMasInformacionModal() { $('#MasInformacion').modal('show'); }
     </script>
-
     <script type="text/javascript">
         var updateProgress = null;
         function postbackButtonClick() {

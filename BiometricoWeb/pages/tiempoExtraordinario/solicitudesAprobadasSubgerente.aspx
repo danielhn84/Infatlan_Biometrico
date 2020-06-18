@@ -16,9 +16,7 @@
 
         function closeMasInformacionModal() { $('#MasInformacion').modal('show'); }
         function openMasInformacionModal() { $('#MasInformacion').modal('show'); }
-
     </script>
-
     <script type="text/javascript">
         var updateProgress = null;
         function postbackButtonClick() {

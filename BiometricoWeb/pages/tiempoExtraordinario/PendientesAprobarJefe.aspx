@@ -19,10 +19,6 @@
         }
     </script>
 
-
-
-
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
@@ -51,8 +47,6 @@
     <%-- SECCION 2---%>
     <asp:UpdatePanel ID="UpdateDivBusquedasJefes" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-
-
             <div class="row" id="DivBusqueda" runat="server">
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
@@ -80,19 +74,17 @@
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <%--<h4 class="card-title">Solicitudes pendientes aprobar jefes</h4>--%>
-                            <%--<p>Ordenados por fecha de creación</p>--%>
                             <div class="row">
                                 <div class="table-responsive">
                                     <asp:GridView ID="GVBusquedaPendientesJefe" runat="server"
                                         CssClass="mydatagrid"
                                         PagerStyle-CssClass="pgr"
                                         HeaderStyle-CssClass="header"
-                                        RowStyle-CssClass="rows" 
-                                        AutoGenerateColumns="false"  OnRowCommand="GVBusquedaPendientesJefe_RowCommand"
+                                        RowStyle-CssClass="rows"
+                                        AutoGenerateColumns="false" OnRowCommand="GVBusquedaPendientesJefe_RowCommand"
                                         AllowPaging="true" OnRowDataBound="GVBusquedaPendientesJefe_RowDataBound"
                                         GridLines="None" OnPageIndexChanging="GVBusquedaPendientesJefe_PageIndexChanging"
-                                        PageSize="10" >
+                                        PageSize="10">
                                         <Columns>
                                             <asp:TemplateField HeaderText="Select" HeaderStyle-Width="50px">
                                                 <HeaderTemplate>
@@ -104,24 +96,24 @@
 
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="aprobacionSubgerente"/>
+                                            <asp:BoundField DataField="aprobacionSubgerente" />
                                             <asp:TemplateField HeaderText="No.">
                                                 <ItemTemplate>
                                                     <asp:Image ID="imgEstado" runat="server" Width="18" Height="18"></asp:Image>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-                                 
+
                                             <asp:BoundField DataField="idSolicitud" HeaderText="Colaborador." />
-                                            <asp:BoundField DataField="nombre" HeaderText="Horas" ItemStyle-HorizontalAlign="Left"/>
-                                            <asp:BoundField DataField="descripcion" HeaderText="Inicio" />                                             
+                                            <asp:BoundField DataField="nombre" HeaderText="Horas" ItemStyle-HorizontalAlign="Left" />
+                                            <asp:BoundField DataField="descripcion" HeaderText="Inicio" />
                                             <asp:BoundField DataField="fechaInicio" HeaderText="Fin" />
                                             <asp:BoundField DataField="fechaFin" HeaderText="Creación" />
-                                            <asp:BoundField DataField="fechaSolicitud" HeaderText="SysAid"  />
+                                            <asp:BoundField DataField="fechaSolicitud" HeaderText="SysAid" />
                                             <asp:BoundField DataField="sysAid" HeaderText="Trabajo" />
-                                            <asp:BoundField DataField="nombreTrabajo" HeaderText="Detalle"  />
-                                            <asp:BoundField DataField="detalleTrabajo" HeaderText="Estado"  ItemStyle-HorizontalAlign="Justify" />   
-                                            <asp:BoundField DataField="descripcionEstado" />                                        
+                                            <asp:BoundField DataField="nombreTrabajo" HeaderText="Detalle" />
+                                            <asp:BoundField DataField="detalleTrabajo" HeaderText="Estado" ItemStyle-HorizontalAlign="Justify" />
+                                            <asp:BoundField DataField="descripcionEstado" />
                                             <%--  <asp:BoundField DataField="codigoSAP" HeaderText="codigo"  Visible="false"/>--%>
                                         </Columns>
                                     </asp:GridView>
@@ -134,9 +126,9 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
     <%-- FIN SECCION 2---%>
 
+    <%-- INICIO MODAL MAS INFORMACION---%>
     <div class="modal fade" id="MasInformacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
@@ -177,6 +169,7 @@
             </div>
         </div>
     </div>
+    <%-- FIN MODAL MAS INFORMACION---%>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

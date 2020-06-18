@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="solicitudesCanceladasRRHH.aspx.cs" Inherits="BiometricoWeb.pages.tiempoExtraordinario.solicitudesCanceladasRRHH" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
-      <link href="/css/smart_wizard.css" rel="stylesheet" type="text/css" />
+    <link href="/css/smart_wizard.css" rel="stylesheet" type="text/css" />
     <link href="/css/smart_wizard_theme_circles.css" rel="stylesheet" type="text/css" />
     <link href="/css/smart_wizard_theme_arrows.css" rel="stylesheet" type="text/css" />
     <link href="/css/smart_wizard_theme_dots.css" rel="stylesheet" type="text/css" />
@@ -11,14 +10,12 @@
     <link href="/css/fstdropdown.css" rel="stylesheet" />
     <link href="/css/alert.css" rel="stylesheet" />
 
-     <script type="text/javascript">
-         function closeDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
-         function openDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
-
-         function closeMasInformacionModal() { $('#MasInformacionModal').modal('show'); }
-         function openMasInformacionModal() { $('#MasInformacionModal').modal('show'); }
+    <script type="text/javascript">
+        function closeDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
+        function openDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
+        function closeMasInformacionModal() { $('#MasInformacionModal').modal('show'); }
+        function openMasInformacionModal() { $('#MasInformacionModal').modal('show'); }
     </script>
-    
     <script type="text/javascript">
         var updateProgress = null;
         function postbackButtonClick() {
@@ -27,10 +24,9 @@
             return true;
         }
     </script>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      <asp:UpdateProgress ID="UpdateProgress1" runat="server">
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server">
         <ProgressTemplate>
             <div style="position: fixed; text-align: center; height: 100%; width: 100%; top: 0; right: 0; left: 0; z-index: 9999999; background-color: #ffffff; opacity: 0.7; margin: 0;">
                 <span style="display: inline-block; height: 100%; vertical-align: middle;"></span>
@@ -51,7 +47,6 @@
             </div>
         </div>
     </div>
-
 
     <%-- INICIO BUSQUEDA---%>
     <div class="row" id="DivBusqueda" runat="server">
@@ -139,10 +134,7 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
     <%-- FIN SECCION 2---%>
-
-
 
     <%--   INICIO MODAL DESCARGAR ARCHIVO--%>
     <div class="modal fade" id="DescargaHojaServicioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -62,9 +62,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 
 
         }
-
-
-
         void CargarSolicitudesPendientesAprobar()
         {
             try
@@ -83,7 +80,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaPendientesRRHH_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -132,7 +128,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 
 
         }
-
         protected void GVBusquedaPendientesRRHH_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -166,7 +161,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
 
         }
-
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)
         {
             CargarSolicitudesPendientesAprobar();
@@ -228,7 +222,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 UpdateDivBusquedasRRHH.Update();
             }
         }
-
         protected void GVBusquedaPendientesRRHH_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
