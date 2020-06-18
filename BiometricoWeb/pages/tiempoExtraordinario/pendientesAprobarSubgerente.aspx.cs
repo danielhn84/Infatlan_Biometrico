@@ -58,8 +58,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 
             }           
         }
-
-
         void CargarSolicitudesPendientesAprobarSubgerente()
         {
             try

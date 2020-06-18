@@ -19,6 +19,10 @@
         }
     </script>
 
+
+
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
@@ -117,12 +121,7 @@
                                             <asp:BoundField DataField="sysAid" HeaderText="Trabajo" />
                                             <asp:BoundField DataField="nombreTrabajo" HeaderText="Detalle"  />
                                             <asp:BoundField DataField="detalleTrabajo" HeaderText="Estado"  ItemStyle-HorizontalAlign="Justify" />   
-                                            <asp:BoundField DataField="descripcionEstado" />  
-                                          
-
-
-                     
-                         
+                                            <asp:BoundField DataField="descripcionEstado" />                                        
                                             <%--  <asp:BoundField DataField="codigoSAP" HeaderText="codigo"  Visible="false"/>--%>
                                         </Columns>
                                     </asp:GridView>
@@ -137,6 +136,47 @@
     </asp:UpdatePanel>
 
     <%-- FIN SECCION 2---%>
+
+    <div class="modal fade" id="MasInformacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
+                <div class="modal-header">
+
+
+                    <asp:UpdatePanel ID="UpTitulo" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <h4 class="modal-title">
+                                <asp:Label ID="LbMasInformacionColaboraador" runat="server" Text="" Style="margin-left: auto; margin-right: auto"></asp:Label></h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <asp:UpdatePanel ID="UpMensaje" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="form-group row">
+                                <asp:Label ID="LbMensaje1" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: justify;"></asp:Label>
+                                <asp:Label ID="LbMensaje2" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: center;"></asp:Label>
+                            </div>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel18" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

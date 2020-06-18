@@ -1236,9 +1236,8 @@
                     + "','" + DdlMotivoAprobacionSubgerente.SelectedValue                    + "','" + TxSoliAprobacionSubGerente.Text                    + "'," + Session["STEAPROBACIONSUBGERENTE"]
                     + "," + Session["STEIDJEFESUBGERENCIA"];
                 //vDatos = vConexion.obtenerDataTable(vQuery);
-                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);                String vRe = "";                if (vRespuesta == 1)
-                {                    DataTable vData = (DataTable)Session["TIEMPO_EX_TECNICO"];                    vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();                    DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);                    SmtpService vService = new SmtpService();                    Boolean vFlagEnvio = true;
-
+                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);                        if (vRespuesta == 1)
+                {                    DataTable vData = (DataTable)Session["TIEMPO_EX_TECNICO"];                    vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();                    DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);                    //SmtpService vService = new SmtpService();                    Boolean vFlagEnvio = true;
 
                     //foreach (DataRow item in vDatosJefe.Rows)
                     //{                    //    if (!item["emailEmpresa"].ToString().Trim().Equals(""))
@@ -1259,13 +1258,12 @@
         }        protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e)        {            if (e.CommandName == "HojaServicio")            {                string vIdSolicitud = e.CommandArgument.ToString();                String vQuery = "RSP_TiempoExtraordinarioGenerales 12," + vIdSolicitud;                DataTable vDatos = vConexion.obtenerDataTable(vQuery);                String vDocumento = "";                if (!vDatos.Rows[0]["hojaServicio"].ToString().Equals(""))                    vDocumento = vDatos.Rows[0]["hojaServicio"].ToString();                if (!vDocumento.Equals(""))                {                    LbPermisoDescarga.Text = vIdSolicitud;                    UpdatePanel5.Update();                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDescargarModal();", true);                }                else                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('No existe hoja de servicio para esta solicitud')", true);            }                    if (e.CommandName == "DetalleSolicitud")            {                string vIdSolicitud = e.CommandArgument.ToString();
 
                 String vQuery = "RSP_TiempoExtraordinarioGenerales 25," + vIdSolicitud;                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-               string vidEstadoSolicitud = vDatos.Rows[0]["idEstado"].ToString();                if (vidEstadoSolicitud=="5" || vidEstadoSolicitud == "6")
+               string vidEstadoSolicitud = vDatos.Rows[0]["idEstado"].ToString();
+
+                vQuery = "RSP_TiempoExtraordinarioGenerales 39," + vIdSolicitud;
+                vDatos = vConexion.obtenerDataTable(vQuery);                if (vidEstadoSolicitud=="5")//Aprobada RRHH
                 {
-
-                    vQuery = "RSP_TiempoExtraordinarioGenerales 31," + vIdSolicitud;
-                    vDatos = vConexion.obtenerDataTable(vQuery);
-
-                    string vUsuarioAprobo = vDatos.Rows[0]["nombre"].ToString();
+                 
                     string vPermisoReintegradoAlmuero = vDatos.Rows[0]["permisoAmuerzoRrhh"].ToString();
                     string vPermisoReintegradoSalida = vDatos.Rows[0]["permisoSalidaRrhh"].ToString();
                     string vPermisoReintegradoEntrada = vDatos.Rows[0]["permisoEntradaRrhh"].ToString();
@@ -1292,7 +1290,8 @@
                     LbMasInformacionColaboraador.Text = "Más Informacion Solicitud - " + vIdSolicitud;
                     LbMensaje1.Text =
                   "Total de horas solicitadas: <b> " + vDatos.Rows[0]["totalHrsSolicitadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDomingoFeriado"].ToString() + " </b>" + "<br /><br />" + "Total de horas aprobadas: <b> " + vDatos.Rows[0]["totalHrsAprobadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsAprobadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsAprobadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsAprobadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsAprobadasDomingoFeriado"].ToString() + "</b><br /><br />" +
-                  "Usuario RRHH aprobo: <b>" + vUsuarioAprobo + "</b><br /><br />" +
+
+                  "Hr Aprobo RRHH: <b>" + vDatos.Rows[0]["horaRrhhAprobo"].ToString() + "</b><br /><br />" +
                   "<hr> " +
                   "<center> <b>Pemisos Reintegrados: </b> </center><br />" +
                   "<b>Entrada Tarde: </b><br />" +
@@ -1300,21 +1299,83 @@
                    "<b>Salida Temprana: </b><br />" +
                   vPermisoReintegradoSalida + "</b><br /><br />" +
                    "<b>Almuerzo: </b><br />" +
-                  vPermisoReintegradoAlmuero + "</b><br /><br />"
-                  ;
-
+                  vPermisoReintegradoAlmuero + "</b><br /><br />";
 
                     UpdatePanel16.Update();
                     UpdatePanel15.Update();
 
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenMasInformacionColaborador();", true);
                 }
-                else
-                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('Talento Humano todavia no ha aprodado la solicitud, para ver el total de horas aprobadas')", true);
+                else if (vidEstadoSolicitud == "6")//Cancelada RRHH
+                {                                          
+                    LbMasInformacionColaboraador.Text = "Más Informacion Solicitud - " + vIdSolicitud;
+                    LbMensaje1.Text =
+                  "Total de horas solicitadas: <b> " + vDatos.Rows[0]["totalHrsSolicitadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDomingoFeriado"].ToString() + " </b>" + "<br /><br />" + "Total de horas aprobadas: <b> " + vDatos.Rows[0]["totalHrsAprobadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsAprobadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsAprobadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsAprobadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsAprobadasDomingoFeriado"].ToString() + "</b><br /><br />" +
+                 
+                  "Hr cancelo RRHH: <b>" + vDatos.Rows[0]["horaRrhhAprobo"].ToString() + "</b><br /><br />"+
+                  "Observacion cancelacion: <b>" + vDatos.Rows[0]["observacionRrhh"].ToString() + "</b><br /><br />";
+                  
+                    UpdatePanel16.Update();
+                    UpdatePanel15.Update();
 
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenMasInformacionColaborador();", true);
+                }
+                else if (vidEstadoSolicitud == "7")//Cancelada Jefe
+                {         
+                    LbMasInformacionColaboraador.Text = "Más Informacion Solicitud - " + vIdSolicitud;
+                    LbMensaje1.Text =
+                  "Total de horas solicitadas: <b> " + vDatos.Rows[0]["totalHrsSolicitadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDomingoFeriado"].ToString() + " </b>" + "<br /><br />"   +
+                  
+                  "Hr cancelo: <b>" + vDatos.Rows[0]["horaJefeAprobo"].ToString() + "</b><br /><br />" +
+                  "Observacion cancelacion: <b>" + vDatos.Rows[0]["observacionAprobacionJefe"].ToString() + "</b><br /><br />";
 
+                    UpdatePanel16.Update();
+                    UpdatePanel15.Update();
 
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenMasInformacionColaborador();", true);
+                }
+                else if (vidEstadoSolicitud == "4")//Pendiente Modificar Colaborador
+                {
+                    LbMasInformacionColaboraador.Text = "Más Informacion Solicitud - " + vIdSolicitud;
+                    LbMensaje1.Text =
+                  "Total de horas solicitadas: <b> " + vDatos.Rows[0]["totalHrsSolicitadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDomingoFeriado"].ToString() + " </b>" + "<br /><br />" +
+                 
+                  "Hr aprobo modificacion: <b>" + vDatos.Rows[0]["horaJefeAprobo"].ToString() + "</b><br /><br />" +
+                  "Cambio a realizar: <b>" + vDatos.Rows[0]["observacionAprobacionJefe"].ToString() + "</b><br /><br />";
 
+                    UpdatePanel16.Update();
+                    UpdatePanel15.Update();
+
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenMasInformacionColaborador();", true);
+                }
+                else if (vidEstadoSolicitud == "1" || vidEstadoSolicitud == "2" || vidEstadoSolicitud == "3")//Pendiente Aprobar Jefe, Pendiente Aprobar Subgerente,Pendiente Aprobar RRHH
+                {
+
+                    LbMasInformacionColaboraador.Text = "Más Informacion Solicitud - " + vIdSolicitud;
+                    LbMensaje1.Text =
+                  "Total de horas solicitadas: <b> " + vDatos.Rows[0]["totalHrsSolicitadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDomingoFeriado"].ToString() + " </b>" + "<br /><br />" +
+                  "Descripcion Trabajo: <b>" + vDatos.Rows[0]["detalleTrabajo"].ToString() + "</b><br /><br />" +
+                  "Hr envio colaborador: <b>" + vDatos.Rows[0]["fechaSolicitud"].ToString() + "</b><br /><br />";
+                
+                    UpdatePanel16.Update();
+                    UpdatePanel15.Update();
+
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenMasInformacionColaborador();", true);
+                }
+                else if (vidEstadoSolicitud == "8")//Cancelada Subgerente
+                {
+                    LbMasInformacionColaboraador.Text = "Más Informacion Solicitud - " + vIdSolicitud;
+                    LbMensaje1.Text =
+                  "Total de horas solicitadas: <b> " + vDatos.Rows[0]["totalHrsSolicitadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDomingoFeriado"].ToString() + " </b>" + "<br /><br />" +
+
+                  "Hr cancelo: <b>" + vDatos.Rows[0]["horaAproboSubgerente"].ToString() + "</b><br /><br />" +
+                  "Observacion cancelacion: <b>" + vDatos.Rows[0]["motivoCanceloSubgerente"].ToString() + "</b><br /><br />";
+
+                    UpdatePanel16.Update();
+                    UpdatePanel15.Update();
+
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenMasInformacionColaborador();", true);
+                }
 
             }        }        protected void BtnDescargarArchivo_Click(object sender, EventArgs e)        {            try            {                String vEx = Request.QueryString["ex"];                if (vEx == null)                {                    string vIdSolicitud = LbPermisoDescarga.Text;                    String vQuery = "RSP_TiempoExtraordinarioGenerales 12," +  vIdSolicitud;                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);                    String vDocumento = "";                    if (!vDatos.Rows[0]["hojaServicio"].ToString().Equals(""))                        vDocumento = vDatos.Rows[0]["hojaServicio"].ToString();                    if (!vDocumento.Equals(""))                    {                        String vDocumentoArchivo = "HojaServicio-" + vIdSolicitud + vDatos.Rows[0]["extension"].ToString();                        byte[] fileData = Convert.FromBase64String(vDocumento);                        Response.Cache.SetCacheability(HttpCacheability.NoCache);                        GetExtension(vDatos.Rows[0]["extension"].ToString().ToLower());                        byte[] bytFile = fileData;                        Response.OutputStream.Write(bytFile, 0, bytFile.Length);                        Response.AddHeader("Content-disposition", "attachment;filename=" + vDocumentoArchivo);                        Response.End();                    }                }
 
@@ -1329,17 +1390,12 @@
 
                 DataTable vDatosSolicitud = new DataTable();                vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];                DdlMotivoAprobacionSubgerente.SelectedValue= vDatosSolicitud.Rows[0]["motivoAprobacionSubgerente"].ToString();                TxSoliAprobacionSubGerente.Text = vDatosSolicitud.Rows[0]["detalleMotivoAprobacion"].ToString();                Session["STEAPROBACIONSUBGERENTE"] = vDatosSolicitud.Rows[0]["aprobacionSubgerente"].ToString();                Session["STENUMSOLICITUD"] = vDatosSolicitud.Rows[0]["idSolicitud"].ToString();                string vFormato = "yyyy-MM-ddTHH:mm";                RbCambioTurno.SelectedValue = vDatosSolicitud.Rows[0]["cambioTurno"].ToString();                string vFechaInicio = vDatosSolicitud.Rows[0]["fechaInicio"].ToString();                string vFechaFin = vDatosSolicitud.Rows[0]["fechaFin"].ToString();                string vFechaInicioConvertida = Convert.ToDateTime(vFechaInicio).ToString(vFormato);                string vFechaFinConvertida = Convert.ToDateTime(vFechaFin).ToString(vFormato);                TxComentarioJefe.Text = vDatosSolicitud.Rows[0]["observacionAprobacionJefe"].ToString();                TxFechaInicio.Text = vFechaInicioConvertida;                TxFechaRegreso.Text = vFechaFinConvertida;
 
-
-
                 //DIV CUANDO LA SOLICITUD ESTA FUERA DE RANGO
                 if (vDatosSolicitud.Rows[0]["aprobacionSubgerente"].ToString() == "1")
                 {
                     LbFechaRangoMal.Visible = true;
                     DivAprobacionSubGerente.Visible = true;
-
-
                 }
-
 
                 DdlConductor.SelectedValue = vDatosSolicitud.Rows[0]["conductor"].ToString();
                 //DECISION PARA OCULTAR O MOSTRAR LAS OPCIONES DE CONDUCTORES
@@ -1390,45 +1446,46 @@
 
                 LbAprobarJefe.Text = "Buen dia <b> " + Session["STENOMBREJEFE"] + "</b><br /><br />" +                  "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b>" + " .Total de horas <b> " + TxTotalHoras.Text + "</b> <br /><br />" +                  "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";                LbAprobarJefePregunta.Text = "<b>¿Está seguro que desea " + Session["STELBESTADOJEFE"].ToString() + " la solicitud de:</ b > " + Session["STENOMBRECOLABORADOR"] + "<b> ,en el rango de fechas y horas detalladas?</b>";                UpdateAprobarJefe.Update();                UpTituloAprobarJefeModal.Update();                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAprobarJefeModal();", true);            }            catch (Exception ex)            {                Mensaje(ex.Message, WarningType.Danger);            }        }        protected void BtnAprobarJefeModal_Click(object sender, EventArgs e)        {            try            {                String vQuery = "RSP_TiempoExtraordinarioGenerales 21,'"                   + Session["STENUMSOLICITUD"]                   + "','" + Session["USUARIO"]                   + "','" + Session["STEESTADOBDJEFE"]                   + "','" + TxObservacion.Text                   + "'," + DdlMotivosCancelacion.SelectedValue                   + "," + Session["STEESTADOBDSOLICITUD"];                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);                String vRe = "";
 
-                if (vRespuesta == 1)                {
+                if (vRespuesta == 1)                {                      
                     //Cancelada Jefe
                     if (Session["STEESTADOBDSOLICITUD"].ToString() == "7")
                     {
+                        Boolean vFlagEnvio = true;
+                        /*SmtpService vService = new SmtpService();*/
+
                         DataTable vData = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];
                         vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();
-                        DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
+                        DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);                     
 
-                        SmtpService vService = new SmtpService();
-                        Boolean vFlagEnvio = true;
-
-                        foreach (DataRow item in vDatosJefe.Rows)
-                        {
-                            //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            //{
-                            //    vService.EnviarMensaje(
-                            //          vData.Rows[0]["emailEmpresa"].ToString(), // CORREO DEL TECNICO
-                            //                            typeBody.TiempoExtraordinario,
-                            //        vData.Rows[0]["nombre"].ToString(), // NOMBRE DEL TECNICO
-                            //         "Se notifica que el jefe/suplente ha cancelado la solicitud de Tiempo Extraordinario, por el siguiente motivo:( " + DdlMotivosCancelacion.SelectedItem + ") " + TxObservacion.Text,
-                            //         "Si tiene alguna duda con respecto a la decision abocarse con su jefe inmediato.",
-                            //        item["emailEmpresa"].ToString() // CORREO DEL JEFE - COPIADO
-                            //                                             );
-                            //    vFlagEnvio = true;
-                            //}
+                        //foreach (DataRow item in vDatosJefe.Rows)
+                        //{
+                        //    if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                        //    {
+                        //        vService.EnviarMensaje(
+                        //            vData.Rows[0]["emailEmpresa"].ToString(), // CORREO DEL TECNICO
+                        //            typeBody.TiempoExtraordinario,
+                        //            vData.Rows[0]["nombre"].ToString(), // NOMBRE DEL TECNICO
+                        //             "Se notifica que el jefe/suplente ha cancelado la solicitud de Tiempo Extraordinario, por el siguiente motivo:( " + DdlMotivosCancelacion.SelectedItem + ") " + TxObservacion.Text,
+                        //             "Si tiene alguna duda con respecto a la decision abocarse con su jefe inmediato.",
+                        //            item["emailEmpresa"].ToString() // CORREO DEL JEFE - COPIADO
+                        //                                                 );
+                        //        vFlagEnvio = true;
+                        //    }
 
                             if (vFlagEnvio)
                             {
                                 Response.Redirect("/pages/tiempoExtraordinario/PendientesAprobarJefe.aspx?ex=5");
                             }
 
-                        }
+                        
                     }
                     else if (Session["STEESTADOBDSOLICITUD"].ToString() == "3") //Pendiente Aprobar RRHH
                     {
-                        DataTable vData = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];
+                    Boolean vFlagEnvio = true;
+                    DataTable vData = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];
                         vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();
                         DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
-                        Boolean vFlagEnvio = true;
+
                         //SmtpService vService = new SmtpService();
 
                         //vService.EnviarMensaje(
@@ -1448,12 +1505,10 @@
                     }
                     else if (Session["STEESTADOBDSOLICITUD"].ToString() == "4") //Pendiente Modificar Colaborador
                     {
-                        DataTable vData = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];
+                    Boolean vFlagEnvio = true;
+                    DataTable vData = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];
                         vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();
                         DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
-
-                        SmtpService vService = new SmtpService();
-                        Boolean vFlagEnvio = true;
 
                         //foreach (DataRow item in vDatosJefe.Rows)
                         //{
@@ -1480,15 +1535,14 @@
                     else if (Session["STEESTADOBDSOLICITUD"].ToString() == "2") //Pendiente Aprobar Subgerente
                     {
                         DataTable vData = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];
-                        vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();
-                        DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
+                        //vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();
+                        ////DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
 
-                        vQuery = "RSP_ObtenerEmpleados 2," + vDatosJefe.Rows[0]["idJefe"].ToString();
+                        vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["subgerente"].ToString();
                         DataTable vDatosSubgerente = vConexion.obtenerDataTable(vQuery);
 
-                        SmtpService vService = new SmtpService();
+                   
                         Boolean vFlagEnvio = true;
-
                         //foreach (DataRow item in vDatosSubgerente.Rows)
                         //{
                         //    if (!item["emailEmpresa"].ToString().Trim().Equals(""))
@@ -1603,7 +1657,6 @@
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void DdlAprobacionSubgerente_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DdlAprobacionSubgerente.SelectedValue == "1")
@@ -1625,9 +1678,7 @@
                 Session["STEESTADOBDSOLICITUD"] = "8";//Cancelada Subgerente
             }
         }
-
         void validacionAprobacionSubGerente()        {            if (DdlAprobacionSubgerente.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione acción si esta seguro de autorizar la solicitud.");            if (DdlAprobacionSubgerente.SelectedValue == "2" && TxCancelacionSubgerente.Text.Equals(""))                throw new Exception("Falta que seleccione motivo de cancelación");        }
-
         protected void BtnAprobacionSubGerente_Click(object sender, EventArgs e)
         {
             try
@@ -1642,7 +1693,6 @@
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void BtnEnviarAprobaciónSubgerente_Click(object sender, EventArgs e)
         {
             try
@@ -1717,11 +1767,19 @@
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
-
         void CargarSolicitudesModificar()        {            try            {                string usuario = Session["USUARIO"].ToString();                DataTable vDatos = new DataTable();                vDatos = vConexion.obtenerDataTable("RSP_TiempoExtraordinarioGenerales 38,'" + Convert.ToString(Session["USUARIO"]) + "'"); //2902
                 GVPendienteModificar.DataSource = vDatos;                GVPendienteModificar.DataBind();                UpPendienteModificar.Update();
                 Session["STESOLICITUDPENDIENTEMODIFICAR"] = vDatos;
+            }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
+        }
+        protected void BtnCancelarJefe_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DdEstadoSoliJefe.SelectedIndex = -1;
+                DdlMotivosCancelacion.SelectedIndex = -1;
+                TxObservacion.Text = String.Empty;
+                Response.Redirect("/pages/tiempoExtraordinario/PendientesAprobarJefe.aspx");
             }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
     }}

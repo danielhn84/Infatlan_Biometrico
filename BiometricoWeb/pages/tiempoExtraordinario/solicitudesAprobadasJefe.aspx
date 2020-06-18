@@ -13,9 +13,10 @@
      <script type="text/javascript">
          function closeDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
          function openDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
+
+         function closeMasInformacion() { $('#MasInformacion').modal('show'); }
+         function OpenMasInformacion() { $('#MasInformacion').modal('show'); }
     </script>
-
-
     
     <script type="text/javascript">
         var updateProgress = null;
@@ -192,6 +193,51 @@
             </div>
         </div>
     </div>
+
+
+        <div class="modal fade" id="MasInformacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
+                <div class="modal-header">
+
+
+                    <asp:UpdatePanel ID="UpTitulo" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <h4 class="modal-title">
+                                <asp:Label ID="LbMasInformacion" runat="server" Text="" Style="margin-left: auto; margin-right: auto"></asp:Label></h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <asp:UpdatePanel ID="UpMensaje" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="form-group row">
+                                <asp:Label ID="LbMensaje1" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: justify;"></asp:Label>
+                                <asp:Label ID="LbMensaje2" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: center;"></asp:Label>
+                            </div>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel18" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

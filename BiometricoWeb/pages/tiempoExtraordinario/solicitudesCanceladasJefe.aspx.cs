@@ -20,25 +20,22 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 {
     public partial class solicitudesCanceladasJefe : System.Web.UI.Page
     {
-
         db vConexion;
         public void Mensaje(string vMensaje, WarningType type)
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             vConexion = new db();
             cargarSolicitudesCanceladasJefe();
         }
-
         void cargarSolicitudesCanceladasJefe()
         {
             try
             {
                 DataTable vDatos = new DataTable();
-                String vQuery = "RSP_TiempoExtraordinarioGenerales 23";
+                String vQuery = "RSP_TiempoExtraordinarioGenerales 23,'" + Convert.ToString(Session["USUARIO"]) + "'";
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
                 GVBusquedaCanceladasJefes.DataSource = vDatos;
@@ -48,7 +45,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaCanceladasJefes_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -68,7 +64,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaCanceladasJefes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string vIdSolicitud = e.CommandArgument.ToString();
@@ -89,6 +84,25 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 else
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('No existe documento en este permiso')", true);
             }
+            else if (e.CommandName == "Solicitud")
+            {
+                String vQuery = "RSP_TiempoExtraordinarioGenerales 39," + vIdSolicitud;
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+
+                LbMasInformacion.Text = "Mas Información solicitud- " + vIdSolicitud;
+                LbMensaje1.Text =
+                     "Total de horas solicitadas: <b> " + vDatos.Rows[0]["totalHrsSolicitadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDomingoFeriado"].ToString() + " </b>" + "<br /><br />" +
+                     "Motivo cancelacion: <b> " + vDatos.Rows[0]["observacionAprobacionJefe"].ToString() + " </b>" + "<br /><br />" +
+                     "Trabajo realizado: <b> " + vDatos.Rows[0]["nombreTrabajo"].ToString() + " </b>" + "<br /><br />" +
+                     "Detalle: <b> " + vDatos.Rows[0]["detalleTrabajo"].ToString() + " </b>";
+
+                UpTitulo.Update();
+                UpMensaje.Update();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenMasInformacion();", true);
+            }
+
+
+
         }
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)
         {
@@ -151,7 +165,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 UpBusquedaCanceladasJefes.Update();
             }
         }
-
         protected void BtnDescarga_Click(object sender, EventArgs e)
         {
             try
@@ -180,8 +193,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
-
         private string GetExtension(string Extension)
         {
             switch (Extension)

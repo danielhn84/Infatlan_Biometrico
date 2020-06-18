@@ -550,10 +550,8 @@
                                     </div>
 
                                     <div class="row" runat="server" visible="false" id="DivDescontarEntrada">
-                                        <div class="col-md-12" style="text-align: center">
-
-                                            <asp:Label ID="LbJustificacionHEB" runat="server" Text="" Class="col-md-12"></asp:Label>
-
+                                        <div class="col-md-12" style="text-align: center; color: tomato">
+                                            <small><b><asp:Label ID="LbJustificacionHEB" runat="server" Text="" Class="col-md-12" style="text-align: center; color: tomato"></asp:Label></b> </small>
                                         </div>
                                     </div>
                                     <%-- <br>--%>
@@ -595,11 +593,8 @@
                                     </div>
 
                                     <div class="row" runat="server" visible="false" id="DivDescontarSalida">
-                                        <div class="col-md-12" style="text-align: center">
-                                            <%-- <asp:TextBox ID="TxJustificacionHSB" placeholder="Ingrese justificación para reintegro" class="form-control" runat="server" TextMode="MultiLine" Rows="3"></asp:TextBox>
-                                            --%>
-                                            <asp:Label ID="TxJustificacionHSB" runat="server" Text="" Class="col-md-12"></asp:Label>
-
+                                        <div class="col-md-12" style="text-align: center; color: tomato">         
+                                            <small><b><asp:Label ID="TxJustificacionHSB" runat="server" Text="" Class="col-md-12" style="text-align: center; color: tomato" ></asp:Label></b> </small>                                             
                                         </div>
                                     </div>
                                     <br>
@@ -640,17 +635,17 @@
                                     </div>
 
                                     <div class="row" runat="server" visible="true" id="DivTotalAlmuerzo">
-                                        <div class="col-md-12" style="text-align: center">
-                                            <asp:Label ID="LbTotalAlmuerzo" runat="server" Text="" Class="col-md-12"></asp:Label>
+                                        <div class="col-md-12" style="text-align: center; color: tomato; ">
+                                            <small><b><asp:Label ID="LbTotalAlmuerzo" runat="server" Text="" Class="col-md-12" style="text-align: center; color: tomato"></asp:Label></b> </small>
                                         </div>
                                     </div>
 
-                                    <div class="row" runat="server" visible="false" id="DivAlmuerzo">
-                                        <div class="col-md-12" style="text-align: center">
-                                            <asp:Label ID="LbReintegroAlmuerzo" runat="server" Text="" Class="col-md-12"></asp:Label>
+                                    <div class="row" runat="server" visible="false" id="DivAlmuerzo" >
+                                        <div class="col-md-12"  style="text-align: center; color: tomato" >
+                                            <small><b><asp:Label ID="LbReintegroAlmuerzo" runat="server" Text="" Class="col-md-12"  style="text-align: center; color: tomato"></asp:Label></b> </small>
                                         </div>
                                     </div>
-
+                                   
                                 </div>
                             </div>
                         </div>
@@ -728,7 +723,7 @@
                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <asp:Button ID="BtnEnviarAprobacionJefe" class="btn btn-primary mr-2" runat="server" Text="Enviar" OnClick="BtnEnviarAprobacionJefe_Click" />
-                                        <asp:Button ID="BtnCancelarJefe" class="btn btn-danger mr-2" runat="server" Text="Cancelar" />
+                                        <asp:Button ID="BtnCancelarJefe" class="btn btn-danger mr-2" runat="server" Text="Cancelar" OnClick="BtnCancelarJefe_Click" />
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
