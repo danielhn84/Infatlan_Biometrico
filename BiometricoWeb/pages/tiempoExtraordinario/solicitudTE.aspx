@@ -100,94 +100,118 @@
         <br />
         <%-- SECCION 1---%>
         <div class="tab-pane fade show active" id="nav-crearSolicitud" role="tabpanel" aria-labelledby="nav-datos-tab">
-            <div class="row">
-                <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title"><b>Datos Generales Empleado</b> </h4>
-                            <label runat="server" id="Label3" class="col-sm-12" style="text-align: center; color: tomato"><small><b>NOTA. SI TIENE PERMISOS PENDIENTES DE APROBACIÓN SOLICITE A SU JEFE INMEDIATO QUE SE LO AUTORICE PRONTAMENTE Y POSTERIORMENTE A TALENTO HUMANO .</b> </small></label>
-                            <br>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">No. Empleado</label>
-                                        <div class="col-sm-9">
-                                            <asp:TextBox ID="TxEmpleado" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
+
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title"><b>Datos Generales Empleado</b> </h4>
+
+                                    <label runat="server" id="Label3" class="col-sm-12" style="text-align: center; color: tomato"><small><b>NOTA. SI TIENE PERMISOS PENDIENTES DE APROBACIÓN SOLICITE A SU JEFE INMEDIATO QUE SE LO AUTORICE PRONTAMENTE Y POSTERIORMENTE A TALENTO HUMANO .</b> </small></label>
+                                    <br>
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label" runat="server" visible="false" id="Titulo">Solicitud de Empleado</label>
+                                                <div class="col-sm-10">
+                                                    <asp:DropDownList ID="DDLEmpleadoSolicitud" Visible="false" runat="server" class="fstdropdown-select form-control" AutoPostBack="true" OnSelectedIndexChanged="DDLEmpleadoSolicitud_SelectedIndexChanged"></asp:DropDownList>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Jefe</label>
-                                        <div class="col-sm-9">
-                                            <asp:TextBox ID="TxJefe" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
+
+
+
+                                    <asp:UpdatePanel ID="UpdatePanel21" runat="server" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                      
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">No. Empleado</label>
+                                                        <div class="col-sm-9">
+                                                            <asp:TextBox ID="TxEmpleado" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">Jefe</label>
+                                                        <div class="col-sm-9">
+                                                            <asp:TextBox ID="TxJefe" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">Subgerencia</label>
+                                                        <div class="col-sm-9">
+                                                            <asp:TextBox ID="TxSubgerencia" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">Turno</label>
+                                                        <div class="col-sm-9">
+                                                            <asp:TextBox ID="TxTurno" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-6" style="text-align: right">Cambio de turno</label>
+                                                <div class="col-sm-6">
+                                                    <asp:RadioButtonList ID="RbCambioTurno" RepeatDirection="Horizontal" Width="90px" runat="server" AutoPostBack="True" OnSelectedIndexChanged="RbCambioTurno_SelectedIndexChanged">
+                                                        <asp:ListItem Value="1">Si</asp:ListItem>
+                                                        <asp:ListItem Value="0">No</asp:ListItem>
+                                                    </asp:RadioButtonList>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div class="row" runat="server" id="rowSolicitudCambioTurno" visible="false">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">No. Empleado</label>
+                                                <div class="col-sm-9">
+                                                    <asp:DropDownList ID="DDLCambioTurnoColaborador" runat="server" AutoPostBack="true" class="form-control" OnSelectedIndexChanged="DDLCambioTurnoColaborador_SelectedIndexChanged"></asp:DropDownList>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Turno</label>
+                                                <div class="col-sm-9">
+                                                    <asp:TextBox ID="TxCambioTurno" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <asp:TextBox ID="TxMotivoCambioTurno" placeholder="Ingresar motivo del cambio de turno....." class="form-control" runat="server" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Subgerencia</label>
-                                        <div class="col-sm-9">
-                                            <asp:TextBox ID="TxSubgerencia" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Turno</label>
-                                        <div class="col-sm-9">
-                                            <asp:TextBox ID="TxTurno" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group row">
-                                        <label class="col-sm-6" style="text-align: right">Cambio de turno</label>
-                                        <div class="col-sm-6">
-                                            <asp:RadioButtonList ID="RbCambioTurno" RepeatDirection="Horizontal" Width="90px" runat="server" AutoPostBack="True" OnSelectedIndexChanged="RbCambioTurno_SelectedIndexChanged">
-                                                <asp:ListItem Value="1">Si</asp:ListItem>
-                                                <asp:ListItem Value="0">No</asp:ListItem>
-                                            </asp:RadioButtonList>
-                                        </div>
-                                        <%-- <label class="col-sm-12" style="text-align: center"><small><i><b>Si solicitó cambio de turno por un dia en especifico seleccionar la opción "Si"</b></i> </small></label>--%>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" runat="server" id="rowSolicitudCambioTurno" visible="false">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">No. Empleado</label>
-                                        <div class="col-sm-9">
-                                            <asp:DropDownList ID="DDLCambioTurnoColaborador" runat="server" AutoPostBack="true" class="form-control" OnSelectedIndexChanged="DDLCambioTurnoColaborador_SelectedIndexChanged"></asp:DropDownList>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Turno</label>
-                                        <div class="col-sm-9">
-                                            <asp:TextBox ID="TxCambioTurno" ReadOnly="true" placeholder="" class="form-control" runat="server"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <asp:TextBox ID="TxMotivoCambioTurno" placeholder="Ingresar motivo del cambio de turno....." class="form-control" runat="server" TextMode="MultiLine" Rows="3"></asp:TextBox>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
-                </div>
-            </div>
+   
 
             <div class="row">
                 <div class="col-12 grid-margin stretch-card">
@@ -234,13 +258,26 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                             <br>
 
+
                             <asp:UpdatePanel ID="UpdatePanelFechas" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-6" style="text-align: right">Trabajo realizado de forma:</label>
+                                                <div class="col-sm-6">
+                                                    <asp:RadioButtonList ID="RbFormaTrabajo" RepeatDirection="Horizontal" Width="160px" runat="server" AutoPostBack="True"  OnSelectedIndexChanged="RbFormaTrabajo_SelectedIndexChanged">
+                                                        <asp:ListItem Value="1">Remota</asp:ListItem>
+                                                        <asp:ListItem Value="2">Presencial</asp:ListItem>
+                                                    </asp:RadioButtonList>
+                                                </div>                                               
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
@@ -264,7 +301,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-
+                                            <label runat="server" id="LbModificar" visible="false" class="col-sm-12" style="text-align: center; color: tomato"><small><b>SE VA A MANTENER EL MISMO ESTADO QUE SE REGISTRO CUANDO CREO LA SOLICITUD</b> </small></label>
                                             <label runat="server" id="LbFechaRangoBien" visible="false" class="col-sm-12" style="text-align: center; color: tomato"><small><b>NOTA.LA FECHA FIN DE LA SOLICITUD ESTA DENTRO DEL RANGO ESTABLECIDO (SOLICITUD SERA APROBADA POR JEFE/SUPLENTE) .</b> </small></label>
 
                                             <label runat="server" id="LbFechaRangoMal" visible="false" class="col-sm-12" style="text-align: center; color: tomato"><small><b>NOTA.LA FECHA FIN DE LA SOLICITUD SUPERA EL RANGO ESTABLECIDO (SE VA REQUERIR APROBACION DEL SUBGERENTE) .</b> </small></label>
@@ -309,7 +346,6 @@
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div class="row" runat="server" id="DivConductor">
                                         <div class="col-md-6">
@@ -378,10 +414,8 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-
 
                             <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
@@ -430,19 +464,14 @@
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
-
-
                                         </div>
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-
                         </div>
                     </div>
                 </div>
             </div>
-
-
 
 
             <asp:UpdatePanel ID="UpDivUnaFecha" runat="server" UpdateMode="Conditional">
@@ -551,7 +580,8 @@
 
                                     <div class="row" runat="server" visible="false" id="DivDescontarEntrada">
                                         <div class="col-md-12" style="text-align: center; color: tomato">
-                                            <small><b><asp:Label ID="LbJustificacionHEB" runat="server" Text="" Class="col-md-12" style="text-align: center; color: tomato"></asp:Label></b> </small>
+                                            <small><b>
+                                                <asp:Label ID="LbJustificacionHEB" runat="server" Text="" Class="col-md-12" Style="text-align: center; color: tomato"></asp:Label></b> </small>
                                         </div>
                                     </div>
                                     <%-- <br>--%>
@@ -593,8 +623,9 @@
                                     </div>
 
                                     <div class="row" runat="server" visible="false" id="DivDescontarSalida">
-                                        <div class="col-md-12" style="text-align: center; color: tomato">         
-                                            <small><b><asp:Label ID="TxJustificacionHSB" runat="server" Text="" Class="col-md-12" style="text-align: center; color: tomato" ></asp:Label></b> </small>                                             
+                                        <div class="col-md-12" style="text-align: center; color: tomato">
+                                            <small><b>
+                                                <asp:Label ID="TxJustificacionHSB" runat="server" Text="" Class="col-md-12" Style="text-align: center; color: tomato"></asp:Label></b> </small>
                                         </div>
                                     </div>
                                     <br>
@@ -635,17 +666,19 @@
                                     </div>
 
                                     <div class="row" runat="server" visible="true" id="DivTotalAlmuerzo">
-                                        <div class="col-md-12" style="text-align: center; color: tomato; ">
-                                            <small><b><asp:Label ID="LbTotalAlmuerzo" runat="server" Text="" Class="col-md-12" style="text-align: center; color: tomato"></asp:Label></b> </small>
+                                        <div class="col-md-12" style="text-align: center; color: tomato;">
+                                            <small><b>
+                                                <asp:Label ID="LbTotalAlmuerzo" runat="server" Text="" Class="col-md-12" Style="text-align: center; color: tomato"></asp:Label></b> </small>
                                         </div>
                                     </div>
 
-                                    <div class="row" runat="server" visible="false" id="DivAlmuerzo" >
-                                        <div class="col-md-12"  style="text-align: center; color: tomato" >
-                                            <small><b><asp:Label ID="LbReintegroAlmuerzo" runat="server" Text="" Class="col-md-12"  style="text-align: center; color: tomato"></asp:Label></b> </small>
+                                    <div class="row" runat="server" visible="false" id="DivAlmuerzo">
+                                        <div class="col-md-12" style="text-align: center; color: tomato">
+                                            <small><b>
+                                                <asp:Label ID="LbReintegroAlmuerzo" runat="server" Text="" Class="col-md-12" Style="text-align: center; color: tomato"></asp:Label></b> </small>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -779,7 +812,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="row" runat="server" id="DivAprobarRRHH" visible="false">
                 <div class="col-12 grid-margin stretch-card">
@@ -922,15 +954,15 @@
                                                 RowStyle-CssClass="rows"
                                                 AutoGenerateColumns="false"
                                                 AllowPaging="true" 
-                                                GridLines="None"
-                                                PageSize="10">
+                                                GridLines="None" OnRowCommand="GVPendienteModificar_RowCommand"
+                                                PageSize="10" OnPageIndexChanging="GVPendienteModificar_PageIndexChanging" >
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Select" HeaderStyle-Width="50px">
                                                         <HeaderTemplate>
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="BtnMotivo" runat="server" Text="Motivo" class="btn btn-inverse-primary mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="DetalleSolicitud">
-                                                                        <i class="mdi mdi-comment-search-outline text-primary" ></i>
+                                                                         <i class="mdi mdi-ballot text-primary" ></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>

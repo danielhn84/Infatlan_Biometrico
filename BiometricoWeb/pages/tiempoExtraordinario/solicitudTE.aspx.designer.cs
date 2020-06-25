@@ -60,6 +60,33 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label3;
 
         /// <summary>
+        /// Control Titulo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Titulo;
+
+        /// <summary>
+        /// Control DDLEmpleadoSolicitud.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDLEmpleadoSolicitud;
+
+        /// <summary>
+        /// Control UpdatePanel21.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel21;
+
+        /// <summary>
         /// Control TxEmpleado.
         /// </summary>
         /// <remarks>
@@ -204,6 +231,15 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         protected global::System.Web.UI.UpdatePanel UpdatePanelFechas;
 
         /// <summary>
+        /// Control RbFormaTrabajo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RbFormaTrabajo;
+
+        /// <summary>
         /// Control TxFechaInicio.
         /// </summary>
         /// <remarks>
@@ -220,6 +256,15 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxFechaRegreso;
+
+        /// <summary>
+        /// Control LbModificar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LbModificar;
 
         /// <summary>
         /// Control LbFechaRangoBien.
