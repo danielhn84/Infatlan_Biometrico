@@ -7,389 +7,308 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace BiometricoWeb
+namespace BiometricoWeb.pages.mantenimiento
 {
 
 
-    public partial class main
+    public partial class hotel
     {
 
         /// <summary>
-        /// Control head.
+        /// Control UpdateProgress1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
 
         /// <summary>
-        /// Control FrmCambios.
+        /// Control UPBuscarHotel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm FrmCambios;
+        protected global::System.Web.UI.UpdatePanel UPBuscarHotel;
 
         /// <summary>
-        /// Control ScriptManager1.
+        /// Control txtbuscarHotel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.TextBox txtbuscarHotel;
 
         /// <summary>
-        /// Control LitConfiguraciones.
+        /// Control UpdateDivBusquedas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitConfiguraciones;
+        protected global::System.Web.UI.UpdatePanel UpdateDivBusquedas;
 
         /// <summary>
-        /// Control LitUsuario.
+        /// Control UpdateGridView.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitUsuario;
+        protected global::System.Web.UI.UpdatePanel UpdateGridView;
 
         /// <summary>
-        /// Control LIDashboard.
+        /// Control GVSolicitud.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDashboard;
+        protected global::System.Web.UI.WebControls.GridView GVSolicitud;
 
         /// <summary>
-        /// Control LIServicios.
+        /// Control UpdatePanelHoteles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIServicios;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelHoteles;
 
         /// <summary>
-        /// Control LIAutorizaciones.
+        /// Control txtNewHotel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIAutorizaciones;
+        protected global::System.Web.UI.WebControls.TextBox txtNewHotel;
 
         /// <summary>
-        /// Control LIConstancias.
+        /// Control DDLUbicacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIConstancias;
+        protected global::System.Web.UI.WebControls.DropDownList DDLUbicacion;
 
         /// <summary>
-        /// Control LICumpleaños.
+        /// Control DDLDesayuno.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LICumpleaños;
+        protected global::System.Web.UI.WebControls.DropDownList DDLDesayuno;
 
         /// <summary>
-        /// Control LIPermisos.
+        /// Control UpdatePanel1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIPermisos;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
-        /// Control LIToken.
+        /// Control btnEnviarHotel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIToken;
+        protected global::System.Web.UI.WebControls.Button btnEnviarHotel;
 
         /// <summary>
-        /// Control LITEx.
+        /// Control UPHabitaciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITEx;
+        protected global::System.Web.UI.UpdatePanel UPHabitaciones;
 
         /// <summary>
-        /// Control LITExSolicitud.
+        /// Control DDLHoteleria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExSolicitud;
+        protected global::System.Web.UI.WebControls.DropDownList DDLHoteleria;
 
         /// <summary>
-        /// Control LITExJefatura.
+        /// Control txtHabitacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExJefatura;
+        protected global::System.Web.UI.WebControls.TextBox txtHabitacion;
 
         /// <summary>
-        /// Control LITExSubgerencia.
+        /// Control txtPrecio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExSubgerencia;
+        protected global::System.Web.UI.WebControls.TextBox txtPrecio;
 
         /// <summary>
-        /// Control LITExRRHH.
+        /// Control UpdatePanel3.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExRRHH;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
 
         /// <summary>
-        /// Control LITExMantenimiento.
+        /// Control btnCrearHabitacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExMantenimiento;
+        protected global::System.Web.UI.WebControls.Button btnCrearHabitacion;
 
         /// <summary>
-        /// Control LITExManFeriados.
+        /// Control UpdatePanel6.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LITExManFeriados;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
 
         /// <summary>
-        /// Control LITExManProyectos.
+        /// Control btnModalCrearHotel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LITExManProyectos;
+        protected global::System.Web.UI.WebControls.Button btnModalCrearHotel;
 
         /// <summary>
-        /// Control LITExManPropuesta.
+        /// Control btnModalCerrarHotel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LITExManPropuesta;
+        protected global::System.Web.UI.WebControls.Button btnModalCerrarHotel;
 
         /// <summary>
-        /// Control LITExManEquipos.
+        /// Control UpdatePanel4.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LITExManEquipos;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
 
         /// <summary>
-        /// Control LIPoliticas.
+        /// Control btnModalCrearHabitacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIPoliticas;
+        protected global::System.Web.UI.WebControls.Button btnModalCrearHabitacion;
 
         /// <summary>
-        /// Control LIViaticos.
+        /// Control btnModalCerrarHabitacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIViaticos;
+        protected global::System.Web.UI.WebControls.Button btnModalCerrarHabitacion;
 
         /// <summary>
-        /// Control LIViatAprobacion.
+        /// Control UPModalHoteles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIViatAprobacion;
+        protected global::System.Web.UI.UpdatePanel UPModalHoteles;
 
         /// <summary>
-        /// Control LIViatCotizacion.
+        /// Control txtModalHotel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIViatCotizacion;
+        protected global::System.Web.UI.WebControls.TextBox txtModalHotel;
 
         /// <summary>
-        /// Control LIViatMantenimiento.
+        /// Control DDLModalUbicacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIViatMantenimiento;
+        protected global::System.Web.UI.WebControls.DropDownList DDLModalUbicacion;
 
         /// <summary>
-        /// Control LIEmpleados.
+        /// Control DDLModalDesayuno.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIEmpleados;
+        protected global::System.Web.UI.WebControls.DropDownList DDLModalDesayuno;
 
         /// <summary>
-        /// Control LIEstructura.
+        /// Control txtModalHabitacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIEstructura;
+        protected global::System.Web.UI.WebControls.TextBox txtModalHabitacion;
 
         /// <summary>
-        /// Control LIOrganigrama.
+        /// Control txtModalPrecio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIOrganigrama;
+        protected global::System.Web.UI.WebControls.TextBox txtModalPrecio;
 
         /// <summary>
-        /// Control LIDescriptor.
+        /// Control UpdatePanel5.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDescriptor;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
 
         /// <summary>
-        /// Control LIConfig.
+        /// Control btnModalModificar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIConfig;
+        protected global::System.Web.UI.WebControls.Button btnModalModificar;
 
         /// <summary>
-        /// Control LIMantenimientos.
+        /// Control btnModalCerrarModificar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIMantenimientos;
-
-        /// <summary>
-        /// Control LIBiometricos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIBiometricos;
-
-        /// <summary>
-        /// Control LISecurity.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISecurity;
-
-        /// <summary>
-        /// Control LISEC_Entradas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Entradas;
-
-        /// <summary>
-        /// Control LISEC_Salidas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Salidas;
-
-        /// <summary>
-        /// Control LISEC_Historico.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Historico;
-
-        /// <summary>
-        /// Control LISEC_Aprobaciones.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Aprobaciones;
-
-        /// <summary>
-        /// Control LIBuzon.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIBuzon;
-
-        /// <summary>
-        /// Control ContentPlaceHolder1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
-
-        /// <summary>
-        /// Control ContentPlaceHolder2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder2;
+        protected global::System.Web.UI.WebControls.Button btnModalCerrarModificar;
     }
 }

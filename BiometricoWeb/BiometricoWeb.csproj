@@ -148,6 +148,11 @@
     <Content Include="pages\access.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
+    <Content Include="pages\mantenimiento\costos.aspx" />
+    <Content Include="pages\mantenimiento\hotel.aspx" />
+    <Content Include="pages\mantenimiento\motioViaje.aspx" />
+    <Content Include="pages\mantenimiento\tipoViaje.aspx" />
+    <Content Include="pages\mantenimiento\transporte.aspx" />
     <Content Include="pages\servicios\birthdayCalendar.aspx" />
     <Content Include="pages\buzonSugerencias.aspx" />
     <Content Include="pages\canceled.aspx" />
@@ -183,6 +188,16 @@
     <Content Include="pages\tiempoExtraordinario\solicitudTE.aspx" />
     <Content Include="pages\token.aspx" />
     <Content Include="pages\UpdateEmployees.aspx" />
+    <Content Include="pages\viaticos\aprobarViaticos.aspx" />
+    <Content Include="pages\viaticos\buscarRecibo.aspx" />
+    <Content Include="pages\viaticos\cotizacion.aspx" />
+    <Content Include="pages\viaticos\cotizarViaje.aspx" />
+    <Content Include="pages\viaticos\devolverViaticos.aspx" />
+    <Content Include="pages\viaticos\liquidaciones.aspx" />
+    <Content Include="pages\viaticos\liquidar.aspx" />
+    <Content Include="pages\viaticos\recibos.aspx" />
+    <Content Include="pages\viaticos\solicitudViaticos.aspx" />
+    <Content Include="pages\viaticos\WS.aspx" />
     <Content Include="Scripts\go-2.1.14-debug.js" />
     <Content Include="Scripts\go-2.1.14.js" />
     <Content Include="src\tree_maker.js" />
@@ -256,6 +271,41 @@
     </Compile>
     <Compile Include="pages\authorizations.aspx.designer.cs">
       <DependentUpon>authorizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\mantenimiento\costos.aspx.cs">
+      <DependentUpon>costos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\mantenimiento\costos.aspx.designer.cs">
+      <DependentUpon>costos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\mantenimiento\hotel.aspx.cs">
+      <DependentUpon>hotel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\mantenimiento\hotel.aspx.designer.cs">
+      <DependentUpon>hotel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\mantenimiento\motioViaje.aspx.cs">
+      <DependentUpon>motioViaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\mantenimiento\motioViaje.aspx.designer.cs">
+      <DependentUpon>motioViaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\mantenimiento\tipoViaje.aspx.cs">
+      <DependentUpon>tipoViaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\mantenimiento\tipoViaje.aspx.designer.cs">
+      <DependentUpon>tipoViaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\mantenimiento\transporte.aspx.cs">
+      <DependentUpon>transporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\mantenimiento\transporte.aspx.designer.cs">
+      <DependentUpon>transporte.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\servicios\birthdayCalendar.aspx.cs">
       <DependentUpon>birthdayCalendar.aspx</DependentUpon>
@@ -486,6 +536,76 @@
     </Compile>
     <Compile Include="pages\UpdateEmployees.aspx.designer.cs">
       <DependentUpon>UpdateEmployees.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\aprobarViaticos.aspx.cs">
+      <DependentUpon>aprobarViaticos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\aprobarViaticos.aspx.designer.cs">
+      <DependentUpon>aprobarViaticos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\buscarRecibo.aspx.cs">
+      <DependentUpon>buscarRecibo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\buscarRecibo.aspx.designer.cs">
+      <DependentUpon>buscarRecibo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\cotizacion.aspx.cs">
+      <DependentUpon>cotizacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\cotizacion.aspx.designer.cs">
+      <DependentUpon>cotizacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\cotizarViaje.aspx.cs">
+      <DependentUpon>cotizarViaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\cotizarViaje.aspx.designer.cs">
+      <DependentUpon>cotizarViaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\devolverViaticos.aspx.cs">
+      <DependentUpon>devolverViaticos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\devolverViaticos.aspx.designer.cs">
+      <DependentUpon>devolverViaticos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\liquidaciones.aspx.cs">
+      <DependentUpon>liquidaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\liquidaciones.aspx.designer.cs">
+      <DependentUpon>liquidaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\liquidar.aspx.cs">
+      <DependentUpon>liquidar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\liquidar.aspx.designer.cs">
+      <DependentUpon>liquidar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\recibos.aspx.cs">
+      <DependentUpon>recibos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\recibos.aspx.designer.cs">
+      <DependentUpon>recibos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\solicitudViaticos.aspx.cs">
+      <DependentUpon>solicitudViaticos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\solicitudViaticos.aspx.designer.cs">
+      <DependentUpon>solicitudViaticos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\viaticos\WS.aspx.cs">
+      <DependentUpon>WS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\viaticos\WS.aspx.designer.cs">
+      <DependentUpon>WS.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

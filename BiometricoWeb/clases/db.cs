@@ -17,10 +17,11 @@ namespace BiometricoWeb.clases
     }
     public class db
     {
-        SqlConnection vConexion, vConexionSysAid;
+        SqlConnection vConexion, vConexionSysAid, vConexionLocalidad;
         public db(){
             vConexion = new SqlConnection(ConfigurationManager.AppSettings["SQLServer"]);
             vConexionSysAid = new SqlConnection(ConfigurationManager.AppSettings["SQLServerSysAid"]);
+            vConexionLocalidad = new SqlConnection(ConfigurationManager.AppSettings["SQLServerLocalidad"]);
         }
 
         public DataTable obtenerDataTable(String vQuery){
@@ -76,6 +77,17 @@ namespace BiometricoWeb.clases
                 SqlDataAdapter vDataAdapter = new SqlDataAdapter(vQuery, vConexionSysAid);
                 vDataAdapter.Fill(vDatos);
             }catch{
+                throw;
+            }
+            return vDatos;
+        }
+
+        public DataTable obtenerDataTableLocalidad(string vQuery){
+            DataTable vDatos = new DataTable();
+            try{
+                SqlDataAdapter vDataAdapter = new SqlDataAdapter(vQuery, vConexionLocalidad);
+                vDataAdapter.Fill(vDatos);
+            }catch (Exception){
                 throw;
             }
             return vDatos;

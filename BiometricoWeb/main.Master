@@ -68,7 +68,6 @@
                     <ul class="navbar-nav mr-lg-4 w-100">
                         <li class="nav-item nav-search d-none d-lg-block w-100">
                             <img src="/images/rh.png" alt="logo" />
-                            
                         </li>
                     </ul>
                     <ul class="navbar-nav navbar-nav-right">
@@ -232,6 +231,36 @@
                                 <i class="mdi mdi-file-document menu-icon"></i>
                                 <span class="menu-title">Politicas</span>
                             </a>
+                        </li>
+
+                        <li class="nav-item" id="LIViaticos" runat="server" visible="false">
+                            <a class="nav-link" data-toggle="collapse" href="#ui-basicV" aria-expanded="false" aria-controls="ui-basic5">
+                                <i class="mdi mdi-cash-multiple menu-icon"></i>
+                                <span class="menu-title">Viáticos</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="ui-basicV">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item" runat="server"><a class="nav-link" href="/pages/viaticos/solicitudViaticos.aspx">Solicitud</a></li>
+                                    <li class="nav-item" runat="server"><a class="nav-link" href="/pages/viaticos/liquidaciones.aspx">Liquidación</a></li>
+                                    <li class="nav-item" runat="server"><a class="nav-link" href="/pages/viaticos/devolverViaticos.aspx">Devoluciones</a></li>
+                                    <li class="nav-item" runat="server" visible="false" id="LIViatAprobacion"><a class="nav-link" href="/pages/viaticos/aprobarViaticos.aspx">Aprobaciones</a></li>                                  
+                                    <li class="nav-item" runat="server" visible="false" id="LIViatCotizacion"><a class="nav-link" href="/pages/viaticos/cotizacion.aspx">Cotizaciones</a></li>
+                                    <li class="nav-item" runat="server"><a class="nav-link" href="/pages/viaticos/buscarRecibo.aspx">Recibos</a></li>
+                                     <li class="" id="LIViatMantenimiento" runat="server" visible="false" style="margin-left:-20%; cursor:pointer;">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-clipboard-outline menu-icon"></i>
+                                            <span class="menu-title">Mantenimiento</span>
+                                        </a>
+                                        <div class="dropdown-menu" id="ui-basic3v">
+                                            <a class="nav-link" href="/pages/mantenimiento/motioViaje.aspx">Motivo de viaje</a>
+                                            <a class="nav-link" href="/pages/mantenimiento/costos.aspx">Costos</a>
+                                            <a class="nav-link" href="/pages/mantenimiento/transporte.aspx">Transporte</a>
+                                            <a class="nav-link" href="/pages/mantenimiento/hotel.aspx">Hoteles</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
 
                         <li class="nav-item" id="LIEmpleados" runat="server" visible="false">
