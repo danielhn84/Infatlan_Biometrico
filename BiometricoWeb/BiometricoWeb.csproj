@@ -109,6 +109,9 @@
     <Content Include="images\bannerCumple.png" />
     <Content Include="images\faces\face5.jpg" />
     <Content Include="images\favicon.png" />
+    <Content Include="images\icon_azul.png" />
+    <Content Include="images\icon_naranja.png" />
+    <Content Include="images\icon_verde.png" />
     <Content Include="images\loading.gif" />
     <Content Include="images\logo-mini.svg" />
     <Content Include="images\logo.png" />

@@ -689,7 +689,7 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
 
-            <div class="row" runat="server" id="DivAprobacionRealRRHH" visible="true">
+            <div class="row" runat="server" id="DivAprobacionRealRRHH" visible="false">
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
