@@ -29,6 +29,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         {
             vConexion = new db();
             String vEx = Request.QueryString["ex"];
+            CargarSolicitudesPendientesAprobar();
             if (!IsPostBack)
             {
                 CargarSolicitudesPendientesAprobar();
@@ -44,13 +45,14 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     vEx = null;                                 
                     String vRe = "La solicitud de tiempo extraordinario se ha cancelado con exito (Solicitud no se va a pagar).";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
-                 
+                    CargarSolicitudesPendientesAprobar();
                 }
                 else if (vEx.Equals("6"))
                 {
                     vEx = null;
                     String vRe = "La solicitud de tiempo extraordinario se ha aprobado con exito, RRHH ya podra proceder con la aprobación.";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                    CargarSolicitudesPendientesAprobar();
                 }
 
                 else if (vEx.Equals("7"))
@@ -58,18 +60,21 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     vEx = null;
                     String vRe = "El estado de la solicitud se ha actualizado con exito, el colaborador podrá visualizar en su bandeja la solicitud que debe de modificar.";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                    CargarSolicitudesPendientesAprobar();
                 }
                 else if (vEx.Equals("8"))
                 {
                     vEx = null;
                     String vRe = "El estado de la solicitud se ha actualizado con exito, la solicitud se va requerir aprobación del subgerente ya que la fecha de la solicitud supera los rangos establecidos.";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                    CargarSolicitudesPendientesAprobar();
                 }
                 else if (vEx.Equals("9"))
                 {
                     vEx = null;
                     String vRe = "No se pudo enviar la respuesta, pongase en contacto con el administrador de la plataforma para que verifique el problema.";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
+                    CargarSolicitudesPendientesAprobar();
                 }
             }
            

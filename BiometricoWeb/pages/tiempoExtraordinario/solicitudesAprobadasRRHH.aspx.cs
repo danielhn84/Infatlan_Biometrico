@@ -23,14 +23,11 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             vConexion = new db();
             cargarSolicitudesAprobadasRRHH();
         }
-
-
         void cargarSolicitudesAprobadasRRHH()
         {
             try
@@ -46,7 +43,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaAprobadasRRHH_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
@@ -58,7 +54,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaAprobadasRRHH_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -67,7 +62,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 e.Row.Cells[3].Text = new System.Globalization.CultureInfo("es-ES", false).TextInfo.ToTitleCase(e.Row.Cells[3].Text.ToLower());
             }
         }
-
         protected void GVBusquedaAprobadasRRHH_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string vIdSolicitud = e.CommandArgument.ToString();
@@ -161,7 +155,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openMasInformacionModal();", true);
             }
         }
-
         protected void BtnDescarga_Click(object sender, EventArgs e)
         {
 
@@ -191,7 +184,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         private string GetExtension(string Extension)
         {
             switch (Extension)
@@ -238,7 +230,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     return "application/octet-stream";
             }
         }
-
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)
         {
             cargarSolicitudesAprobadasRRHH();

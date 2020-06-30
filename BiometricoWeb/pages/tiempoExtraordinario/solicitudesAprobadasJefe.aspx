@@ -13,9 +13,10 @@
      <script type="text/javascript">
          function closeDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
          function openDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
+
+         function closeMasInformacion() { $('#MasInformacion').modal('show'); }
+         function OpenMasInformacion() { $('#MasInformacion').modal('show'); }
     </script>
-
-
     
     <script type="text/javascript">
         var updateProgress = null;
@@ -75,7 +76,6 @@
     </div>
     <%-- FIN BUSQUEDA---%>
 
-
     <%-- SECCION 2---%>
     <asp:UpdatePanel ID="UpBusquedaAprobadasJefes" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
@@ -83,8 +83,6 @@
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-          <%--                  <h4 class="card-title">Solicitudes aprobadas</h4>
-                            <p>Ordenados por fecha de aprobación</p>--%>
                             <div class="row">
                                 <div class="table-responsive">
                                     <asp:GridView ID="GVBusquedaAprobadasJefes" runat="server"
@@ -92,10 +90,10 @@
                                         PagerStyle-CssClass="pgr"
                                         HeaderStyle-CssClass="header"
                                         RowStyle-CssClass="rows"
-                                        AutoGenerateColumns="false" 
-                                        AllowPaging="true"  OnRowCommand="GVBusquedaAprobadasJefes_RowCommand"
+                                        AutoGenerateColumns="false"
+                                        AllowPaging="true" OnRowCommand="GVBusquedaAprobadasJefes_RowCommand"
                                         GridLines="None" OnPageIndexChanging="GVBusquedaAprobadasJefes_PageIndexChanging"
-                                        PageSize="10"   OnRowDataBound="GVBusquedaAprobadasJefes_RowDataBound">
+                                        PageSize="10" OnRowDataBound="GVBusquedaAprobadasJefes_RowDataBound">
                                         <Columns>
                                             <asp:TemplateField HeaderText="" HeaderStyle-Width="50px">
                                                 <HeaderTemplate>
@@ -107,16 +105,15 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="" HeaderStyle-Width="50px">
-                                                        <HeaderTemplate>
-                                                        </HeaderTemplate>
-                                                        <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnDocumento" runat="server" Text="Descargar" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="HojaServicio">
+                                            <asp:TemplateField HeaderText="" HeaderStyle-Width="50px">
+                                                <HeaderTemplate>
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="BtnDocumento" runat="server" Text="Descargar" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="HojaServicio">
                                                                         <i class="mdi mdi-download text-primary" ></i>
-                                                            </asp:LinkButton>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                 
+                                                    </asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:BoundField DataField="idSolicitud" HeaderText="No." />
                                             <asp:BoundField DataField="nombre" HeaderText="Colaborador" />
                                             <asp:BoundField DataField="descripcion" HeaderText="Descripción" />
@@ -125,11 +122,8 @@
                                             <asp:BoundField DataField="nombreTrabajo" HeaderText="Trabajo" />
                                             <asp:BoundField DataField="fechaSolicitud" HeaderText="Creación" />
                                             <asp:BoundField DataField="horaJefeAprobo" HeaderText="Aprobo Jefe" />
-                                            
-                                                                                  
                                         </Columns>
                                     </asp:GridView>
-
                                 </div>
                             </div>
                         </div>
@@ -138,16 +132,13 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
     <%-- FIN SECCION 2---%>
-
 
     <%--    MODAL DESCARGAR ARCHIVO--%>
     <div class="modal fade" id="DescargaHojaServicioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
                 <div class="modal-header">
-
                     <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                         <ContentTemplate>
                             <h4 class="modal-title" id="ModalLabelDescarga">Descargar Hoja de Servicio - 
@@ -174,15 +165,13 @@
                                 </div>
                             </div>
                         </ContentTemplate>
-
                     </asp:UpdatePanel>
-
                 </div>
                 <div class="modal-footer">
                     <asp:UpdatePanel ID="UpdatePanel11" runat="server">
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="BtnDescarga" runat="server" Text="Descargar" class="btn btn-success" OnClick="BtnDescarga_Click"/>
+                            <asp:Button ID="BtnDescarga" runat="server" Text="Descargar" class="btn btn-success" OnClick="BtnDescarga_Click" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:PostBackTrigger ControlID="BtnDescarga" />
@@ -192,6 +181,51 @@
             </div>
         </div>
     </div>
+    <%--    FIN MODAL DESCARGAR ARCHIVO--%>
+
+    <%--    INICIO MODAL DESCARGAR ARCHIVO--%>
+    <div class="modal fade" id="MasInformacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
+                <div class="modal-header">
+
+
+                    <asp:UpdatePanel ID="UpTitulo" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <h4 class="modal-title">
+                                <asp:Label ID="LbMasInformacion" runat="server" Text="" Style="margin-left: auto; margin-right: auto"></asp:Label></h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <asp:UpdatePanel ID="UpMensaje" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="form-group row">
+                                <asp:Label ID="LbMensaje1" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: justify;"></asp:Label>
+                                <asp:Label ID="LbMensaje2" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: center;"></asp:Label>
+                            </div>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel18" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%--    FIN MODAL DESCARGAR ARCHIVO--%>
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

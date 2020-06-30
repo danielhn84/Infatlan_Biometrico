@@ -35,7 +35,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             try
             {         
                 DataTable vDatos = new DataTable();
-                String vQuery = "RSP_TiempoExtraordinarioGenerales 22";
+                String vQuery = "RSP_TiempoExtraordinarioGenerales 22,'" + Convert.ToString(Session["USUARIO"]) + "'";
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
                 GVBusquedaAprobadasJefes.DataSource = vDatos;
@@ -82,7 +82,22 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDescargarHojaServicioModal();", true);
                 }
                 else
-                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('No existe documento en este permiso')", true);       
+                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('No existe documento en este permiso')", true);
+            }
+            else if (e.CommandName == "Solicitud")
+            {
+                String vQuery = "RSP_TiempoExtraordinarioGenerales 39," + vIdSolicitud;
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+
+                LbMasInformacion.Text = "Mas Información solicitud- " + vIdSolicitud;
+                LbMensaje1.Text =
+                     "Total de horas solicitadas: <b> " + vDatos.Rows[0]["totalHrsSolicitadas"].ToString() + "</b><br />" + "Horas Diurnas: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDiurnas"].ToString() + "</b>, Horas Noc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNoc"].ToString() + "</b>, Horas NocNoc: <b>" + vDatos.Rows[0]["totalHrsSolicitadasNocNoc"].ToString() + "</b>, Horas Domingos Feriados: <b>" + vDatos.Rows[0]["totalHrsSolicitadasDomingoFeriado"].ToString() + " </b>" + "<br /><br />" +
+                     "Trabajo realizado: <b> " + vDatos.Rows[0]["nombreTrabajo"].ToString() + " </b>" + "<br /><br />" +
+                     "Detalle: <b> " + vDatos.Rows[0]["detalleTrabajo"].ToString() + " </b>";
+
+                UpTitulo.Update();
+                UpMensaje.Update();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenMasInformacion();", true);
             }
         }
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)

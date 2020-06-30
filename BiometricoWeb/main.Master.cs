@@ -121,6 +121,8 @@ namespace BiometricoWeb
                     LITExManPropuesta.Visible = vDatos.Rows[0]["idEmpleado"].ToString() == "389" || vDatos.Rows[0]["idEmpleado"].ToString() == "391" ? true : false;
                 }else if (vDatos.Rows[0]["idTExPerfil"].ToString().Equals("3")){
                     LITExManFeriados.Visible = true;
+                    LITExManPropuesta.Visible = true;
+                    LITExManProyectos.Visible = true;
                     LITExRRHH.Visible = true;
                     LITExMantenimiento.Visible = true;
                 }else if (vDatos.Rows[0]["idTExPerfil"].ToString().Equals("5")){

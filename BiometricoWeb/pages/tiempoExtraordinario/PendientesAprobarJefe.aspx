@@ -47,8 +47,6 @@
     <%-- SECCION 2---%>
     <asp:UpdatePanel ID="UpdateDivBusquedasJefes" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-
-
             <div class="row" id="DivBusqueda" runat="server">
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
@@ -64,9 +62,13 @@
                                                 <asp:TextBox ID="TxBuscarEmpleado" runat="server" placeholder="Ej. Elvin - Presione afuera para proceder" class="form-control" AutoPostBack="true" OnTextChanged="TxBuscarEmpleado_TextChanged"></asp:TextBox>
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
+
                                     </div>
                                 </div>
                             </div>
+                             <label runat="server" id="Label3" class="col-sm-12" style="text-align: center; color: black"><small><b>NOTA.EL PUNTO AZUL
+                                <img src="../../images/icon_azul.png" width="18" height="18" />
+                                SIGNIFICA QUE LA SOLICITUD NO FUE INGRESADA  EN EL RANGO DEL TIEMPO ESTABLECIDO, SE REQUIERE APROBACIÓN DEL SUBGERENTE.</b> </small></label>
                         </div>
                     </div>
                 </div>
@@ -76,19 +78,17 @@
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <%--<h4 class="card-title">Solicitudes pendientes aprobar jefes</h4>--%>
-                            <%--<p>Ordenados por fecha de creación</p>--%>
                             <div class="row">
                                 <div class="table-responsive">
                                     <asp:GridView ID="GVBusquedaPendientesJefe" runat="server"
                                         CssClass="mydatagrid"
                                         PagerStyle-CssClass="pgr"
                                         HeaderStyle-CssClass="header"
-                                        RowStyle-CssClass="rows" 
-                                        AutoGenerateColumns="false"  OnRowCommand="GVBusquedaPendientesJefe_RowCommand"
+                                        RowStyle-CssClass="rows"
+                                        AutoGenerateColumns="false" OnRowCommand="GVBusquedaPendientesJefe_RowCommand"
                                         AllowPaging="true" OnRowDataBound="GVBusquedaPendientesJefe_RowDataBound"
                                         GridLines="None" OnPageIndexChanging="GVBusquedaPendientesJefe_PageIndexChanging"
-                                        PageSize="10" >
+                                        PageSize="10">
                                         <Columns>
                                             <asp:TemplateField HeaderText="Select" HeaderStyle-Width="50px">
                                                 <HeaderTemplate>
@@ -100,29 +100,24 @@
 
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="aprobacionSubgerente"/>
+                                            <asp:BoundField DataField="aprobacionSubgerente" />
                                             <asp:TemplateField HeaderText="No.">
                                                 <ItemTemplate>
                                                     <asp:Image ID="imgEstado" runat="server" Width="18" Height="18"></asp:Image>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-                                 
+
                                             <asp:BoundField DataField="idSolicitud" HeaderText="Colaborador." />
-                                            <asp:BoundField DataField="nombre" HeaderText="Horas" ItemStyle-HorizontalAlign="Left"/>
-                                            <asp:BoundField DataField="descripcion" HeaderText="Inicio" />                                             
+                                            <asp:BoundField DataField="nombre" HeaderText="Horas" ItemStyle-HorizontalAlign="Left" />
+                                            <asp:BoundField DataField="descripcion" HeaderText="Inicio" />
                                             <asp:BoundField DataField="fechaInicio" HeaderText="Fin" />
                                             <asp:BoundField DataField="fechaFin" HeaderText="Creación" />
-                                            <asp:BoundField DataField="fechaSolicitud" HeaderText="SysAid"  />
+                                            <asp:BoundField DataField="fechaSolicitud" HeaderText="SysAid" />
                                             <asp:BoundField DataField="sysAid" HeaderText="Trabajo" />
-                                            <asp:BoundField DataField="nombreTrabajo" HeaderText="Detalle"  />
-                                            <asp:BoundField DataField="detalleTrabajo" HeaderText="Estado"  ItemStyle-HorizontalAlign="Justify" />   
-                                            <asp:BoundField DataField="descripcionEstado" />  
-                                          
-
-
-                     
-                         
+                                            <asp:BoundField DataField="nombreTrabajo" HeaderText="Detalle" />
+                                            <asp:BoundField DataField="detalleTrabajo" HeaderText="Estado" ItemStyle-HorizontalAlign="Justify" />
+                                            <asp:BoundField DataField="descripcionEstado" />
                                             <%--  <asp:BoundField DataField="codigoSAP" HeaderText="codigo"  Visible="false"/>--%>
                                         </Columns>
                                     </asp:GridView>
@@ -135,8 +130,50 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
     <%-- FIN SECCION 2---%>
+
+    <%-- INICIO MODAL MAS INFORMACION---%>
+    <div class="modal fade" id="MasInformacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
+                <div class="modal-header">
+
+
+                    <asp:UpdatePanel ID="UpTitulo" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <h4 class="modal-title">
+                                <asp:Label ID="LbMasInformacionColaboraador" runat="server" Text="" Style="margin-left: auto; margin-right: auto"></asp:Label></h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <asp:UpdatePanel ID="UpMensaje" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="form-group row">
+                                <asp:Label ID="LbMensaje1" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: justify;"></asp:Label>
+                                <asp:Label ID="LbMensaje2" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: center;"></asp:Label>
+                            </div>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel18" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%-- FIN MODAL MAS INFORMACION---%>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

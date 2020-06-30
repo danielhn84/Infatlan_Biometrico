@@ -28,7 +28,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             vConexion = new db();
             cargarSolicitudesCanceladasRRHH();
         }
-
         void cargarSolicitudesCanceladasRRHH()
         {
             try
@@ -44,7 +43,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaCanceladasRRHH_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
@@ -56,7 +54,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaCanceladasRRHH_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -65,7 +62,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 e.Row.Cells[3].Text = new System.Globalization.CultureInfo("es-ES", false).TextInfo.ToTitleCase(e.Row.Cells[3].Text.ToLower());
             }
         }
-
         protected void GVBusquedaCanceladasRRHH_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string vIdSolicitud = e.CommandArgument.ToString();
@@ -122,7 +118,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openMasInformacionModal();", true);
             }
         }
-
         private string GetExtension(string Extension)
         {
             switch (Extension)
@@ -169,7 +164,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     return "application/octet-stream";
             }
         }
-
         protected void BtnDescarga_Click(object sender, EventArgs e)
         {
             try
@@ -198,7 +192,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)
         {
             cargarSolicitudesCanceladasRRHH();

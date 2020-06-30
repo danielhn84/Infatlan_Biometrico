@@ -18,7 +18,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 {
     public partial class pendientesAprobarRRHH : System.Web.UI.Page
     {
-
         db vConexion;
         public void Mensaje(string vMensaje, WarningType type)
         {
@@ -58,18 +57,11 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);
                 }
             }
-
-
-
         }
-
-
-
         void CargarSolicitudesPendientesAprobar()
         {
             try
             {
-
                 DataTable vDatos = new DataTable();
                 String vQuery = "RSP_TiempoExtraordinarioGenerales 24";
                 vDatos = vConexion.obtenerDataTable(vQuery);
@@ -78,12 +70,9 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 GVBusquedaPendientesRRHH.DataBind();
                 UpdateDivBusquedasRRHH.Update();
                 Session["STESOLICITUDESPENDIENTESRRHH"] = vDatos;
-
-
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaPendientesRRHH_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -117,22 +106,16 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 if (Key == "Pendiente Aprobar RRHH" )
                 {
 
-                    estado.ImageUrl = "/images/icon_verde.png";
+                    estado.ImageUrl = "/images/icon_naranja.png";
 
                 }
                 else
                 {
                     e.Row.FindControl("imgEstadoRRHH").Visible = false;
-                }
-
-            
+                }           
                 e.Row.Cells[1].Visible = false;
             }
-
-
-
         }
-
         protected void GVBusquedaPendientesRRHH_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -166,7 +149,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
 
         }
-
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)
         {
             CargarSolicitudesPendientesAprobar();
@@ -228,7 +210,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 UpdateDivBusquedasRRHH.Update();
             }
         }
-
         protected void GVBusquedaPendientesRRHH_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try

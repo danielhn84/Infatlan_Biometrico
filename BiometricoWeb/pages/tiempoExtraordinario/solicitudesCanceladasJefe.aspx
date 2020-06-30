@@ -9,13 +9,13 @@
     <link href="/css/breadcrumb.css" rel="stylesheet" />
     <link href="/css/fstdropdown.css" rel="stylesheet" />
     <link href="/css/alert.css" rel="stylesheet" />
-
-
     <script type="text/javascript">
         function closeDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
         function openDescargarHojaServicioModal() { $('#DescargaHojaServicioModal').modal('show'); }
-    </script>
 
+        function closeMasInformacion() { $('#MasInformacion').modal('show'); }
+        function OpenMasInformacion() { $('#MasInformacion').modal('show'); }
+    </script>
     <script type="text/javascript">
         var updateProgress = null;
         function postbackButtonClick() {
@@ -73,7 +73,6 @@
         </div>
     </div>
     <%-- FIN BUSQUEDA---%>
-
 
     <%-- SECCION 2---%>
     <asp:UpdatePanel ID="UpBusquedaCanceladasJefes" runat="server" UpdateMode="Conditional">
@@ -139,11 +138,9 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
     <%-- FIN SECCION 2---%>
 
-
-        <%--    MODAL DESCARGAR ARCHIVO--%>
+    <%--    MODAL DESCARGAR ARCHIVO--%>
     <div class="modal fade" id="DescargaHojaServicioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
@@ -183,7 +180,7 @@
                     <asp:UpdatePanel ID="UpdatePanel11" runat="server">
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="BtnDescarga" runat="server" Text="Descargar" class="btn btn-success"  OnClick="BtnDescarga_Click"/>
+                            <asp:Button ID="BtnDescarga" runat="server" Text="Descargar" class="btn btn-success" OnClick="BtnDescarga_Click" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:PostBackTrigger ControlID="BtnDescarga" />
@@ -193,6 +190,54 @@
             </div>
         </div>
     </div>
+    <%--   FIN MODAL DESCARGAR ARCHIVO--%>
+
+    <%--    MODAL MAS INFORMACION--%>
+    <div class="modal fade" id="MasInformacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
+                <div class="modal-header">
+
+
+                    <asp:UpdatePanel ID="UpTitulo" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <h4 class="modal-title">
+                                <asp:Label ID="LbMasInformacion" runat="server" Text="" Style="margin-left: auto; margin-right: auto"></asp:Label></h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <asp:UpdatePanel ID="UpMensaje" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="form-group row">
+                                <asp:Label ID="LbMensaje1" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: justify;"></asp:Label>
+                                <asp:Label ID="LbMensaje2" runat="server" Text="" Class="col-sm-12" Style="color: black; text-align: center;"></asp:Label>
+                            </div>
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel18" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+        <%--    FIN MODAL MAS INFORMACION--%>
 </asp:Content>
+
+
+
+
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

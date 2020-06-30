@@ -58,8 +58,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 
             }           
         }
-
-
         void CargarSolicitudesPendientesAprobarSubgerente()
         {
             try
@@ -75,7 +73,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaPendientesSubgerente_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
@@ -87,7 +84,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVBusquedaPendientesSubgerente_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -97,7 +93,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
 
         }
-
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e)
         {
             CargarSolicitudesPendientesAprobarSubgerente();
@@ -148,7 +143,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 UpdateDivBusquedasSubgerente.Update();
             }
         }
-
         protected void GVBusquedaPendientesSubgerente_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string vIdSolicitud = e.CommandArgument.ToString();

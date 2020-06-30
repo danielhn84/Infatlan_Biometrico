@@ -60,6 +60,42 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label3;
 
         /// <summary>
+        /// Control Label19.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label19;
+
+        /// <summary>
+        /// Control Titulo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Titulo;
+
+        /// <summary>
+        /// Control DDLEmpleadoSolicitud.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDLEmpleadoSolicitud;
+
+        /// <summary>
+        /// Control UpdatePanel21.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel21;
+
+        /// <summary>
         /// Control TxEmpleado.
         /// </summary>
         /// <remarks>
@@ -112,6 +148,15 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl rowSolicitudCambioTurno;
+
+        /// <summary>
+        /// Control lbNoEmpleado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbNoEmpleado;
 
         /// <summary>
         /// Control DDLCambioTurnoColaborador.
@@ -204,6 +249,15 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         protected global::System.Web.UI.UpdatePanel UpdatePanelFechas;
 
         /// <summary>
+        /// Control RbFormaTrabajo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RbFormaTrabajo;
+
+        /// <summary>
         /// Control TxFechaInicio.
         /// </summary>
         /// <remarks>
@@ -220,6 +274,15 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxFechaRegreso;
+
+        /// <summary>
+        /// Control LbModificar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LbModificar;
 
         /// <summary>
         /// Control LbFechaRangoBien.
@@ -400,6 +463,24 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxTituloSysaid;
+
+        /// <summary>
+        /// Control LbCambiarHoja.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LbCambiarHoja;
+
+        /// <summary>
+        /// Control RbCambioHoja.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RbCambioHoja;
 
         /// <summary>
         /// Control UpdatePanel12.
@@ -717,6 +798,87 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         protected global::System.Web.UI.WebControls.Label LbReintegroAlmuerzo;
 
         /// <summary>
+        /// Control DivAprobacionRealRRHH.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAprobacionRealRRHH;
+
+        /// <summary>
+        /// Control UpdatePanel26.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel26;
+
+        /// <summary>
+        /// Control TxTotRRHH.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxTotRRHH;
+
+        /// <summary>
+        /// Control TxTotDiurnasRRHH.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxTotDiurnasRRHH;
+
+        /// <summary>
+        /// Control TxTotNocRRHH.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxTotNocRRHH;
+
+        /// <summary>
+        /// Control TxTotNocNocRRHH.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxTotNocNocRRHH;
+
+        /// <summary>
+        /// Control TxTotDomFeriadoRRHH.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxTotDomFeriadoRRHH;
+
+        /// <summary>
+        /// Control Div1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+
+        /// <summary>
+        /// Control LbMensajeRRHH.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbMensajeRRHH;
+
+        /// <summary>
         /// Control DivCrearSolicitud.
         /// </summary>
         /// <remarks>
@@ -753,6 +915,42 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         protected global::System.Web.UI.WebControls.Button BtnCancelarSolicitud;
 
         /// <summary>
+        /// Control DivSolicitudModificada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivSolicitudModificada;
+
+        /// <summary>
+        /// Control UpdatePanel22.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel22;
+
+        /// <summary>
+        /// Control BtnEnviarModificada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnEnviarModificada;
+
+        /// <summary>
+        /// Control BtnCancelarModificada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnCancelarModificada;
+
+        /// <summary>
         /// Control DivAprobarJefe.
         /// </summary>
         /// <remarks>
@@ -769,6 +967,24 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel4;
+
+        /// <summary>
+        /// Control LbModificarSolicitud.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LbModificarSolicitud;
+
+        /// <summary>
+        /// Control LbMensajeModificar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbMensajeModificar;
 
         /// <summary>
         /// Control DdEstadoSoliJefe.
@@ -1345,6 +1561,51 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnAprobarRrhhModal;
+
+        /// <summary>
+        /// Control UpdatePanel24.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel24;
+
+        /// <summary>
+        /// Control LbInformacionTEModificada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbInformacionTEModificada;
+
+        /// <summary>
+        /// Control LbInformacionPreguntaTEModificada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbInformacionPreguntaTEModificada;
+
+        /// <summary>
+        /// Control UpdatePanel25.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel25;
+
+        /// <summary>
+        /// Control BtnEnviarSoliModificada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnEnviarSoliModificada;
 
         /// <summary>
         /// Control UpdatePanel15.
