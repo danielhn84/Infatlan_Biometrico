@@ -216,11 +216,12 @@
                                             <span class="menu-title">Mantenimiento</span>
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic13">
-                                            <a class="nav-link" runat="server" id="LITExManFeriados" visible="false" href="/pages/tiempoExtraordinario/pendientesAprobarRRHH.aspx">Feriados</a>
-                                            <a class="nav-link" runat="server" id="LITExManProyectos" visible="false" href="/pages/tiempoExtraordinario/solicitudesCanceladasRRHH.aspx">Proyectos</a>
-                                            <a class="nav-link" runat="server" id="LITExManPropuesta" visible="false" href="/pages/tiempoExtraordinario/solicitudesAprobadasRRHH.aspx">Propuesta</a>
-                                            <a class="nav-link" runat="server" id="LITExManEquipos" visible="false" href="/pages/tiempoExtraordinario/solicitudesAprobadasRRHH.aspx">Tipos de Trabajo</a>
+                                            <a class="nav-link" runat="server" id="LITExManFeriados" visible="false" href="/pages/tiempoExtraordinario/feriados.aspx">Feriados</a>
+                                            <a class="nav-link" runat="server" id="LITExManProyectos" visible="false" href="/pages/tiempoExtraordinario/proyectos.aspx">Proyectos</a>
+                                            <a class="nav-link" runat="server" id="LITExManPropuesta" visible="false" href="/pages/tiempoExtraordinario/propuesta.aspx">Propuesta</a>
+                                            <a class="nav-link" runat="server" id="LITExManEquipos" visible="false" href="/pages/tiempoExtraordinario/mantenimiento.aspx">Tipos de Trabajo</a>
                                         </div>
+                           
                                     </li>
                                 </ul>
                             </div>

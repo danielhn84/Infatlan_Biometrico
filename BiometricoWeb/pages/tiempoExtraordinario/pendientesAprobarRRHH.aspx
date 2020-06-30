@@ -65,7 +65,11 @@
                             </div>
                             <label runat="server" id="Label3" class="col-sm-12" style="text-align: center; color: black"><small><b>NOTA.EL PUNTO AZUL
                                 <img src="../../images/icon_azul.png" width="18" height="18" />
-                                SIGNIFICA QUE LA SOLICITUD NO LA INGRESARON  EN EL RANGO DEL TIEMPO ESTABLECIDO, REQUIERE APROBACIÓN DEL SUBGERENTE.</b> </small></label>
+                                SIGNIFICA QUE LA SOLICITUD NO FUE INGRESADA  EN EL RANGO DEL TIEMPO ESTABLECIDO, SE REQUIERE APROBACIÓN DEL SUBGERENTE.</b> </small></label>
+
+                            <label runat="server" id="Label1" class="col-sm-12" style="text-align: center; color: black"><small><b>NOTA.EL PUNTO NARANJA
+                                <img src="../../images/icon_naranja.png" width="18" height="18" />
+                                SIGNIFICA QUE TALENTO HUMANO YA PUEDE PROCEDER CON LA APROBACIÓN O CANCELACIÓN DE LA SOLICITUD.</b> </small></label>
                         </div>
                     </div>
                 </div>
@@ -119,7 +123,7 @@
                                             <asp:BoundField DataField="fechaFin" HeaderText="Creación" />
                                             <asp:BoundField DataField="fechaSolicitud" HeaderText="Trabajo" />
                                             <asp:BoundField DataField="nombreTrabajo" HeaderText="Detalle" />
-                                            <asp:BoundField DataField="detalleTrabajo" HeaderText="Trabajo" ItemStyle-HorizontalAlign="Justify" />
+                                            <asp:BoundField DataField="detalleTrabajo" HeaderText="" ItemStyle-HorizontalAlign="Justify" />
                                         </Columns>
                                     </asp:GridView>
                                 </div>

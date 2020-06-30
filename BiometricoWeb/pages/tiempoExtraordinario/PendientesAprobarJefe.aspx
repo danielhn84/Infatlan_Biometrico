@@ -62,9 +62,13 @@
                                                 <asp:TextBox ID="TxBuscarEmpleado" runat="server" placeholder="Ej. Elvin - Presione afuera para proceder" class="form-control" AutoPostBack="true" OnTextChanged="TxBuscarEmpleado_TextChanged"></asp:TextBox>
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
+
                                     </div>
                                 </div>
                             </div>
+                             <label runat="server" id="Label3" class="col-sm-12" style="text-align: center; color: black"><small><b>NOTA.EL PUNTO AZUL
+                                <img src="../../images/icon_azul.png" width="18" height="18" />
+                                SIGNIFICA QUE LA SOLICITUD NO FUE INGRESADA  EN EL RANGO DEL TIEMPO ESTABLECIDO, SE REQUIERE APROBACIÓN DEL SUBGERENTE.</b> </small></label>
                         </div>
                     </div>
                 </div>

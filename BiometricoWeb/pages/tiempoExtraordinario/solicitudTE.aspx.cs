@@ -1,8 +1,10 @@
-﻿using BiometricoWeb.clases;using System;using System.Data;using System.Web.UI;using System.Web.UI.WebControls;using System.Drawing;using System.Collections.Generic;using System.IO;using System.Linq;using System.Threading;using System.Threading.Tasks;using System.Web;using System.Configuration;namespace BiometricoWeb.pages.tiempoExtraordinario{    public partial class solicitudTE : System.Web.UI.Page    {        db vConexion;        db vConexionSysAid;        public void Mensaje(string vMensaje, WarningType type)        {            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);        }        protected void Page_Load(object sender, EventArgs e)        {            vConexion = new db();            vConexionSysAid = new db();                        String vEx = Request.QueryString["ex"];            if (!IsPostBack)
+﻿using BiometricoWeb.clases;using System;using System.Data;using System.Web.UI;using System.Web.UI.WebControls;using System.Drawing;using System.Collections.Generic;using System.IO;using System.Linq;using System.Threading;using System.Threading.Tasks;using System.Web;using System.Configuration;namespace BiometricoWeb.pages.tiempoExtraordinario{    public partial class solicitudTE : System.Web.UI.Page    {        db vConexion;        db vConexionSysAid;        public void Mensaje(string vMensaje, WarningType type)        {            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);        }        protected void Page_Load(object sender, EventArgs e)        {            vConexion = new db();            vConexionSysAid = new db();
+
+            String vEx = Request.QueryString["ex"];            if (!IsPostBack)
             {                CargarSolicitudes();                CargarSolicitudesModificar();                DDLEmpleadoSolicitud.SelectedIndex = -1;                if (vEx == null)
                 {                    TituloPagina.Text = "Solicitud Tiempo Extraordinario";                    CargarEmpleados();                    btnDescargarHoja.Visible = false;                }
                 else if (vEx.Equals("1"))
-                {                    TituloPagina.Text = "Aprobación Solicitud Tiempo Extraordinario Jefe";                    nav_tecnicos_tab.Visible = false;                    nav_modificarSolicitud_tab.Visible = false;                    btnDescargarHoja.Visible = true;                    DivCrearSolicitud.Visible = false;                    DivAprobarJefe.Visible = true;                    camposDeshabilitados();                    cargarDataVista();                    calculoHoras();                }
+                {                    TituloPagina.Text = "Aprobación Solicitud Tiempo Extraordinario Jefe";                              nav_tecnicos_tab.Visible = false;                    nav_modificarSolicitud_tab.Visible = false;                    btnDescargarHoja.Visible = true;                    DivCrearSolicitud.Visible = false;                    DivAprobarJefe.Visible = true;                    camposDeshabilitados();                    cargarDataVista();                    calculoHoras();                }
                 else if (vEx.Equals("2"))
                 {                    TituloPagina.Text = "Aprobación Solicitud Tiempo Extraordinario RRHH";                    nav_tecnicos_tab.Visible = false;                    nav_modificarSolicitud_tab.Visible = false;                    btnDescargarHoja.Visible = true;                    DivCrearSolicitud.Visible = false;                    DivAprobarRRHH.Visible = true;                    DivAprobarJefe.Visible = false;                    camposDeshabilitados();                    cargarDataVista();                    calculoHoras();                }
                 else if (vEx.Equals("3"))
@@ -14,11 +16,22 @@
                     TituloPagina.Text = "Solicitud Tiempo Extraordinario";                    CargarEmpleados();                    btnDescargarHoja.Visible = false;
                     String vRe = "Solicitud cancelada con exito.";                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);                }
                 else if (vEx.Equals("7"))
-                {                    TituloPagina.Text = "Modificar Solicitud Tiempo Extraordinario";                    nav_tecnicos_tab.Visible = false;                    LbModificar.Visible = true;                    DivComentarioJefe.Visible = true;                    btnDescargarHoja.Visible = true;                    DivCrearSolicitud.Visible = false;                    DivAprobarRRHH.Visible = false;                    DivAprobarJefe.Visible = false;                    DivComentarioJefe.Visible = true;                    DivAprobacionSubgerenteSolicitud.Visible = false;                                        cargarDataVista();                    calculoHoras();                }            }            Page.Form.Attributes.Add("enctype", "multipart/form-data");            ScriptManager scriptManager = ScriptManager.GetCurrent(this);            if (scriptManager != null)
+                {                    TituloPagina.Text = "Modificar Solicitud Tiempo Extraordinario";                    nav_tecnicos_tab.Visible = false;
+                    nav_modificarSolicitud_tab.Visible = false;                    LbModificar.Visible = true;                    DivComentarioJefe.Visible = true;                    btnDescargarHoja.Visible = true;                    DivCrearSolicitud.Visible = false;                    DivAprobarRRHH.Visible = false;                    DivAprobarJefe.Visible = false;                    DivComentarioJefe.Visible = true;                    DivSolicitudModificada.Visible = true;                    DivAprobacionSubgerenteSolicitud.Visible = false;
+                    cargarDataVista();                    calculoHoras();                }
+                else if (vEx.Equals("8"))
+                {                    vEx = null;                    TituloPagina.Text = "Solicitud Tiempo Extraordinario";                    limpiarCrearSolicitud();                    CargarEmpleados();                    btnDescargarHoja.Visible = false;                    String vRe = "Se ha modificado con exito la solicitud de tiempo extraordinado.";                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);                }
+                else if (vEx.Equals("9"))                {                    limpiarCrearSolicitud();                    vEx = null;                    TituloPagina.Text = "Solicitud Tiempo Extraordinario";                    CargarEmpleados();                    btnDescargarHoja.Visible = false;                    String vRe = "No se pudo modificar la solicitud de tiempo extraordinario, pongase en contacto con el administrador de la plataforma.";                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);                }
+                else if (vEx.Equals("10"))
+                {                    TituloPagina.Text = "Solicitud Tiempo Extraordinario";                    CargarEmpleados();                    btnDescargarHoja.Visible = false;
+                    String vRe = "Solicitud cancelada con exito";                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "Pop", "window.alert('" + vRe + "')", true);                }            }            Page.Form.Attributes.Add("enctype", "multipart/form-data");            ScriptManager scriptManager = ScriptManager.GetCurrent(this);            if (scriptManager != null)
             {                scriptManager.RegisterPostBackControl(BtnEnviarSolicitud);            }
-                    }        void CargarEmpleados()        {            try            {
+
+        }        void CargarEmpleados()        {            try            {
                 //Seteo la opcion de "No"
-                RbCambioTurno.SelectedIndex = 1;                DDLEmpleadoSolicitud.SelectedIndex = 1;                              if (Session["USUARIO"].ToString().Equals("389"))
+                RbCambioTurno.SelectedIndex = 1;                DDLEmpleadoSolicitud.SelectedIndex = 1;
+
+                if (Session["USUARIO"].ToString().Equals("389"))
                 {
                     Titulo.Visible = true;
                     DDLEmpleadoSolicitud.Visible = true;
@@ -35,7 +48,7 @@
                 //DECISION PARA OCULTAR O MOSTRAR LAS OPCIONES DE CONDUCTORES
                 if (Session["STEPUESTOJEFE"].ToString().Equals("20000383") || Session["STEPUESTOJEFE"].ToString().Equals("20000395") || Session["STEPUESTOCOLABORADOR"].ToString().Equals("20000409"))
                 {
-                    DivConductor.Visible = false;                }else
+                    DivConductor.Visible = false;                } else
                 {                    DivConductor.Visible = true;                }
 
                 //DECISION PARA OCULTAR O MOSTRAR EL CAMPO DE SYSAID Y HOJA DE SERVICIO
@@ -48,29 +61,86 @@
 
 
                 //LLENAR LISTA DESPLEGABLE PARA DINA 
-                vQuery = "RSP_TiempoExtraordinarioGenerales 40" ;                vDatos = vConexion.obtenerDataTable(vQuery);
+                vQuery = "RSP_TiempoExtraordinarioGenerales 40";                vDatos = vConexion.obtenerDataTable(vQuery);
                 DDLEmpleadoSolicitud.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });                foreach (DataRow item in vDatos.Rows)                {                    DDLEmpleadoSolicitud.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["idEmpleado"].ToString() + " - " + item["nombre"].ToString() });                }
 
 
 
                 //LLENAR LISTA DESPLEGABLE DE COLABORADORES DEL MISMO JEFE PARA CAMBIO DE TURNO
                 DDLCambioTurnoColaborador.Items.Clear();                vQuery = "RSP_TiempoExtraordinarioGenerales 2,'" + Session["STEIDJEFE"] + "'";                vDatos = vConexion.obtenerDataTable(vQuery);                DDLCambioTurnoColaborador.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });                foreach (DataRow item in vDatos.Rows)                {                    DDLCambioTurnoColaborador.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["idEmpleado"].ToString() + " - " + item["nombre"].ToString() });                }                DdlTipoTrabajo.Items.Clear();                vQuery = "RSP_TiempoExtraordinarioGenerales 3";                vDatos = vConexion.obtenerDataTable(vQuery);                DdlTipoTrabajo.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });                foreach (DataRow item in vDatos.Rows)                {                    DdlTipoTrabajo.Items.Add(new ListItem { Value = item["idTipoTrabajo"].ToString(), Text = item["nombreTrabajo"].ToString() });                }            }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }        }        protected void DDLCambioTurnoColaborador_SelectedIndexChanged(object sender, EventArgs e)        {            try            {                DataTable vDatos = new DataTable();                String vQuery = "RSP_TiempoExtraordinarioGenerales 1,'" + DDLCambioTurnoColaborador.SelectedItem.Value + "'";                vDatos = vConexion.obtenerDataTable(vQuery);                TxCambioTurno.Text = vDatos.Rows[0]["nombreTurno"].ToString();                Session["STETURNO"] = vDatos.Rows[0]["nombreTurno"].ToString();                Session["STEHORAENTRADA"] = vDatos.Rows[0]["horaInicio"].ToString();                Session["STEHORASALIDA"] = vDatos.Rows[0]["horaFinal"].ToString();
-                Session["STEDIASTURNO"] = vDatos.Rows[0]["dias"].ToString();                Session["STEIDTURNOCAMBIO"] = vDatos.Rows[0]["idTurno"].ToString();            }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }        }        protected void RbCambioTurno_SelectedIndexChanged(object sender, EventArgs e)        {            try            {                if (RbCambioTurno.SelectedValue.Equals("1"))                {                    String vEx = Request.QueryString["ex"];                    rowSolicitudCambioTurno.Visible = true;                    LimpiarRowSolicitudCambioTurno();
+                Session["STEDIASTURNO"] = vDatos.Rows[0]["dias"].ToString();                Session["STEIDTURNOCAMBIO"] = vDatos.Rows[0]["idTurno"].ToString();            }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }        }        protected void RbCambioTurno_SelectedIndexChanged(object sender, EventArgs e)        {            try            {
+                String vEx = Request.QueryString["ex"];                if (RbCambioTurno.SelectedValue.Equals("1"))                {
+                    rowSolicitudCambioTurno.Visible = true;                    LimpiarRowSolicitudCambioTurno();
 
                     if (vEx.Equals("7"))
                     {
                         limpiarModificarSolicitud();
                         TxFechaInicio.Text = String.Empty;
                         TxFechaRegreso.Text = String.Empty;
+                        RbFormaTrabajo.SelectedIndex = -1;
+
+                        DataTable vDatosSolicitud = new DataTable();
+                        vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];
+                        string vCambioTurno = vDatosSolicitud.Rows[0]["cambioTurno"].ToString();
+                        TxMotivoCambioTurno.Text = vDatosSolicitud.Rows[0]["motivoCambioTurno"].ToString();
+                        if (vCambioTurno == "1")
+                        {
+                            DDLCambioTurnoColaborador.SelectedValue = vDatosSolicitud.Rows[0]["codigoSapCambioTurno"].ToString();
+                            DataTable vDatos = new DataTable();
+                            String vQuery = "RSP_TiempoExtraordinarioGenerales 1,'" + DDLCambioTurnoColaborador.SelectedValue + "'";
+                            vDatos = vConexion.obtenerDataTable(vQuery);
+
+                            Session["STETURNO"] = vDatos.Rows[0]["nombreTurno"].ToString();
+                            Session["STEHORAENTRADA"] = vDatos.Rows[0]["horaInicio"].ToString();
+                            Session["STEHORASALIDA"] = vDatos.Rows[0]["horaFinal"].ToString();
+                            Session["STEDIASTURNO"] = vDatos.Rows[0]["dias"].ToString();
+
+                            TxCambioTurno.Text = vDatos.Rows[0]["nombreTurno"].ToString();
+
+                            string vFormato = "yyyy-MM-ddTHH:mm";
+                            string vFechaInicio = vDatosSolicitud.Rows[0]["fechaInicio"].ToString();
+                            string vFechaFin = vDatosSolicitud.Rows[0]["fechaFin"].ToString();
+                            string vFechaInicioConvertida = Convert.ToDateTime(vFechaInicio).ToString(vFormato);
+                            string vFechaFinConvertida = Convert.ToDateTime(vFechaFin).ToString(vFormato);
+
+                            TxFechaInicio.Text = vFechaInicioConvertida;
+                            TxFechaRegreso.Text = vFechaFinConvertida;
+                            RbFormaTrabajo.SelectedValue = vDatosSolicitud.Rows[0]["formaTrabajo"].ToString();
+                            UpdatePanelFechas.Update();
+
+                            calculoHoras();
+                            DivUnaFecha.Visible = true;
+                            UpDivUnaFecha.Update();
+
+                        }
                     }                }                else                {
-                                        rowSolicitudCambioTurno.Visible = false;                    LimpiarRowSolicitudCambioTurno();                    DataTable vDatos = new DataTable();                    String vQuery = "RSP_TiempoExtraordinarioGenerales 1,'" + Convert.ToString(Session["USUARIO"]) + "'";                    vDatos = vConexion.obtenerDataTable(vQuery);                    Session["STETURNO"] = vDatos.Rows[0]["nombreTurno"].ToString();                    Session["STEHORAENTRADA"] = vDatos.Rows[0]["horaInicio"].ToString();                    Session["STEHORASALIDA"] = vDatos.Rows[0]["horaFinal"].ToString();                    Session["STEDIASTURNO"] = vDatos.Rows[0]["dias"].ToString();
 
+                    rowSolicitudCambioTurno.Visible = false;                    LimpiarRowSolicitudCambioTurno();                    DataTable vDatos = new DataTable();                    String vQuery = "RSP_TiempoExtraordinarioGenerales 1,'" + Convert.ToString(Session["USUARIO"]) + "'";                    vDatos = vConexion.obtenerDataTable(vQuery);                    Session["STETURNO"] = vDatos.Rows[0]["nombreTurno"].ToString();                    Session["STEHORAENTRADA"] = vDatos.Rows[0]["horaInicio"].ToString();                    Session["STEHORASALIDA"] = vDatos.Rows[0]["horaFinal"].ToString();                    Session["STEDIASTURNO"] = vDatos.Rows[0]["dias"].ToString();
 
-                  
+                    if (vEx.Equals("7"))
+                    {
+                        DataTable vDatosSolicitud = new DataTable();
+                        vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];
 
+                        string vFormato = "yyyy-MM-ddTHH:mm";
+                        string vFechaInicio = vDatosSolicitud.Rows[0]["fechaInicio"].ToString();
+                        string vFechaFin = vDatosSolicitud.Rows[0]["fechaFin"].ToString();
+                        string vFechaInicioConvertida = Convert.ToDateTime(vFechaInicio).ToString(vFormato);
+                        string vFechaFinConvertida = Convert.ToDateTime(vFechaFin).ToString(vFormato);
+                        rowSolicitudCambioTurno.Visible = false;
+                        TxFechaInicio.Text = vFechaInicioConvertida;
+                        TxFechaRegreso.Text = vFechaFinConvertida;
+                        RbFormaTrabajo.SelectedValue = vDatosSolicitud.Rows[0]["formaTrabajo"].ToString();
+                        UpdatePanelFechas.Update();
+                        calculoHoras();
+                        DivUnaFecha.Visible = true;
+                        UpDivUnaFecha.Update();
+
+                    }
                 }            }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }        }        private void LimpiarRowSolicitudCambioTurno()        {            DDLCambioTurnoColaborador.SelectedIndex = -1;            TxCambioTurno.Text = String.Empty;            TxMotivoCambioTurno.Text = String.Empty;        }        protected void TxPeticion_TextChanged(object sender, EventArgs e)        {            try            {                DataTable vDatos = new DataTable();                String vQuery = "RSP_TiempoExtraordinarioGeneralesBiometrico 1,'" + TxPeticion.Text + "'";                vDatos = vConexionSysAid.obtenerDataTableSysAid(vQuery);                if (vDatos.Rows.Count > 0)                {                    TxTituloSysaid.Text = vDatos.Rows[0]["title"].ToString() + " - (" + vDatos.Rows[0]["categoria"].ToString() + " )";                }                else                {                    TxTituloSysaid.Text.Equals("");                }
             }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }        }        protected void TxFechaInicio_TextChanged(object sender, EventArgs e)        {            try            {
-                                DateTime vHIS = Convert.ToDateTime(TxFechaInicio.Text);                Session["STEHRINICIO"] = vHIS.Hour + ":" + vHIS.Minute;                validacionInicioTurno();                calculoHoras();            }            catch (Exception Ex)            {                String vEx = Request.QueryString["ex"];                Mensaje(Ex.Message, WarningType.Danger);                TxFechaInicio.Text = String.Empty;                LbFechaRangoBien.Visible = false;                LbFechaRangoMal.Visible = false;                if (vEx.Equals("7"))
+
+                DateTime vHIS = Convert.ToDateTime(TxFechaInicio.Text);                Session["STEHRINICIO"] = vHIS.Hour + ":" + vHIS.Minute;                validacionInicioTurno();                calculoHoras();            }            catch (Exception Ex)            {                String vEx = Request.QueryString["ex"];                Mensaje(Ex.Message, WarningType.Danger);                TxFechaInicio.Text = String.Empty;                LbFechaRangoBien.Visible = false;                LbFechaRangoMal.Visible = false;                if (vEx.Equals("7"))
                 {
                     limpiarModificarSolicitud();
                 }
@@ -78,7 +148,8 @@
                 {
                     limpiarCrearSolicitud();
                 }
-                                }        }        protected void TxFechaRegreso_TextChanged(object sender, EventArgs e)        {            try            {                DateTime vHFS = Convert.ToDateTime(TxFechaRegreso.Text);                Session["STEHRFIN"] = vHFS.Hour + ":" + vHFS.Minute;                validacionFinTurno();                calculoHoras();            }            catch (Exception Ex)            {                String vEx = Request.QueryString["ex"];                Mensaje(Ex.Message, WarningType.Danger);                TxFechaRegreso.Text = String.Empty;
+
+            }        }        protected void TxFechaRegreso_TextChanged(object sender, EventArgs e)        {            try            {                DateTime vHFS = Convert.ToDateTime(TxFechaRegreso.Text);                Session["STEHRFIN"] = vHFS.Hour + ":" + vHFS.Minute;                validacionFinTurno();                calculoHoras();            }            catch (Exception Ex)            {                String vEx = Request.QueryString["ex"];                Mensaje(Ex.Message, WarningType.Danger);                TxFechaRegreso.Text = String.Empty;
                 LbFechaRangoBien.Visible = false;                LbFechaRangoMal.Visible = false;
 
                 if (vEx.Equals("7"))
@@ -88,7 +159,9 @@
                 else
                 {
                     limpiarCrearSolicitud();
-                }                            }        }        void validacionInicioTurno()        {            if (RbFormaTrabajo.SelectedValue.Equals(""))
+                }
+
+            }        }        void validacionInicioTurno()        {            if (RbFormaTrabajo.SelectedValue.Equals(""))
                 throw new Exception("Falta que seleccione como realizo el trabajo si de forma remota o presencial ");
 
             string vFechaActual = DateTime.Today.ToString("dd/MM/yyyy");
@@ -96,11 +169,11 @@
             DateTime vtoday = DateTime.Now;            String vFormato = "dd/MM/yyyy"; //"dd/MM/yyyy HH:mm:ss"
             String vFormatoBio = "yyyy-MM-dd"; //"dd/MM/yyyy HH:mm:ss"
             String vFormatoHrInicial = "HH:mm:ss"; //"dd/MM/yyyy HH:mm:ss"
-            
+
             DateTime vHIS = Convert.ToDateTime(TxFechaInicio.Text);            String vFechaInicial = Convert.ToDateTime(vHIS).ToString(vFormato);
             String vHrInicial = Convert.ToDateTime(vHIS).ToString(vFormatoHrInicial);
             int diaInicio = vHIS.Day;            int mesInicio = vHIS.Month;            int añoInicio = vHIS.Year;
-       
+
             String vIniBio = Convert.ToDateTime(vHIS).ToString(vFormatoBio);
 
             //Dia de la semana
@@ -146,12 +219,13 @@
             if (vFechaInicial == vFechaActual)
                 throw new Exception("La fecha inicial es igual al dia de hoy, debe ingresar la solicitud hasta el dia de mañana, debe esperar que finalice todo el ciclo de la jornada para que pueda visualizar las entradas, salidas, disminución de entradas tarde, salidas tempranas y disminucion de almuerzo.");
 
-            if (STEDIASTURNO != "L-V" && STEDIASTURNO != "L-D" && STEDIASTURNO != "L-M-V-D")                throw new Exception("Favor contactarse con el administrador de la plataforma y notifiquele que la combinación de días: " + STEDIASTURNO + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + ", no esta registrado en la plataforma.");            
-            if (vHIS > vtoday)        
-                throw new Exception("La fecha y hora inicial seleccionada es mayor a la fecha y hora actual del sistema, primero debe realizar el trabajo para posterior ingreso del tiempo extraordinario");
-           
+            if (STEDIASTURNO != "L-V" && STEDIASTURNO != "L-D" && STEDIASTURNO != "L-M-V-D")                throw new Exception("Favor contactarse con el administrador de la plataforma y notifiquele que la combinación de días: " + STEDIASTURNO + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + ", no esta registrado en la plataforma.");
 
-            if ((vHIS > vHIT && vHIS < vHFT) && STEDIASTURNO == "L-V" && (dia == "lunes" || dia == "martes" || dia == "miércoles" || dia == "jueves" || dia == "viernes") && vFeriadovFI=="no"){                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHIS.ToString("dd/MM/yyyy HH:mm:ss") + ". Su turno asignado o si realizo cambio es: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }            else if ((vHIS > vHIT && vHIS < vHFT) && STEDIASTURNO == "L-D" && (dia == "lunes" || dia == "martes" || dia == "miércoles" || dia == "jueves" || dia == "viernes" || dia == "sábado" || dia == "domingo") && vFeriadovFI == "no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHIS.ToString("dd/MM/yyyy HH:mm:ss") + ". Su turno asignado o si realizo cambio es: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }            else if ((vHIS > vHIT && vHIS < vHFT) && STEDIASTURNO == "L-M-V-D" && (dia == "lunes" || dia == "miércoles" || dia == "viernes" || dia == "domingo") && vFeriadovFI == "no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHIS.ToString("dd/MM/yyyy HH:mm:ss") + ". Su turno asignado o si realizo cambio es: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }
+            if (vHIS > vtoday)
+                throw new Exception("La fecha y hora inicial seleccionada es mayor a la fecha y hora actual del sistema, primero debe realizar el trabajo para posterior ingreso del tiempo extraordinario");
+
+
+            if ((vHIS > vHIT && vHIS < vHFT) && STEDIASTURNO == "L-V" && (dia == "lunes" || dia == "martes" || dia == "miércoles" || dia == "jueves" || dia == "viernes") && vFeriadovFI == "no") {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHIS.ToString("dd/MM/yyyy HH:mm:ss") + ". Su turno asignado o si realizo cambio es: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }            else if ((vHIS > vHIT && vHIS < vHFT) && STEDIASTURNO == "L-D" && (dia == "lunes" || dia == "martes" || dia == "miércoles" || dia == "jueves" || dia == "viernes" || dia == "sábado" || dia == "domingo") && vFeriadovFI == "no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHIS.ToString("dd/MM/yyyy HH:mm:ss") + ". Su turno asignado o si realizo cambio es: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }            else if ((vHIS > vHIT && vHIS < vHFT) && STEDIASTURNO == "L-M-V-D" && (dia == "lunes" || dia == "miércoles" || dia == "viernes" || dia == "domingo") && vFeriadovFI == "no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHIS.ToString("dd/MM/yyyy HH:mm:ss") + ". Su turno asignado o si realizo cambio es: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }
 
 
             String vEx = Request.QueryString["ex"];
@@ -283,18 +357,25 @@
             }
 
 
-            if (STEDIASTURNO != "L-V" && STEDIASTURNO != "L-D" && STEDIASTURNO != "L-M-V-D")                throw new Exception("Favor contactarse con el administrador de la plataforma y notifiquele que la combinación de días: " + STEDIASTURNO + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + ", no esta registrado en la plataforma.");                        if (vHFS > vtoday)                throw new Exception("La fecha y hora final seleccionada es mayor a la fecha y hora actual del sistema, primero debe finalizar el trabajo para posterior ingreso del tiempo extraordinario");                        if ((vHFS > vHIT && vHFS < vHFT) && STEDIASTURNO == "L-V" && (dia == "lunes" || dia == "martes" || dia == "miércoles" || dia == "jueves" || dia == "viernes") && vFeriadovFF=="no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHFS.ToString("dd/MM/yyyy HH:mm:ss") + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }            else if ((vHFS > vHIT && vHFS < vHFT) && STEDIASTURNO == "L-D" && (dia == "lunes" || dia == "martes" || dia == "miércoles" || dia == "jueves" || dia == "viernes" || dia == "sábado" || dia == "domingo") && vFeriadovFF == "no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHFS.ToString("dd/MM/yyyy HH:mm:ss") + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }            else if ((vHFS > vHIT && vHFS < vHFT) && STEDIASTURNO == "L-M-V-D" && (dia == "lunes" || dia == "miércoles" || dia == "viernes" || dia == "domingo") && vFeriadovFF == "no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHFS.ToString("dd/MM/yyyy HH:mm:ss") + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }        }        void ValidacionesTE(DateTime vFechaInicio, DateTime vFechaRegreso, int dias)        {
-                 if (vFechaRegreso < vFechaInicio)                throw new Exception("Las fechas ingresadas son incorrectas, el regreso es menor que el inicio");            if (dias > 1)                throw new Exception("Debe solicitar tiempo extraordinario que este en el rango establecido de 24 Hrs");
+            if (STEDIASTURNO != "L-V" && STEDIASTURNO != "L-D" && STEDIASTURNO != "L-M-V-D")                throw new Exception("Favor contactarse con el administrador de la plataforma y notifiquele que la combinación de días: " + STEDIASTURNO + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + ", no esta registrado en la plataforma.");
 
-      
+            if (vHFS > vtoday)                throw new Exception("La fecha y hora final seleccionada es mayor a la fecha y hora actual del sistema, primero debe finalizar el trabajo para posterior ingreso del tiempo extraordinario");
+
+            if ((vHFS > vHIT && vHFS < vHFT) && STEDIASTURNO == "L-V" && (dia == "lunes" || dia == "martes" || dia == "miércoles" || dia == "jueves" || dia == "viernes") && vFeriadovFF == "no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHFS.ToString("dd/MM/yyyy HH:mm:ss") + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }            else if ((vHFS > vHIT && vHFS < vHFT) && STEDIASTURNO == "L-D" && (dia == "lunes" || dia == "martes" || dia == "miércoles" || dia == "jueves" || dia == "viernes" || dia == "sábado" || dia == "domingo") && vFeriadovFF == "no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHFS.ToString("dd/MM/yyyy HH:mm:ss") + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }            else if ((vHFS > vHIT && vHFS < vHFT) && STEDIASTURNO == "L-M-V-D" && (dia == "lunes" || dia == "miércoles" || dia == "viernes" || dia == "domingo") && vFeriadovFF == "no")            {                throw new Exception("Hemos detectado un traslape con su hora inicial de solicitud: " + vHFS.ToString("dd/MM/yyyy HH:mm:ss") + " del turno asignado o si realizo cambio: " + Session["STETURNO"].ToString() + " , favor verificar que su hora inicial de solicitud sea menor que su hora inicio turno o su hora inicial de solicitud sea mayor que su hora final de turno");            }        }        void ValidacionesTE(DateTime vFechaInicio, DateTime vFechaRegreso, int dias)        {
+
+
+            if (vFechaRegreso < vFechaInicio)                throw new Exception("Las fechas ingresadas son incorrectas, el regreso es menor que el inicio");            if (dias > 1)                throw new Exception("Debe solicitar tiempo extraordinario que este en el rango establecido de 24 Hrs");
+
+
 
         }        void calculoHoras()        {            if (TxFechaInicio.Text != "" && TxFechaRegreso.Text != "")            {                String vEx = Request.QueryString["ex"];                String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";                String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";                DateTime vdesde = Convert.ToDateTime(vFI);                DateTime vhasta = Convert.ToDateTime(vFF);
 
+            
                 String vFormatoFechaHr = "dd/MM/yyyy HH:mm:ss"; //"DD/MM/YYYY HH:mm:ss"
                 String vFormato = "dd/MM/yyyy"; //"DD/MM/YYYY HH:mm:ss"
                 String vFormatoBio = "yyyy-MM-dd"; //"dd/MM/yyyy HH:mm:ss"
 
-                String vIni = Convert.ToDateTime(vdesde).ToString(vFormato);                String vInHr = Convert.ToDateTime(vdesde).ToString(vFormatoFechaHr);                String vIniBio = Convert.ToDateTime(vdesde).ToString(vFormatoBio);                String vFin = Convert.ToDateTime(vhasta).ToString(vFormato);
+                String vIni = Convert.ToDateTime(vdesde).ToString(vFormato);                String vInHr = Convert.ToDateTime(vdesde).ToString(vFormatoFechaHr);                String vIniBio = Convert.ToDateTime(vdesde).ToString(vFormatoBio);                Session["STEHRINICIAL"] = vIniBio;                String vFin = Convert.ToDateTime(vhasta).ToString(vFormato);
                 String vFinHr = Convert.ToDateTime(vhasta).ToString(vFormatoFechaHr);                String vFinBio = Convert.ToDateTime(vhasta).ToString(vFormatoBio);                TimeSpan difFechas = Convert.ToDateTime(vFin) - Convert.ToDateTime(vIni);                int dias = difFechas.Days;                ValidacionesTE(vdesde, vhasta, dias);
 
 
@@ -308,11 +389,11 @@
                         throw new Exception("Usted ya tiene ingresado una solicitud en el rango de fechas y horas detalladas fecha y hora de inicio: " + vInHr + " fecha y hora final: " + vFinHr + " .Revisar la solicitud No. en la sección Mis Solicitudes: " + vDatos1.Rows[0]["idSolicitud"].ToString());
                 }
 
-                DateTime vHIS = Convert.ToDateTime(TxFechaInicio.Text);                int diaInicio = vHIS.Day;                int mesInicio = vHIS.Month;                int añoInicio = vHIS.Year;                DateTime vHFS = Convert.ToDateTime(TxFechaRegreso.Text);                int diaFin = vHFS.Day;                int mesFin = vHFS.Month;                int añoFin = vHFS.Year;
+                DateTime vHIS = Convert.ToDateTime(TxFechaInicio.Text);                int diaInicio = vHIS.Day;                int mesInicio = vHIS.Month;                int añoInicio = vHIS.Year;                              Session["STEHRINICIO"] = vHIS.Hour + ":" + vHIS.Minute;                DateTime vHFS = Convert.ToDateTime(TxFechaRegreso.Text);                int diaFin = vHFS.Day;                int mesFin = vHFS.Month;                int añoFin = vHFS.Year;
+                Session["STEHRFIN"] = vHFS.Hour + ":" + vHFS.Minute;
 
                 //JORNADAS HORA INICIO
-                DateTime vInicioNocNoc1 = DateTime.Now;                DateTime vFinNocNoc1 = DateTime.Now;                DateTime vInicioDiurna = DateTime.Now;                DateTime vFinDiurna = DateTime.Now;                DateTime vInicioNoc = DateTime.Now;                DateTime vFinNoc = DateTime.Now;                DateTime vInicioNocNoc2 = DateTime.Now;                DateTime vFinNocNoc2 = DateTime.Now;                string vEstadoHIS = "";                string vEstadoHFS = "";                string vDomingovFI = "no";                string vDomingovFF = "no";                if (vdesde.DayOfWeek == DayOfWeek.Sunday)                {                    vDomingovFI = "si";                }                if (vhasta.DayOfWeek == DayOfWeek.Sunday)                {                    vDomingovFF = "si";                }                string vFeriadovFI = "no";                string vFeriadovFF = "no";
-
+                DateTime vInicioNocNoc1 = DateTime.Now;                DateTime vFinNocNoc1 = DateTime.Now;                DateTime vInicioDiurna = DateTime.Now;                DateTime vFinDiurna = DateTime.Now;                DateTime vInicioNoc = DateTime.Now;                DateTime vFinNoc = DateTime.Now;                DateTime vInicioNocNoc2 = DateTime.Now;                DateTime vFinNocNoc2 = DateTime.Now;                string vEstadoHIS = "";                string vEstadoHFS = "";                string vDomingovFI = "no";                string vDomingovFF = "no";                if (vdesde.DayOfWeek == DayOfWeek.Sunday)                {                    vDomingovFI = "si";                }                if (vhasta.DayOfWeek == DayOfWeek.Sunday)                {                    vDomingovFF = "si";                }                string vFeriadovFI = "no";                string vFeriadovFF = "no";
 
                 //FERIADO FECHA INICIAL
                 //FERIADO GLOBAL
@@ -339,7 +420,7 @@
                     if (vHIS >= vInicioNocNoc1 && vHIS <= vFinNocNoc1)                    {                        vEstadoHIS = "NocNoc1";                    }                    else if (vHIS >= vInicioDiurna && vHIS <= vFinDiurna)                    {                        vEstadoHIS = "Diurnas";                    }                    else if (vHIS >= vInicioNoc && vHIS <= vFinNoc)                    {                        vEstadoHIS = "Noc";                    }                    else if (vHIS >= vInicioNocNoc2 && vHIS <= vFinNocNoc2)                    {                        vEstadoHIS = "NocNoc2";                    }                    vInicioNocNoc1 = new DateTime(añoFin, mesFin, diaFin, 00, 00, 00);                    vFinNocNoc1 = new DateTime(añoFin, mesFin, diaFin, 05, 00, 00);                    vInicioDiurna = new DateTime(añoFin, mesFin, diaFin, 05, 00, 00);                    vFinDiurna = new DateTime(añoFin, mesFin, diaFin, 19, 00, 00);                    vInicioNoc = new DateTime(añoFin, mesFin, diaFin, 19, 00, 00);                    vFinNoc = new DateTime(añoFin, mesFin, diaFin, 22, 00, 00);                    vInicioNocNoc2 = new DateTime(añoFin, mesFin, diaFin, 22, 00, 00);                    vFinNocNoc2 = new DateTime(añoFin, mesFin, diaFin, 23, 59, 00);
 
                     //ESTADO PARA SABER DONDE FINALIZA LA SOLICITUD
-                    if (vHFS >= vInicioNocNoc1 && vHFS <= vFinNocNoc1)                    {                        vEstadoHFS = "NocNoc1";                    }                    else if (vHFS >= vInicioDiurna && vHFS <= vFinDiurna)                    {                        vEstadoHFS = "Diurnas";                    }                    else if (vHFS >= vInicioNoc && vHFS <= vFinNoc)                    {                        vEstadoHFS = "Noc";                    }                    else if (vHFS >= vInicioNocNoc2 && vHFS <= vFinNocNoc2)                    {                        vEstadoHFS = "NocNoc2";                    }                }                Int32 transcurridoMinutosNoc_Noc1 = 0;                Int32 transcurridoHorasNoc_Noc1 = 0;                Int32 transcurridoMinutosDiurnas = 0;                Int32 transcurridoHorasDiurnas = 0;                Int32 transcurridoMinutosNoc = 0;                Int32 transcurridoHorasNoc = 0;                Int32 transcurridoMinutosNoc_Noc2 = 0;                Int32 transcurridoHorasNoc_Noc2 = 0;                Int32 transcurridoMinutosDomingosFeriados = 0;                Int32 transcurridoHorasDomingosFeriados = 0;                Int32 acu_horasNoc_Noc = 0;                Int32 acu_minutosNoc_Noc = 0;                Int32 acu_horasDiurnas = 0;                Int32 acu_minutosDiurnas = 0;                Int32 acu_horasNoc = 0;                Int32 acu_minutosNoc = 0;                Int32 acu_horasDomingosFeriados = 0;                Int32 acu_minutosDomingosFeriados = 0;                if (vFeriadovFI == "si" && vFeriadovFF == "si" && Convert.ToInt32(Session["STEFERIADOGLOBAL"]) == 1 && dias == 0)                {                    transcurridoMinutosDomingosFeriados = vHFS.Minute - vHIS.Minute;                    transcurridoHorasDomingosFeriados = vHFS.Hour - vHIS.Hour;                    if (transcurridoMinutosDomingosFeriados < 0)                    {                        transcurridoHorasDomingosFeriados--;                        transcurridoMinutosDomingosFeriados = 60 + transcurridoMinutosDomingosFeriados;                    }                    if (transcurridoHorasDomingosFeriados < 0)                    {                        transcurridoHorasDomingosFeriados = transcurridoHorasDomingosFeriados + 24;                    }
+                    if (vHFS >= vInicioNocNoc1 && vHFS <= vFinNocNoc1)                    {                        vEstadoHFS = "NocNoc1";                    }                    else if (vHFS >= vInicioDiurna && vHFS <= vFinDiurna)                    {                        vEstadoHFS = "Diurnas";                    }                    else if (vHFS >= vInicioNoc && vHFS <= vFinNoc)                    {                        vEstadoHFS = "Noc";                    }                    else if (vHFS >= vInicioNocNoc2 && vHFS <= vFinNocNoc2)                    {                        vEstadoHFS = "NocNoc2";                    }                }                Int32 transcurridoMinutosNoc_Noc1 = 0;                Int32 transcurridoHorasNoc_Noc1 = 0;                Int32 transcurridoMinutosDiurnas = 0;                Int32 transcurridoHorasDiurnas = 0;                Int32 transcurridoMinutosNoc = 0;                Int32 transcurridoHorasNoc = 0;                Int32 transcurridoMinutosNoc_Noc2 = 0;                Int32 transcurridoHorasNoc_Noc2 = 0;                Int32 transcurridoMinutosDomingosFeriados = 0;                Int32 transcurridoHorasDomingosFeriados = 0;                Int32 acu_horasNoc_Noc = 0;                Int32 acu_minutosNoc_Noc = 0;                Int32 acu_horasDiurnas = 0;                Int32 acu_minutosDiurnas = 0;                Int32 acu_horasNoc = 0;                Int32 acu_minutosNoc = 0;                Int32 acu_horasDomingosFeriados = 0;                Int32 acu_minutosDomingosFeriados = 0;                if (vFeriadovFI == "si" && vFeriadovFF == "si" && Convert.ToInt32(Session["STEFERIADOGLOBAL"]) == 1 && dias == 0)                {                    transcurridoMinutosDomingosFeriados = vHFS.Minute - vHIS.Minute;                    transcurridoHorasDomingosFeriados = vHFS.Hour - vHIS.Hour;                    if (transcurridoMinutosDomingosFeriados < 0)                    {                        transcurridoHorasDomingosFeriados--;                        transcurridoMinutosDomingosFeriados = 60 + transcurridoMinutosDomingosFeriados;                    }                    if (transcurridoHorasDomingosFeriados < 0)                    {                        transcurridoHorasDomingosFeriados = transcurridoHorasDomingosFeriados + 24;                    }
 
                     //ACUMULANDO VALORES NOC_NOC
                     acu_horasDomingosFeriados = acu_horasDomingosFeriados + transcurridoHorasDomingosFeriados;                    acu_minutosDomingosFeriados = acu_minutosDomingosFeriados + transcurridoMinutosDomingosFeriados;                }                else if (vFeriadovFI == "si" && vFeriadovFF == "si" && Convert.ToInt32(Session["STEFERIADOGLOBAL"]) == 1 && dias == 1)                {                    transcurridoMinutosDomingosFeriados = 0 - vHIS.Minute;                    transcurridoHorasDomingosFeriados = 0 - vHIS.Hour;                    if (transcurridoMinutosDomingosFeriados < 0)                    {                        transcurridoHorasDomingosFeriados--;                        transcurridoMinutosDomingosFeriados = 60 + transcurridoMinutosDomingosFeriados;                    }                    if (transcurridoHorasDomingosFeriados < 0)                    {                        transcurridoHorasDomingosFeriados = transcurridoHorasDomingosFeriados + 24;                    }
@@ -828,7 +909,7 @@
                         acu_horasNoc_Noc = acu_horasNoc_Noc + transcurridoHorasNoc_Noc2;                        acu_minutosNoc_Noc = acu_minutosNoc_Noc + transcurridoMinutosNoc_Noc2;                    }                    transcurridoMinutosDomingosFeriados = vHFS.Minute - 0;                    transcurridoHorasDomingosFeriados = vHFS.Hour - 0;                    if (transcurridoMinutosDomingosFeriados < 0)                    {                        transcurridoHorasDomingosFeriados--;                        transcurridoMinutosDomingosFeriados = 60 + transcurridoMinutosDomingosFeriados;                    }                    if (transcurridoHorasDomingosFeriados < 0)                    {                        transcurridoHorasDomingosFeriados = transcurridoHorasDomingosFeriados + 24;                    }
 
                     //ACUMULANDO VALORES NOC_NOC
-                    acu_horasDomingosFeriados = acu_horasDomingosFeriados + transcurridoHorasDomingosFeriados;                    acu_minutosDomingosFeriados = acu_minutosDomingosFeriados + transcurridoMinutosDomingosFeriados;                }                if (vEstadoHIS == "NocNoc1" && vEstadoHFS == "NocNoc1" && vDomingovFI == "no" && vDomingovFF == "no" && vFeriadovFI == "no" && vFeriadovFF == "no" && dias == 0)                {
+                    acu_horasDomingosFeriados = acu_horasDomingosFeriados + transcurridoHorasDomingosFeriados;                    acu_minutosDomingosFeriados = acu_minutosDomingosFeriados + transcurridoMinutosDomingosFeriados;                }                if (vEstadoHIS == "NocNoc1" && vEstadoHFS == "NocNoc1" && vDomingovFI == "no" && vDomingovFF == "no" && vFeriadovFI == "no" && vFeriadovFF == "no" && dias == 0)                {
                     //SACAR HORAS NOC_NOC_1
                     //***HORAS NOC_NOC1 ***// 
                     transcurridoMinutosNoc_Noc1 = vHFS.Minute - vHIS.Minute;                    transcurridoHorasNoc_Noc1 = vHFS.Hour - vHIS.Hour;                    if (transcurridoMinutosNoc_Noc1 < 0)                    {                        transcurridoHorasNoc_Noc1--;                        transcurridoMinutosNoc_Noc1 = 60 + transcurridoMinutosNoc_Noc1;                    }
@@ -1204,7 +1285,7 @@
                     transcurridoMinutosNoc_Noc2 = vHFS.Minute - vInicioNocNoc2.Minute;                    transcurridoHorasNoc_Noc2 = vHFS.Hour - vInicioNocNoc2.Hour;                    transcurridoMinutosNoc_Noc2 = transcurridoMinutosNoc_Noc2 + 1;                    if (transcurridoMinutosNoc_Noc2 < 0)                    {                        transcurridoHorasNoc_Noc2--;                        transcurridoMinutosNoc_Noc2 = 60 + transcurridoMinutosNoc_Noc2;                    }                    if (transcurridoMinutosNoc_Noc2 == 60)                    {                        transcurridoMinutosNoc_Noc2 = 0;                        transcurridoHorasNoc_Noc2 = transcurridoHorasNoc_Noc2 + 1;                    }
 
                     //ACUMULANDO VALORES NOC_NOC 
-                    acu_horasNoc_Noc = acu_horasNoc_Noc + transcurridoHorasNoc_Noc2;                    acu_minutosNoc_Noc = acu_minutosNoc_Noc + transcurridoMinutosNoc_Noc2;                }                decimal cociente = 0;                int cociente_trun = 0;                int residuo = 0;                Int32 acu_horasNoc_Noc_Resumen = 0;                Int32 acu_minutosNoc_Noc_Resumen = 0;                Double NocNoc_Resumen = 0.0;                Int32 acu_horasDiurnas_Resumen = 0;                Int32 acu_minutosDiurnas_Resumen = 0;                Double Diurnas_Resumen = 0.0;                Int32 acu_horasNoc_Resumen = 0;                Int32 acu_minutosNoc_Resumen = 0;                Double Noc_Resumen = 0.0;                Int32 acu_horasDomingosFeriados_Resumen = 0;                Int32 acu_minutosDomingosFeriados_Resumen = 0;                Double DomingosFeriados_Resumen = 0.0;
+                    acu_horasNoc_Noc = acu_horasNoc_Noc + transcurridoHorasNoc_Noc2;                    acu_minutosNoc_Noc = acu_minutosNoc_Noc + transcurridoMinutosNoc_Noc2;                }                decimal cociente = 0;                int cociente_trun = 0;                int residuo = 0;                Int32 acu_horasNoc_Noc_Resumen = 0;                Int32 acu_minutosNoc_Noc_Resumen = 0;                Double NocNoc_Resumen = 0.0;                Int32 acu_horasDiurnas_Resumen = 0;                Int32 acu_minutosDiurnas_Resumen = 0;                Double Diurnas_Resumen = 0.0;                Int32 acu_horasNoc_Resumen = 0;                Int32 acu_minutosNoc_Resumen = 0;                Double Noc_Resumen = 0.0;                Int32 acu_horasDomingosFeriados_Resumen = 0;                Int32 acu_minutosDomingosFeriados_Resumen = 0;                Double DomingosFeriados_Resumen = 0.0;
 
                 //COCIENTE Y RESIDUO  NOCTURNAS_NOCTURNAS
                 if (acu_minutosNoc_Noc >= 60)                {                    cociente = acu_minutosNoc_Noc / 60;                    cociente_trun = Convert.ToInt32(Math.Truncate(cociente));                    residuo = acu_minutosNoc_Noc % 60;                    acu_horasNoc_Noc_Resumen = acu_horasNoc_Noc + cociente_trun;                    acu_minutosNoc_Noc_Resumen = residuo;                }                else                {                    acu_horasNoc_Noc_Resumen = acu_horasNoc_Noc;                    acu_minutosNoc_Noc_Resumen = acu_minutosNoc_Noc;                }                NocNoc_Resumen = ((acu_horasNoc_Noc_Resumen * 60) + acu_minutosNoc_Noc_Resumen);                NocNoc_Resumen = NocNoc_Resumen / 60;
@@ -1217,8 +1298,6 @@
 
                 //COCIENTE Y RESIDUO  DOMINGOS Y FERIADOS
                 if (acu_minutosDomingosFeriados >= 60)                {                    cociente = acu_minutosDomingosFeriados / 60;                    cociente_trun = Convert.ToInt32(Math.Truncate(cociente));                    residuo = acu_minutosDomingosFeriados % 60;                    acu_horasDomingosFeriados_Resumen = acu_horasDomingosFeriados + cociente_trun;                    acu_minutosDomingosFeriados_Resumen = residuo;                }                else                {                    acu_horasDomingosFeriados_Resumen = acu_horasDomingosFeriados;                    acu_minutosDomingosFeriados_Resumen = acu_minutosDomingosFeriados;                }                DomingosFeriados_Resumen = ((acu_horasDomingosFeriados_Resumen * 60) + acu_minutosDomingosFeriados_Resumen);                DomingosFeriados_Resumen = DomingosFeriados_Resumen / 60;
-
-
 
                 //TOTAL HORAS SOLICITADAS
                 Int32 acu_horasTotales = 0;                Int32 acu_minutosTotales = 0;                Int32 acu_horasTotales_Resumen = 0;                Int32 acu_minutosTotales_Resumen = 0;                Double Totales_Resumen = 0.0;                acu_horasTotales = acu_horasNoc_Noc_Resumen + acu_horasDiurnas_Resumen + acu_horasNoc_Resumen + acu_horasDomingosFeriados_Resumen;                acu_minutosTotales = acu_minutosNoc_Noc_Resumen + acu_minutosDiurnas_Resumen + acu_minutosNoc_Resumen + acu_minutosDomingosFeriados_Resumen;                if (acu_minutosTotales >= 60)                {                    cociente = acu_minutosTotales / 60;                    cociente_trun = Convert.ToInt32(Math.Truncate(cociente));                    residuo = acu_minutosTotales % 60;                    acu_horasTotales_Resumen = acu_horasTotales + cociente_trun;                    acu_minutosTotales_Resumen = residuo;                }                else                {                    acu_horasTotales_Resumen = acu_horasTotales;                    acu_minutosTotales_Resumen = acu_minutosTotales;                }                Totales_Resumen = ((acu_horasTotales_Resumen * 60) + acu_minutosTotales_Resumen);                Totales_Resumen = Totales_Resumen / 60;                TxHrNocNoc.Text = acu_horasNoc_Noc_Resumen + ":" + acu_minutosNoc_Noc_Resumen + " (" + NocNoc_Resumen.ToString("N1") + ")";                TxHrDiurnas.Text = acu_horasDiurnas_Resumen + ":" + acu_minutosDiurnas_Resumen + " (" + Diurnas_Resumen.ToString("N1") + ")";                TxHrNoc.Text = acu_horasNoc_Resumen + ":" + acu_minutosNoc_Resumen + " (" + Noc_Resumen.ToString("N1") + ")";                TxHrDomFeriado.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N1") + ")";                TxTotalHoras.Text = acu_horasTotales_Resumen + ":" + acu_minutosTotales_Resumen + " (" + Totales_Resumen.ToString("N1") + ")";                UpdatePanel2.Update();                Session["STEHRNOCNOCSOLICITADAS"] = acu_horasNoc_Noc_Resumen;                Session["STEMINNOCNOCSOLICITADAS"] = acu_minutosNoc_Noc_Resumen;                Session["STEHRDIURNASOLICITADAS"] = acu_horasDiurnas_Resumen;                Session["STEMINDIURNASOLICITADAS"] = acu_minutosDiurnas_Resumen;                Session["STEHRNOCSOLICITADAS"] = acu_horasNoc_Resumen;                Session["STEMINNOCSOLICITADAS"] = acu_horasNoc_Resumen;                Session["STEHRDOMINGOFERIADOSOLICITADAS"] = acu_horasDomingosFeriados_Resumen;                Session["STEMINDOMINGOFERIADOSOLICITADAS"] = acu_minutosDomingosFeriados_Resumen;                Session["STEHRTOTALSOLICITADAS"] = acu_horasTotales_Resumen;                Session["STEMINTOTALSOLICITADAS"] = acu_minutosTotales_Resumen;
@@ -1260,17 +1339,15 @@
                     String vHrInicial = Convert.ToDateTime(vHIS).ToString(vFormatoHr);
                     TimeSpan vTimeHrsInicioSolicitud = TimeSpan.Parse(vHrInicial);
                     if ((vTimeHrsInicioSolicitud < vHrBiometricoSalida) && vHrBiometricoSalida != TimeSpan.Zero && RbFormaTrabajo.SelectedValue.Equals("2"))
-                        throw new Exception("Favor verificar la hora de la solicitud, Su hora de salida fue a las: " + vHrBiometricoSalida + " y su hora de incio de la solicitud es: " + vTimeHrsInicioSolicitud + " las horas no cuadran, la hora inicial de la solicitud debe ser igual o menor a la hora de salida del biometrico.");                    vDatos.Merge(vDatos1);                    string vSalidas = "";                    if (vDatos.Rows.Count > 0)                    {                        foreach (DataRow item in vDatos.Rows)                        {                            vSalidas = vSalidas + item["hora"].ToString() + "      ";                        }                    }                    else                    {                        vSalidas = "No hay registros";                    }                    TxEntradas.Text = vEntradas;                    TxSalidas.Text = vSalidas;                    TxSalidaBio.Text = vHoraSalidaBio;                }                vQuery = "SELECT dbo.ObtenerHoraEntrada('" + Session["STECODIGOSAPBIOMETRICO"] + "','" + vIniBio + "') horaentrada";                vDatos = vConexion.obtenerDataTable(vQuery);                string vHoraEntradaBio = vDatos.Rows[0]["horaentrada"].ToString();                string vHrEntradaBio = vHoraEntradaBio.Substring(0, 2);                string vMinEntradaBio = vHoraEntradaBio.Substring(3, 2);                vHoraEntradaBio = vHrEntradaBio + ":" + vMinEntradaBio + ":00";                vQuery = "SELECT dbo.ObtenerHoraAlmuerzoEntrada('" + Session["STECODIGOSAPBIOMETRICO"] + "','" + vIniBio + "') entradat";                vDatos = vConexion.obtenerDataTable(vQuery);                string vHoraEntradaAlmuerzo = vDatos.Rows[0]["entradat"].ToString();                vQuery = "SELECT dbo.ObtenerHoraAlmuerzoSalida('" + Session["STECODIGOSAPBIOMETRICO"] + "','" + vIniBio + "') salidat";                vDatos = vConexion.obtenerDataTable(vQuery);                string vHoraSalidaAlmuerzo = vDatos.Rows[0]["salidat"].ToString();                vQuery = "SELECT dbo.ObtenerHorasAlmuerzo('" + Session["STECODIGOSAPBIOMETRICO"] + "','" + vIniBio + "') total";                vDatos = vConexion.obtenerDataTable(vQuery);                string vHoraTotalAlmuerzo = vDatos.Rows[0]["total"].ToString();                 TxEntradaTurno.Text = Session["STEHORAENTRADA"].ToString();                TxSalidaTurno.Text = Session["STEHORASALIDA"].ToString();                TxEntradaBio.Text = vHoraEntradaBio;                TxEntradaAlmuerzo.Text = vHoraEntradaAlmuerzo;                TxSalidaAlmuerzo.Text = vHoraSalidaAlmuerzo;
+                        throw new Exception("Favor verificar la hora de la solicitud, Su hora de salida fue a las: " + vHrBiometricoSalida + " y su hora de incio de la solicitud es: " + vTimeHrsInicioSolicitud + " las horas no cuadran, la hora inicial de la solicitud debe ser igual o menor a la hora de salida del biometrico.");                    vDatos.Merge(vDatos1);                    string vSalidas = "";                    if (vDatos.Rows.Count > 0)                    {                        foreach (DataRow item in vDatos.Rows)                        {                            vSalidas = vSalidas + item["hora"].ToString() + "      ";                        }                    }                    else                    {                        vSalidas = "No hay registros";                    }                    TxEntradas.Text = vEntradas;                    TxSalidas.Text = vSalidas;                    TxSalidaBio.Text = vHoraSalidaBio;                }                vQuery = "SELECT dbo.ObtenerHoraEntrada('" + Session["STECODIGOSAPBIOMETRICO"] + "','" + vIniBio + "') horaentrada";                vDatos = vConexion.obtenerDataTable(vQuery);                string vHoraEntradaBio = vDatos.Rows[0]["horaentrada"].ToString();                string vHrEntradaBio = vHoraEntradaBio.Substring(0, 2);                string vMinEntradaBio = vHoraEntradaBio.Substring(3, 2);                vHoraEntradaBio = vHrEntradaBio + ":" + vMinEntradaBio + ":00";                vQuery = "SELECT dbo.ObtenerHoraAlmuerzoEntrada('" + Session["STECODIGOSAPBIOMETRICO"] + "','" + vIniBio + "') entradat";                vDatos = vConexion.obtenerDataTable(vQuery);                string vHoraEntradaAlmuerzo = vDatos.Rows[0]["entradat"].ToString();                vQuery = "SELECT dbo.ObtenerHoraAlmuerzoSalida('" + Session["STECODIGOSAPBIOMETRICO"] + "','" + vIniBio + "') salidat";                vDatos = vConexion.obtenerDataTable(vQuery);                string vHoraSalidaAlmuerzo = vDatos.Rows[0]["salidat"].ToString();                vQuery = "SELECT dbo.ObtenerHorasAlmuerzo('" + Session["STECODIGOSAPBIOMETRICO"] + "','" + vIniBio + "') total";                vDatos = vConexion.obtenerDataTable(vQuery);                string vHoraTotalAlmuerzo = vDatos.Rows[0]["total"].ToString();
 
-                TimeSpan vTimeHIT = TimeSpan.Parse(TxEntradaTurno.Text);                TimeSpan vTimeHFT = TimeSpan.Parse(TxSalidaTurno.Text);                TimeSpan vTimeHEB = TimeSpan.Parse(vHoraEntradaBio);                TimeSpan vTimeHSB = TimeSpan.Parse(vHoraSalidaBio);                TimeSpan vTimeHIS = vHIS.TimeOfDay;                TimeSpan vTimeHFS = vHFS.TimeOfDay;                TimeSpan vDescontarSalidaTemprana = TimeSpan.Zero;                TimeSpan vDescontarEntradaTarde = TimeSpan.Zero;                TimeSpan vTimeHIP = TimeSpan.Zero;                TimeSpan vTimeHFP = TimeSpan.Zero;                TimeSpan vDescontarSalidaTempranaAcumulador = TimeSpan.Zero;                TimeSpan vDescontarEntradasTardesAcumulador = TimeSpan.Zero;                TimeSpan vDescontarAlmuerzoAcumulador = TimeSpan.Zero;                string vAcumuladorPermisos = "";                string vAcumuladorPermisosEntradas = "";                string vAcumuladorPermisosAlmuerzo = "";                string vCantidadRealDescontar = "";                string vPermisoInicial = "";                string vPermisoInicialEntrada = "";
+                TxEntradaTurno.Text = Session["STEHORAENTRADA"].ToString();                TxSalidaTurno.Text = Session["STEHORASALIDA"].ToString();                TxEntradaBio.Text = vHoraEntradaBio;                TxEntradaAlmuerzo.Text = vHoraEntradaAlmuerzo;                TxSalidaAlmuerzo.Text = vHoraSalidaAlmuerzo;
 
-
-  
+                TimeSpan vTimeHIT = TimeSpan.Parse(TxEntradaTurno.Text);                TimeSpan vTimeHFT = TimeSpan.Parse(TxSalidaTurno.Text);                TimeSpan vTimeHEB = TimeSpan.Parse(vHoraEntradaBio);                TimeSpan vTimeHSB = TimeSpan.Parse(vHoraSalidaBio);                TimeSpan vTimeHIS = vHIS.TimeOfDay;                TimeSpan vTimeHFS = vHFS.TimeOfDay;                TimeSpan vDescontarSalidaTemprana = TimeSpan.Zero;                TimeSpan vDescontarEntradaTarde = TimeSpan.Zero;                TimeSpan vTimeHIP = TimeSpan.Zero;                TimeSpan vTimeHFP = TimeSpan.Zero;                TimeSpan vDescontarSalidaTempranaAcumulador = TimeSpan.Zero;                TimeSpan vDescontarEntradasTardesAcumulador = TimeSpan.Zero;                TimeSpan vDescontarAlmuerzoAcumulador = TimeSpan.Zero;                string vAcumuladorPermisos = "";                string vAcumuladorPermisosEntradas = "";                string vAcumuladorPermisosAlmuerzo = "";                string vCantidadRealDescontar = "";                string vPermisoInicial = "";                string vPermisoInicialEntrada = "";
 
                 string dia = vHIS.ToString("dddd");
                 string STEDIASTURNO = Session["STEDIASTURNO"].ToString();
                 STEDIASTURNO = STEDIASTURNO.Replace(',', '-');
-
 
                 //ENTRADAS TARDES
                 string vCantidadRealDescontarEntrada = "";                if (vFeriadovFI == "si" && vFeriadovFF == "si")
@@ -1310,7 +1387,7 @@
                             string vDescripcion = item["descripcion"].ToString();
                             vTimeHIP = TimeSpan.Parse(item["horaInicio"].ToString());
                             vTimeHFP = TimeSpan.Parse(item["horaFin"].ToString());
-          
+
                             vPermisoInicialEntrada = "<br> PERMISO REINTEGRADO: No.(" + vidPermiso + ") " + vTipo + "-" + vDescripcion + " ,HORA INICIO: " + vTimeHIP + " HORA FIN: " + vTimeHFP;
 
                             if (vTimeHEB > vTimeHIT && vTimeHEB <= vTimeHFP)
@@ -1339,16 +1416,16 @@
                                         vDescontarEntradasTardesAcumulador = vDescontarEntradasTardesAcumulador + (vTimeHFP - vTimeHIP);
                                         vAcumuladorPermisosEntradas = vAcumuladorPermisosEntradas + "<br> PERMISO REINTEGRADO: " + vTipo + "-" + vDescripcion + " ,HORA INICIO: " + vTimeHIP + " HORA FIN: " + vTimeHFP;
                                     }
-                                    
+
                                     vDescontarEntradaTarde = vDescontarEntradaTarde - vDescontarEntradasTardesAcumulador;
                                     LbJustificacionHEB.Text = vCantidadRealDescontarEntrada + vPermisoInicialEntrada + vAcumuladorPermisosEntradas;
                                     DivDescontarEntrada.Visible = true;
-                                   
+
                                 }
                                 else
                                 {
                                     vDescontarEntradaTarde = vDescontarEntradaTarde;
-                                    LbJustificacionHEB.Text = vCantidadRealDescontarEntrada + vPermisoInicialEntrada ;                                    DivDescontarEntrada.Visible = true;
+                                    LbJustificacionHEB.Text = vCantidadRealDescontarEntrada + vPermisoInicialEntrada;                                    DivDescontarEntrada.Visible = true;
                                 }
                                 break;
                             }
@@ -1356,7 +1433,6 @@
                     }
                 }
                 TxDescontarEntrada.Text = Convert.ToString(vDescontarEntradaTarde);
-
 
                 //SALIDAS TEMPRANAS
                 if (vFeriadovFI == "si" && vFeriadovFF == "si")                {                    vDescontarSalidaTemprana = TimeSpan.Zero;                }
@@ -1375,9 +1451,9 @@
                 else if (STEDIASTURNO == "L-M-V-D" && (dia != "lunes" && dia != "miércoles" && dia != "viernes" && dia != "domingo"))
                 {
                     vDescontarSalidaTemprana = TimeSpan.Zero;
-                }else if (vTimeHSB> vTimeHFT){
+                } else if (vTimeHSB > vTimeHFT) {
                     vDescontarSalidaTemprana = TimeSpan.Zero;
-                }else if (vTimeHSB == TimeSpan.Zero)
+                } else if (vTimeHSB == TimeSpan.Zero)
                 {
                     vDescontarSalidaTemprana = TimeSpan.Zero;
                 }
@@ -1393,14 +1469,15 @@
                     vQuery = "RSP_TiempoExtraordinarioGenerales 13,'" + Session["STECODIGOSAP"] + "','" + vIniBio + "'";                    vDatos = vConexion.obtenerDataTable(vQuery);
 
                     if (vDatos.Rows.Count > 0)                    {
-                        foreach (DataRow item in vDatos.Rows)                        {   string vidPermiso = item["idPermiso"].ToString();                            string vTipo = item["idTipoPermiso"].ToString();                            string vDescripcion = item["descripcion"].ToString();                            vTimeHIP = TimeSpan.Parse(item["horaInicio"].ToString());                            vTimeHFP = TimeSpan.Parse(item["horaFin"].ToString());
-                            vPermisoInicial = "<br> PERMISO REINTEGRADO: No.(" + vidPermiso + ") "+ vTipo + "-" + vDescripcion + " ,HORA INICIO: " + vTimeHIP + " HORA FIN: " + vTimeHFP;
+                        foreach (DataRow item in vDatos.Rows)                        { string vidPermiso = item["idPermiso"].ToString();                            string vTipo = item["idTipoPermiso"].ToString();                            string vDescripcion = item["descripcion"].ToString();                            vTimeHIP = TimeSpan.Parse(item["horaInicio"].ToString());                            vTimeHFP = TimeSpan.Parse(item["horaFin"].ToString());
+                            vPermisoInicial = "<br> PERMISO REINTEGRADO: No.(" + vidPermiso + ") " + vTipo + "-" + vDescripcion + " ,HORA INICIO: " + vTimeHIP + " HORA FIN: " + vTimeHFP;
 
                             if (((vTimeHSB >= vTimeHIP) && (vTimeHSB < vTimeHFP)) && vTimeHFP >= vTimeHFT)                            {                                vDescontarSalidaTemprana = TimeSpan.Zero;                                TxJustificacionHSB.Text = vCantidadRealDescontar + vPermisoInicial;                                DivDescontarSalida.Visible = true;                                break;                            }
                             else if (((vTimeHSB >= vTimeHIP) && (vTimeHSB < vTimeHFP)) && vTimeHFP < vTimeHFT)
                             {
-                                vDescontarSalidaTemprana = vDescontarSalidaTemprana -(vTimeHFP - vTimeHIP);
-                                                                vQuery = "RSP_TiempoExtraordinarioGenerales 14,'" + Session["STECODIGOSAP"] + "','" + vIniBio + "','" + vTimeHFP + "','" + vTimeHFT + "'";                                vDatos = vConexion.obtenerDataTable(vQuery);
+                                vDescontarSalidaTemprana = vDescontarSalidaTemprana - (vTimeHFP - vTimeHIP);
+
+                                vQuery = "RSP_TiempoExtraordinarioGenerales 14,'" + Session["STECODIGOSAP"] + "','" + vIniBio + "','" + vTimeHFP + "','" + vTimeHFT + "'";                                vDatos = vConexion.obtenerDataTable(vQuery);
                                 if (vDatos.Rows.Count > 0)                                {                                    foreach (DataRow i in vDatos.Rows)                                    {                                        vidPermiso = item["idPermiso"].ToString();                                        vDescripcion = i["descripcion"].ToString();                                        vTipo = i["idTipoPermiso"].ToString();                                        vTimeHIP = TimeSpan.Parse(i["horaInicio"].ToString());                                        vTimeHFP = TimeSpan.Parse(i["horaFin"].ToString());                                        vDescontarSalidaTempranaAcumulador = vDescontarSalidaTempranaAcumulador + (vTimeHFP - vTimeHIP);                                        vAcumuladorPermisos = vAcumuladorPermisos + "<br> PERMISO REINTEGRADO: No.(" + vidPermiso + ") " + vTipo + "-" + vDescripcion + " ,HORA INICIO: " + vTimeHIP + " HORA FIN: " + vTimeHFP;                                    }
                                     vDescontarSalidaTemprana = vDescontarSalidaTemprana - vDescontarSalidaTempranaAcumulador;                                    TxJustificacionHSB.Text = vCantidadRealDescontar + vPermisoInicial + vAcumuladorPermisos;                                    DivDescontarSalida.Visible = true;
                                 }
@@ -1419,7 +1496,7 @@
                                         vidPermiso = item["idPermiso"].ToString();                                        vDescripcion = i["descripcion"].ToString();                                        vTipo = i["idTipoPermiso"].ToString();                                        vTimeHIP = TimeSpan.Parse(i["horaInicio"].ToString());                                        vTimeHFP = TimeSpan.Parse(i["horaFin"].ToString());                                        vDescontarSalidaTempranaAcumulador = vDescontarSalidaTempranaAcumulador + (vTimeHFP - vTimeHIP);                                        vAcumuladorPermisos = vAcumuladorPermisos + "<br> PERMISO REINTEGRADO: No.(" + vidPermiso + ") " + vTipo + "-" + vDescripcion + " ,HORA INICIO: " + vTimeHIP + " HORA FIN: " + vTimeHFP;                                    }                                    vDescontarSalidaTemprana = vDescontarSalidaTemprana - vDescontarSalidaTempranaAcumulador;                                    TxJustificacionHSB.Text = vCantidadRealDescontar + vPermisoInicial + vAcumuladorPermisos;                                    DivDescontarSalida.Visible = true;                                }
                                 else
                                 {
-                                    TxJustificacionHSB.Text = vCantidadRealDescontar + vPermisoInicial ;                                    DivDescontarSalida.Visible = true;
+                                    TxJustificacionHSB.Text = vCantidadRealDescontar + vPermisoInicial;                                    DivDescontarSalida.Visible = true;
                                 }
                                 break;
                             }
@@ -1428,7 +1505,7 @@
                                 vDescontarSalidaTemprana = vDescontarSalidaTemprana - ((vTimeHIP - vTimeHSB) + (vTimeHFT - vTimeHFP));
 
                                 vQuery = "RSP_TiempoExtraordinarioGenerales 14,'" + Session["STECODIGOSAP"] + "','" + vIniBio + "','" + vTimeHSB + "','" + vTimeHIP + "'";                                vDatos = vConexion.obtenerDataTable(vQuery);                                if (vDatos.Rows.Count > 0)                                {                                    foreach (DataRow i in vDatos.Rows)                                    {
-                                        vidPermiso = item["idPermiso"].ToString();                                        vDescripcion = i["descripcion"].ToString();                                        vTipo = i["idTipoPermiso"].ToString();                                        vTimeHIP = TimeSpan.Parse(i["horaInicio"].ToString());                                        vTimeHFP = TimeSpan.Parse(i["horaFin"].ToString());                                        vDescontarSalidaTempranaAcumulador = vDescontarSalidaTempranaAcumulador + (vTimeHFP - vTimeHIP);                                        vAcumuladorPermisos = vAcumuladorPermisos + "<br> PERMISO REINTEGRADO: No.(" + vidPermiso + ") " + vTipo + "-" + vDescripcion + " ,HORA INICIO: " + vTimeHIP + " HORA FIN: " + vTimeHFP;                                    }                                }
+                                        vidPermiso = i["idPermiso"].ToString();                                        vDescripcion = i["descripcion"].ToString();                                        vTipo = i["idTipoPermiso"].ToString();                                        vTimeHIP = TimeSpan.Parse(i["horaInicio"].ToString());                                        vTimeHFP = TimeSpan.Parse(i["horaFin"].ToString());                                        vDescontarSalidaTempranaAcumulador = vDescontarSalidaTempranaAcumulador + (vTimeHFP - vTimeHIP);                                        vAcumuladorPermisos = vAcumuladorPermisos + "<br> PERMISO REINTEGRADO: No.(" + vidPermiso + ") " + vTipo + "-" + vDescripcion + " ,HORA INICIO: " + vTimeHIP + " HORA FIN: " + vTimeHFP;                                    }                                }
 
 
                                 vQuery = "RSP_TiempoExtraordinarioGenerales 14,'" + Session["STECODIGOSAP"] + "','" + vIniBio + "','" + vTimeHFP + "','" + vTimeHFT + "'";                                vDatos = vConexion.obtenerDataTable(vQuery);                                if (vDatos.Rows.Count > 0)                                {                                    foreach (DataRow i in vDatos.Rows)                                    {
@@ -1444,9 +1521,6 @@
                 TxDescontarSalida.Text = Convert.ToString(vDescontarSalidaTemprana);
 
 
-
-
-
                 //ALMUERZO MAS DE 30 MIN
                 TimeSpan vTimeAlmuerzo = TimeSpan.Parse(vHoraTotalAlmuerzo);                TimeSpan vTimeAlmuerzoAprobado = TimeSpan.Parse("00:30:00");
 
@@ -1454,9 +1528,9 @@
                 TimeSpan vTimeAlmuerzoFinal = TimeSpan.Parse("14:00:00");
 
                 TimeSpan vDescAlmuerzo = TimeSpan.Zero;
-                TimeSpan vTimeTotalAlmuerzo = TimeSpan.Zero;                   if (vTimeAlmuerzo > vTimeAlmuerzoAprobado)                {                    vTimeTotalAlmuerzo = vTimeAlmuerzo - vTimeAlmuerzoAprobado;                    LbTotalAlmuerzo.Text = "TOTAL ALMUERZO: " + vHoraTotalAlmuerzo + ". NOTA: DEL TOTAL SE DESCONTO 30 MIN TIEMPO ESTABLECIDO EN POLITICA PARA TOMAR SUS ALIMENTOS. SI SUPERA LOS 30 MIN, Y SI NO TIENE PERMISOS INGRESADOS SE DESCONTARA DE LA HORA EXTRA";                }                else                {                    vTimeTotalAlmuerzo = TimeSpan.Zero;                    LbTotalAlmuerzo.Text = "TOTAL ALMUERZO: " + vHoraTotalAlmuerzo + ". NOTA: USTED ESTA DENTRO DE LO ESTABLECIDO EN LA POLITICA 30 MIN PARA TOMAR SUS ALIMENTOS.";                }
+                TimeSpan vTimeTotalAlmuerzo = TimeSpan.Zero;
 
-
+                if (vTimeAlmuerzo > vTimeAlmuerzoAprobado)                {                    vTimeTotalAlmuerzo = vTimeAlmuerzo - vTimeAlmuerzoAprobado;                    LbTotalAlmuerzo.Text = "TOTAL ALMUERZO: " + vHoraTotalAlmuerzo + ". NOTA: DEL TOTAL SE DESCONTO 30 MIN TIEMPO ESTABLECIDO EN POLITICA PARA TOMAR SUS ALIMENTOS. SI SUPERA LOS 30 MIN, Y SI NO TIENE PERMISOS INGRESADOS SE DESCONTARA DE LA HORA EXTRA";                }                else                {                    vTimeTotalAlmuerzo = TimeSpan.Zero;                    LbTotalAlmuerzo.Text = "TOTAL ALMUERZO: " + vHoraTotalAlmuerzo + ". NOTA: USTED ESTA DENTRO DE LO ESTABLECIDO EN LA POLITICA 30 MIN PARA TOMAR SUS ALIMENTOS.";                }
 
                 if (vFeriadovFI == "si" && vFeriadovFF == "si")
                 {
@@ -1526,47 +1600,453 @@
                     }
                 }
 
-
-                    LbReintegroAlmuerzo.Text = vAcumuladorPermisosAlmuerzo;
-                    DivAlmuerzo.Visible = true;
+                LbReintegroAlmuerzo.Text = vAcumuladorPermisosAlmuerzo;
+                DivAlmuerzo.Visible = true;
                 TxTotalAlmuerzo.Text = Convert.ToString(vDescAlmuerzo);
 
 
-
                 ////////////////////////////////////REAL APROBAR     
-                string vHrSolicitadas = acu_horasTotales_Resumen + ":" + acu_minutosTotales_Resumen;
 
-                TimeSpan vTotDescontar = vDescontarSalidaTemprana + vDescontarEntradaTarde + vDescAlmuerzo;
-                TimeSpan vTotHrsSolicitadas= TimeSpan.Parse(vHrSolicitadas);
-                if (vTotDescontar > vTotHrsSolicitadas)
-                {
+                TimeSpan STEHORAENTRADA = TimeSpan.Parse(Session["STEHORAENTRADA"].ToString());                TimeSpan STEHORASALIDA = TimeSpan.Parse(Session["STEHORASALIDA"].ToString());                string vCatDescontarEntrada = "";                string vCatDescontarSalida = "";                TimeSpan vAcuDesDiurnas = TimeSpan.Zero;                TimeSpan vAcuDesNoc = TimeSpan.Zero;                TimeSpan vAcuDesNocNoc = TimeSpan.Zero;                TimeSpan vFaltaDiurnas = TimeSpan.Zero;                TimeSpan vFaltaNoc = TimeSpan.Zero;                TimeSpan vFaltaNocNoc = TimeSpan.Zero;
 
-                }
+                TimeSpan vFaltaDiurnasRRHH = TimeSpan.Zero;                TimeSpan vFaltaNocRRHH = TimeSpan.Zero;                TimeSpan vFaltaNocNocRRHH = TimeSpan.Zero;                string vDiurnasTot = Session["STEHRDIURNASOLICITADAS"].ToString() + ":" + Session["STEMINDIURNASOLICITADAS"].ToString() + ":00";                string vNocTot = Session["STEHRNOCSOLICITADAS"].ToString() + ":" + Session["STEMINNOCSOLICITADAS"].ToString() + ":00";                string vNocNocTot = Session["STEHRNOCNOCSOLICITADAS"].ToString() + ":" + Session["STEMINNOCNOCSOLICITADAS"].ToString() + ":00";                TimeSpan STETOTDIURNAS = TimeSpan.Parse(vDiurnasTot);                TimeSpan STETOTNOC = TimeSpan.Parse(vNocTot);                TimeSpan STETOTNOCNOC = TimeSpan.Parse(vNocNocTot);
 
-                
+                TimeSpan STETOTDIURNASRRHH = TimeSpan.Parse(vDiurnasTot);                TimeSpan STETOTNOCRRHH = TimeSpan.Parse(vNocTot);                TimeSpan STETOTNOCNOCRRHH = TimeSpan.Parse(vNocNocTot);                TimeSpan vRealAprobarDiurnas = TimeSpan.Parse(vDiurnasTot);                TimeSpan vRealAprobarNoc = TimeSpan.Parse(vNocTot);                TimeSpan vRealAprobarNocNoc = TimeSpan.Parse(vNocNocTot);
 
-                TimeSpan STEHORAENTRADA = TimeSpan.Parse(Session["STEHORAENTRADA"].ToString());                TimeSpan STEHORASALIDA = TimeSpan.Parse(Session["STEHORASALIDA"].ToString());                string vCatDescontarEntrada = "";                string vCatDescontarSalida = "";                TimeSpan vAcuDesDiurnas = TimeSpan.Zero;                TimeSpan vAcuDesNoc = TimeSpan.Zero;                TimeSpan vAcuDesNocNoc = TimeSpan.Zero;                TimeSpan vFaltaDiurnas = TimeSpan.Zero;                TimeSpan vFaltaNoc = TimeSpan.Zero;                TimeSpan vFaltaNocNoc = TimeSpan.Zero;                string vDiurnasTot = Session["STEHRDIURNASOLICITADAS"].ToString() + ":" + Session["STEMINDIURNASOLICITADAS"].ToString() + ":00";                string vNocTot = Session["STEHRNOCSOLICITADAS"].ToString() + ":" + Session["STEMINNOCSOLICITADAS"].ToString() + ":00";                string vNocNocTot = Session["STEHRNOCNOCSOLICITADAS"].ToString() + ":" + Session["STEMINNOCNOCSOLICITADAS"].ToString() + ":00";                TimeSpan STETOTDIURNAS = TimeSpan.Parse(vDiurnasTot);                TimeSpan STETOTNOC = TimeSpan.Parse(vNocTot);                TimeSpan STETOTNOCNOC = TimeSpan.Parse(vNocNocTot);                TimeSpan vRealAprobarDiurnas = TimeSpan.Parse(vDiurnasTot);                TimeSpan vRealAprobarNoc = TimeSpan.Parse(vNocTot);                TimeSpan vRealAprobarNocNoc = TimeSpan.Parse(vNocNocTot);                 if (STEHORAENTRADA >= TimeSpan.Parse("05:00:00") && STEHORAENTRADA <= TimeSpan.Parse("19:00:00") && vDescAlmuerzo > TimeSpan.Zero)                {                    vCatDescontarEntrada = "Diurnas";                    vAcuDesDiurnas = vAcuDesDiurnas + vDescAlmuerzo;                }                else if (STEHORAENTRADA >= TimeSpan.Parse("19:01:00") && STEHORAENTRADA <= TimeSpan.Parse("22:00:00") && vDescAlmuerzo > TimeSpan.Zero)                {                    vCatDescontarEntrada = "Noc";                    vAcuDesNoc = vAcuDesNoc + vDescAlmuerzo;                }                else if (STEHORAENTRADA >= TimeSpan.Parse("22:01:00") && STEHORAENTRADA <= TimeSpan.Parse("04:59:00") && vDescAlmuerzo > TimeSpan.Zero)                {                    vCatDescontarEntrada = "NocNoc";                    vAcuDesNocNoc = vAcuDesNocNoc + vDescAlmuerzo;                }                if (STEHORAENTRADA >= TimeSpan.Parse("05:00:00") && STEHORAENTRADA <= TimeSpan.Parse("19:00:00"))                {                    vCatDescontarEntrada = "Diurnas";                    vAcuDesDiurnas = vAcuDesDiurnas + vDescontarEntradaTarde;                }                else if (STEHORAENTRADA >= TimeSpan.Parse("19:01:00") && STEHORAENTRADA <= TimeSpan.Parse("22:00:00"))                {                    vCatDescontarEntrada = "Noc";                    vAcuDesNoc = vAcuDesNoc + vDescontarEntradaTarde;                }                else if (STEHORAENTRADA >= TimeSpan.Parse("22:01:00") && STEHORAENTRADA <= TimeSpan.Parse("04:59:00"))                {                    vCatDescontarEntrada = "NocNoc";                    vAcuDesNocNoc = vAcuDesNocNoc + vDescontarEntradaTarde;                }                if (STEHORASALIDA >= TimeSpan.Parse("05:00:00") && STEHORASALIDA <= TimeSpan.Parse("19:00:00"))                {                    vCatDescontarSalida = "Diurnas";                    vAcuDesDiurnas = vAcuDesDiurnas + vDescontarSalidaTemprana;                }                else if (STEHORASALIDA >= TimeSpan.Parse("19:01:00") && STEHORASALIDA <= TimeSpan.Parse("22:00:00"))                {                    vCatDescontarSalida = "Noc";                    vAcuDesNoc = vAcuDesNoc + vDescontarSalidaTemprana;                }                else if (STEHORASALIDA >= TimeSpan.Parse("22:01:00") && STEHORASALIDA <= TimeSpan.Parse("04:59:00"))                {                    vCatDescontarSalida = "NocNoc";                    vAcuDesNocNoc = vAcuDesNocNoc + vDescontarSalidaTemprana;                }                if (vAcuDesDiurnas > TimeSpan.Parse("00:00:00"))                {                    if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesDiurnas < STETOTDIURNAS)                        {                            vRealAprobarDiurnas = STETOTDIURNAS - vAcuDesDiurnas;                        }                        else                        {                            vRealAprobarDiurnas = TimeSpan.Zero;                            vFaltaDiurnas = vAcuDesDiurnas - STETOTDIURNAS;                            if (STETOTNOC != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaDiurnas < STETOTNOC)                                {                                    vRealAprobarNoc = STETOTNOC - vFaltaDiurnas;                                }                                else                                {                                    vRealAprobarNoc = TimeSpan.Zero;                                    vFaltaNoc = vFaltaDiurnas - STETOTNOC;                                    if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                                    {                                        if (vFaltaNoc < STETOTNOCNOC)                                        {                                            vRealAprobarNocNoc = STETOTNOCNOC - vFaltaNoc;                                        }                                        else                                        {                                            vRealAprobarNocNoc = TimeSpan.Zero;                                            vFaltaNocNoc = vFaltaNoc - STETOTNOCNOC;                                        }                                    }                                }                            }                            else if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaDiurnas < STETOTNOCNOC)                                {                                    vRealAprobarNocNoc = STETOTNOCNOC - vFaltaDiurnas;                                }                                else                                {                                    vRealAprobarNocNoc = TimeSpan.Zero;                                    vFaltaNocNoc = vFaltaDiurnas - STETOTNOCNOC;                                }                            }                        }                    }                    else if (STETOTNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesDiurnas < STETOTNOC)                        {                            vRealAprobarNoc = STETOTNOC - vAcuDesDiurnas;                        }                        else                        {                            vRealAprobarNoc = TimeSpan.Zero;                            vFaltaNoc = vAcuDesDiurnas - STETOTNOC;                            if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaNoc < STETOTNOCNOC)                                {                                    vRealAprobarNocNoc = STETOTNOCNOC - vFaltaNoc;                                }                                else                                {                                    vRealAprobarNocNoc = TimeSpan.Zero;                                    vFaltaNocNoc = vFaltaNoc - STETOTNOCNOC;                                }                            }                        }                    }                    else if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesDiurnas < STETOTNOCNOC)                        {                            vRealAprobarNocNoc = STETOTNOCNOC - vAcuDesDiurnas;                        }                        else                        {                            vRealAprobarNocNoc = TimeSpan.Zero;                            vRealAprobarNocNoc = vAcuDesDiurnas - STETOTNOCNOC;                        }                    }                    STETOTDIURNAS = vRealAprobarDiurnas;                    STETOTNOC = vRealAprobarNoc;                    STETOTNOCNOC = vRealAprobarNocNoc;                }
+                TimeSpan vRealAprobarDiurnasRRHH = TimeSpan.Parse(vDiurnasTot);                TimeSpan vRealAprobarNocRRHH = TimeSpan.Parse(vNocTot);                TimeSpan vRealAprobarNocNocRRHH = TimeSpan.Parse(vNocNocTot);
 
+                if (STEHORAENTRADA >= TimeSpan.Parse("05:00:00") && STEHORAENTRADA <= TimeSpan.Parse("19:00:00") && vDescAlmuerzo > TimeSpan.Zero)                {                    vCatDescontarEntrada = "Diurnas";                    vAcuDesDiurnas = vAcuDesDiurnas + vDescAlmuerzo;                }                else if (STEHORAENTRADA >= TimeSpan.Parse("19:01:00") && STEHORAENTRADA <= TimeSpan.Parse("22:00:00") && vDescAlmuerzo > TimeSpan.Zero)                {                    vCatDescontarEntrada = "Noc";                    vAcuDesNoc = vAcuDesNoc + vDescAlmuerzo;                }                else if (STEHORAENTRADA >= TimeSpan.Parse("22:01:00") && STEHORAENTRADA <= TimeSpan.Parse("04:59:00") && vDescAlmuerzo > TimeSpan.Zero)                {                    vCatDescontarEntrada = "NocNoc";                    vAcuDesNocNoc = vAcuDesNocNoc + vDescAlmuerzo;                }                if (STEHORAENTRADA >= TimeSpan.Parse("05:00:00") && STEHORAENTRADA <= TimeSpan.Parse("19:00:00"))                {                    vCatDescontarEntrada = "Diurnas";                    vAcuDesDiurnas = vAcuDesDiurnas + vDescontarEntradaTarde;                }                else if (STEHORAENTRADA >= TimeSpan.Parse("19:01:00") && STEHORAENTRADA <= TimeSpan.Parse("22:00:00"))                {                    vCatDescontarEntrada = "Noc";                    vAcuDesNoc = vAcuDesNoc + vDescontarEntradaTarde;                }                else if (STEHORAENTRADA >= TimeSpan.Parse("22:01:00") && STEHORAENTRADA <= TimeSpan.Parse("04:59:00"))                {                    vCatDescontarEntrada = "NocNoc";                    vAcuDesNocNoc = vAcuDesNocNoc + vDescontarEntradaTarde;                }                if (STEHORASALIDA >= TimeSpan.Parse("05:00:00") && STEHORASALIDA <= TimeSpan.Parse("19:00:00"))                {                    vCatDescontarSalida = "Diurnas";                    vAcuDesDiurnas = vAcuDesDiurnas + vDescontarSalidaTemprana;                }                else if (STEHORASALIDA >= TimeSpan.Parse("19:01:00") && STEHORASALIDA <= TimeSpan.Parse("22:00:00"))                {                    vCatDescontarSalida = "Noc";                    vAcuDesNoc = vAcuDesNoc + vDescontarSalidaTemprana;                }                else if (STEHORASALIDA >= TimeSpan.Parse("22:01:00") && STEHORASALIDA <= TimeSpan.Parse("04:59:00"))                {                    vCatDescontarSalida = "NocNoc";                    vAcuDesNocNoc = vAcuDesNocNoc + vDescontarSalidaTemprana;                }                if (vAcuDesDiurnas > TimeSpan.Parse("00:00:00"))                {                    if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesDiurnas < STETOTDIURNAS)                        {                            vRealAprobarDiurnas = STETOTDIURNAS - vAcuDesDiurnas;                        }                        else                        {                            vRealAprobarDiurnas = TimeSpan.Zero;                            vFaltaDiurnas = vAcuDesDiurnas - STETOTDIURNAS;                            if (STETOTNOC != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaDiurnas < STETOTNOC)                                {                                    vRealAprobarNoc = STETOTNOC - vFaltaDiurnas;                                }                                else                                {                                    vRealAprobarNoc = TimeSpan.Zero;                                    vFaltaNoc = vFaltaDiurnas - STETOTNOC;                                    if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                                    {                                        if (vFaltaNoc < STETOTNOCNOC)                                        {                                            vRealAprobarNocNoc = STETOTNOCNOC - vFaltaNoc;                                        }                                        else                                        {                                            vRealAprobarNocNoc = TimeSpan.Zero;                                            vFaltaNocNoc = vFaltaNoc - STETOTNOCNOC;                                        }                                    }                                }                            }                            else if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaDiurnas < STETOTNOCNOC)                                {                                    vRealAprobarNocNoc = STETOTNOCNOC - vFaltaDiurnas;                                }                                else                                {                                    vRealAprobarNocNoc = TimeSpan.Zero;                                    vFaltaNocNoc = vFaltaDiurnas - STETOTNOCNOC;                                }                            }                        }                    }                    else if (STETOTNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesDiurnas < STETOTNOC)                        {                            vRealAprobarNoc = STETOTNOC - vAcuDesDiurnas;                        }                        else                        {                            vRealAprobarNoc = TimeSpan.Zero;                            vFaltaNoc = vAcuDesDiurnas - STETOTNOC;                            if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaNoc < STETOTNOCNOC)                                {                                    vRealAprobarNocNoc = STETOTNOCNOC - vFaltaNoc;                                }                                else                                {                                    vRealAprobarNocNoc = TimeSpan.Zero;                                    vFaltaNocNoc = vFaltaNoc - STETOTNOCNOC;                                }                            }                        }                    }                    else if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesDiurnas < STETOTNOCNOC)                        {                            vRealAprobarNocNoc = STETOTNOCNOC - vAcuDesDiurnas;                        }                        else                        {                            vRealAprobarNocNoc = TimeSpan.Zero;                            vFaltaNocNoc = vAcuDesDiurnas - STETOTNOCNOC;                        }                    }                    STETOTDIURNAS = vRealAprobarDiurnas;                    STETOTNOC = vRealAprobarNoc;                    STETOTNOCNOC = vRealAprobarNocNoc;                }
 
                 if (vAcuDesNoc > TimeSpan.Parse("00:00:00"))                {                    if (STETOTNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNoc < STETOTNOC)                        {                            vRealAprobarNoc = STETOTNOC - vAcuDesNoc;                        }                        else                        {                            vRealAprobarNoc = TimeSpan.Zero;                            vFaltaNoc = vAcuDesNoc - STETOTNOC;                            if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaNoc < STETOTNOCNOC)                                {                                    vRealAprobarNocNoc = STETOTNOCNOC - vFaltaNoc;                                }                                else                                {                                    vRealAprobarNocNoc = TimeSpan.Zero;                                    vFaltaNocNoc = vFaltaNoc - STETOTNOCNOC;                                    if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))                                    {                                        if (vFaltaNocNoc < STETOTDIURNAS)                                        {                                            vRealAprobarDiurnas = STETOTDIURNAS - vFaltaNocNoc;                                        }                                        else                                        {                                            vRealAprobarDiurnas = TimeSpan.Zero;                                            vFaltaDiurnas = vFaltaNocNoc - STETOTDIURNAS;                                        }                                    }                                }                            }                            else if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))
-                            {                                if (vFaltaNoc < STETOTDIURNAS)                                {                                    vRealAprobarDiurnas = STETOTDIURNAS - vFaltaNoc;                                }                                else                                {                                    vRealAprobarDiurnas = TimeSpan.Zero;                                    vFaltaDiurnas = vFaltaNoc - STETOTDIURNAS;                                }                            }                        }                    }                    else if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNoc < STETOTNOCNOC)                        {                            vRealAprobarNocNoc = STETOTNOCNOC - vAcuDesNoc;                        }                        else                        {                            vRealAprobarNocNoc = TimeSpan.Zero;                            vFaltaNocNoc = vAcuDesNoc - STETOTNOCNOC;                            if (vFaltaNocNoc < STETOTDIURNAS)                            {                                vRealAprobarDiurnas = STETOTDIURNAS - vFaltaNocNoc;                            }                            else                            {                                vRealAprobarDiurnas = TimeSpan.Zero;                                vFaltaDiurnas = vFaltaNocNoc - STETOTDIURNAS;                            }                        }                    }                    else if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNoc < STETOTDIURNAS)                        {                            vRealAprobarDiurnas = STETOTDIURNAS - vAcuDesNoc;                        }                        else                        {                            vRealAprobarDiurnas = TimeSpan.Zero;                            vFaltaDiurnas = vAcuDesNoc - STETOTDIURNAS;                        }                    }                    STETOTDIURNAS = vRealAprobarDiurnas;                    STETOTNOC = vRealAprobarNoc;                    STETOTNOCNOC = vRealAprobarNocNoc;                }                if (vAcuDesNocNoc > TimeSpan.Parse("00:00:00"))                {                    if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNocNoc < STETOTNOCNOC)                        {                            vRealAprobarNocNoc = STETOTNOCNOC - vAcuDesNocNoc;                        }                        else                        {                            vRealAprobarNocNoc = TimeSpan.Zero;                            vFaltaNocNoc = vAcuDesNocNoc - STETOTNOCNOC;                            if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaNocNoc < STETOTDIURNAS)                                {                                    vRealAprobarDiurnas = STETOTDIURNAS - vFaltaNocNoc;                                }                                else                                {                                    vRealAprobarDiurnas = TimeSpan.Zero;                                    vFaltaDiurnas = vFaltaNocNoc - STETOTDIURNAS;                                    if (vFaltaDiurnas < STETOTNOC)                                    {                                        vRealAprobarNoc = STETOTNOC - vFaltaDiurnas;                                    }                                    else                                    {                                        vRealAprobarNoc = TimeSpan.Zero;                                        vFaltaNoc = vFaltaDiurnas - STETOTNOC;                                    }                                }                            }                            else if (STETOTNOC != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaNocNoc < STETOTNOC)                                {                                    vRealAprobarNoc = STETOTNOC - vFaltaNocNoc;                                }                                else                                {                                    vRealAprobarNoc = TimeSpan.Zero;                                    vFaltaNoc = vFaltaNocNoc - STETOTNOC;                                }                            }                        }                    }                    else if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNocNoc < STETOTDIURNAS)                        {                            vRealAprobarDiurnas = STETOTDIURNAS - vAcuDesNocNoc;                        }                        else                        {                            vRealAprobarDiurnas = TimeSpan.Zero;                            vFaltaDiurnas = vAcuDesNocNoc - STETOTDIURNAS;                            if (vFaltaDiurnas < STETOTNOC)                            {                                vRealAprobarNoc = STETOTNOC - vFaltaDiurnas;                            }                            else                            {                                vRealAprobarNoc = TimeSpan.Zero;                                vFaltaNoc = vFaltaDiurnas - STETOTNOC;                            }                        }                    }                    else if (STETOTNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNocNoc < STETOTNOC)                        {                            vRealAprobarNoc = STETOTNOC - vAcuDesNocNoc;                        }                        else                        {                            vRealAprobarNoc = TimeSpan.Zero;                            vFaltaNoc = vAcuDesNocNoc - STETOTNOC;                        }                    }                    STETOTDIURNAS = vRealAprobarDiurnas;                    STETOTNOC = vRealAprobarNoc;                    STETOTNOCNOC = vRealAprobarNocNoc;                }                if (vAcuDesDiurnas > TimeSpan.Parse("00:00:00") || vAcuDesNoc > TimeSpan.Parse("00:00:00") || vAcuDesNocNoc > TimeSpan.Parse("00:00:00"))                {                    string vRealHrsDiurnas = Convert.ToString(STETOTDIURNAS).Substring(0, 2);                    string vRealMinDiurnas = Convert.ToString(STETOTDIURNAS).Substring(3, 2);                    int vRealDiurnas_Resumen = ((Convert.ToInt32(vRealHrsDiurnas) * 60) + Convert.ToInt32(vRealMinDiurnas));                    vRealDiurnas_Resumen = vRealDiurnas_Resumen / 60;                    string vRealHrsNoc = Convert.ToString(STETOTNOC).Substring(0, 2);                    string vRealMinNoc = Convert.ToString(STETOTNOC).Substring(3, 2);                    int vRealNoc_Resumen = ((Convert.ToInt32(vRealHrsNoc) * 60) + Convert.ToInt32(vRealMinNoc));                    vRealNoc_Resumen = vRealNoc_Resumen / 60;                    string vRealHrsNocNoc = Convert.ToString(STETOTNOCNOC).Substring(0, 2);                    string vRealMinNocNoc = Convert.ToString(STETOTNOCNOC).Substring(3, 2);                    Double vRealNocNoc_Resumen = ((Convert.ToInt32(vRealHrsNocNoc) * 60) + Convert.ToInt32(vRealMinNocNoc));                    vRealNocNoc_Resumen = vRealNocNoc_Resumen / 60;                    int vRealHrsTotal = Convert.ToInt32(vRealHrsDiurnas) + Convert.ToInt32(vRealHrsNoc) + Convert.ToInt32(vRealHrsNoc) + acu_horasDomingosFeriados_Resumen;                    int vRealMinTotal = Convert.ToInt32(vRealMinDiurnas) + Convert.ToInt32(vRealMinNoc) + Convert.ToInt32(vRealMinNocNoc) + acu_minutosDomingosFeriados_Resumen;                    Double vRealTot_Resumen = ((vRealHrsTotal * 60) + vRealMinTotal);                    vRealTot_Resumen = vRealTot_Resumen / 60;                    TxRealDiurnas.Text = vRealHrsDiurnas + ":" + vRealMinDiurnas + " (" + vRealDiurnas_Resumen.ToString("N1") + ")";                    TxRealNoc.Text = vRealHrsNoc + ":" + vRealMinNoc + " (" + vRealNoc_Resumen.ToString("N1") + ")";                    TxRealNocNoc.Text = vRealHrsNocNoc + ":" + vRealMinNocNoc + " (" + vRealNocNoc_Resumen.ToString("N1") + ")";                    TxRealDomingoFeriados.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N1") + ")";                    TxRealTotal.Text = vRealHrsTotal + ":" + vRealMinTotal + " (" + vRealTot_Resumen.ToString("N1") + ")";                    Session["STEHRDIURNASREAL"] = vRealHrsDiurnas;                    Session["STEMINDIURNASREAL"] = vRealMinDiurnas;                    Session["STEHRNOCREAL"] = vRealHrsNoc;                    Session["STEMINNOCREAL"] = vRealMinNoc;                    Session["STEHRNOCNOCREAL"] = vRealHrsNocNoc;                    Session["STEMINNOCNOCREAL"] = vRealMinNocNoc;                    Session["STEHRDOMINGOFERIADOREAL"] = acu_horasDomingosFeriados_Resumen;                    Session["STEMINDOMINGOFERIADOREAL"] = acu_minutosDomingosFeriados_Resumen;                    Session["STEHRTOTREAL"] = vRealHrsTotal;                    Session["STEMINTOTREAL"] = vRealMinTotal;                }                else                {                    TxRealNocNoc.Text = acu_horasNoc_Noc_Resumen + ":" + acu_minutosNoc_Noc_Resumen + " (" + NocNoc_Resumen.ToString("N1") + ")";                    TxRealDiurnas.Text = acu_horasDiurnas_Resumen + ":" + acu_minutosDiurnas_Resumen + " (" + Diurnas_Resumen.ToString("N1") + ")";                    TxRealNoc.Text = acu_horasNoc_Resumen + ":" + acu_minutosNoc_Resumen + " (" + Noc_Resumen.ToString("N1") + ")";                    TxRealDomingoFeriados.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N1") + ")";                    TxRealTotal.Text = acu_horasTotales_Resumen + ":" + acu_minutosTotales_Resumen + " (" + Totales_Resumen.ToString("N1") + ")";                    Session["STEHRDIURNASREAL"] = acu_horasDiurnas_Resumen;                    Session["STEMINDIURNASREAL"] = acu_minutosDiurnas_Resumen;                    Session["STEHRNOCREAL"] = acu_horasNoc_Resumen;                    Session["STEMINNOCREAL"] = acu_minutosNoc_Resumen;                    Session["STEHRNOCNOCREAL"] = acu_horasNoc_Noc_Resumen;                    Session["STEMINNOCNOCREAL"] = acu_minutosNoc_Noc_Resumen;                    Session["STEHRDOMINGOFERIADOREAL"] = acu_horasDomingosFeriados_Resumen;                    Session["STEMINDOMINGOFERIADOREAL"] = acu_minutosDomingosFeriados_Resumen;                    Session["STEHRTOTREAL"] = acu_horasTotales_Resumen;                    Session["STEMINTOTREAL"] = acu_minutosTotales_Resumen;                }
+                            {                                if (vFaltaNoc < STETOTDIURNAS)                                {                                    vRealAprobarDiurnas = STETOTDIURNAS - vFaltaNoc;                                }                                else                                {                                    vRealAprobarDiurnas = TimeSpan.Zero;                                    vFaltaDiurnas = vFaltaNoc - STETOTDIURNAS;                                }                            }                        }                    }                    else if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNoc < STETOTNOCNOC)                        {                            vRealAprobarNocNoc = STETOTNOCNOC - vAcuDesNoc;                        }                        else                        {                            vRealAprobarNocNoc = TimeSpan.Zero;                            vFaltaNocNoc = vAcuDesNoc - STETOTNOCNOC;                            if (vFaltaNocNoc < STETOTDIURNAS)                            {                                vRealAprobarDiurnas = STETOTDIURNAS - vFaltaNocNoc;                            }                            else                            {                                vRealAprobarDiurnas = TimeSpan.Zero;                                vFaltaDiurnas = vFaltaNocNoc - STETOTDIURNAS;                            }                        }                    }                    else if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNoc < STETOTDIURNAS)                        {                            vRealAprobarDiurnas = STETOTDIURNAS - vAcuDesNoc;                        }                        else                        {                            vRealAprobarDiurnas = TimeSpan.Zero;                            vFaltaDiurnas = vAcuDesNoc - STETOTDIURNAS;                        }                    }                    STETOTDIURNAS = vRealAprobarDiurnas;                    STETOTNOC = vRealAprobarNoc;                    STETOTNOCNOC = vRealAprobarNocNoc;                }                if (vAcuDesNocNoc > TimeSpan.Parse("00:00:00"))                {                    if (STETOTNOCNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNocNoc < STETOTNOCNOC)                        {                            vRealAprobarNocNoc = STETOTNOCNOC - vAcuDesNocNoc;                        }                        else                        {                            vRealAprobarNocNoc = TimeSpan.Zero;                            vFaltaNocNoc = vAcuDesNocNoc - STETOTNOCNOC;                            if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaNocNoc < STETOTDIURNAS)                                {                                    vRealAprobarDiurnas = STETOTDIURNAS - vFaltaNocNoc;                                }                                else                                {                                    vRealAprobarDiurnas = TimeSpan.Zero;                                    vFaltaDiurnas = vFaltaNocNoc - STETOTDIURNAS;                                    if (vFaltaDiurnas < STETOTNOC)                                    {                                        vRealAprobarNoc = STETOTNOC - vFaltaDiurnas;                                    }                                    else                                    {                                        vRealAprobarNoc = TimeSpan.Zero;                                        vFaltaNoc = vFaltaDiurnas - STETOTNOC;                                    }                                }                            }                            else if (STETOTNOC != TimeSpan.Parse("00:00:00"))                            {                                if (vFaltaNocNoc < STETOTNOC)                                {                                    vRealAprobarNoc = STETOTNOC - vFaltaNocNoc;                                }                                else                                {                                    vRealAprobarNoc = TimeSpan.Zero;                                    vFaltaNoc = vFaltaNocNoc - STETOTNOC;                                }                            }                        }                    }                    else if (STETOTDIURNAS != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNocNoc < STETOTDIURNAS)                        {                            vRealAprobarDiurnas = STETOTDIURNAS - vAcuDesNocNoc;                        }                        else                        {                            vRealAprobarDiurnas = TimeSpan.Zero;                            vFaltaDiurnas = vAcuDesNocNoc - STETOTDIURNAS;                            if (vFaltaDiurnas < STETOTNOC)                            {                                vRealAprobarNoc = STETOTNOC - vFaltaDiurnas;                            }                            else                            {                                vRealAprobarNoc = TimeSpan.Zero;                                vFaltaNoc = vFaltaDiurnas - STETOTNOC;                            }                        }                    }                    else if (STETOTNOC != TimeSpan.Parse("00:00:00"))                    {                        if (vAcuDesNocNoc < STETOTNOC)                        {                            vRealAprobarNoc = STETOTNOC - vAcuDesNocNoc;                        }                        else                        {                            vRealAprobarNoc = TimeSpan.Zero;                            vFaltaNoc = vAcuDesNocNoc - STETOTNOC;                        }                    }                    STETOTDIURNAS = vRealAprobarDiurnas;                    STETOTNOC = vRealAprobarNoc;                    STETOTNOCNOC = vRealAprobarNocNoc;                }                if (vAcuDesDiurnas > TimeSpan.Parse("00:00:00") || vAcuDesNoc > TimeSpan.Parse("00:00:00") || vAcuDesNocNoc > TimeSpan.Parse("00:00:00"))                {                    string vRealHrsDiurnas = Convert.ToString(STETOTDIURNAS).Substring(0, 2);                    string vRealMinDiurnas = Convert.ToString(STETOTDIURNAS).Substring(3, 2);                    Double vRealDiurnas_Resumen = ((Convert.ToInt32(vRealHrsDiurnas) * 60) + Convert.ToInt32(vRealMinDiurnas));                    vRealDiurnas_Resumen = vRealDiurnas_Resumen / 60;                    string vRealHrsNoc = Convert.ToString(STETOTNOC).Substring(0, 2);                    string vRealMinNoc = Convert.ToString(STETOTNOC).Substring(3, 2);                    Double vRealNoc_Resumen = ((Convert.ToInt32(vRealHrsNoc) * 60) + Convert.ToInt32(vRealMinNoc));                    vRealNoc_Resumen = vRealNoc_Resumen / 60;                    string vRealHrsNocNoc = Convert.ToString(STETOTNOCNOC).Substring(0, 2);                    string vRealMinNocNoc = Convert.ToString(STETOTNOCNOC).Substring(3, 2);                    Double vRealNocNoc_Resumen = ((Convert.ToInt32(vRealHrsNocNoc) * 60) + Convert.ToInt32(vRealMinNocNoc));                    vRealNocNoc_Resumen = vRealNocNoc_Resumen / 60;                    int vRealHrsTotal = Convert.ToInt32(vRealHrsDiurnas) + Convert.ToInt32(vRealHrsNoc) + Convert.ToInt32(vRealHrsNoc) + acu_horasDomingosFeriados_Resumen;                    int vRealMinTotal = Convert.ToInt32(vRealMinDiurnas) + Convert.ToInt32(vRealMinNoc) + Convert.ToInt32(vRealMinNocNoc) + acu_minutosDomingosFeriados_Resumen;                    Double vRealTot_Resumen = ((vRealHrsTotal * 60) + vRealMinTotal);                    vRealTot_Resumen = vRealTot_Resumen / 60;                    TxRealDiurnas.Text = vRealHrsDiurnas + ":" + vRealMinDiurnas + " (" + vRealDiurnas_Resumen.ToString("N1") + ")";                    TxRealNoc.Text = vRealHrsNoc + ":" + vRealMinNoc + " (" + vRealNoc_Resumen.ToString("N1") + ")";                    TxRealNocNoc.Text = vRealHrsNocNoc + ":" + vRealMinNocNoc + " (" + vRealNocNoc_Resumen.ToString("N1") + ")";                    TxRealDomingoFeriados.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N1") + ")";                    TxRealTotal.Text = vRealHrsTotal + ":" + vRealMinTotal + " (" + vRealTot_Resumen.ToString("N1") + ")";                    Session["STEHRDIURNASREAL"] = vRealHrsDiurnas;                    Session["STEMINDIURNASREAL"] = vRealMinDiurnas;                    Session["STEHRNOCREAL"] = vRealHrsNoc;                    Session["STEMINNOCREAL"] = vRealMinNoc;                    Session["STEHRNOCNOCREAL"] = vRealHrsNocNoc;                    Session["STEMINNOCNOCREAL"] = vRealMinNocNoc;                    Session["STEHRDOMINGOFERIADOREAL"] = acu_horasDomingosFeriados_Resumen;                    Session["STEMINDOMINGOFERIADOREAL"] = acu_minutosDomingosFeriados_Resumen;                    Session["STEHRTOTREAL"] = vRealHrsTotal;                    Session["STEMINTOTREAL"] = vRealMinTotal;                }                else                {                    TxRealNocNoc.Text = acu_horasNoc_Noc_Resumen + ":" + acu_minutosNoc_Noc_Resumen + " (" + NocNoc_Resumen.ToString("N1") + ")";                    TxRealDiurnas.Text = acu_horasDiurnas_Resumen + ":" + acu_minutosDiurnas_Resumen + " (" + Diurnas_Resumen.ToString("N1") + ")";                    TxRealNoc.Text = acu_horasNoc_Resumen + ":" + acu_minutosNoc_Resumen + " (" + Noc_Resumen.ToString("N1") + ")";                    TxRealDomingoFeriados.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N1") + ")";                    TxRealTotal.Text = acu_horasTotales_Resumen + ":" + acu_minutosTotales_Resumen + " (" + Totales_Resumen.ToString("N1") + ")";                    Session["STEHRDIURNASREAL"] = acu_horasDiurnas_Resumen;                    Session["STEMINDIURNASREAL"] = acu_minutosDiurnas_Resumen;                    Session["STEHRNOCREAL"] = acu_horasNoc_Resumen;                    Session["STEMINNOCREAL"] = acu_minutosNoc_Resumen;                    Session["STEHRNOCNOCREAL"] = acu_horasNoc_Noc_Resumen;                    Session["STEMINNOCNOCREAL"] = acu_minutosNoc_Noc_Resumen;                    Session["STEHRDOMINGOFERIADOREAL"] = acu_horasDomingosFeriados_Resumen;                    Session["STEMINDOMINGOFERIADOREAL"] = acu_minutosDomingosFeriados_Resumen;                    Session["STEHRTOTREAL"] = acu_horasTotales_Resumen;                    Session["STEMINTOTREAL"] = acu_minutosTotales_Resumen;                }
+
+                Session["STEFALTANTEDIURNAS"] = Convert.ToString(vFaltaDiurnas);
+                Session["STEFALTANTENOC"] = Convert.ToString(vFaltaNoc);
+                Session["STEFALTANTENOCNOC"] = Convert.ToString(vFaltaNocNoc);
+
+                if (vEx.Equals("2"))
+                {
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 43,'" + Session["STECODIGOSAP"] + "','" + vIniBio + "'";
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+                    Session["STESOLICITUDESHrsFALTANTES"] = vDatos;
+
+                    string vSolicitudes = "";
+                    TimeSpan vFaltaDiurnasHr = TimeSpan.Zero;
+                    TimeSpan vFaltaNocHr = TimeSpan.Zero;
+                    TimeSpan vFaltaNocNocHr = TimeSpan.Zero;
+
+                    if (vDatos.Rows.Count > 0)
+                    {
+                        foreach (DataRow item in vDatos.Rows)                        {
+                            string solicitud = item["idSolicitud"].ToString();
+                            string vDiurnas = item["faltanteHrsDiurnas"].ToString();
+                            string vNoc = item["faltanteHrsNoc"].ToString();
+                            string vNocNoc = item["faltanteHrsNocNoc"].ToString();
+
+                            TimeSpan vDiurnasConver = TimeSpan.Parse(vDiurnas);
+                            TimeSpan vNocConver = TimeSpan.Parse(vNoc);
+                            TimeSpan vNocNocConver = TimeSpan.Parse(vNocNoc);
+
+                            vSolicitudes = vSolicitudes + solicitud +"  ";
+                            vFaltaDiurnasHr = vFaltaDiurnasHr + vDiurnasConver;
+                            vFaltaNocHr = vFaltaNocHr + vNocConver;
+                            vFaltaNocNocHr = vFaltaNocNocHr + vNocNocConver;                     
+                        }
+
+                        if (vFaltaDiurnasHr == TimeSpan.Zero && vFaltaNocHr == TimeSpan.Zero && vFaltaNocNocHr == TimeSpan.Zero)
+                        {
+                            TxTotRRHH.Text = TxTotalHoras.Text;
+                            TxTotDiurnasRRHH.Text = TxHrDiurnas.Text;
+                            TxTotNocRRHH.Text = TxHrNoc.Text;
+                            TxTotNocNocRRHH.Text = TxHrNocNoc.Text;
+                            TxTotDomFeriadoRRHH.Text = TxHrDomFeriado.Text;
+                            UpdatePanel26.Update();
+                            LbMensajeRRHH.Text = "La solicitud se va aprobar en su totalidad, las reducciones se efectuaron en las primeras solicitudes que aprobo del colaborador: " + TxEmpleado.Text + "  dia de inicio de la solicitud: " + vIniBio + ". Id de solicitudes aprobadas: "+ vSolicitudes+ " , no tiene horas pendientes que disminuir por concepto de entrada tarde, salida temprana o almuerzo";
+
+                            Session["STEHRDIURNASREAL"] = Session["STEHRDIURNASOLICITADAS"].ToString();
+                            Session["STEMINDIURNASREAL"] = Session["STEMINDIURNASOLICITADAS"].ToString();
+                            Session["STEHRNOCREAL"] = Session["STEHRNOCSOLICITADAS"].ToString();
+                            Session["STEMINNOCREAL"] = Session["STEMINNOCSOLICITADAS"].ToString();
+                            Session["STEHRNOCNOCREAL"] = Session["STEHRNOCNOCSOLICITADAS"].ToString();
+                            Session["STEMINNOCNOCREAL"] = Session["STEMINNOCNOCSOLICITADAS"].ToString();
+                            Session["STEHRDOMINGOFERIADOREAL"] = Session["STEHRDOMINGOFERIADOSOLICITADAS"].ToString();
+                            Session["STEMINDOMINGOFERIADOREAL"] = Session["STEMINDOMINGOFERIADOSOLICITADAS"].ToString();
+
+                            Session["STEHRTOTREAL"] = Session["STEHRTOTALSOLICITADAS"].ToString();
+                            Session["STEMINTOTREAL"] = Session["STEMINTOTALSOLICITADAS"].ToString();
+
+                            Session["STEFALTANTEDIURNAS"] = TimeSpan.Zero;
+                            Session["STEFALTANTENOC"] = TimeSpan.Zero;
+                            Session["STEFALTANTENOCNOC"] = TimeSpan.Zero;                 
+                        }
+                        else
+                        {                           
+                            if (vFaltaDiurnasHr > TimeSpan.Parse("00:00:00"))
+                            {
+                                if (STETOTDIURNASRRHH != TimeSpan.Parse("00:00:00"))
+                                {
+                                    if (vFaltaDiurnasHr < STETOTDIURNASRRHH)
+                                    {
+                                        vRealAprobarDiurnasRRHH = STETOTDIURNASRRHH - vFaltaDiurnasHr;
+                                    }
+                                    else
+                                    {
+                                        vRealAprobarDiurnasRRHH = TimeSpan.Zero;
+                                        vFaltaDiurnasRRHH = vFaltaDiurnasHr - STETOTDIURNASRRHH;
+                                        if (STETOTNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                        {
+                                            if (vFaltaDiurnasRRHH < STETOTNOCRRHH)
+                                            {
+                                                vRealAprobarNocRRHH = STETOTNOCRRHH - vFaltaDiurnasRRHH;
+                                            }
+                                            else
+                                            {
+                                                vRealAprobarNocRRHH = TimeSpan.Zero;
+                                                vFaltaNocRRHH = vFaltaDiurnasRRHH - STETOTNOCRRHH;
+                                                if (STETOTNOCNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                                {
+                                                    if (vFaltaNocRRHH < STETOTNOCNOCRRHH)
+                                                    {
+                                                        vRealAprobarNocNocRRHH = STETOTNOCNOCRRHH - vFaltaNocRRHH;
+                                                    }
+                                                    else
+                                                    {
+                                                        vRealAprobarNocNocRRHH = TimeSpan.Zero;
+                                                        vFaltaNocNocRRHH = vFaltaNocRRHH - STETOTNOCNOC;
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                        else if (STETOTNOCNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                        {
+                                            if (vFaltaDiurnasRRHH < STETOTNOCNOCRRHH)
+                                            {
+                                                vRealAprobarNocNocRRHH = STETOTNOCNOCRRHH - vFaltaDiurnasRRHH;
+                                            }
+                                            else
+                                            {
+                                                vRealAprobarNocNocRRHH = TimeSpan.Zero;
+                                                vFaltaNocNocRRHH = vFaltaDiurnasRRHH - STETOTNOCNOCRRHH;
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (STETOTNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                {
+                                    if (vFaltaDiurnasHr < STETOTNOCRRHH)
+                                    {
+                                        vRealAprobarNocRRHH = STETOTNOCRRHH - vFaltaDiurnasHr;
+                                    }
+                                    else
+                                    {
+                                        vRealAprobarNocRRHH = TimeSpan.Zero;
+                                        vFaltaNocRRHH = vFaltaDiurnasHr - STETOTNOCRRHH;
+                                        if (STETOTNOCNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                        {
+                                            if (vFaltaNocRRHH < STETOTNOCNOCRRHH)
+                                            {
+                                                vRealAprobarNocNocRRHH = STETOTNOCNOCRRHH - vFaltaNocRRHH;
+                                            }
+                                            else
+                                            {
+                                                vRealAprobarNocNocRRHH = TimeSpan.Zero;
+                                                vFaltaNocNocRRHH = vFaltaNocRRHH - STETOTNOCNOCRRHH;
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (STETOTNOCNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                {
+                                    if (vFaltaDiurnasHr < STETOTNOCNOCRRHH)
+                                    {
+                                        vRealAprobarNocNocRRHH = STETOTNOCNOCRRHH - vFaltaDiurnasHr;
+                                    }
+                                    else
+                                    {
+                                        vRealAprobarNocNocRRHH = TimeSpan.Zero;
+                                        vFaltaNocNocRRHH = vFaltaDiurnasHr - STETOTNOCNOCRRHH;
+                                    }
+                                }
+
+                                STETOTDIURNASRRHH = vRealAprobarDiurnasRRHH;
+                                STETOTNOCRRHH = vRealAprobarNocRRHH;
+                                STETOTNOCNOCRRHH = vRealAprobarNocNocRRHH;
+                            }
+                            
+                            if (vFaltaNocHr > TimeSpan.Parse("00:00:00"))
+                            {
+                                if (STETOTNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                {
+                                    if (vFaltaNocHr < STETOTNOCRRHH)
+                                    {
+                                        vRealAprobarNocRRHH = STETOTNOCRRHH - vFaltaNocHr;
+                                    }
+                                    else
+                                    {
+                                        vRealAprobarNocRRHH = TimeSpan.Zero;
+                                        vFaltaNocRRHH = vFaltaNocHr - STETOTNOCRRHH;
+                                        if (STETOTNOCNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                        {
+                                            if (vFaltaNocRRHH < STETOTNOCNOCRRHH)
+                                            {
+                                                vRealAprobarNocNocRRHH = STETOTNOCNOCRRHH - vFaltaNocRRHH;
+                                            }
+                                            else
+                                            {
+                                                vRealAprobarNocNocRRHH = TimeSpan.Zero;
+                                                vFaltaNocNocRRHH = vFaltaNocRRHH - STETOTNOCNOCRRHH;
+                                                if (STETOTDIURNASRRHH != TimeSpan.Parse("00:00:00"))
+                                                {
+                                                    if (vFaltaNocNocRRHH < STETOTDIURNASRRHH)
+                                                    {
+                                                        vRealAprobarDiurnasRRHH = STETOTDIURNASRRHH - vFaltaNocNocRRHH;
+                                                    }
+                                                    else
+                                                    {
+                                                        vRealAprobarDiurnasRRHH = TimeSpan.Zero;
+                                                        vFaltaDiurnas = vFaltaNocNocRRHH - STETOTDIURNASRRHH;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else if (STETOTDIURNASRRHH != TimeSpan.Parse("00:00:00"))
+                                        {
+                                            if (vFaltaNocRRHH < STETOTDIURNASRRHH)
+                                            {
+                                                vRealAprobarDiurnasRRHH = STETOTDIURNASRRHH - vFaltaNocRRHH;
+                                            }
+                                            else
+                                            {
+                                                vRealAprobarDiurnasRRHH = TimeSpan.Zero;
+                                                vFaltaDiurnasRRHH = vFaltaNocRRHH - STETOTDIURNASRRHH;
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (STETOTNOCNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                {
+                                    if (vFaltaNocHr < STETOTNOCNOCRRHH)
+                                    {
+                                        vRealAprobarNocNocRRHH = STETOTNOCNOCRRHH - vFaltaNocHr;
+                                    }
+                                    else
+                                    {
+                                        vRealAprobarNocNocRRHH = TimeSpan.Zero;
+                                        vFaltaNocNocRRHH = vFaltaNocHr - STETOTNOCNOCRRHH;
+                                        if (vFaltaNocNocRRHH < STETOTDIURNASRRHH)
+                                        {
+                                            vRealAprobarDiurnasRRHH = STETOTDIURNASRRHH - vFaltaNocNocRRHH;
+                                        }
+                                        else
+                                        {
+                                            vRealAprobarDiurnasRRHH = TimeSpan.Zero;
+                                            vFaltaDiurnasRRHH = vFaltaNocNocRRHH - STETOTDIURNASRRHH;
+                                        }
+                                    }
+                                }
+                                else if (STETOTDIURNASRRHH != TimeSpan.Parse("00:00:00"))
+                                {
+                                    if (vFaltaNocHr < STETOTDIURNASRRHH)
+                                    {
+                                        vRealAprobarDiurnasRRHH = STETOTDIURNASRRHH - vFaltaNocHr;
+                                    }
+                                    else
+                                    {
+                                        vRealAprobarDiurnasRRHH = TimeSpan.Zero;
+                                        vFaltaDiurnasRRHH = vFaltaNocHr - STETOTDIURNASRRHH;
+                                    }
+                                }
+
+                                STETOTDIURNASRRHH = vRealAprobarDiurnasRRHH;
+                                STETOTNOCRRHH = vRealAprobarNocRRHH;
+                                STETOTNOCNOCRRHH = vRealAprobarNocNocRRHH;
+                            }
+                           
+                            if (vFaltaNocNocHr > TimeSpan.Parse("00:00:00"))
+                            {
+                                if (STETOTNOCNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                {
+                                    if (vFaltaNocNocHr < STETOTNOCNOCRRHH)
+                                    {
+                                        vRealAprobarNocNocRRHH = STETOTNOCNOCRRHH - vFaltaNocNocHr;
+                                    }
+                                    else
+                                    {
+                                        vRealAprobarNocNocRRHH = TimeSpan.Zero;
+                                        vFaltaNocNocRRHH = vFaltaNocNocHr - STETOTNOCNOCRRHH;
+                                        if (STETOTDIURNASRRHH != TimeSpan.Parse("00:00:00"))
+                                        {
+                                            if (vFaltaNocNocRRHH < STETOTDIURNASRRHH)
+                                            {
+                                                vRealAprobarDiurnasRRHH = STETOTDIURNASRRHH - vFaltaNocNocRRHH;
+                                            }
+                                            else
+                                            {
+                                                vRealAprobarDiurnasRRHH = TimeSpan.Zero;
+                                                vFaltaDiurnasRRHH = vFaltaNocNocRRHH - STETOTDIURNASRRHH;
+                                                if (vFaltaDiurnasRRHH < STETOTNOCRRHH)
+                                                {
+                                                    vRealAprobarNocRRHH = STETOTNOCRRHH - vFaltaDiurnasRRHH;
+                                                }
+                                                else
+                                                {
+                                                    vRealAprobarNocRRHH = TimeSpan.Zero;
+                                                    vFaltaNocRRHH = vFaltaDiurnasRRHH - STETOTNOCRRHH;
+                                                }
+                                            }
+
+                                        }
+                                        else if (STETOTNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                        {
+                                            if (vFaltaNocNocRRHH < STETOTNOCRRHH)
+                                            {
+                                                vRealAprobarNocRRHH = STETOTNOCRRHH - vFaltaNocNocRRHH;
+                                            }
+                                            else
+                                            {
+                                                vRealAprobarNocRRHH = TimeSpan.Zero;
+                                                vFaltaNocRRHH = vFaltaNocNocRRHH - STETOTNOCRRHH;
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (STETOTDIURNASRRHH != TimeSpan.Parse("00:00:00"))
+                                {
+                                    if (vFaltaNocNocHr < STETOTDIURNASRRHH)
+                                    {
+                                        vRealAprobarDiurnasRRHH = STETOTDIURNASRRHH - vFaltaNocNocHr;
+                                    }
+                                    else
+                                    {
+                                        vRealAprobarDiurnasRRHH = TimeSpan.Zero;
+                                        vFaltaDiurnasRRHH = vFaltaNocNocHr - STETOTDIURNASRRHH;
+                                        if (vFaltaDiurnasRRHH < STETOTNOCRRHH)
+                                        {
+                                            vRealAprobarNocRRHH = STETOTNOCRRHH - vFaltaDiurnasRRHH;
+                                        }
+                                        else
+                                        {
+                                            vRealAprobarNocRRHH = TimeSpan.Zero;
+                                            vFaltaNocRRHH = vFaltaDiurnasRRHH - STETOTNOCRRHH;
+                                        }
+                                    }
+                                }
+                                else if (STETOTNOCRRHH != TimeSpan.Parse("00:00:00"))
+                                {
+                                    if (vFaltaNocNocHr < STETOTNOCRRHH)
+                                    {
+                                        vRealAprobarNocRRHH = STETOTNOCRRHH - vFaltaNocNocHr;
+                                    }
+                                    else
+                                    {
+                                        vRealAprobarNocRRHH = TimeSpan.Zero;
+                                        vFaltaNocRRHH = vFaltaNocNocHr - STETOTNOCRRHH;
+                                    }
+                                }
+
+                                STETOTDIURNASRRHH = vRealAprobarDiurnasRRHH;
+                                STETOTNOCRRHH = vRealAprobarNocRRHH;
+                                STETOTNOCNOCRRHH = vRealAprobarNocNocRRHH;
+                            }
+
+                            if (vFaltaDiurnasHr > TimeSpan.Parse("00:00:00") || vFaltaNocHr > TimeSpan.Parse("00:00:00") || vFaltaNocNocHr > TimeSpan.Parse("00:00:00"))
+                            {
+                                string vRealHrsDiurnas = Convert.ToString(STETOTDIURNASRRHH).Substring(0, 2);
+                                string vRealMinDiurnas = Convert.ToString(STETOTDIURNASRRHH).Substring(3, 2);
+
+                                Double vRealDiurnas_Resumen = ((Convert.ToInt32(vRealHrsDiurnas) * 60) + Convert.ToInt32(vRealMinDiurnas));
+                                vRealDiurnas_Resumen = vRealDiurnas_Resumen / 60;
+
+                                string vRealHrsNoc = Convert.ToString(STETOTNOCRRHH).Substring(0, 2);
+                                string vRealMinNoc = Convert.ToString(STETOTNOCRRHH).Substring(3, 2);
+
+                                Double vRealNoc_Resumen = ((Convert.ToInt32(vRealHrsNoc) * 60) + Convert.ToInt32(vRealMinNoc));
+                                vRealNoc_Resumen = vRealNoc_Resumen / 60;
 
 
-                //String vEx = Request.QueryString["ex"];
-                //if (vEx.Equals("2"))
-                //{
-                //    if (TxRealTotal.Text != "00:00 (0.0)" || TxRealTotal.Text != "0:0(0.0)")
-                //    {
-                //        DdlAccionRRHH.SelectedValue = "1";
-                //    }
-                //    //else if (TxRealTotal.Text == "00:00 (0.0)" || TxRealTotal.Text != "0:0(0.0)" && TxDescontarEntrada.Text != "00:00:00")
-                //    //{
+                                string vRealHrsNocNoc = Convert.ToString(STETOTNOCNOCRRHH).Substring(0, 2);
+                                string vRealMinNocNoc = Convert.ToString(STETOTNOCNOCRRHH).Substring(3, 2);
 
-                //    //}
-
-                //}
+                                Double vRealNocNoc_Resumen = ((Convert.ToInt32(vRealHrsNocNoc) * 60) + Convert.ToInt32(vRealMinNocNoc));
+                                vRealNocNoc_Resumen = vRealNocNoc_Resumen / 60;
 
 
+                                int vRealHrsTotal = Convert.ToInt32(vRealHrsDiurnas) + Convert.ToInt32(vRealHrsNoc) + Convert.ToInt32(vRealHrsNoc) + acu_horasDomingosFeriados_Resumen;
+                                int vRealMinTotal = Convert.ToInt32(vRealMinDiurnas) + Convert.ToInt32(vRealMinNoc) + Convert.ToInt32(vRealMinNocNoc) + acu_minutosDomingosFeriados_Resumen;
+                                Double vRealTot_Resumen = ((vRealHrsTotal * 60) + vRealMinTotal);
+                                vRealTot_Resumen = vRealTot_Resumen / 60;
+
+
+                                TxTotDiurnasRRHH.Text = vRealHrsDiurnas + ":" + vRealMinDiurnas + " (" + vRealDiurnas_Resumen.ToString("N1") + ")";
+                                TxTotNocRRHH.Text = vRealHrsNoc + ":" + vRealMinNoc + " (" + vRealNoc_Resumen.ToString("N1") + ")";
+                                TxTotNocNocRRHH.Text = vRealHrsNocNoc + ":" + vRealMinNocNoc + " (" + vRealNocNoc_Resumen.ToString("N1") + ")";
+                                TxTotDomFeriadoRRHH.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N1") + ")";
+                                TxTotRRHH.Text = vRealHrsTotal + ":" + vRealMinTotal + " (" + vRealTot_Resumen.ToString("N1") + ")";
+                                UpdatePanel26.Update();
+
+                                Session["STEHRDIURNASREAL"] = vRealHrsDiurnas;
+                                Session["STEMINDIURNASREAL"] = vRealMinDiurnas;
+                                Session["STEHRNOCREAL"] = vRealHrsNoc;
+                                Session["STEMINNOCREAL"] = vRealMinNoc;
+                                Session["STEHRNOCNOCREAL"] = vRealHrsNocNoc;
+                                Session["STEMINNOCNOCREAL"] = vRealMinNocNoc;
+                                Session["STEHRDOMINGOFERIADOREAL"] = acu_horasDomingosFeriados_Resumen;
+                                Session["STEMINDOMINGOFERIADOREAL"] = acu_minutosDomingosFeriados_Resumen;
+
+                                Session["STEHRTOTREAL"] = vRealHrsTotal;
+                                Session["STEMINTOTREAL"] = vRealMinTotal;
+
+                                Session["STEFALTANTEDIURNAS"] = vFaltaDiurnasRRHH;
+                                Session["STEFALTANTENOC"] = vFaltaNocRRHH;
+                                Session["STEFALTANTENOCNOC"] = vFaltaNocNocRRHH;
+                       
+                                LbMensajeRRHH.Text = "La solicitud no se va aprobar en su totalidad, el colaborador: " + TxEmpleado.Text + " tiene pendientes horas para descontar (Tiempo que no cubrieron en su totalidad las anteriores solicitudes aprobadas) por motivos de llagada tarde, salida temprana o almuerzo.  Dia de inicio de la solicitud: " + vIniBio + ". Id de solicitudes aprobadas: " + vSolicitudes;
+
+                            }
+                            else
+                            {
+                                TxTotRRHH.Text = TxTotalHoras.Text;
+                                TxTotDiurnasRRHH.Text = TxHrDiurnas.Text;
+                                TxTotNocRRHH.Text = TxHrNoc.Text;
+                                TxTotNocNocRRHH.Text = TxHrNocNoc.Text;
+                                TxTotDomFeriadoRRHH.Text = TxHrDomFeriado.Text;
+                                UpdatePanel26.Update();
+                                LbMensajeRRHH.Text = "La solicitud se va aprobar en su totalidad, las reducciones se efectuaron en las primeras solicitudes que aprobo del colaborador: " + TxEmpleado.Text + "  dia de inicio de la solicitud: " + vIniBio + ". Id de solicitudes aprobadas: " + vSolicitudes + " , no tiene horas pendientes que disminuir por concepto de entrada tarde, salida temprana o almuerzo";
+
+                                Session["STEHRDIURNASREAL"] = Session["STEHRDIURNASOLICITADAS"].ToString();
+                                Session["STEMINDIURNASREAL"] = Session["STEMINDIURNASOLICITADAS"].ToString();
+                                Session["STEHRNOCREAL"] = Session["STEHRNOCSOLICITADAS"].ToString();
+                                Session["STEMINNOCREAL"] = Session["STEMINNOCSOLICITADAS"].ToString();
+                                Session["STEHRNOCNOCREAL"] = Session["STEHRNOCNOCSOLICITADAS"].ToString();
+                                Session["STEMINNOCNOCREAL"] = Session["STEMINNOCNOCSOLICITADAS"].ToString();
+                                Session["STEHRDOMINGOFERIADOREAL"] = Session["STEHRDOMINGOFERIADOSOLICITADAS"].ToString();
+                                Session["STEMINDOMINGOFERIADOREAL"] = Session["STEMINDOMINGOFERIADOSOLICITADAS"].ToString();
+
+                                Session["STEHRTOTREAL"] = Session["STEHRTOTALSOLICITADAS"].ToString();
+                                Session["STEMINTOTREAL"] = Session["STEMINTOTALSOLICITADAS"].ToString();
+
+                                Session["STEFALTANTEDIURNAS"] = TimeSpan.Zero;
+                                Session["STEFALTANTENOC"] = TimeSpan.Zero;
+                                Session["STEFALTANTENOCNOC"] = TimeSpan.Zero;
+
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        TxTotRRHH.Text = TxRealTotal.Text;
+                        TxTotDiurnasRRHH.Text = TxRealDiurnas.Text;
+                        TxTotNocRRHH.Text = TxRealNoc.Text;
+                        TxTotNocNocRRHH.Text = TxRealNocNoc.Text;
+                        TxTotDomFeriadoRRHH.Text = TxRealDomingoFeriados.Text;
+                        UpdatePanel26.Update();
+                        LbMensajeRRHH.Text = "No se ha aprobado ninguna solicitud del colaborador: "+ TxEmpleado.Text + " dia de la solicitud: "+ vIniBio +". El total a aprobar sera igual a las horas con las reducciones en caso que tenga.";
+                    }
+
+
+                }
 
             }        }
         protected void DdlTipoTrabajo_SelectedIndexChanged(object sender, EventArgs e)        {            DdlTipoDescripcion.Items.Clear();            string vQuery = "RSP_TiempoExtraordinarioGenerales 4," + DdlTipoTrabajo.SelectedValue;            DataTable vDatos = vConexion.obtenerDataTable(vQuery);            if (vDatos.Rows.Count > 0)            {                DivCategoria.Visible = true;                TituloCategoria.Text = DdlTipoTrabajo.SelectedItem.Text + ":";                DdlTipoDescripcion.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });                foreach (DataRow item in vDatos.Rows)                {                    DdlTipoDescripcion.Items.Add(new ListItem { Value = item["idTipoTrabajoDescripcion"].ToString(), Text = item["nombreTrabajo"].ToString() });                }            }            else            {                DivCategoria.Visible = false;            }
@@ -1604,31 +2084,140 @@
         protected void BtnCrearSolicitud_Click(object sender, EventArgs e)        {            try            {                validacionesCrearSolicitud();                String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";                String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";                DateTime desde = Convert.ToDateTime(vFI);                DateTime hasta = Convert.ToDateTime(vFF);                DateTime vFechaInicio = Convert.ToDateTime(vFI);                LbInformacionTE.Text = "Buen dia <b> " + TxEmpleado.Text + "</b><br /><br />" +                   "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b>" + " .Total de horas <b> " + TxTotalHoras.Text + "</b> <br /><br />" +                   "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";                LbInformacionPreguntaTE.Text = "<b>¿Está seguro que desea enviar la solicitud en el rango de fechas y horas detalladas?</b>";                UpdateAutorizarMensaje.Update();                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
             }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }        }        private void validacionesCrearSolicitud()        {
+
+            String vEx = Request.QueryString["ex"];
+
             if (RbFormaTrabajo.SelectedValue.Equals(""))
                 throw new Exception("Falta que seleccione como realizo el trabajo si de forma remota o presencial.");            if (Session["STEAPROBACIONSUBGERENTE"].ToString() == "True" && DdlMotivoAprobacionSubgerente.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione motivo por el cual no pudo ingresar la solicitud en el tiempo estipulado en la politica");            if (Session["STEAPROBACIONSUBGERENTE"].ToString() == "True" && TxSoliAprobacionSubGerente.Text.Equals(""))                throw new Exception("Falta que ingrese detalle por el cual no pudo ingresar la solicitud en el tiempo estipulado en la politica");            if (RbCambioTurno.Text.Equals("1") && DDLCambioTurnoColaborador.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione el colaborador con quien realizo cambio de turno.");
 
             if (RbCambioTurno.Text.Equals("1") && TxMotivoCambioTurno.Text.Equals(""))                throw new Exception("Falta que ingrese motivo del cambio de turno que solicito.");            if (TxFechaInicio.Text.Equals(""))                throw new Exception("Ingrese una fecha de inicio valida.");            if (TxFechaRegreso.Text.Equals(""))                throw new Exception("Ingrese una fecha de fin valida.");
 
             //DECISION PARA OCULTAR O MOSTRAR LAS OPCIONES DE CONDUCTORES
-            if ((Session["STEPUESTOJEFE"].ToString() != "20000383" && Session["STEPUESTOJEFE"].ToString() != "20000395" && Session["STEPUESTOCOLABORADOR"].ToString() != "20000409") && DdlConductor.SelectedValue.Equals("op"))                throw new Exception("Falta que seleccione la opción Solicito Conductor");            if ((Session["STEPUESTOJEFE"].ToString() != "20000383" && Session["STEPUESTOJEFE"].ToString() != "20000395" && Session["STEPUESTOCOLABORADOR"].ToString() != "20000409") && DdlConductor.SelectedValue == "1" && DdlConductorNombre.SelectedValue.Equals("op"))                throw new Exception("Falta que seleccione nombre del conductor.");
+            if ((Session["STEPUESTOJEFE"].ToString() != "20000383" && Session["STEPUESTOJEFE"].ToString() != "20000395" && Session["STEPUESTOCOLABORADOR"].ToString() != "20000409") && DdlConductor.SelectedValue.Equals("2"))                throw new Exception("Falta que seleccione la opción Solicito Conductor");            if ((Session["STEPUESTOJEFE"].ToString() != "20000383" && Session["STEPUESTOJEFE"].ToString() != "20000395" && Session["STEPUESTOCOLABORADOR"].ToString() != "20000409") && DdlConductor.SelectedValue == "1" && DdlConductorNombre.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione nombre del conductor.");
 
             //PARA EL TIPO DE TRABAJO
             if (DdlTipoTrabajo.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione Tipo de Trabajo.");            string vQuery = "RSP_TiempoExtraordinarioGenerales 4," + DdlTipoTrabajo.SelectedValue;            DataTable vDatos = vConexion.obtenerDataTable(vQuery);            if (vDatos.Rows.Count > 0 && DdlTipoDescripcion.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione opción de " + DdlTipoTrabajo.SelectedItem.Text + " de la lista.");            if (TxDescripcionTrabajo.Text.Equals(""))                throw new Exception("Ingrese el detalle del trabajo que realizo.");
 
             //PARA EL SYSAID
-            if ((Session["STESUBGERENCIA"].ToString().Equals("4") || Session["STESUBGERENCIA"].ToString().Equals("2")) && TxPeticion.Text.Equals(""))                throw new Exception("Falta que ingrese el número de petición.");            if ((Session["STESUBGERENCIA"].ToString().Equals("4") || Session["STESUBGERENCIA"].ToString().Equals("2")) && TxPeticion.Text != "" && TxTituloSysaid.Text.Equals(""))                throw new Exception("Favor verificar el número de SysAid sea valido.");            if (DdlTipoTrabajo.SelectedValue.Equals("7") && (Session["STESUBGERENCIA"].ToString() != "4" || Session["STESUBGERENCIA"].ToString() != "2") && TxPeticion.Text.Equals(""))                throw new Exception("Falta que ingrese el número de petición.");            if (DdlTipoTrabajo.SelectedValue.Equals("7") && (Session["STESUBGERENCIA"].ToString() != "4" || Session["STESUBGERENCIA"].ToString() != "2") && TxPeticion.Text != "" && TxTituloSysaid.Text.Equals(""))                throw new Exception("Favor verificar el número de SysAid sea valido.");            vQuery = "RSP_TiempoExtraordinarioGenerales 6,'" + TxPeticion.Text + "','" + Session["STECODIGOSAP"] + "'";            vDatos = vConexion.obtenerDataTable(vQuery);            string cantSysAid = vDatos.Rows[0]["cantSysAid"].ToString();
+            if ((Session["STESUBGERENCIA"].ToString().Equals("4") || Session["STESUBGERENCIA"].ToString().Equals("2")) && TxPeticion.Text.Equals(""))                throw new Exception("Falta que ingrese el número de petición.");            if ((Session["STESUBGERENCIA"].ToString().Equals("4") || Session["STESUBGERENCIA"].ToString().Equals("2")) && TxPeticion.Text != "" && TxTituloSysaid.Text.Equals(""))                throw new Exception("Favor verificar el número de SysAid sea valido.");            if (DdlTipoTrabajo.SelectedValue.Equals("7") && (Session["STESUBGERENCIA"].ToString() != "4" || Session["STESUBGERENCIA"].ToString() != "2") && TxPeticion.Text.Equals(""))                throw new Exception("Falta que ingrese el número de petición.");            if (DdlTipoTrabajo.SelectedValue.Equals("7") && (Session["STESUBGERENCIA"].ToString() != "4" || Session["STESUBGERENCIA"].ToString() != "2") && TxPeticion.Text != "" && TxTituloSysaid.Text.Equals(""))                throw new Exception("Favor verificar el número de SysAid sea valido.");
 
-            vQuery = "RSP_TiempoExtraordinarioGeneralesBiometrico 1,'" + TxPeticion.Text + "'";
-            vDatos = vConexionSysAid.obtenerDataTableSysAid(vQuery);
-            //string vstatus = vDatos.Rows[0]["status"].ToString();
+            if (vEx != "7")
+            {
+                vQuery = "RSP_TiempoExtraordinarioGenerales 6,'" + TxPeticion.Text + "','" + Session["STECODIGOSAP"] + "'";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                string cantSysAid = vDatos.Rows[0]["cantSysAid"].ToString();
 
-            if (Convert.ToInt32(cantSysAid) > 0 && (vDatos.Rows[0]["status"].ToString() == "3" || vDatos.Rows[0]["status"].ToString() == "4" || vDatos.Rows[0]["status"].ToString() == "8"))                throw new Exception("Usted ya tiene ingresada una solicitud de tiempo extraordinario con el mismo número de SysAid: " + TxPeticion.Text + " y el estatus de la petición es Cerrada");
+                vQuery = "RSP_TiempoExtraordinarioGeneralesBiometrico 1,'" + TxPeticion.Text + "'";
+                vDatos = vConexionSysAid.obtenerDataTableSysAid(vQuery);
+                //string vstatus = vDatos.Rows[0]["status"].ToString();
 
-            //SOLO PARA PROYECTO
-            if (DdlTipoTrabajo.SelectedValue.Equals("1"))            {                vQuery = "RSP_TiempoExtraordinarioGenerales 7," + DdlTipoDescripcion.SelectedValue;                vDatos = vConexion.obtenerDataTable(vQuery);                string cantHrsProyectoRegistradas = vDatos.Rows[0]["RESULTADO"].ToString();                vQuery = "RSP_TiempoExtraordinarioGenerales 8," + DdlTipoDescripcion.SelectedValue;                vDatos = vConexion.obtenerDataTable(vQuery);                string cantHrsProyecto = vDatos.Rows[0]["totalHrs"].ToString();                Decimal faltante = Convert.ToDecimal(cantHrsProyecto) - Convert.ToDecimal(cantHrsProyectoRegistradas);
+                if (Convert.ToInt32(cantSysAid) > 0 && (vDatos.Rows[0]["status"].ToString() == "3" || vDatos.Rows[0]["status"].ToString() == "4" || vDatos.Rows[0]["status"].ToString() == "8"))
+                    throw new Exception("Usted ya tiene ingresada una solicitud de tiempo extraordinario con el mismo número de SysAid: " + TxPeticion.Text + " y el estatus de la petición es Cerrada");
 
-                //Decimal vHrssolicitadas = (Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) *60 )+ Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString());
-                Decimal vHrssolicitadas = ((Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) * 60) + Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString())) / 60;                if (vHrssolicitadas > faltante)                    throw new Exception("La cantidad de horas solicitadas superan la cantidad de horas disponibles para el proyecto. Nota:Total horas acordadas para el proyecto: " + cantHrsProyecto + ", Total horas disponibles: " + faltante);            }            if ((Session["STESUBGERENCIA"].ToString().Equals("4") || Session["STESUBGERENCIA"].ToString().Equals("2")) && TxHojaServicio.Value == string.Empty)                throw new Exception("Falta que suba la hoja de servicio.");            if (DdlTipoTrabajo.SelectedValue.Equals("7") && (Session["STESUBGERENCIA"].ToString() != "4" || Session["STESUBGERENCIA"].ToString() != "2") && TxHojaServicio.Value == string.Empty)                throw new Exception("Falta que suba la hoja de servicio.");        }        protected void DdlConductor_SelectedIndexChanged(object sender, EventArgs e)        {            if (DdlConductor.SelectedValue.Equals("1"))            {                DdlConductorNombre.Visible = true;                TxMotivoNoConductor.Visible = false;            }            else            {                DdlConductorNombre.Visible = false;                TxMotivoNoConductor.Visible = true;                TxMotivoNoConductor.Text = "No se requirio conductor para esta solicitud.";            }        }        private void limpiarCrearSolicitud()
+
+                //SOLO PARA PROYECTO Y PROPUESTAS
+                if (DdlTipoTrabajo.SelectedValue.Equals("1") || DdlTipoTrabajo.SelectedValue.Equals("2"))
+                {
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 7," + DdlTipoDescripcion.SelectedValue;
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+                    string cantHrsProyectoRegistradas = vDatos.Rows[0]["RESULTADO"].ToString();
+
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 8," + DdlTipoDescripcion.SelectedValue;
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+                    string cantHrsProyecto = vDatos.Rows[0]["totalHrs"].ToString();
+
+                    Decimal faltante = Convert.ToDecimal(cantHrsProyecto) - Convert.ToDecimal(cantHrsProyectoRegistradas);
+
+                    //Decimal vHrssolicitadas = (Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) *60 )+ Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString());
+                    Decimal vHrssolicitadas = ((Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) * 60) + Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString())) / 60;
+
+                    if (vHrssolicitadas > faltante)
+                        throw new Exception("La cantidad de horas solicitadas superan la cantidad de horas disponibles para el proyecto o propuesta, Total horas disponibles: " + faltante);
+                }
+
+                if ((Session["STESUBGERENCIA"].ToString().Equals("4") || Session["STESUBGERENCIA"].ToString().Equals("2")) && TxHojaServicio.Value == string.Empty)
+                    throw new Exception("Falta que suba la hoja de servicio.");
+
+                if (DdlTipoTrabajo.SelectedValue.Equals("7") && (Session["STESUBGERENCIA"].ToString() != "4" || Session["STESUBGERENCIA"].ToString() != "2") && TxHojaServicio.Value == string.Empty)
+                    throw new Exception("Falta que suba la hoja de servicio.");
+
+            }
+            else
+            {
+                DataTable vDatosSolicitud = new DataTable();
+                vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];
+
+                string vSysAid = vDatosSolicitud.Rows[0]["sysAid"].ToString();
+
+                string vTipoTrbajo = vDatosSolicitud.Rows[0]["idTipoTrabajo"].ToString();
+                string vDescTipoTrabajo= vDatosSolicitud.Rows[0]["idTipoTrabajoDescripcion"].ToString();
+
+                Decimal vHrs = Convert.ToDecimal(vDatosSolicitud.Rows[0]["hrsTotalSolicitado"].ToString());
+                Decimal vMin = Convert.ToDecimal(vDatosSolicitud.Rows[0]["minTotalSolicitado"].ToString());
+                Decimal vHrsSolicitadasSinModificar = ((vHrs * 60) + vMin)/60;
+                Decimal vHrssolicitadas = ((Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) * 60) + Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString())) / 60;
+
+                
+
+                //SOLO PARA PROYECTO Y PROPUESTAS   
+                if (vDescTipoTrabajo== DdlTipoDescripcion.SelectedValue &&   vHrsSolicitadasSinModificar > vHrssolicitadas)
+                {
+                    Decimal vHrsExcedentes = vHrssolicitadas - vHrsSolicitadasSinModificar;
+
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 7," + DdlTipoDescripcion.SelectedValue;
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+                    string cantHrsProyectoRegistradas = vDatos.Rows[0]["RESULTADO"].ToString();
+
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 8," + DdlTipoDescripcion.SelectedValue;
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+                    string cantHrsProyecto = vDatos.Rows[0]["totalHrs"].ToString();
+
+                    Decimal faltante = Convert.ToDecimal(cantHrsProyecto) - Convert.ToDecimal(cantHrsProyectoRegistradas);
+                    
+                if (vHrsExcedentes > faltante)
+                    throw new Exception("La cantidad de horas solicitadas superan la cantidad de horas disponibles para el proyecto o propuesta "+ ", total horas disponibles: " + faltante);
+                }
+                else if ( vDescTipoTrabajo != DdlTipoDescripcion.SelectedValue)
+                {
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 7," + DdlTipoDescripcion.SelectedValue;
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+                    string cantHrsProyectoRegistradas = vDatos.Rows[0]["RESULTADO"].ToString();
+
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 8," + DdlTipoDescripcion.SelectedValue;
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+                    string cantHrsProyecto = vDatos.Rows[0]["totalHrs"].ToString();
+
+                    Decimal faltante = Convert.ToDecimal(cantHrsProyecto) - Convert.ToDecimal(cantHrsProyectoRegistradas);
+
+                    //Decimal vHrssolicitadas = (Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) *60 )+ Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString());
+                    Decimal vHrssolicitada = ((Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) * 60) + Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString())) / 60;
+
+                    if (vHrssolicitada > faltante)
+                        throw new Exception("La cantidad de horas solicitadas superan la cantidad de horas disponibles para el proyecto o propuesta, Total horas disponibles: " + faltante);
+                }
+                   
+                
+                if (vSysAid != TxPeticion.Text)
+                {
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 6,'" + TxPeticion.Text + "','" + Session["STECODIGOSAP"] + "'";
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+                    string cantSysAid = vDatos.Rows[0]["cantSysAid"].ToString();
+
+                    vQuery = "RSP_TiempoExtraordinarioGeneralesBiometrico 1,'" + TxPeticion.Text + "'";
+                    vDatos = vConexionSysAid.obtenerDataTableSysAid(vQuery);
+                    //string vstatus = vDatos.Rows[0]["status"].ToString();
+
+                    if (Convert.ToInt32(cantSysAid) > 0 && (vDatos.Rows[0]["status"].ToString() == "3" || vDatos.Rows[0]["status"].ToString() == "4" || vDatos.Rows[0]["status"].ToString() == "8"))
+                        throw new Exception("Usted ya tiene ingresada una solicitud de tiempo extraordinario con el mismo número de SysAid: " + TxPeticion.Text + " y el estatus de la petición es Cerrada");
+                               
+                }
+
+                if ((Session["STESUBGERENCIA"].ToString().Equals("4") || Session["STESUBGERENCIA"].ToString().Equals("2")) && TxHojaServicio.Value == string.Empty  && RbCambioHoja.SelectedValue.Equals("1"))
+                    throw new Exception("Falta que suba la hoja de servicio.");
+
+                if (DdlTipoTrabajo.SelectedValue.Equals("7") && (Session["STESUBGERENCIA"].ToString() != "4" || Session["STESUBGERENCIA"].ToString() != "2") && TxHojaServicio.Value == string.Empty && RbCambioHoja.SelectedValue.Equals("1"))
+                    throw new Exception("Falta que suba la hoja de servicio.");
+            }        }        protected void DdlConductor_SelectedIndexChanged(object sender, EventArgs e)        {            if (DdlConductor.SelectedValue.Equals("1"))            {                DdlConductorNombre.Visible = true;                TxMotivoNoConductor.Visible = false;            }            else            {                DdlConductorNombre.Visible = false;                TxMotivoNoConductor.Visible = true;                TxMotivoNoConductor.Text = "No se requirio conductor para esta solicitud.";            }        }        private void limpiarCrearSolicitud()
         {
             RbCambioTurno.SelectedIndex = -1;
             TxMotivoCambioTurno.Text = String.Empty;
@@ -1671,9 +2260,7 @@
             UpdatePanelFechas.Update();
             UpdatePanel2.Update();
             UpdatePanel3.Update();
-
-        
-
+     
             UpdatePanel21.Update();
             //UpdatePanel22.Update();
         }        private string GetExtension(string Extension)        {            switch (Extension)            {                case ".doc":                    return "application/ms-word";                case ".xls":                    return "application/vnd.ms-excel";                case ".ppt":                    return "application/mspowerpoint";                case "jpeg":                    return "image/jpeg";                case ".bmp":                    return "image/bmp";                case ".zip":                    return "application/zip";                case ".log":                    return "text/HTML";                case ".txt":                    return "text/plain";                case ".tiff":                case ".tif":                    return "image/tiff";                case ".asf":                    return "video/x-ms-asf";                case ".avi":                    return "video/avi";                case ".gif":                    return "image/gif";                case ".jpg":                case ".wav":                    return "audio/wav";                case ".pdf":                    return "application/pdf";                case ".fdf":                    return "application/vnd.fdf";                case ".dwg":                    return "image/vnd.dwg";                case ".msg":                    return "application/msoutlook";                case ".xml":                    return "application/xml";                default:                    return "application/octet-stream";            }        }        protected void BtnEnviarSolicitud_Click(object sender, EventArgs e)        {            try            {                String vNombreDepot1 = String.Empty;                HttpPostedFile bufferDeposito1T = FuHojaServicio.PostedFile;                byte[] vFileDeposito1 = null;                String vExtension = String.Empty;                if (bufferDeposito1T != null)                {                    vNombreDepot1 = FuHojaServicio.FileName;                    Stream vStream = bufferDeposito1T.InputStream;                    BinaryReader vReader = new BinaryReader(vStream);                    vFileDeposito1 = vReader.ReadBytes((int)vStream.Length);                    vExtension = System.IO.Path.GetExtension(FuHojaServicio.FileName);                }                String vArchivo = String.Empty;                if (vFileDeposito1 != null)                    vArchivo = Convert.ToBase64String(vFileDeposito1);                String vFormato = "yyyy-MM-dd HH:mm:ss"; //"dd-MM-yyyy HH:mm:ss"; 
@@ -1702,7 +2289,7 @@
                 GVBusqueda.DataSource = vDatos;                GVBusqueda.DataBind();                UpdateDivBusquedas.Update();
                 Session["STESOLICITUDESCREADAS"] = vDatos;
             }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }        protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e)        {            if (e.CommandName == "HojaServicio")            {                string vIdSolicitud = e.CommandArgument.ToString();                String vQuery = "RSP_TiempoExtraordinarioGenerales 12," + vIdSolicitud;                DataTable vDatos = vConexion.obtenerDataTable(vQuery);                String vDocumento = "";                if (!vDatos.Rows[0]["hojaServicio"].ToString().Equals(""))                    vDocumento = vDatos.Rows[0]["hojaServicio"].ToString();                if (!vDocumento.Equals(""))                {                    LbPermisoDescarga.Text = vIdSolicitud;                    UpdatePanel5.Update();                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDescargarModal();", true);                }                else                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('No existe hoja de servicio para esta solicitud')", true);            }                    if (e.CommandName == "DetalleSolicitud")            {                string vIdSolicitud = e.CommandArgument.ToString();
+        }        protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e)        {            if (e.CommandName == "HojaServicio")            {                string vIdSolicitud = e.CommandArgument.ToString();                String vQuery = "RSP_TiempoExtraordinarioGenerales 12," + vIdSolicitud;                DataTable vDatos = vConexion.obtenerDataTable(vQuery);                String vDocumento = "";                if (!vDatos.Rows[0]["hojaServicio"].ToString().Equals(""))                    vDocumento = vDatos.Rows[0]["hojaServicio"].ToString();                if (!vDocumento.Equals(""))                {                    LbPermisoDescarga.Text = vIdSolicitud;                    UpdatePanel5.Update();                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDescargarModal();", true);                }                else                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "window.alert('No existe hoja de servicio para esta solicitud')", true);            }                    if (e.CommandName == "DetalleSolicitud")            {                string vIdSolicitud = e.CommandArgument.ToString();
 
                 String vQuery = "RSP_TiempoExtraordinarioGenerales 25," + vIdSolicitud;                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                string vidEstadoSolicitud = vDatos.Rows[0]["idEstado"].ToString();
@@ -1828,7 +2415,6 @@
 
 
                 else if (vEx.Equals("1"))                {                    DataTable vDatosSolicitud = new DataTable();                    vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];                    String vDocumentoArchivo = "HojaServicio-" + vDatosSolicitud.Rows[0]["idSolicitud"].ToString() + vDatosSolicitud.Rows[0]["extension"].ToString();                    string vDocumentoAprobar = vDatosSolicitud.Rows[0]["hojaServicio"].ToString();                    byte[] fileData = Convert.FromBase64String(vDocumentoAprobar);                    Response.Cache.SetCacheability(HttpCacheability.NoCache);                    GetExtension(vDatosSolicitud.Rows[0]["extension"].ToString().ToLower());                    byte[] bytFile = fileData;                    Response.OutputStream.Write(bytFile, 0, bytFile.Length);                    Response.AddHeader("Content-disposition", "attachment;filename=" + vDocumentoArchivo);                    Response.End();                }                else if (vEx.Equals("2"))                {                    DataTable vDatosSolicitud = new DataTable();                    vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];                    String vDocumentoArchivo = "HojaServicio-" + vDatosSolicitud.Rows[0]["idSolicitud"].ToString() + vDatosSolicitud.Rows[0]["extension"].ToString();                    string vDocumentoAprobar = vDatosSolicitud.Rows[0]["hojaServicio"].ToString();                    byte[] fileData = Convert.FromBase64String(vDocumentoAprobar);                    Response.Cache.SetCacheability(HttpCacheability.NoCache);                    GetExtension(vDatosSolicitud.Rows[0]["extension"].ToString().ToLower());                    byte[] bytFile = fileData;                    Response.OutputStream.Write(bytFile, 0, bytFile.Length);                    Response.AddHeader("Content-disposition", "attachment;filename=" + vDocumentoArchivo);                    Response.End();                }            }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }            finally { CerrarModal("DescargaModal"); }        }
-
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         void cargarDataVista()        {            try            {                DataTable vDatosGenerales = new DataTable();                vDatosGenerales = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];                TxEmpleado.Text = vDatosGenerales.Rows[0]["idEmpleado"].ToString() + " - " + vDatosGenerales.Rows[0]["nombre"].ToString();                TxJefe.Text = vDatosGenerales.Rows[0]["idJefe"].ToString() + " - " + vDatosGenerales.Rows[0]["jefeNombre"].ToString();                TxSubgerencia.Text = vDatosGenerales.Rows[0]["area"].ToString();                TxTurno.Text = vDatosGenerales.Rows[0]["nombreTurno"].ToString();
 
@@ -1889,15 +2475,47 @@
                 String vHojaServicio = vDatosSolicitud.Rows[0]["hojaServicio"].ToString();                string srcHojaServicio = "data:image;base64," + vHojaServicio;                Img1.Src = srcHojaServicio;
 
 
-                DdlMotivosCancelacionRRHH.Items.Clear();                vQuery = "RSP_TiempoExtraordinarioGenerales 26";                vDatos = vConexion.obtenerDataTable(vQuery);                if (vDatos.Rows.Count > 0)                {                    DdlMotivosCancelacionRRHH.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });                    foreach (DataRow item in vDatos.Rows)                    {                        DdlMotivosCancelacionRRHH.Items.Add(new ListItem { Value = item["idEstadoRRHH"].ToString(), Text = item["motivo"].ToString() });                    }                }            }            catch (Exception ex)            {                Mensaje(ex.Message, WarningType.Danger);            }        }        void camposDeshabilitados()        {
+                DdlMotivosCancelacionRRHH.Items.Clear();                vQuery = "RSP_TiempoExtraordinarioGenerales 26";                vDatos = vConexion.obtenerDataTable(vQuery);                if (vDatos.Rows.Count > 0)                {                    DdlMotivosCancelacionRRHH.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });                    foreach (DataRow item in vDatos.Rows)                    {                        DdlMotivosCancelacionRRHH.Items.Add(new ListItem { Value = item["idEstadoRRHH"].ToString(), Text = item["motivo"].ToString() });                    }                }
+
+                String vEx = Request.QueryString["ex"];
+                if (vEx.Equals("7"))
+                {                   
+                    lbHojaServicio.Visible = true;
+                    FuHojaServicio.Visible = false;
+                    TxImagenSubida.Visible = true;
+                    btnVisualizarHoja.Visible = true;
+                    btnDescargarHoja.Visible = true;
+                    LbCambiarHoja.Visible = true;
+                    RbCambioHoja.Visible = true;
+                    RbCambioHoja.SelectedValue = "2";
+                }
+
+
+                if (vEx.Equals("1"))
+                {
+                   if(vDatosSolicitud.Rows[0]["flagModiSoli"].ToString() == "1")
+                    {
+                        LbModificarSolicitud.Visible = true;
+                        LbMensajeModificar.Visible = true;
+                        LbMensajeModificar.Text = vDatosSolicitud.Rows[0]["observacionAprobacionJefe"].ToString();                       
+                    }
+                }
+
+
+
+
+                }            catch (Exception ex)            {                Mensaje(ex.Message, WarningType.Danger);            }        }        void camposDeshabilitados()        {
             RbFormaTrabajo.Enabled = false;            RbCambioTurno.Enabled = false;            DDLCambioTurnoColaborador.Enabled = false;            DDLCambioTurnoColaborador.CssClass = "form-control";            TxMotivoCambioTurno.ReadOnly = true;            TxFechaInicio.ReadOnly = true;            TxFechaRegreso.ReadOnly = true;            DdlConductor.Enabled = false;            DdlConductor.CssClass = "form-control";            DdlConductorNombre.Enabled = false;            DdlConductorNombre.CssClass = "form-control";            DdlTipoTrabajo.Enabled = false;            DdlTipoTrabajo.CssClass = "form-control";            DdlTipoDescripcion.Enabled = false;            DdlTipoDescripcion.CssClass = "form-control";            TxDescripcionTrabajo.ReadOnly = true;            TxPeticion.ReadOnly = true;            TxSoliAprobacionSubGerente.ReadOnly = true;            DdlMotivoAprobacionSubgerente.Enabled = false;            DdlMotivoAprobacionSubgerente.CssClass = "form-control";        }        protected void btnVisualizarHoja_Click(object sender, EventArgs e)        {            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "openModalImagen();", true);        }
         protected void DdEstadoSoliJefe_SelectedIndexChanged(object sender, EventArgs e)        {            limpiarAprobacionJefe();            if (DdEstadoSoliJefe.SelectedValue == "1" && Session["STEAPROBACIONSUBGERENTE"].Equals("1"))            {                LbAlerta.Visible = true;                TxObservacion.Visible = true;                DivMotivo.Visible = false;                Session["STELBESTADOJEFE"] = "aprobar";                Session["STEESTADOBDJEFE"] = "1";                Session["STEESTADOBDSOLICITUD"] = "2"; //Pendiente Aprobar Subgerente
-                TituloAprobacionJefe.Text = "Aprobar solicitud número " + Session["STENUMSOLICITUD"].ToString();            }            else if (DdEstadoSoliJefe.SelectedValue == "2")            {                LbAlerta.Visible = false;                TxObservacion.Visible = true;                DivMotivo.Visible = true;                Session["STELBESTADOJEFE"] = "cancelar";                Session["STEESTADOBDJEFE"] = "2";                TituloAprobacionJefe.Text = "Cancelar solicitud número " + Session["STENUMSOLICITUD"].ToString();                Session["STEESTADOBDSOLICITUD"] = "7";//Cancelada Jefe
+                TituloAprobacionJefe.Text = "Aprobar solicitud número " + Session["STENUMSOLICITUD"].ToString();                Session["STEESTADOBDMODIFICARSOLICITUD"] = "0";
+            }            else if (DdEstadoSoliJefe.SelectedValue == "2")            {                LbAlerta.Visible = false;                TxObservacion.Visible = true;                DivMotivo.Visible = true;                Session["STELBESTADOJEFE"] = "cancelar";                Session["STEESTADOBDJEFE"] = "2";                TituloAprobacionJefe.Text = "Cancelar solicitud número " + Session["STENUMSOLICITUD"].ToString();                Session["STEESTADOBDSOLICITUD"] = "7";//Cancelada Jefe
+                Session["STEESTADOBDMODIFICARSOLICITUD"] = "0";
             }            else if (DdEstadoSoliJefe.SelectedValue == "3")            {                LbAlerta.Visible = false;                TxObservacion.Visible = true;                DivMotivo.Visible = false;                Session["STELBESTADOJEFE"] = "devolver";                Session["STEESTADOBDJEFE"] = "3";                TituloAprobacionJefe.Text = "Devolver solicitud número " + Session["STENUMSOLICITUD"].ToString();                Session["STEESTADOBDSOLICITUD"] = "4";//Pendiente Modificar Colaborador
+                Session["STEESTADOBDMODIFICARSOLICITUD"] = "1";
             }            else if (DdEstadoSoliJefe.SelectedValue == "1" && Session["STEAPROBACIONSUBGERENTE"].Equals("0"))            {                LbAlerta.Visible = false;                TxObservacion.Visible = false;                DivMotivo.Visible = false;                Session["STELBESTADOJEFE"] = "aprobar";                Session["STEESTADOBDJEFE"] = "1";                Session["STEESTADOBDSOLICITUD"] = "3";//Pendiente Aprobar RRHH
-                TituloAprobacionJefe.Text = "Aprobar solicitud número " + Session["STENUMSOLICITUD"].ToString();            }        }        void limpiarAprobacionJefe()        {            DdlMotivosCancelacion.SelectedIndex = -1;            TxObservacion.Text = string.Empty;        }        void validacionAprobacionJefe()        {            if (DdEstadoSoliJefe.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione acción si esta seguro de autorizar la solicitud.");            if (DdEstadoSoliJefe.SelectedValue == "1" && Session["STEAPROBACIONSUBGERENTE"].Equals("1") && TxObservacion.Text.Equals(""))                throw new Exception("Falta que ingrese observación para retroalimentar al subgerente y proceda con la aprobación de la solicitud.");            if (DdEstadoSoliJefe.SelectedValue == "2" && DdlMotivosCancelacion.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione motivo de cancelación");            if (DdEstadoSoliJefe.SelectedValue == "2" && TxObservacion.Text.Equals(""))                throw new Exception("Falta que ingrese observación para retroalimentar al colobador de la decisión cancelación de la solicitud.");            if (DdEstadoSoliJefe.SelectedValue == "3" && TxObservacion.Text.Equals(""))                throw new Exception("Falta que ingrese observación para retroalimentar al colaborador de los campos que tiene que modificar.");        }        protected void BtnEnviarAprobacionJefe_Click(object sender, EventArgs e)        {            try            {                validacionAprobacionJefe();                String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";                String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";                DateTime desde = Convert.ToDateTime(vFI);                DateTime hasta = Convert.ToDateTime(vFF);
+                TituloAprobacionJefe.Text = "Aprobar solicitud número " + Session["STENUMSOLICITUD"].ToString();                Session["STEESTADOBDMODIFICARSOLICITUD"] = "0";            }        }        void limpiarAprobacionJefe()        {            DdlMotivosCancelacion.SelectedIndex = -1;            TxObservacion.Text = string.Empty;        }        void validacionAprobacionJefe()        {            if (DdEstadoSoliJefe.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione acción si esta seguro de autorizar la solicitud.");            if (DdEstadoSoliJefe.SelectedValue == "1" && Session["STEAPROBACIONSUBGERENTE"].Equals("1") && TxObservacion.Text.Equals(""))                throw new Exception("Falta que ingrese observación para retroalimentar al subgerente y proceda con la aprobación de la solicitud.");            if (DdEstadoSoliJefe.SelectedValue == "2" && DdlMotivosCancelacion.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione motivo de cancelación");            if (DdEstadoSoliJefe.SelectedValue == "2" && TxObservacion.Text.Equals(""))                throw new Exception("Falta que ingrese observación para retroalimentar al colobador de la decisión cancelación de la solicitud.");            if (DdEstadoSoliJefe.SelectedValue == "3" && TxObservacion.Text.Equals(""))                throw new Exception("Falta que ingrese observación para retroalimentar al colaborador de los campos que tiene que modificar.");        }        protected void BtnEnviarAprobacionJefe_Click(object sender, EventArgs e)        {            try            {                validacionAprobacionJefe();                String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";                String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";                DateTime desde = Convert.ToDateTime(vFI);                DateTime hasta = Convert.ToDateTime(vFF);
 
-                LbAprobarJefe.Text = "Buen dia <b> " + Session["STENOMBREJEFE"] + "</b><br /><br />" +                  "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b>" + " .Total de horas <b> " + TxTotalHoras.Text + "</b> <br /><br />" +                  "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";                LbAprobarJefePregunta.Text = "<b>¿Está seguro que desea " + Session["STELBESTADOJEFE"].ToString() + " la solicitud de:</ b > " + Session["STENOMBRECOLABORADOR"] + "<b> ,en el rango de fechas y horas detalladas?</b>";                UpdateAprobarJefe.Update();                UpTituloAprobarJefeModal.Update();                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAprobarJefeModal();", true);            }            catch (Exception ex)            {                Mensaje(ex.Message, WarningType.Danger);            }        }        protected void BtnAprobarJefeModal_Click(object sender, EventArgs e)        {            try            {                String vQuery = "RSP_TiempoExtraordinarioGenerales 21,'"                   + Session["STENUMSOLICITUD"]                   + "','" + Session["USUARIO"]                   + "','" + Session["STEESTADOBDJEFE"]                   + "','" + TxObservacion.Text                   + "'," + DdlMotivosCancelacion.SelectedValue                   + "," + Session["STEESTADOBDSOLICITUD"];                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);                String vRe = "";
+                LbAprobarJefe.Text = "Buen dia <b> " + Session["STENOMBREJEFE"] + "</b><br /><br />" +                  "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b>" + " .Total de horas <b> " + TxTotalHoras.Text + "</b> <br /><br />" +                  "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";                LbAprobarJefePregunta.Text = "<b>¿Está seguro que desea " + Session["STELBESTADOJEFE"].ToString() + " la solicitud de:</ b > " + Session["STENOMBRECOLABORADOR"] + "<b> ,en el rango de fechas y horas detalladas?</b>";                UpdateAprobarJefe.Update();                UpTituloAprobarJefeModal.Update();                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAprobarJefeModal();", true);            }            catch (Exception ex)            {                Mensaje(ex.Message, WarningType.Danger);            }        }        protected void BtnAprobarJefeModal_Click(object sender, EventArgs e)        {            try            {                String vQuery = "RSP_TiempoExtraordinarioGenerales 21,'"                   + Session["STENUMSOLICITUD"]                   + "','" + Session["USUARIO"]                   + "','" + Session["STEESTADOBDJEFE"]                   + "','" + TxObservacion.Text                   + "'," + DdlMotivosCancelacion.SelectedValue                   + "," + Session["STEESTADOBDSOLICITUD"]                   + "," + Session["STEESTADOBDMODIFICARSOLICITUD"];                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);                String vRe = "";
 
                 if (vRespuesta == 1)                {                      
                     //Cancelada Jefe
@@ -2023,17 +2641,65 @@
                     limpiarAprobacionJefe();
                     Response.Redirect("/pages/tiempoExtraordinario/PendientesAprobarJefe.aspx?ex=9");
                 }            }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }        }
-        protected void BtnDesHoja_Click(object sender, EventArgs e)        {            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "openDescargarModal();", true);        }        protected void btnDescargarHoja_Click(object sender, EventArgs e)        {            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "openDescargarModal();", true);        }        protected void Button1_Click(object sender, EventArgs e)        {            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "openModalImagen();", true);
+        protected void BtnDesHoja_Click(object sender, EventArgs e)        {            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "openDescargarModal();", true);        }        protected void btnDescargarHoja_Click(object sender, EventArgs e)        {            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "openDescargarModal();", true);        }
+        protected void DdlAccionRRHH_SelectedIndexChanged(object sender, EventArgs e)        {            if (DdlAccionRRHH.SelectedValue == "1")            {                LimpiarAprobacionRRHH();                calculoHoras();                DivMotivoCancelacionRRHH.Visible = false;                TxMotivoRRHH.Visible = false;                Session["STELBESTADORRHH"] = "aprobar";                LBTituloRRHH.Text = "Aprobar solicitud número " + Session["STENUMSOLICITUD"].ToString();            }            else if (DdlAccionRRHH.SelectedValue == "2")            {                LimpiarAprobacionRRHH();                DivMotivoCancelacionRRHH.Visible = true;                TxMotivoRRHH.Visible = true;                UpdatePanel13.Update();                Session["STELBESTADORRHH"] = "cancelar";                LBTituloRRHH.Text = "Cancelar solicitud número " + Session["STENUMSOLICITUD"].ToString();
 
-        }
-        protected void DdlAccionRRHH_SelectedIndexChanged(object sender, EventArgs e)        {            if (DdlAccionRRHH.SelectedValue == "1")            {                LimpiarAprobacionRRHH();                calculoHoras();                DivMotivoCancelacionRRHH.Visible = false;                TxMotivoRRHH.Visible = false;                Session["STELBESTADORRHH"] = "aprobar";                LBTituloRRHH.Text = "Aprobar solicitud número " + Session["STENUMSOLICITUD"].ToString();            }            else if (DdlAccionRRHH.SelectedValue == "2")            {                LimpiarAprobacionRRHH();                DivMotivoCancelacionRRHH.Visible = true;                TxMotivoRRHH.Visible = true;                UpdatePanel13.Update();                Session["STELBESTADORRHH"] = "cancelar";                LBTituloRRHH.Text = "Cancelar solicitud número " + Session["STENUMSOLICITUD"].ToString();            }        }        private void LimpiarAprobacionRRHH()        {            DdlMotivosCancelacionRRHH.SelectedIndex = -1;            TxMotivoRRHH.Text = String.Empty;        }        protected void BtnEnviarRRHH_Click(object sender, EventArgs e)        {            validacionAprobacionRRHH();            String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";            String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";            DateTime desde = Convert.ToDateTime(vFI);            DateTime hasta = Convert.ToDateTime(vFF);            if (DdlAccionRRHH.SelectedValue == "1")            {
+                TxTotRRHH.Text = "00:00 (0.0)";                TxTotDiurnasRRHH.Text = "00:00 (0.0)";                TxTotNocRRHH.Text = "00:00 (0.0)";                TxTotNocNocRRHH.Text = "00:00 (0.0)";                TxTotDomFeriadoRRHH.Text = "00:00 (0.0)";                UpdatePanel26.Update();            }        }        private void LimpiarAprobacionRRHH()        {            DdlMotivosCancelacionRRHH.SelectedIndex = -1;            TxMotivoRRHH.Text = String.Empty;        }        protected void BtnEnviarRRHH_Click(object sender, EventArgs e)        {            validacionAprobacionRRHH();            String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";            String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";            DateTime desde = Convert.ToDateTime(vFI);            DateTime hasta = Convert.ToDateTime(vFF);            if (DdlAccionRRHH.SelectedValue == "1")            {
                 Session["STELBESTADORRHH"] = "aprobar";                LBTituloRRHH.Text = "Aprobar solicitud número " + Session["STENUMSOLICITUD"].ToString();                Session["STEBDESTADORRHH"] = "1";                Session["STEIDESTADORRHH"] = "5";//Aprobada RRHH
             }            else if (DdlAccionRRHH.SelectedValue == "2")            {                Session["STEBDESTADORRHH"] = "2";                Session["STEIDESTADORRHH"] = "6";//Cancelada RRHH
-                Session["STELBESTADORRHH"] = "cancelar";                LBTituloRRHH.Text = "Cancelar solicitud número " + Session["STENUMSOLICITUD"].ToString();                TxRealTotal.Text = "00:00 (0.0)";                TxRealDiurnas.Text = "00:00 (0.0)";                TxRealNoc.Text = "00:00 (0.0)";                TxRealNocNoc.Text = "00:00 (0.0)";                TxRealDomingoFeriados.Text = "00:00 (0.0)";                Session["STEHRDIURNASREAL"] = 0;                Session["STEMINDIURNASREAL"] = 0;                Session["STEHRNOCREAL"] = 0;                Session["STEMINNOCREAL"] = 0;                Session["STEHRNOCNOCREAL"] = 0;                Session["STEMINNOCNOCREAL"] = 0;                Session["STEHRDOMINGOFERIADOREAL"] = 0;                Session["STEMINDOMINGOFERIADOREAL"] = 0;                Session["STEHRTOTREAL"] = 0;                Session["STEMINTOTREAL"] = 0;            }            LbAprobarRRHH.Text =
-              "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b><br /><br />" + "Total de horas solicitadas: <b> " + TxTotalHoras.Text + "</b><br />" + "Horas Diurnas: <b>" + TxHrDiurnas.Text + "</b>, Horas Noc: <b>" + TxHrNoc.Text + "</b>, Horas NocNoc: <b>" + TxHrNocNoc.Text + "</b>, Horas Domingos Feriados: <b>" + TxHrDomFeriado.Text + " </b>" + "<br /><br />" + "Total de horas aprobadas: <b> " + TxRealTotal.Text + "</b><br />" + "Horas Diurnas: <b>" + TxRealDiurnas.Text + "</b>, Horas Noc: <b>" + TxRealNoc.Text + "</b>, Horas NocNoc: <b>" + TxRealNocNoc.Text + "</b>, Horas Domingos Feriados: <b>" + TxRealDomingoFeriados.Text + "</b><br /><br />" +              "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";            LbAprobarRRHHPregunta.Text = "<b>¿Está seguro que desea " + Session["STELBESTADORRHH"].ToString() + " la solicitud de:</ b > " + TxEmpleado.Text + "<b> ,en el rango de fechas y horas detalladas?</b>";            UpdateAprobarRRHH.Update();            UpTituloAprobarRRHHModal.Update();            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAprobarRRHHModal();", true);        }        void validacionAprobacionRRHH()        {            if (DdlAccionRRHH.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione acción si esta seguro de autorizar la solicitud.");            if (DdlAccionRRHH.SelectedValue == "2" && DdlMotivosCancelacionRRHH.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione motivo de cancelación");            if (DdlAccionRRHH.SelectedValue == "2" && TxMotivoRRHH.Text.Equals(""))                throw new Exception("Falta que ingrese observación para retroalimentar al colobador de la decisión cancelación de la solicitud");        }        protected void BtnAprobarRrhhModal_Click(object sender, EventArgs e)        {            try            {                DataTable vDatos = new DataTable();                String vQuery = "RSP_TiempoExtraordinarioGenerales 27,"                    + Session["STENUMSOLICITUD"]                    + ",'" + Session["USUARIO"]                    + "','" + Session["STEBDESTADORRHH"]                    + "','" + TxMotivoRRHH.Text                    + "','" + DdlMotivosCancelacionRRHH.SelectedValue                    + "','" + Session["STEIDESTADORRHH"]                    + "','" + TxRealTotal.Text                    + "','" + TxRealDiurnas.Text                    + "','" + TxRealNoc.Text                    + "','" + TxRealNocNoc.Text                    + "','" + TxRealDomingoFeriados.Text                    + "','" + Session["STEHRDIURNASREAL"]                    + "','" + Session["STEMINDIURNASREAL"]                    + "','" + Session["STEHRNOCREAL"]                    + "','" + Session["STEMINNOCREAL"]                    + "','" + Session["STEHRNOCNOCREAL"]                    + "','" + Session["STEMINNOCNOCREAL"]                    + "','" + Session["STEHRDOMINGOFERIADOREAL"]                    + "','" + Session["STEMINDOMINGOFERIADOREAL"]                    + "','" + Session["STEHRTOTREAL"]                    + "','" + Session["STEMINTOTREAL"]
-                    + "','" + TxJustificacionHSB.Text                    + "','" + LbJustificacionHEB.Text                    + "','" + LbReintegroAlmuerzo.Text + "'";                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);                String vRe = "";                if (vRespuesta == 1)                {
+                Session["STELBESTADORRHH"] = "cancelar";                LBTituloRRHH.Text = "Cancelar solicitud número " + Session["STENUMSOLICITUD"].ToString();                  Session["STEHRDIURNASREAL"] = 0;                Session["STEMINDIURNASREAL"] = 0;                Session["STEHRNOCREAL"] = 0;                Session["STEMINNOCREAL"] = 0;                Session["STEHRNOCNOCREAL"] = 0;                Session["STEMINNOCNOCREAL"] = 0;                Session["STEHRDOMINGOFERIADOREAL"] = 0;                Session["STEMINDOMINGOFERIADOREAL"] = 0;                Session["STEHRTOTREAL"] = 0;                Session["STEMINTOTREAL"] = 0;            }            LbAprobarRRHH.Text =
+              "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b><br /><br />" + "Total de horas solicitadas: <b> " + TxTotalHoras.Text + "</b><br />" + "Horas Diurnas: <b>" + TxHrDiurnas.Text + "</b>, Horas Noc: <b>" + TxHrNoc.Text + "</b>, Horas NocNoc: <b>" + TxHrNocNoc.Text + "</b>, Horas Domingos Feriados: <b>" + TxHrDomFeriado.Text + " </b>" + "<br /><br />" + "Total de horas aprobadas: <b> " + TxTotRRHH.Text + "</b><br />" + "Horas Diurnas: <b>" + TxTotDiurnasRRHH.Text + "</b>, Horas Noc: <b>" + TxTotNocRRHH.Text + "</b>, Horas NocNoc: <b>" + TxTotNocNocRRHH.Text + "</b>, Horas Domingos Feriados: <b>" + TxTotDomFeriadoRRHH.Text + "</b><br /><br />" +              "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";            LbAprobarRRHHPregunta.Text = "<b>¿Está seguro que desea " + Session["STELBESTADORRHH"].ToString() + " la solicitud de:</ b > " + TxEmpleado.Text + "<b> ,en el rango de fechas y horas detalladas?</b>";            UpdateAprobarRRHH.Update();            UpTituloAprobarRRHHModal.Update();            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAprobarRRHHModal();", true);        }        void validacionAprobacionRRHH()        {            if (DdlAccionRRHH.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione acción si esta seguro de autorizar la solicitud.");            if (DdlAccionRRHH.SelectedValue == "2" && DdlMotivosCancelacionRRHH.SelectedValue.Equals("0"))                throw new Exception("Falta que seleccione motivo de cancelación");            if (DdlAccionRRHH.SelectedValue == "2" && TxMotivoRRHH.Text.Equals(""))                throw new Exception("Falta que ingrese observación para retroalimentar al colobador de la decisión cancelación de la solicitud");        }        protected void BtnAprobarRrhhModal_Click(object sender, EventArgs e)        {            try            {
+                string vUbicacion = "";                DataTable vDatosSysAid = new DataTable();                String vQuerySysAid = "RSP_TiempoExtraordinarioGeneralesBiometrico 2,'" + TxPeticion.Text + "'";                vDatosSysAid = vConexionSysAid.obtenerDataTableSysAid(vQuerySysAid);
+
+
+                if (vDatosSysAid.Rows.Count > 0)
+                {
+                    vUbicacion = vDatosSysAid.Rows[0]["value_caption"].ToString();
+                }
+                else
+                {
+                     vUbicacion = "";
+                }                                                                  DataTable vDatos = new DataTable();                String vQuery = "RSP_TiempoExtraordinarioGenerales 27,"                    + Session["STENUMSOLICITUD"]                    + ",'" + Session["USUARIO"]                    + "','" + Session["STEBDESTADORRHH"]                    + "','" + TxMotivoRRHH.Text                    + "','" + DdlMotivosCancelacionRRHH.SelectedValue                    + "','" + Session["STEIDESTADORRHH"]                    + "','" + TxTotRRHH.Text                    + "','" + TxTotDiurnasRRHH.Text                    + "','" + TxTotNocRRHH.Text                    + "','" + TxTotNocNocRRHH.Text                    + "','" + TxTotDomFeriadoRRHH.Text                    + "','" + Session["STEHRDIURNASREAL"]                    + "','" + Session["STEMINDIURNASREAL"]                    + "','" + Session["STEHRNOCREAL"]                    + "','" + Session["STEMINNOCREAL"]                    + "','" + Session["STEHRNOCNOCREAL"]                    + "','" + Session["STEMINNOCNOCREAL"]                    + "','" + Session["STEHRDOMINGOFERIADOREAL"]                    + "','" + Session["STEMINDOMINGOFERIADOREAL"]                    + "','" + Session["STEHRTOTREAL"]                    + "','" + Session["STEMINTOTREAL"]
+                    + "','" + TxJustificacionHSB.Text                    + "','" + LbJustificacionHEB.Text                    + "','" + LbReintegroAlmuerzo.Text                     + "','" + vUbicacion + "'";                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);                               if (vRespuesta == 1)                {
                     if (DdlAccionRRHH.SelectedValue == "1")
                     {
+                        
+                        DataTable vDatosSolicitudFaltante = new DataTable();
+                        vDatosSolicitudFaltante = (DataTable)Session["STESOLICITUDESHrsFALTANTES"];
+
+                        if (vDatosSolicitudFaltante.Rows.Count > 0)
+                        {
+                            foreach (DataRow item in vDatosSolicitudFaltante.Rows)
+                            {
+                                string solicitud = item["idSolicitud"].ToString();
+                                string vDiurnas = item["faltanteHrsDiurnas"].ToString();
+                                string vNoc = item["faltanteHrsNoc"].ToString();
+                                string vNocNoc = item["faltanteHrsNocNoc"].ToString();
+
+                                if (vDiurnas != "00:00:00" || vNoc != "00:00:00" || vNocNoc != "00:00:00")
+                                {
+                                    string vQueryUpHrsFaltantes = "RSP_TiempoExtraordinarioGenerales 45,"
+                                    + solicitud
+                                    + ",'00:00:00'" 
+                                    + ",'00:00:00'"
+                                    + ",'00:00:00'";                      
+                                    vDatos = vConexion.obtenerDataTable(vQueryUpHrsFaltantes);
+                                }
+
+                            }
+                        }
+
+                        string vQueryHrsFaltantes = "RSP_TiempoExtraordinarioGenerales 44,"
+                                                    + Session["STENUMSOLICITUD"]
+                                                    +",'"+ Session["STEHRINICIAL"]
+                                                    +"','"+ Session["STEFALTANTEDIURNAS"]
+                                                    + "','" + Session["STEFALTANTENOC"]
+                                                    + "','" + Session["STEFALTANTENOCNOC"]
+                                                    + "'," + Session["STECODIGOSAP"];
+                        vDatos = vConexion.obtenerDataTable(vQueryHrsFaltantes);
+
+
+
                         DataTable vData = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];
                         vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();
                         DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
@@ -2120,7 +2786,7 @@
                 LbTituloSubGerente.Text = "Aprobar solicitud número " + Session["STENUMSOLICITUD"].ToString();
                 Session["STEESTADOBDSUBGERNETE"] = "1"; //Para las aprobadas subgernete
                 Session["STEESTADOBDSOLICITUD"] = "3";/*Pendiente Aprobar RRHH*/
-           
+               
 
             }
             else
@@ -2255,6 +2921,66 @@
             DivUnaFecha.Visible = false;
             UpdatePanelFechas.Update();
             UpDivUnaFecha.Update();
+            String vEx = Request.QueryString["ex"];
+
+            if (vEx.Equals("7"))
+            {
+                DataTable vDatosSolicitud = new DataTable();
+                vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];
+
+                string vTipoTrabajo = vDatosSolicitud.Rows[0]["formaTrabajo"].ToString();
+
+                if (vTipoTrabajo == "1" && RbFormaTrabajo.SelectedValue.Equals("1"))
+                {
+                    string vFormato = "yyyy-MM-ddTHH:mm";
+                    string vFechaInicio = vDatosSolicitud.Rows[0]["fechaInicio"].ToString();
+                    string vFechaFin = vDatosSolicitud.Rows[0]["fechaFin"].ToString();
+                    string vFechaInicioConvertida = Convert.ToDateTime(vFechaInicio).ToString(vFormato);
+                    string vFechaFinConvertida = Convert.ToDateTime(vFechaFin).ToString(vFormato);
+
+                    TxFechaInicio.Text = vFechaInicioConvertida;
+                    TxFechaRegreso.Text = vFechaFinConvertida;
+
+                    UpdatePanelFechas.Update();
+                    calculoHoras();
+                    DivUnaFecha.Visible = true;
+                    UpDivUnaFecha.Update();
+                }
+                else if (vTipoTrabajo == "2" && RbFormaTrabajo.SelectedValue.Equals("2"))
+                {
+                    string vFormato = "yyyy-MM-ddTHH:mm";
+                    string vFechaInicio = vDatosSolicitud.Rows[0]["fechaInicio"].ToString();
+                    string vFechaFin = vDatosSolicitud.Rows[0]["fechaFin"].ToString();
+                    string vFechaInicioConvertida = Convert.ToDateTime(vFechaInicio).ToString(vFormato);
+                    string vFechaFinConvertida = Convert.ToDateTime(vFechaFin).ToString(vFormato);
+
+                    TxFechaInicio.Text = vFechaInicioConvertida;
+                    TxFechaRegreso.Text = vFechaFinConvertida;
+
+                    UpdatePanelFechas.Update();
+                    calculoHoras();
+                    DivUnaFecha.Visible = true;
+                    UpDivUnaFecha.Update();
+                }
+                else
+                {
+                    TxFechaInicio.Text = string.Empty;
+                    TxFechaRegreso.Text = string.Empty;
+                    DivUnaFecha.Visible = false;
+                    UpDivUnaFecha.Update();
+                }
+
+                if (vDatosSolicitud.Rows[0]["aprobacionSubgerente"].ToString() == "1")
+                {
+                    LbFechaRangoMal.Visible = true;
+                    DivAprobacionSubGerente.Visible = true;
+                }
+                else
+                {
+                    LbFechaRangoBien.Visible = true;
+                    DivAprobacionSubGerente.Visible = false;
+                }
+            }
         }
         protected void DDLEmpleadoSolicitud_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2335,7 +3061,6 @@
             }
 
             }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }        }
-
         protected void GVPendienteModificar_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
@@ -2347,7 +3072,6 @@
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-
         protected void GVPendienteModificar_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string vIdSolicitud = e.CommandArgument.ToString();
@@ -2368,8 +3092,6 @@
 
             }
         }
-
-
         private void limpiarModificarSolicitud()
         {           
             TxTotalHoras.Text = "00:00 (0.0 Hrs)";
@@ -2383,6 +3105,123 @@
             UpDivUnaFecha.Update();
 
 
+        }
+        protected void RbCambioHoja_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (RbCambioHoja.SelectedValue.Equals("1"))
+            {
+                lbHojaServicio.Visible = true;
+                FuHojaServicio.Visible = true;
+                TxImagenSubida.Visible = false;
+                btnVisualizarHoja.Visible = true;
+                btnDescargarHoja.Visible = false;
+            }
+            else
+            {
+                lbHojaServicio.Visible = true;
+                FuHojaServicio.Visible = false;
+                TxImagenSubida.Visible = true;
+                btnVisualizarHoja.Visible = true;
+                btnDescargarHoja.Visible = true;
+            }
+        }
+        protected void BtnEnviarModificada_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                validacionesCrearSolicitud();
+                String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";                String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";                DateTime desde = Convert.ToDateTime(vFI);                DateTime hasta = Convert.ToDateTime(vFF);                DateTime vFechaInicio = Convert.ToDateTime(vFI);                LbInformacionTEModificada.Text = "Buen dia <b> " + TxEmpleado.Text + "</b><br /><br />" +                   "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b>" + " .Total de horas <b> " + TxTotalHoras.Text + "</b> <br /><br />" +                   "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";                LbInformacionPreguntaTEModificada.Text = "<b>¿Está seguro que desea enviar la solicitud modificada en el rango de fechas y horas detalladas?</b>";                UpdatePanel24.Update();                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenSolicitudModificada();", true);
+            }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
+        }
+        protected void BtnEnviarSoliModificada_Click(object sender, EventArgs e)
+        {
+            try            {
+                DataTable vDatosSolicitud = new DataTable();
+                vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];
+
+                String vNombreDepot1 = String.Empty;                String vExtension = String.Empty;                String vArchivo = String.Empty;                if (RbCambioHoja.SelectedValue=="1")
+                {                   
+                    HttpPostedFile bufferDeposito1T = FuHojaServicio.PostedFile;
+                    byte[] vFileDeposito1 = null;
+                    
+                    if (bufferDeposito1T != null)
+                    {
+                        vNombreDepot1 = FuHojaServicio.FileName;
+                        Stream vStream = bufferDeposito1T.InputStream;
+                        BinaryReader vReader = new BinaryReader(vStream);
+                        vFileDeposito1 = vReader.ReadBytes((int)vStream.Length);
+                        vExtension = System.IO.Path.GetExtension(FuHojaServicio.FileName);
+                    }
+                    
+                    if (vFileDeposito1 != null)
+                        vArchivo = Convert.ToBase64String(vFileDeposito1);
+                }
+                else
+                {
+                  
+                     vNombreDepot1 = vDatosSolicitud.Rows[0]["nombreHojaServicio"].ToString();
+                     vExtension = vDatosSolicitud.Rows[0]["extension"].ToString();
+                     vArchivo = vDatosSolicitud.Rows[0]["hojaServicio"].ToString();
+                }
+                          String vFormato = "yyyy-MM-dd HH:mm:ss.000"; //"dd-MM-yyyy HH:mm:ss.000"; 
+                String vFeINI = Convert.ToDateTime(TxFechaInicio.Text).ToString(vFormato);                String vFeFIN = Convert.ToDateTime(TxFechaRegreso.Text).ToString(vFormato);                DataTable vDatos = new DataTable();                String vQuery = "RSP_TiempoExtraordinarioGenerales 42,'"                    + vDatosSolicitud.Rows[0]["idSolicitud"].ToString()
+                    + "','" + RbCambioTurno.SelectedValue                    + "','" + Session["STEIDTURNOCAMBIO"]                    + "'," + DDLCambioTurnoColaborador.SelectedValue                    + ",'" + TxMotivoCambioTurno.Text                    + "','" + TxTotalHoras.Text                    + "','" + TxHrDiurnas.Text                    + "','" + TxHrNoc.Text                    + "','" + TxHrNocNoc.Text                    + "','" + TxHrDomFeriado.Text                    + "','" + vFeINI                    + "','" + vFeFIN                    + "','" + Session["STEHRINICIO"]                    + "','" + Session["STEHRFIN"]                    + "'," + Session["STEHRDIURNASOLICITADAS"]                    + "," + Session["STEMINDIURNASOLICITADAS"]                    + "," + Session["STEHRNOCSOLICITADAS"]                    + "," + Session["STEMINNOCSOLICITADAS"]                    + "," + Session["STEHRNOCNOCSOLICITADAS"]                    + "," + Session["STEMINNOCNOCSOLICITADAS"]                    + "," + Session["STEHRDOMINGOFERIADOSOLICITADAS"]                    + "," + Session["STEMINDOMINGOFERIADOSOLICITADAS"]                    + "," + Session["STEHRTOTALSOLICITADAS"]                    + "," + Session["STEMINTOTALSOLICITADAS"]                    + ",'" + TxPeticion.Text                    + "','" + TxTituloSysaid.Text                    + "'," + DdlConductor.SelectedValue                    + "," + DdlConductorNombre.SelectedValue                    + "," + DdlTipoTrabajo.SelectedValue                    + "," + DdlTipoDescripcion.SelectedValue                    + ",'" + TxDescripcionTrabajo.Text                    + "','" + vArchivo                    + "',1,'" + vExtension                    + "','" + Session["STEIDJEFE"]                                      + "','" + vNombreDepot1
+                    + "','" + DdlMotivoAprobacionSubgerente.SelectedValue                    + "','" + TxSoliAprobacionSubGerente.Text                    + "','" + vDatosSolicitud.Rows[0]["aprobacionSubgerente"].ToString()
+                    + "'," + Session["STEIDJEFESUBGERENCIA"]
+                    + "," + RbFormaTrabajo.SelectedValue;
+                //vDatos = vConexion.obtenerDataTable(vQuery);
+                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
+
+                if (vRespuesta == 1)
+                {
+
+                                                            //DataTable vData = (DataTable)Session["TIEMPO_EX_TECNICO"];                    //vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();                    //DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
+
+                    //SmtpService vService = new SmtpService();
+                    Boolean vFlagEnvio = true;
+
+                    //foreach (DataRow item in vDatosJefe.Rows)
+                    //{                    //    if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //    {                    //        vService.EnviarMensaje(                    //            item["emailEmpresa"].ToString(), // CORREO DEL JEFE                    //            typeBody.TiempoExtraordinario,                    //            item["nombre"].ToString(), // NOMBRE DEL JEFE                    //            "El empleado " + vData.Rows[0]["nombre"].ToString() + " ha modificado la solicitud de Tiempo Extraordinario como se lo indico.",                    //            "Le informamos que la solicitud debe ser autorizada, para que sea procesada por Recursos Humanos.",                    //            vData.Rows[0]["emailEmpresa"].ToString() // CORREO DEL SOLICITANTE - COPIADO                    //            );                    //        vFlagEnvio = true;                    //    }                    //}
+
+                    if (vFlagEnvio)
+                    {
+                        Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=8");
+
+                    }                }
+                else
+
+                {
+                    Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=9");                }
+
+                limpiarCrearSolicitud();
+                nav_tecnicos_tab.Visible = true;
+                nav_modificarSolicitud_tab.Visible = true;
+                btnDescargarHoja.Visible = true;
+            }
+            catch (Exception Ex)
+            {
+                Mensaje(Ex.Message, WarningType.Danger);
+            }
+
+        }
+        protected void BtnCancelarModificada_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=10");
+            }
+            catch (Exception Ex)
+            {
+                Mensaje(Ex.Message, WarningType.Danger);
+            }
+        }
+        protected void BtnCancelar_Click(object sender, EventArgs e)
+        {
+            DdlMotivosCancelacionRRHH.SelectedIndex = -1;
+            DdlAccionRRHH.SelectedIndex = -1;
+            TxMotivoRRHH.Text = String.Empty;
+            Response.Redirect("/pages/tiempoExtraordinario/pendientesAprobarRRHH.aspx");
         }
     }
 }
