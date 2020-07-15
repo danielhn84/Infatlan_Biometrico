@@ -347,9 +347,9 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                                     vDatos.Rows[i]["emailEmpresa"].ToString(),
                                     typeBody.Reporte,
                                     vDatos.Rows[i]["nombre"].ToString(),
-                                    "Reporte de Consolidado de Tiempo Extraordinario.",
-                                    null, 
-                                    ConfigurationManager.AppSettings["RHMail"].ToString(), 
+                                    "REPORTE DE CONSOLIDADO DE TIEMPO EXTRAORDINARIO.",
+                                    null,
+                                    ConfigurationManager.AppSettings["RHMail"].ToString(),
                                     vDatosSolicitudes
                                 );
                     }

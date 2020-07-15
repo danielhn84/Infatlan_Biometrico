@@ -42,28 +42,24 @@ namespace BiometricoWeb.clases
                 String vTable = "", vHead = "", vHead2 = "";
                 if (vDatos.Rows.Count > 0){
 
-                    vHead = "<tr>{0}</tr>";
+        
+                    vHead = "<table width='100%' style='border:1px ridge #333'>" +
+                                "<tr style='background-color:#DCDCDC; font-weight: bold;'>{0}";
                     foreach (DataColumn column in vDatos.Columns){
-                        vHead2 += "<td> " + column.ColumnName + " </td>";
+                        vHead2 += "<td style='border:ridge'>" + column.ColumnName + " </td>";
                     }
-                    vHead = string.Format(vHead, vHead2);
-                    vTable = vHead + "<br><tr>" +
-                                "<td>"+
-                                    "<table width='100%' border = '0' cellspacing = '0' cellpadding = '0' style = 'border:1px solid #ccc;' >" +
-                                       "{0}" +
-                                    "</table > "+
-                                "</td >"+
-                            "</tr>";
-
+                    vHead = string.Format(vHead, vHead2 + "</tr>");
+                    vTable = vHead + "{0}";
+                            
                     String vFilas = "", vColumnas = "";
                     for (int i = 0; i < vDatos.Rows.Count; i++){
                         vFilas += "<tr>{0}</tr>"; 
                         for (int j = 0; j < vDatos.Columns.Count; j++){
-                            vColumnas +=  "<td>" + vDatos.Rows[i][j] + " </td> ";
+                            vColumnas += "<td style='border:ridge'>" + vDatos.Rows[i][j] + " </td> ";
                         }
                         vFilas = string.Format(vFilas, vColumnas);
                     }
-                    vTable = string.Format(vTable, vFilas);
+                    vTable = string.Format(vTable, vFilas + "</table>");
 
                 }
 
