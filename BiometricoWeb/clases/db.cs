@@ -35,6 +35,17 @@ namespace BiometricoWeb.clases
             return vDatos;
         }
 
+        public DataSet obtenerDataSet(String vQuery){
+            DataSet vDatos = new DataSet();
+            try{
+                SqlDataAdapter vDataAdapter = new SqlDataAdapter(vQuery, vConexion);
+                vDataAdapter.Fill(vDatos);
+            }catch{
+                throw;
+            }
+            return vDatos;
+        }
+
         public int ejecutarSql(String vQuery){
             int vResultado = 0;
             try{

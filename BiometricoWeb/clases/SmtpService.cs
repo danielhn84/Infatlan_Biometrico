@@ -8,6 +8,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using System.Data;
 
 namespace BiometricoWeb.clases
 {
@@ -20,14 +21,15 @@ namespace BiometricoWeb.clases
         Token,
         Seguridad,
         Sugerencias,
-        TiempoExtraordinario
+        TiempoExtraordinario,
+        Reporte
     }
 
     public class SmtpService : Page{
 
         public SmtpService() { }
 
-        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre, String vMessage = null, String vCopia = null){
+        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre, String vMessage = null, String vCopia = null, DataTable vDatos = null){
             Boolean vRespuesta = false;
             try{
                 MailMessage mail = new MailMessage("Recursos Humanos<" + ConfigurationManager.AppSettings["SmtpFrom"] + ">", To);
@@ -36,6 +38,33 @@ namespace BiometricoWeb.clases
 
                 if (!String.IsNullOrEmpty(vCopia)){
                     mail.CC.Add(vCopia);
+                }
+                String vTable = "", vHead = "", vHead2 = "";
+                if (vDatos.Rows.Count > 0){
+
+                    vHead = "<tr>{0}</tr>";
+                    foreach (DataColumn column in vDatos.Columns){
+                        vHead2 += "<td> " + column.ColumnName + " </td>";
+                    }
+                    vHead = string.Format(vHead, vHead2);
+                    vTable = vHead + "<br><tr>" +
+                                "<td>"+
+                                    "<table width='100%' border = '0' cellspacing = '0' cellpadding = '0' style = 'border:1px solid #ccc;' >" +
+                                       "{0}" +
+                                    "</table > "+
+                                "</td >"+
+                            "</tr>";
+
+                    String vFilas = "", vColumnas = "";
+                    for (int i = 0; i < vDatos.Rows.Count; i++){
+                        vFilas += "<tr>{0}</tr>"; 
+                        for (int j = 0; j < vDatos.Columns.Count; j++){
+                            vColumnas +=  "<td>" + vDatos.Rows[i][j] + " </td> ";
+                        }
+                        vFilas = string.Format(vFilas, vColumnas);
+                    }
+                    vTable = string.Format(vTable, vFilas);
+
                 }
 
                 //client.DeliveryMethod = SmtpDeliveryMethod.Network;
@@ -116,6 +145,13 @@ namespace BiometricoWeb.clases
                             vMessage
                             ), Server.MapPath("/images/logo.png")));
                         break;
+                    case typeBody.Reporte:
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyReport(
+                            Usuario,
+                            Nombre,
+                            vTable
+                            ), Server.MapPath("/images/logo.png")));
+                        break;
                 }
                 client.Send(mail);
                 vRespuesta = true;
@@ -178,6 +214,19 @@ namespace BiometricoWeb.clases
             body = body.Replace("{Nombre}", vNombre);
             body = body.Replace("{Titulo}", vTitulo);
             body = body.Replace("{Descripcion}", vDescripcion);
+            return body;
+        }
+        
+        public string PopulateBodyReport(string vNombre, string vTitulo, string vTabla){
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("/pages/mail/TemplateReport.html"))){
+                body = reader.ReadToEnd();
+            }
+
+            body = body.Replace("{Host}", ConfigurationManager.AppSettings["Host"]);
+            body = body.Replace("{Nombre}", vNombre);
+            body = body.Replace("{Titulo}", vTitulo);
+            body = body.Replace("{Tabla}", vTabla);
             return body;
         }
     }

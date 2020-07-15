@@ -151,6 +151,7 @@
     <Content Include="pages\access.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
+    <Content Include="pages\mail\TemplateReport.html" />
     <Content Include="pages\mantenimiento\costos.aspx" />
     <Content Include="pages\mantenimiento\hotel.aspx" />
     <Content Include="pages\mantenimiento\motioViaje.aspx" />

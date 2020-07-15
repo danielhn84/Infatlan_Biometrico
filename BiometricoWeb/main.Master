@@ -209,7 +209,7 @@
                                         </div>
                                     </li>
 
-                                    <li class="" id="LITExReportes" runat="server" visible="true" style="margin-left: -20%">
+                                    <li class="" id="LITExReportes" runat="server" visible="false" style="margin-left: -20%">
                                             <a class="nav-link" href="/pages/tiempoExtraordinario/reportes.aspx">
                                             <i class="mdi   mdi-file menu-icon"></i>
                                             <span class="menu-title">Reportes</span>

@@ -51,6 +51,7 @@ namespace BiometricoWeb
                             LIViatAprobacion.Visible = true;
                             LIViatCotizacion.Visible = true;
                             LIViatMantenimiento.Visible = true;
+                            LITExReportes.Visible = true;
 
                             if (vDatos.Rows[0]["idEmpleado"].ToString() == "80037"){
                                 LIViatAprobacion.Visible = false;

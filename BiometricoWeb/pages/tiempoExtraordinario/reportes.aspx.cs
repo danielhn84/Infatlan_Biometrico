@@ -13,8 +13,6 @@ using System.Web;
 using System.Configuration;
 using System.Net;
 
-
-
 namespace BiometricoWeb.pages.tiempoExtraordinario
 {
     public partial class reportes : System.Web.UI.Page
@@ -29,6 +27,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 
             }
         }
+        
         public void Mensaje(string vMensaje, WarningType type)
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
@@ -117,6 +116,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             Session["STEFECHAREPORTE"] = vFechaReporte;
 
         }
+        
         void validaciones(){
             
             if (DdlReporte.SelectedValue.Equals("0"))
@@ -216,6 +216,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
 
         }
+        
         protected void BtnDescargar_Click(object sender, EventArgs e)
         {
             String vError = String.Empty;
@@ -245,8 +246,8 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-        protected void BtnDescargarModal_Click(object sender, EventArgs e)
-        {           
+        
+        protected void BtnDescargarModal_Click(object sender, EventArgs e){           
             try {
                 if (Session["STEIDREPORTE"].Equals("1"))
                 {
@@ -329,8 +330,8 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     Response.AddHeader("Content-disposition", "attachment;filename=FactBanco.xls");
                     Response.End();
                 }
-                else if (Session["STEIDREPORTE"].Equals("3"))
-                {
+                else if (Session["STEIDREPORTE"].Equals("3")){
+                    SmtpService vService = new SmtpService();
 
                     string Parametro1 = Session["STEPARAMETRO1"].ToString();
                     string Parametro2 = Session["STEPARAMETRO2"].ToString();
@@ -341,22 +342,22 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                     String vQuery = "RSP_TiempoExtraordinarioConsolidado 1,'" + Parametro1 + "','" + Parametro2 + "','" + Parametro3 + "','" + Parametro4 + "'";
                     vDatos = vConexion.obtenerDataTable(vQuery);
 
-                    for (int i = 0; i < vDatos.Rows.Count; i++)
-                    {
-                       string vCodigoSAP= vDatos.Rows[i]["codigo"].ToString();
+                    DataTable vDatosSolicitudes = new DataTable();
+                    for (int i = 0; i < vDatos.Rows.Count; i++){
+                        string vCodigoSAP= vDatos.Rows[i]["codigo"].ToString();
 
-                        DataTable vDatosSolicitudes = new DataTable();
                         String vQuerySolicitudes = "RSP_TiempoExtraordinarioConsolidado 2,'" + Parametro1 + "','" + Parametro2 + "','" + Parametro3 + "','" + Parametro4 + "','"+ vCodigoSAP+"'";
                         vDatosSolicitudes = vConexion.obtenerDataTable(vQuerySolicitudes);
-
-
                     }
+                    vService.EnviarMensaje(
+                                "wpadilla@bancatlan.hn",
+                                typeBody.Reporte,
+                                "Wendel Padilla",
+                                "Reporte de Consolidado",
+                                null, null, vDatosSolicitudes
+                            );
                 }
-
-
-
-             }
-            catch (Exception Ex) {
+            }catch (Exception Ex) {
                
                 Mensaje(Ex.Message, WarningType.Danger);
 
@@ -365,6 +366,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
            
 
         }
+        
         private void limpiar()
         {
             DdlReporte.SelectedIndex = -1;
@@ -380,11 +382,13 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             LbFactBanco.Visible = false;
             DdlFactBanco.Visible = false;
         }
+        
         protected void BtnCancelar_Click(object sender, EventArgs e)
         {
             limpiar();
             UpdatePanel21.Update();
         }
+        
         protected void DdlReporte_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["STEIDREPORTE"] = DdlReporte.SelectedValue;
