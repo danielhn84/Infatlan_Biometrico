@@ -2647,8 +2647,10 @@
         private void LimpiarAprobacionRRHH()        {            DdlMotivosCancelacionRRHH.SelectedIndex = -1;            TxMotivoRRHH.Text = String.Empty;        }
         protected void BtnEnviarRRHH_Click(object sender, EventArgs e)        {            validacionAprobacionRRHH();            String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";            String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";            DateTime desde = Convert.ToDateTime(vFI);            DateTime hasta = Convert.ToDateTime(vFF);            if (DdlAccionRRHH.SelectedValue == "1")            {
                 Session["STELBESTADORRHH"] = "aprobar";                LBTituloRRHH.Text = "Aprobar solicitud número " + Session["STENUMSOLICITUD"].ToString();                Session["STEBDESTADORRHH"] = "1";                Session["STEIDESTADORRHH"] = "5";//Aprobada RRHH
+                Session["STELBESTADORRHHCORREO"] = "Aprobacion RRHH";
             }            else if (DdlAccionRRHH.SelectedValue == "2")            {                Session["STEBDESTADORRHH"] = "2";                Session["STEIDESTADORRHH"] = "6";//Cancelada RRHH
                 Session["STELBESTADORRHH"] = "cancelar";                LBTituloRRHH.Text = "Cancelar solicitud número " + Session["STENUMSOLICITUD"].ToString();
+                Session["STELBESTADORRHHCORREO"] = "Cancelada RRHH";
 
                 Session["STEHRDIURNASREAL"] = 0;                Session["STEMINDIURNASREAL"] = 0;                Session["STEHRNOCREAL"] = 0;                Session["STEMINNOCREAL"] = 0;                Session["STEHRNOCNOCREAL"] = 0;                Session["STEMINNOCNOCREAL"] = 0;                Session["STEHRDOMINGOFERIADOREAL"] = 0;                Session["STEMINDOMINGOFERIADOREAL"] = 0;                Session["STEHRTOTREAL"] = 0;                Session["STEMINTOTREAL"] = 0;            }            LbAprobarRRHH.Text =
               "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b><br /><br />" + "Total de horas solicitadas: <b> " + TxTotalHoras.Text + "</b><br />" + "Horas Diurnas: <b>" + TxHrDiurnas.Text + "</b>, Horas Noc: <b>" + TxHrNoc.Text + "</b>, Horas NocNoc: <b>" + TxHrNocNoc.Text + "</b>, Horas Domingos Feriados: <b>" + TxHrDomFeriado.Text + " </b>" + "<br /><br />" + "Total de horas aprobadas: <b> " + TxTotRRHH.Text + "</b><br />" + "Horas Diurnas: <b>" + TxTotDiurnasRRHH.Text + "</b>, Horas Noc: <b>" + TxTotNocRRHH.Text + "</b>, Horas NocNoc: <b>" + TxTotNocNocRRHH.Text + "</b>, Horas Domingos Feriados: <b>" + TxTotDomFeriadoRRHH.Text + "</b><br /><br />" +              "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";            LbAprobarRRHHPregunta.Text = "<b>¿Está seguro que desea " + Session["STELBESTADORRHH"].ToString() + " la solicitud de:</ b > " + TxEmpleado.Text + "<b> ,en el rango de fechas y horas detalladas?</b>";            UpdateAprobarRRHH.Update();            UpTituloAprobarRRHHModal.Update();            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAprobarRRHHModal();", true);        }
@@ -2705,6 +2707,12 @@
                                                     + "'," + Session["STECODIGOSAP"];
                         vDatos = vConexion.obtenerDataTable(vQueryHrsFaltantes);
 
+                        DataTable vDataColaborador = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];
+                        string vQuerySuscripcion = "RSP_TiempoExtraordinarioGenerales 59,'Solicitud Tiempo Extraordinario','"
+                            + vDataColaborador.Rows[0]["emailEmpresa"].ToString()
+                            + "','egutierrez@bancatlan.hn','Solicitud Tiempo Extraordinario RRHH','" + Session["STELBESTADORRHHCORREO"]
+                            + "','0','" + Session["STENUMSOLICITUD"]+"'" ;
+                        vDatos = vConexion.obtenerDataTable(vQuerySuscripcion);
 
 
                         DataTable vData = (DataTable)Session["STEDATOSGENERALESCOLABORADOR"];
