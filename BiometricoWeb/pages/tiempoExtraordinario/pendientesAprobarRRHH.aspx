@@ -67,8 +67,12 @@
                                 <img src="../../images/icon_azul.png" width="18" height="18" />
                                 SIGNIFICA QUE LA SOLICITUD NO FUE INGRESADA  EN EL RANGO DEL TIEMPO ESTABLECIDO, SE REQUIERE APROBACIÓN DEL SUBGERENTE.</b> </small></label>
 
-                            <label runat="server" id="Label1" class="col-sm-12" style="text-align: center; color: black"><small><b>NOTA.EL PUNTO NARANJA
-                                <img src="../../images/icon_naranja.png" width="18" height="18" />
+                             <label runat="server" id="Label2" class="col-sm-12" style="text-align: center; color: black"><small><b>NOTA.EL PUNTO ROJO
+                                <img src="../../images/icon_rojo.png" width="18" height="18" />
+                                SIGNIFICA QUE FALTA  LA APROBACIÓN DEL JEFE/SUPLENTE O SUBGERENTE PARA QUE RECURSO HUMANO PROCEDA CON LA APROBACIÓN.</b> </small></label>
+
+                            <label runat="server" id="Label1" class="col-sm-12" style="text-align: center; color: black"><small><b>NOTA.EL PUNTO VERDE
+                                <img src="../../images/icon_verde.png" width="18" height="18" />
                                 SIGNIFICA QUE TALENTO HUMANO YA PUEDE PROCEDER CON LA APROBACIÓN O CANCELACIÓN DE LA SOLICITUD.</b> </small></label>
                         </div>
                     </div>

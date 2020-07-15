@@ -106,12 +106,12 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 if (Key == "Pendiente Aprobar RRHH" )
                 {
 
-                    estado.ImageUrl = "/images/icon_naranja.png";
+                    estado.ImageUrl = "/images/icon_verde.png";
 
                 }
                 else
                 {
-                    e.Row.FindControl("imgEstadoRRHH").Visible = false;
+                    estado.ImageUrl = "/images/icon_rojo.png";
                 }           
                 e.Row.Cells[1].Visible = false;
             }

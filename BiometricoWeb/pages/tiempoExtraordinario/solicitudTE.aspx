@@ -633,11 +633,7 @@
                                     </div>
                                     <br>
                                     <hr>
-
-
-
-
-                                    <br>
+                                   <br>
 
                                     <p class="mb-md-0"><b>ENTRADAS / SALIDAS ALMUERZO:</b></p>
                                     <br>
@@ -836,9 +832,6 @@
                                     <br>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-
-
-
                             <div class="form-group">
                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                     <ContentTemplate>

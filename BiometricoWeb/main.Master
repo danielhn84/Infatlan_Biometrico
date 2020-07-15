@@ -209,6 +209,13 @@
                                         </div>
                                     </li>
 
+                                    <li class="" id="LITExReportes" runat="server" visible="true" style="margin-left: -20%">
+                                            <a class="nav-link" href="/pages/tiempoExtraordinario/reportes.aspx">
+                                            <i class="mdi   mdi-file menu-icon"></i>
+                                            <span class="menu-title">Reportes</span>
+                                        </a>
+                                    </li>
+
                                     <li class="" id="LITExMantenimiento" runat="server" visible="false" style="margin-left: -20%; cursor: pointer;">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi  mdi-toolbox menu-icon"></i>
@@ -216,6 +223,7 @@
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic13">
                                             <a class="nav-link" runat="server" id="LITExManFeriados" visible="false" href="/pages/tiempoExtraordinario/feriados.aspx">Feriados</a>
+                                            |
                                             <a class="nav-link" runat="server" id="LITExManProyectos" visible="false" href="/pages/tiempoExtraordinario/proyectos.aspx">Proyectos</a>
                                             <a class="nav-link" runat="server" id="LITExManPropuesta" visible="false" href="/pages/tiempoExtraordinario/propuesta.aspx">Propuesta</a>
                                             <a class="nav-link" runat="server" id="LITExManEquipos" visible="false" href="/pages/tiempoExtraordinario/mantenimiento.aspx">Tipos de Trabajo</a>
