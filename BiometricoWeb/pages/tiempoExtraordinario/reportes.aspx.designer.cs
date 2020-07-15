@@ -96,6 +96,33 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         protected global::System.Web.UI.WebControls.DropDownList DdlFactBanco;
 
         /// <summary>
+        /// Control UpdateDivProyectoPropuesta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdateDivProyectoPropuesta;
+
+        /// <summary>
+        /// Control RowProyectoPropuesta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RowProyectoPropuesta;
+
+        /// <summary>
+        /// Control GVProyectoPropuesta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVProyectoPropuesta;
+
+        /// <summary>
         /// Control UpdatePanel48.
         /// </summary>
         /// <remarks>
@@ -103,6 +130,15 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel48;
+
+        /// <summary>
+        /// Control RowBotones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RowBotones;
 
         /// <summary>
         /// Control BtnCancelar.

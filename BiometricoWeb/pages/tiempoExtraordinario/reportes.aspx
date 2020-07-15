@@ -10,13 +10,10 @@
     <link href="/css/fstdropdown.css" rel="stylesheet" />
     <link href="/css/alert.css" rel="stylesheet" />
 
-
     <script type="text/javascript">
         function closeInformacion() { $('#Informacion').modal('hide'); }
         function OpenInformacion() { $('#Informacion').modal('show'); }
     </script>
-
-
 
     <script type="text/javascript">
         var updateProgress = null;
@@ -57,7 +54,6 @@
                 <div class="card-body">
                     <h4 class="card-title"><b>Listado de reportes disponibles</b> </h4>
                     <br>
-
                     <asp:UpdatePanel ID="UpdatePanel21" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <div class="row">
@@ -70,6 +66,7 @@
                                                 <asp:ListItem Value="1" Text="Carga Archivo SAP"></asp:ListItem>
                                                 <asp:ListItem Value="2" Text="Facturacion Banco Atlántida"></asp:ListItem>
                                                 <asp:ListItem Value="3" Text="Enviar Consolidado"></asp:ListItem>
+                                                <asp:ListItem Value="4" Text="Avances Proyectos/Propuestas"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </div>
@@ -80,7 +77,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label" runat="server" id="LbMes" visible="false">Mes</label>
                                         <div class="col-sm-10">
-                                            <asp:DropDownList ID="DdlMes" visible="false" runat="server" class="form-control" AutoPostBack="true" OnSelectedIndexChanged="DdlMes_SelectedIndexChanged">
+                                            <asp:DropDownList ID="DdlMes" visible="false" runat="server" class="form-control" AutoPostBack="true" >
                                                 <asp:ListItem Value="0" Text="Seleccione opción..."></asp:ListItem>
                                                 <asp:ListItem Value="1" Text="Enero"></asp:ListItem>
                                                 <asp:ListItem Value="2" Text="Febrero"></asp:ListItem>
@@ -102,7 +99,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label"  runat="server" id="LbQuincena" visible="false">Quincena</label>
                                         <div class="col-sm-10">
-                                            <asp:DropDownList ID="DdlQuincena" visible="false" runat="server" class="form-control" AutoPostBack="true" OnSelectedIndexChanged="DdlMes_SelectedIndexChanged">
+                                            <asp:DropDownList ID="DdlQuincena" visible="false" runat="server" class="form-control" AutoPostBack="true" >
                                                 <asp:ListItem Value="0" Text="Seleccione opción..."></asp:ListItem>
                                                 <asp:ListItem Value="1" Text="Primera Quincena"></asp:ListItem>
                                                 <asp:ListItem Value="2" Text="Segunda Quincena"></asp:ListItem>
@@ -144,23 +141,61 @@
         </div>
     </div>
 
-
-    <div class="row">
-        <div class="col-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title"><b>Descargar</b> </h4>
-                    <br>
-                    <asp:UpdatePanel ID="UpdatePanel48" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>       
-                            <asp:Button ID="BtnCancelar" class="btn btn-danger"  runat="server" Text="Cancelar" OnClick="BtnCancelar_Click"/>
-                            <asp:Button ID="BtnDescargar" class="btn btn-success"  runat="server" Text="Enviar" OnClick="BtnDescargar_Click" />
-                       </ContentTemplate>               
-                   </asp:UpdatePanel>
+    <asp:UpdatePanel ID="UpdateDivProyectoPropuesta" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <div class="row" runat="server" id="RowProyectoPropuesta" visible="false">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <asp:GridView ID="GVProyectoPropuesta" runat="server"
+                                        CssClass="mydatagrid"
+                                        PagerStyle-CssClass="pgr"
+                                        HeaderStyle-CssClass="header"
+                                        RowStyle-CssClass="rows"
+                                        AutoGenerateColumns="false" 
+                                        AllowPaging="true" OnRowDataBound="GVProyectoPropuesta_RowDataBound"
+                                        GridLines="None" OnPageIndexChanging="GVProyectoPropuesta_PageIndexChanging" 
+                                        PageSize="10">
+                                        <Columns>
+                                            <asp:BoundField DataField="nombreTrabajo1" HeaderText="Trabajo" />
+                                            <asp:BoundField DataField="nombreTrabajo2" HeaderText="Tipo" />                                       
+                                            <asp:BoundField DataField="pagoHr" HeaderText="Pago por Hr" />
+                                            <asp:BoundField DataField="totalHrs" HeaderText="Hrs Aprobadas" />        
+                                            <asp:BoundField DataField="horasRegistradas" HeaderText="Hrs Registradas" />   
+                                            <asp:BoundField DataField="faltantes" HeaderText="Hrs Faltantes" />   
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+
+
+
+    <asp:UpdatePanel ID="UpdatePanel48" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <div class="row" runat="server" id="RowBotones">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"><b>Reportería</b> </h4>
+                            <br>
+
+                            <asp:Button ID="BtnCancelar" class="btn btn-danger" runat="server" Text="Cancelar" OnClick="BtnCancelar_Click" />
+                            <asp:Button ID="BtnDescargar" class="btn btn-success" runat="server" Text="Enviar" OnClick="BtnDescargar_Click" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
     <div class="modal fade" id="Informacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -186,7 +221,7 @@
                     <asp:UpdatePanel ID="UpdatePanel25" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="BtnDescargarModal" runat="server" Text="Descargar" class="btn btn-success" OnClick="BtnDescargarModal_Click"  UseSubmitBehavior="false"  data-dismiss="modal"/>
+                            <asp:Button ID="BtnDescargarModal" runat="server" Text="Enviar" class="btn btn-success" OnClick="BtnDescargarModal_Click"  UseSubmitBehavior="false"  data-dismiss="modal"/>
                         </ContentTemplate>
                         <Triggers>
                             <asp:PostBackTrigger ControlID="BtnDescargarModal" />
