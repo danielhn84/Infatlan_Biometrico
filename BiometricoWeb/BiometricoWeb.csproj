@@ -111,6 +111,7 @@
     <Content Include="images\favicon.png" />
     <Content Include="images\icon_azul.png" />
     <Content Include="images\icon_naranja.png" />
+    <Content Include="images\icon_rojo.png" />
     <Content Include="images\icon_verde.png" />
     <Content Include="images\loading.gif" />
     <Content Include="images\logo-mini.svg" />
