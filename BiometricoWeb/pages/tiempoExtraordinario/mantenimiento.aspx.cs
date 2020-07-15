@@ -32,7 +32,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 CargarTiposTrabajo();
             }
         }
-
         void CargarTiposTrabajo()
         {
             try
