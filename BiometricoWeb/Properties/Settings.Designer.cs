@@ -12,7 +12,7 @@ namespace BiometricoWeb.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,8 +26,8 @@ namespace BiometricoWeb.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_vacaciones/300/zws" +
-            "_hr_vacaciones/zws_hr_vacaciones")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.128.2.22:8000/sap/bc/srt/rfc/sap/zws_hr_vacaciones/300/zws_hr_vacacione" +
+            "s/zws_hr_vacaciones")]
         public string BiometricoWeb_SapServicesH_ZWS_HR_VACACIONES {
             get {
                 return ((string)(this["BiometricoWeb_SapServicesH_ZWS_HR_VACACIONES"]));
@@ -37,11 +37,22 @@ namespace BiometricoWeb.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_setdata/300/zws_hr" +
-            "_setdata/zws_hr_setdata")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.128.2.22:8000/sap/bc/srt/rfc/sap/zws_hr_setdata/300/zws_hr_setdata/zws_" +
+            "hr_setdata")]
         public string BiometricoWeb_SapServicesP_ZWS_HR_SetData {
             get {
                 return ((string)(this["BiometricoWeb_SapServicesP_ZWS_HR_SetData"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/rfc/sap/zws_hr_ser_inf/101/zws_hr_" +
+            "ser_inf/zws_hr_ser_inf")]
+        public string BiometricoWeb_zws_hr_ser_inf_ZWS_HR_SER_INF {
+            get {
+                return ((string)(this["BiometricoWeb_zws_hr_ser_inf_ZWS_HR_SER_INF"]));
             }
         }
     }

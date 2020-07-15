@@ -11,15 +11,18 @@ namespace BiometricoWeb.pages.servicios
 {
     public partial class birthdayCalendar : System.Web.UI.Page
     {
-        db vConexion;
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            vConexion = new db();
-            if (!Page.IsPostBack)
-            {
+        db vConexion = new db();
+        protected void Page_Load(object sender, EventArgs e){
+            if (!Page.IsPostBack){
+                if (Convert.ToBoolean(Session["AUTH"]))
+                {
 
+                }else {
+                    Response.Redirect("/login.aspx");
+                }
             }
         }
+        
         protected void ddlMes_SelectedIndexChanged(object sender, EventArgs e)
         {
             cardCumpleaños.Visible = true;
@@ -80,31 +83,31 @@ namespace BiometricoWeb.pages.servicios
                 
                 string diaevaluar = item["dia"].ToString();
 
-                if (item["dia"].ToString() == "01")
+                if (item["dia"].ToString() == "1")
                     dia1 = dia1 + vruta + item["nombre"].ToString() + "<br />" + "(" + item["area"].ToString() + ")" + "<br />" + "<br />";
 
-                if (item["dia"].ToString() == "02")
+                if (item["dia"].ToString() == "2")
                     dia2 = dia2 + vruta + item["nombre"].ToString() + "<br />" + "(" + item["area"].ToString() + ")" + "<br />" + "<br />";
 
-                if (item["dia"].ToString() == "03")
+                if (item["dia"].ToString() == "3")
                     dia3 = dia3 + vruta + item["nombre"].ToString() + "<br />" + "(" + item["area"].ToString() + ")" + "<br />" + "<br />";
 
-                if (item["dia"].ToString() == "04")
+                if (item["dia"].ToString() == "4")
                     dia4 = dia4 + vruta + item["nombre"].ToString() + "<br />" + "(" + item["area"].ToString() + ")" + "<br />" + "<br />";
 
-                if (item["dia"].ToString() == "05")
+                if (item["dia"].ToString() == "5")
                     dia5 = dia5 + vruta + item["nombre"].ToString() + "<br />" + "(" + item["area"].ToString() + ")" + "<br />" + "<br />";
 
-                if (item["dia"].ToString() == "06")
+                if (item["dia"].ToString() == "6")
                     dia6 = dia6 + vruta + item["nombre"].ToString() + "<br />" + "(" + item["area"].ToString() + ")" + "<br />" + "<br />";
 
-                if (item["dia"].ToString() == "07")
+                if (item["dia"].ToString() == "7")
                     dia7 = dia7 + vruta + item["nombre"].ToString() + "<br />" + "(" + item["area"].ToString() + ")" + "<br />" + "<br />";
 
-                if (item["dia"].ToString() == "08")
+                if (item["dia"].ToString() == "8")
                     dia8 = dia8 + vruta + item["nombre"].ToString() + "<br />" + "(" + item["area"].ToString() + ")" + "<br />" + "<br />";
 
-                if (item["dia"].ToString() == "09")
+                if (item["dia"].ToString() == "9")
                     dia9 = dia9 + vruta + item["nombre"].ToString() + "<br />" + "(" + item["area"].ToString() + ")" + "<br />" + "<br />";
 
                 if (item["dia"].ToString() == "10")
@@ -1998,6 +2001,7 @@ namespace BiometricoWeb.pages.servicios
                 }
             }
         } 
+        
         void limpiar()
         {
             Img1.Src = ""; Img2.Src = ""; Img3.Src = ""; Img4.Src = ""; Img5.Src = ""; Img6.Src = ""; Img7.Src = "";

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:sap-com:document:sap:rfc:functions" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="urn:sap-com:document:sap:rfc:functions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+  </wsdl:documentation>
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="BN__ZWS_HR_SER_INF">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedMimeSerialization xmlns:saptrnbnd="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="true" />
+      </wsp:All>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedXMLTransfer uri="http://xml.sap.com/2006/11/esi/esp/binxml" xmlns:saptrnbnd="http://www.sap.com/webas/710/soap/features/transportbinding/" wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="true" />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BN__ZWS_HR_SER_INF_soap12">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedMimeSerialization xmlns:saptrnbnd="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="true" />
+      </wsp:All>
+      <wsp:All>
+        <sapattahnd:Enabled xmlns:sapattahnd="http://www.sap.com/710/features/attachment/">false</sapattahnd:Enabled>
+        <saptrnbnd:OptimizedXMLTransfer uri="http://xml.sap.com/2006/11/esi/esp/binxml" xmlns:saptrnbnd="http://www.sap.com/webas/710/soap/features/transportbinding/" wsp:Optional="true" />
+        <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="true" />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="IF__ZWS_HR_SER_INF">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sapsession:Session xmlns:sapsession="http://www.sap.com/webas/630/soap/features/session/">
+          <sapsession:enableSession>false</sapsession:enableSession>
+        </sapsession:Session>
+        <sapcentraladmin:CentralAdministration xmlns:sapcentraladmin="http://www.sap.com/webas/700/soap/features/CentralAdministration/" wsp:Optional="true">
+          <sapcentraladmin:BusinessApplicationID>00163E3417691ED7AFE561339D167914</sapcentraladmin:BusinessApplicationID>
+        </sapcentraladmin:CentralAdministration>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="OP__ZMFRH_SER_INF">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <saptrhnw05:required xmlns:saptrhnw05="http://www.sap.com/NW05/soap/features/transaction/">no</saptrhnw05:required>
+        <sapcomhnd:enableCommit xmlns:sapcomhnd="http://www.sap.com/NW05/soap/features/commit/">false</sapcomhnd:enableCommit>
+        <sapblock:enableBlocking xmlns:sapblock="http://www.sap.com/NW05/soap/features/blocking/">true</sapblock:enableBlocking>
+        <saprmnw05:enableWSRM xmlns:saprmnw05="http://www.sap.com/NW05/soap/features/wsrm/">false</saprmnw05:enableWSRM>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+      <xsd:simpleType name="char1">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="1" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char40">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="40" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char50">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="50" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char55">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="55" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="date10">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="10" />
+          <xsd:pattern value="\d\d\d\d-\d\d-\d\d" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="numeric8">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="8" />
+          <xsd:pattern value="\d*" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ZST_CSAP">
+        <xsd:sequence>
+          <xsd:element name="PERNR" type="tns:numeric8" />
+          <xsd:element name="MSJ" type="tns:char55" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZST_SER_INF">
+        <xsd:sequence>
+          <xsd:element name="PERNR" type="tns:numeric8" />
+          <xsd:element name="ENAME" type="tns:char40" />
+          <xsd:element name="GBDAT" type="tns:date10" />
+          <xsd:element name="STAT2" type="tns:char1" />
+          <xsd:element name="STEXT" type="tns:char40" />
+          <xsd:element name="DAT01" type="tns:date10" />
+          <xsd:element name="PERNR_J" type="tns:numeric8" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZTL_CSAP">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZST_CSAP" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZTL_SER_INF">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZST_SER_INF" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ZMFRH_SER_INF">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="BEGDA" type="tns:date10" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZMFRH_SER_INFResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="IT_CSAP" type="tns:ZTL_CSAP" />
+            <xsd:element name="IT_SALIDA" type="tns:ZTL_SER_INF" />
+            <xsd:element name="MSJ" type="tns:char50" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ZMFRH_SER_INF">
+    <wsdl:part name="parameters" element="tns:ZMFRH_SER_INF" />
+  </wsdl:message>
+  <wsdl:message name="ZMFRH_SER_INFResponse">
+    <wsdl:part name="parameter" element="tns:ZMFRH_SER_INFResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ZWS_HR_SER_INF">
+    <wsdl:documentation>
+      <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation">
+        <sapdoc:docitem docURL="http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/esdt/docu/sd_text?sap-client=101&amp;sd_name=ZWS_HR_SER_INF" />
+      </sapdoc:sapdoc>
+    </wsdl:documentation>
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#IF__ZWS_HR_SER_INF" />
+    </wsp:Policy>
+    <wsdl:operation name="ZMFRH_SER_INF">
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP__ZMFRH_SER_INF" />
+      </wsp:Policy>
+      <wsdl:input message="tns:ZMFRH_SER_INF" />
+      <wsdl:output message="tns:ZMFRH_SER_INFResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ZWS_HR_SER_INF" type="tns:ZWS_HR_SER_INF">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__ZWS_HR_SER_INF" />
+    </wsp:Policy>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ZMFRH_SER_INF">
+      <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZWS_HR_SER_INF:ZMFRH_SER_INFRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ZWS_HR_SER_INF_soap12" type="tns:ZWS_HR_SER_INF">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__ZWS_HR_SER_INF_soap12" />
+    </wsp:Policy>
+    <wsoap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ZMFRH_SER_INF">
+      <wsoap12:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZWS_HR_SER_INF:ZMFRH_SER_INFRequest" style="document" />
+      <wsdl:input>
+        <wsoap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsoap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ZWS_HR_SER_INF">
+    <wsdl:port name="ZWS_HR_SER_INF" binding="tns:ZWS_HR_SER_INF">
+      <soap:address location="http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/rfc/sap/zws_hr_ser_inf/101/zws_hr_ser_inf/zws_hr_ser_inf" />
+    </wsdl:port>
+    <wsdl:port name="ZWS_HR_SER_INF_soap12" binding="tns:ZWS_HR_SER_INF_soap12">
+      <wsoap12:address location="http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/rfc/sap/zws_hr_ser_inf/101/zws_hr_ser_inf/zws_hr_ser_inf" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
