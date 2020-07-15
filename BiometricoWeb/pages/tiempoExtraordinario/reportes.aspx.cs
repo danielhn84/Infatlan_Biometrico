@@ -348,14 +348,16 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 
                         String vQuerySolicitudes = "RSP_TiempoExtraordinarioConsolidado 2,'" + Parametro1 + "','" + Parametro2 + "','" + Parametro3 + "','" + Parametro4 + "','"+ vCodigoSAP+"'";
                         vDatosSolicitudes = vConexion.obtenerDataTable(vQuerySolicitudes);
+                        vService.EnviarMensaje(
+                                    vDatos.Rows[i]["emailEmpresa"].ToString(),
+                                    typeBody.Reporte,
+                                    vDatos.Rows[i]["nombre"].ToString(),
+                                    "Reporte de Consolidado de Tiempo Extraordinario.",
+                                    null, 
+                                    ConfigurationManager.AppSettings["RHMail"].ToString(), 
+                                    vDatosSolicitudes
+                                );
                     }
-                    vService.EnviarMensaje(
-                                "wpadilla@bancatlan.hn",
-                                typeBody.Reporte,
-                                "Wendel Padilla",
-                                "Reporte de Consolidado",
-                                null, null, vDatosSolicitudes
-                            );
                 }
             }catch (Exception Ex) {
                
