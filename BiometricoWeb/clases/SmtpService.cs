@@ -8,7 +8,6 @@ using System.Net.Mime;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using System.Data;
 
 namespace BiometricoWeb.clases
 {
@@ -28,7 +27,7 @@ namespace BiometricoWeb.clases
 
         public SmtpService() { }
 
-        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre, String vMessage = null, String vCopia = null, DataTable vDatos = null){
+        public Boolean EnviarMensaje(String To, typeBody Body, String Usuario, String Nombre, String vMessage = null, String vCopia = null){
             Boolean vRespuesta = false;
             try{
                 MailMessage mail = new MailMessage("Recursos Humanos<" + ConfigurationManager.AppSettings["SmtpFrom"] + ">", To);
@@ -179,19 +178,6 @@ namespace BiometricoWeb.clases
             body = body.Replace("{Nombre}", vNombre);
             body = body.Replace("{Titulo}", vTitulo);
             body = body.Replace("{Descripcion}", vDescripcion);
-            return body;
-        }
-
-        public string PopulateBodyTEReporte(string vNombre, string vTitulo, DataTable vDatos){
-            string body = string.Empty;
-            using (StreamReader reader = new StreamReader(Server.MapPath("/pages/mail/TemplateMailSugerencia.html"))){
-                body = reader.ReadToEnd();
-            }
-
-            body = body.Replace("{Host}", ConfigurationManager.AppSettings["Host"]);
-            body = body.Replace("{Nombre}", vNombre);
-            body = body.Replace("{Titulo}", vTitulo);
-            body = body.Replace("{Tabla}", vDatos);
             return body;
         }
     }

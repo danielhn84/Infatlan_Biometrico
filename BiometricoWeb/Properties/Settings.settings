@@ -3,13 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="BiometricoWeb_SapServicesH_ZWS_HR_VACACIONES" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://10.128.2.22:8000/sap/bc/srt/rfc/sap/zws_hr_vacaciones/300/zws_hr_vacaciones/zws_hr_vacaciones</Value>
+      <Value Profile="(Default)">http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_vacaciones/300/zws_hr_vacaciones/zws_hr_vacaciones</Value>
     </Setting>
     <Setting Name="BiometricoWeb_SapServicesP_ZWS_HR_SetData" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://10.128.2.22:8000/sap/bc/srt/rfc/sap/zws_hr_setdata/300/zws_hr_setdata/zws_hr_setdata</Value>
-    </Setting>
-    <Setting Name="BiometricoWeb_zws_hr_ser_inf_ZWS_HR_SER_INF" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/rfc/sap/zws_hr_ser_inf/101/zws_hr_ser_inf/zws_hr_ser_inf</Value>
+      <Value Profile="(Default)">http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_setdata/300/zws_hr_setdata/zws_hr_setdata</Value>
     </Setting>
   </Settings>
 </SettingsFile>
