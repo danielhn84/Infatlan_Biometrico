@@ -40,27 +40,27 @@ namespace BiometricoWeb.clases
                     mail.CC.Add(vCopia);
                 }
                 String vTable = "", vHead = "", vHead2 = "";
-                if (vDatos.Rows.Count > 0){
-
-        
-                    vHead = "<table width='100%' style='border:1px ridge #333'>" +
-                                "<tr style='background-color:#DCDCDC; font-weight: bold;'>{0}";
-                    foreach (DataColumn column in vDatos.Columns){
-                        vHead2 += "<td style='border:ridge'>" + column.ColumnName + " </td>";
-                    }
-                    vHead = string.Format(vHead, vHead2 + "</tr>");
-                    vTable = vHead + "{0}";
-                            
-                    String vFilas = "", vColumnas = "";
-                    for (int i = 0; i < vDatos.Rows.Count; i++){
-                        vFilas += "<tr>{0}</tr>"; 
-                        for (int j = 0; j < vDatos.Columns.Count; j++){
-                            vColumnas += "<td style='border:ridge'>" + vDatos.Rows[i][j] + " </td> ";
+                if (vDatos != null){
+                    if (vDatos.Rows.Count > 0){
+                        vHead = "<table width='100%' style='border:1px ridge #333'>" +
+                                    "<tr style='background-color:#DCDCDC; font-weight: bold;'>{0}";
+                        foreach (DataColumn column in vDatos.Columns){
+                            vHead2 += "<td style='border:ridge'>" + column.ColumnName + " </td>";
                         }
-                        vFilas = string.Format(vFilas, vColumnas);
-                    }
-                    vTable = string.Format(vTable, vFilas + "</table>");
+                        vHead = string.Format(vHead, vHead2 + "</tr>");
+                        vTable = vHead + "{0}";
+                            
+                        String vFilas = "", vColumnas = "";
+                        for (int i = 0; i < vDatos.Rows.Count; i++){
+                            vFilas += "<tr>{0}</tr>"; 
+                            for (int j = 0; j < vDatos.Columns.Count; j++){
+                                vColumnas += "<td style='border:ridge'>" + vDatos.Rows[i][j] + " </td> ";
+                            }
+                            vFilas = string.Format(vFilas, vColumnas);
+                        }
+                        vTable = string.Format(vTable, vFilas + "</table>");
 
+                    }
                 }
 
                 //client.DeliveryMethod = SmtpDeliveryMethod.Network;
