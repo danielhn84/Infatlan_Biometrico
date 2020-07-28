@@ -13,6 +13,8 @@
         function openModal() { $('#ModalConfirmar').modal('show'); }
         function closeModal() { $('#ModalConfirmar').modal('hide'); }
         function openInfo() { $('#ModalInfo').modal('show'); }
+        function openDescarga() { $('#DescargaModal').modal('show'); }
+        function closeDescarga() { $('#DescargaModal').modal('hide'); }
     </script>
 
     <link href="/css/GridStyle.css" rel="stylesheet" />
@@ -372,8 +374,11 @@
                                                     <asp:BoundField DataField="Mensaje" HeaderText="Mensaje" ItemStyle-Width="40%" />
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnEditar2" runat="server" title="Eliminar" style="background-color:transparent" class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="EliminarMensaje">
+                                                            <asp:LinkButton ID="BtnEditar" runat="server" title="Eliminar" style="background-color:transparent" class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="EliminarMensaje">
                                                                 <i class="mdi mdi-delete text-gray"></i>
+                                                            </asp:LinkButton>
+                                                            <asp:LinkButton ID="BtnEditar3" runat="server" title="Info" style="background-color:transparent" class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="DescargarInfo">
+                                                                <i class="mdi mdi-download text-gray"></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
@@ -733,6 +738,38 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             <asp:Button ID="BtnConfirmar" runat="server" Text="Aceptar" class="btn btn-success" OnClick="BtnConfirmar_Click"/>
                         </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%--MODAL DESCARGA--%>
+    <div class="modal fade" id="DescargaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="ModalLabelDescarga">Descargar archivo de Financiamiento</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-form-label">Privacidad de documentos</label>
+                            <div class="col-sm-12" style="text-align: justify">
+                                Este documento adjunto es confidencial, especialmente en lo que hace referencia a los datos personales que puedan contener y se dirigen exclusivamente al destinatario referenciado. Si usted no lo es y ha descargado este archivo o tiene conocimiento del mismo por cualquier motivo, le rogamos nos lo comunique por este medio y proceda a borrarlo, y que, en todo caso, se abstenga de utilizar, reproducir, alterar, archivar o comunicar a terceros el documento adjunto.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="BtnDescargarArchivo" runat="server" Text="Descargar" class="btn btn-success" OnClick="BtnDescargarArchivo_Click" />
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID="BtnDescargarArchivo" />
+                        </Triggers>
                     </asp:UpdatePanel>
                 </div>
             </div>

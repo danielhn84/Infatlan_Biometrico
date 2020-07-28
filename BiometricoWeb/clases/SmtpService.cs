@@ -22,7 +22,8 @@ namespace BiometricoWeb.clases
         Seguridad,
         Sugerencias,
         TiempoExtraordinario,
-        Reporte
+        Reporte,
+        Viaticos
     }
 
     public class SmtpService : Page{
@@ -37,7 +38,9 @@ namespace BiometricoWeb.clases
                 client.Port = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]);
 
                 if (!String.IsNullOrEmpty(vCopia)){
-                    mail.CC.Add(vCopia);
+                    if (vCopia.Contains("@")){
+                        mail.CC.Add(vCopia);
+                    }
                 }
                 String vTable = "", vHead = "", vHead2 = "";
                 if (vDatos != null){
@@ -57,9 +60,9 @@ namespace BiometricoWeb.clases
                                 vColumnas += "<td style='border:ridge'>" + vDatos.Rows[i][j] + " </td> ";
                             }
                             vFilas = string.Format(vFilas, vColumnas);
+                            vColumnas = "";
                         }
                         vTable = string.Format(vTable, vFilas + "</table>");
-
                     }
                 }
 
@@ -131,14 +134,16 @@ namespace BiometricoWeb.clases
                         mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyBuzon(
                             Usuario,
                             Nombre,
-                            vMessage
+                            vMessage,
+                            ""
                             ), Server.MapPath("/images/logo.png")));
                         break;
                     case typeBody.TiempoExtraordinario:
                         mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyBuzon(
                             Usuario,
                             Nombre,
-                            vMessage
+                            vMessage,
+                            ""
                             ), Server.MapPath("/images/logo.png")));
                         break;
                     case typeBody.Reporte:
@@ -146,6 +151,14 @@ namespace BiometricoWeb.clases
                             Usuario,
                             Nombre,
                             vTable
+                            ), Server.MapPath("/images/logo.png")));
+                        break;
+                    case typeBody.Viaticos:
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyBuzon(
+                            Usuario,
+                            Nombre,
+                            vMessage,
+                            ConfigurationManager.AppSettings["Host"] + vCopia
                             ), Server.MapPath("/images/logo.png")));
                         break;
                 }
@@ -178,7 +191,6 @@ namespace BiometricoWeb.clases
             using (StreamReader reader = new StreamReader(Server.MapPath("/pages/mail/TemplateMail.html"))){
                 body = reader.ReadToEnd();
             }
-
             body = body.Replace("{Host}", ConfigurationManager.AppSettings["Host"]);
             body = body.Replace("{Nombre}", vNombre);
             body = body.Replace("{Titulo}", vTitulo);
@@ -200,7 +212,7 @@ namespace BiometricoWeb.clases
             return body;
         }
 
-        public string PopulateBodyBuzon(string vNombre, string vTitulo, string vDescripcion){
+        public string PopulateBodyBuzon(string vNombre, string vTitulo, string vDescripcion, string URL){
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(Server.MapPath("/pages/mail/TemplateMailSugerencias.html"))){
                 body = reader.ReadToEnd();
@@ -210,6 +222,8 @@ namespace BiometricoWeb.clases
             body = body.Replace("{Nombre}", vNombre);
             body = body.Replace("{Titulo}", vTitulo);
             body = body.Replace("{Descripcion}", vDescripcion);
+            //body = body.Replace("{Url}", URL);
+            //body = body.Replace("{Direccion}", URL);
             return body;
         }
         

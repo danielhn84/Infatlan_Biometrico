@@ -15,7 +15,7 @@ namespace BiometricoWeb.pages
         protected void Page_Load(object sender, EventArgs e){
             if (!Page.IsPostBack){
                 LbTitulo.Text = "POLITICA DE VESTIMENTA";
-                cargarPDF();
+                //cargarPDF();
 
             }
         }

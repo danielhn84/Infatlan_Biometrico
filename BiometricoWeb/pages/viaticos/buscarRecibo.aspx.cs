@@ -18,8 +18,12 @@ namespace BiometricoWeb.pages.viaticos
         {
             if (!Page.IsPostBack)
             {
-                limpiarForm();
-                cargarData();
+                if (Convert.ToBoolean(Session["AUTH"])){
+                    limpiarForm();
+                    cargarData();
+                }else{
+                    Response.Redirect("/login.aspx");
+                }
             }
         }
 

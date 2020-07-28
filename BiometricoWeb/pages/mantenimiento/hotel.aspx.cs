@@ -20,7 +20,11 @@ namespace BiometricoWeb.pages.mantenimiento
             Session["CARGAR_DATA_HOTELES"] = null;
             if (!Page.IsPostBack)
             {
-                cargarData();
+                if (Convert.ToBoolean(Session["AUTH"])){
+                    cargarData();
+                }else{
+                    Response.Redirect("/login.aspx");
+                }
             }
         }
 
@@ -80,7 +84,7 @@ namespace BiometricoWeb.pages.mantenimiento
 
                 //CARGAR UBICACION
                 String vQuery10 = "STEISP_ATM_Generales 12";
-                DataTable vDatos10 = vConexion2.obtenerDataTableLocalidad(vQuery10);
+                DataTable vDatos10 = vConexion2.obtenerDataTableSTEI(vQuery10);
                 DDLUbicacion.Items.Add(new ListItem { Value = "0", Text = "Seleccione destino..." });
                 DDLModalUbicacion.Items.Add(new ListItem { Value = "0", Text = "Seleccione destino..." });
                 foreach (DataRow item in vDatos10.Rows)

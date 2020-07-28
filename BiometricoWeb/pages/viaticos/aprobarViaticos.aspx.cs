@@ -18,8 +18,12 @@ namespace BiometricoWeb.pages.viaticos
         {
             if (!Page.IsPostBack)
             {
-                limpiarSession();
-                cargarData();
+                if (Convert.ToBoolean(Session["AUTH"])){
+                    limpiarSession();
+                    cargarData();
+                }else{
+                    Response.Redirect("/login.aspx");
+                }
             }
         }
 
@@ -73,7 +77,9 @@ namespace BiometricoWeb.pages.viaticos
             Session["VIATICOS_LIQ_PUESTO"] = null;
             Session["VIATICOS_LIQ_TOTAL"] = null;
             Session["VIATICOS_COMCANCELAR"] = null;
+            Session["VIATICOS_COSTODEPRE"] = null;
         }
+
         void cargarData()
         {
             //CARGAR SOLICITUDES A APROBAR
@@ -260,6 +266,7 @@ namespace BiometricoWeb.pages.viaticos
                         Session["VIATICOS_COSTOCENA"] = item["CostoCena"].ToString();
                         Session["VIATICOS_COSTOALMUERZO"] = item["CostoAlmuerzo"].ToString();
                         Session["VIATICOS_LIQ_COSTODEPRE"] = item["CostoDepre"].ToString();
+                        Session["VIATICOS_COSTODEPRE"] = item["CostoDepre"].ToString();
                         Session["VIATICOS_COSTOTRANSPORTE"] = item["CostoTransporte"].ToString();
                         Session["VIATICOS_COSTOEMERGENCIA"] = item["CostoEmergencia"].ToString();
                         Session["VIATICOS_COSTOPEAJE"] = item["CostoPeaje"].ToString();

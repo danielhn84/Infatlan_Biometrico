@@ -15,24 +15,28 @@ namespace BiometricoWeb.pages.viaticos
     public partial class recibos : System.Web.UI.Page
     {
         db vConexion = new db();
+        SmtpService vService = new SmtpService();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                //HFRecibo.Value = null;
-                cargarDataR();
+                if (Convert.ToBoolean(Session["AUTH"])){
+                    cargarDataR();
 
-                string id = Request.QueryString["id"];
-                string tipo = Request.QueryString["tipo"];
-                switch (tipo)
-                {
-                    case "1":
-                        cargarImg();
-                        
-                        BtnDevolver.Visible = true;
-                        FURecibo.Visible = false;
-                        LBComentario.Visible = false;
-                        break;
+                    string id = Request.QueryString["id"];
+                    string tipo = Request.QueryString["tipo"];
+                    switch (tipo)
+                    {
+                        case "1":
+                            cargarImg();
+
+                            BtnDevolver.Visible = true;
+                            FURecibo.Visible = false;
+                            LBComentario.Visible = false;
+                            break;
+                    }
+                }else{
+                    Response.Redirect("/login.aspx");
                 }
             }
         }
@@ -196,7 +200,51 @@ namespace BiometricoWeb.pages.viaticos
             if (tipo == "1")
             {
                 string vQuery3 = "VIATICOS_Liquidaciones 9, '" + Session["VIATICOS_LIQ_CODIGO"].ToString() + "','" + Session["USUARIO"].ToString() + "'";
-                vConexion.ejecutarSql(vQuery3);
+                Int32 vInfo = vConexion.ejecutarSql(vQuery3);
+                if (vInfo == 1)
+                {
+                    
+                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+
+                    Boolean vFlagEnvioSupervisor = false;
+                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    if (vDatosJefatura.Rows.Count > 0)
+                    {
+                        foreach (DataRow item in vDatosJefatura.Rows)
+                        {
+                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                            {
+                                vService.EnviarMensaje(
+                                    item["emailEmpresa"].ToString(),
+                                    typeBody.Viaticos,
+                                    item["nombre"].ToString(),
+                                    vDatosEmpleado.Rows[0]["Nombre"].ToString(),
+                                    "Has aprobado boucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                                    "/pages/viaticos/buscarRecibo.aspx"
+                                );
+                                vFlagEnvioSupervisor = true;
+                            }
+                        }
+                    }
+
+                    if (vFlagEnvioSupervisor)
+                    {
+                        foreach (DataRow item in vDatosJefatura.Rows)
+                        {
+                            //if (!item["emailEmpresa"].ToString().Trim().Equals(""))                        
+                            vService.EnviarMensaje(
+                                item["Email"].ToString(),
+                                typeBody.Viaticos,
+                                item["Nombre"].ToString(),
+                                item["Nombre"].ToString(),
+                                "Voucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy")+" han sido aprobados.",
+                                "/pages/viaticos/solicitudViaticos.aspx"
+                            );
+                            vFlagEnvioSupervisor = true;
+                        }
+                    }
+                }
                 HFRecibo.Value = null;
                 limpiarForm();
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "closeModal();", true);
@@ -223,14 +271,50 @@ namespace BiometricoWeb.pages.viaticos
                     vArchivo = Convert.ToBase64String(vFileDeposito1);
 
                 string vQuery3 = "VIATICOS_Liquidaciones 7, '" + Session["VIATICOS_LIQ_CODIGO"].ToString() + "','" + vArchivo + "','" + Session["USUARIO"].ToString() + "'";
-                vConexion.ejecutarSql(vQuery3);
+                Int32 vInfo = vConexion.ejecutarSql(vQuery3);
+                if (vInfo == 1)
+                {
+
+                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+
+                    Boolean vFlagEnvioSupervisor = false;
+                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    if (vDatosJefatura.Rows.Count > 0)
+                    {
+                        foreach (DataRow item in vDatosJefatura.Rows)
+                        {
+                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                            {
+                                vService.EnviarMensaje(
+                                    item["emailEmpresa"].ToString(),
+                                    typeBody.Viaticos,
+                                    item["nombre"].ToString(),
+                                    item["nombre"].ToString(),
+                                    "Has enviado baucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                                    "/pages/viaticos/buscarRecibo.aspx"
+                                );
+                                vFlagEnvioSupervisor = true;
+                            }
+                        }
+                    }
+
+                    if (vFlagEnvioSupervisor)
+                    {
+                        vService.EnviarMensaje("dzepeda@bancatlan.hn",
+                            typeBody.Viaticos,
+                            "DINA ZEPEDA",
+                            vDatosJefatura.Rows[0]["Nombre"].ToString(),
+                            "Es necesaria su aprobación de baucher de pago en solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                            "/pages/viaticos/buscarRecibo.aspx"
+                        );
+                    }
+                }
                 HFRecibo.Value = null;
                 limpiarForm();
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "closeModal();", true);
                 Response.Redirect("buscarRecibo.aspx");
-
             }
-            
         }
 
         protected void btnModalCerrar_Click(object sender, EventArgs e)
@@ -248,7 +332,50 @@ namespace BiometricoWeb.pages.viaticos
             {
                 H5Alerta.Visible = false;
                 string vQuery3 = "VIATICOS_Liquidaciones 8, '" + Session["VIATICOS_LIQ_CODIGO"].ToString() + "','" + txtcomentario.Text + "','" + Session["USUARIO"].ToString() + "'";
-                vConexion.ejecutarSql(vQuery3);
+                Int32 vInfo= vConexion.ejecutarSql(vQuery3);
+                if (vInfo == 1)
+                {
+                    
+                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+
+                    Boolean vFlagEnvioSupervisor = false;
+                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    if (vDatosJefatura.Rows.Count > 0)
+                    {
+                        foreach (DataRow item in vDatosJefatura.Rows)
+                        {
+                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                            {
+                                vService.EnviarMensaje(
+                                    item["emailEmpresa"].ToString(),
+                                    typeBody.Viaticos,
+                                    item["nombre"].ToString(),
+                                    vDatosEmpleado.Rows[0]["Nombre"].ToString(),
+                                    "Has devuelto baucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                                    "/pages/viaticos/buscarRecibo.aspx"
+                                );
+                                vFlagEnvioSupervisor = true;
+                            }
+                        }
+                    }
+
+                    if (vFlagEnvioSupervisor)
+                    {
+                        foreach (DataRow item in vDatosJefatura.Rows)
+                        {
+                            //if (!item["emailEmpresa"].ToString().Trim().Equals(""))                        
+                            vService.EnviarMensaje(
+                                item["Email"].ToString(),
+                                typeBody.Viaticos,
+                                item["Nombre"].ToString(),
+                                "DINA ZEPEDA",
+                                "Baucher de pago fue devuellto correspondiente a solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                                "/pages/viaticos/buscarRecibo.aspx"
+                            );
+                        }
+                    }
+                }
                 HFRecibo.Value = null;
                 limpiarForm();
                 txtcomentario.Text = "";

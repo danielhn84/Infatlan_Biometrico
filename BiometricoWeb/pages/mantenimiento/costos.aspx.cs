@@ -19,7 +19,11 @@ namespace BiometricoWeb.pages.mantenimiento
             Session["CARGAR_DATA_COSTOS"] = null;
             if (!Page.IsPostBack)
             {
-                cargarData();
+                if (Convert.ToBoolean(Session["AUTH"])){
+                    cargarData();
+                }else{
+                    Response.Redirect("/login.aspx");
+                }
             }
         }
 

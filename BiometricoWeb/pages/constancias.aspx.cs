@@ -304,6 +304,10 @@ namespace BiometricoWeb.pages
                     LbTitulo.Text = "Eliminar Solicitud " + vId;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
+                if (e.CommandName == "DescargarInfo"){
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDescarga();", true);
+                    //Response.Redirect("plantilla/InformacionFinanciamiento.pdf");
+                }
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
@@ -319,6 +323,7 @@ namespace BiometricoWeb.pages
                 Session["SOLICITUD_RESPUESTA"] = vId;
                 Session["CONSTANCIA_ID"] = null;
                 if (e.CommandName == "ResponderSolicitud"){
+                    Session["CONSTANCIA_ELIMINAR"] = null;
                     LbTitulo.Text = "Responder Solicitud " + vId;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
@@ -342,8 +347,7 @@ namespace BiometricoWeb.pages
                             item["Tipo"].ToString(),
                             item["Categoria"].ToString(),
                             item["Destino"].ToString()
-
-                            );
+                        );
                     }
 
                     Boolean vFlag = true;
@@ -359,7 +363,7 @@ namespace BiometricoWeb.pages
                         vFlag = false;
 
                     if (vFlag){
-                        verInfo(vId);
+                        verInfo(vId, vDatos);
                         LbTituloInfo.Text = "Información de Solicitud " + vId;
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openInfo();", true);
                     }
@@ -370,46 +374,46 @@ namespace BiometricoWeb.pages
                     Session["CONSTANCIA_ELIMINAR"] = vId;
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
-            }
-            catch (Exception Ex){
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
 
-        private void verInfo(String vId) {
-            DataTable vDatos = (DataTable)Session["CONSTANCIAS_GENERAL"];
+        private void verInfo(String vId, DataTable vDatos) {
             for (int i = 0; i < vDatos.Rows.Count; i++){
                 if (vDatos.Rows[i]["idSolicitud"].ToString() == vId){
                     String vResultado = "";
                     if (vDatos.Rows[i]["Tipo"].ToString() == "Financiamiento"){
                         String vsDest = vDatos.Rows[i]["financDestino"].ToString();
-                        DataTable vData = stam(vsDest);
-                        for (int j = 0; j < vData.Rows.Count; j++){
-                            String vDest1 = vData.Rows[j]["Destino1"].ToString();
-                            String vMont1 = vData.Rows[j]["Monto1"].ToString();
-                            String vDest2 = vData.Rows[j]["Destino2"].ToString();
-                            String vMont2 = vData.Rows[j]["Monto2"].ToString();
-                            String vDest3 = vData.Rows[j]["Destino3"].ToString();
-                            String vMont3 = vData.Rows[j]["Monto3"].ToString();
-                            String vDest4 = vData.Rows[j]["Destino4"].ToString();
-                            String vMont4 = vData.Rows[j]["Monto4"].ToString();
+                        if (vsDest != "" || vsDest != string.Empty){
+                            DataTable vData = stam(vsDest);
+                            for (int j = 0; j < vData.Rows.Count; j++){
+                                String vDest1 = vData.Rows[j]["Destino1"].ToString();
+                                String vMont1 = vData.Rows[j]["Monto1"].ToString();
+                                String vDest2 = vData.Rows[j]["Destino2"].ToString();
+                                String vMont2 = vData.Rows[j]["Monto2"].ToString();
+                                String vDest3 = vData.Rows[j]["Destino3"].ToString();
+                                String vMont3 = vData.Rows[j]["Monto3"].ToString();
+                                String vDest4 = vData.Rows[j]["Destino4"].ToString();
+                                String vMont4 = vData.Rows[j]["Monto4"].ToString();
 
-                            vMont1 = vMont1.Substring(vMont1.Length -3 , 1) == "." ? vMont1 : vMont1 + ".00";
-                            if (vMont2 != "")
-                                vMont2 = vMont2.Substring(vMont2.Length - 3, 1) == "." ? vMont2 : vMont2 + ".00";
-                            if (vMont3 != "")
-                                vMont3 = vMont3.Substring(vMont3.Length - 3, 1) == "." ? vMont3 : vMont3 + ".00";
-                            if (vMont4 != "")
-                                vMont4 = vMont4.Substring(vMont4.Length - 3, 1) == "." ? vMont4 : vMont4 + ".00";
+                                vMont1 = vMont1.Substring(vMont1.Length -3 , 1) == "." ? vMont1 : vMont1 + ".00";
+                                if (vMont2 != "")
+                                    vMont2 = vMont2.Substring(vMont2.Length - 3, 1) == "." ? vMont2 : vMont2 + ".00";
+                                if (vMont3 != "")
+                                    vMont3 = vMont3.Substring(vMont3.Length - 3, 1) == "." ? vMont3 : vMont3 + ".00";
+                                if (vMont4 != "")
+                                    vMont4 = vMont4.Substring(vMont4.Length - 3, 1) == "." ? vMont4 : vMont4 + ".00";
 
-                            vResultado = vDest1 + " " + vMont1 + ", " + vDest2 + " " + vMont2 + ", " + vDest3 + " " + vMont3 + ", " + vDest4 + " " + vMont4;
-                            vResultado = vResultado.TrimEnd();
-                            vResultado = vResultado.Replace(",  ,  ,", "");
-                            vResultado = vResultado.Replace(",  ,", "");
+                                vResultado = vDest1 + " " + vMont1 + ", " + vDest2 + " " + vMont2 + ", " + vDest3 + " " + vMont3 + ", " + vDest4 + " " + vMont4;
+                                vResultado = vResultado.TrimEnd();
+                                vResultado = vResultado.Replace(",  ,  ,", "");
+                                vResultado = vResultado.Replace(",  ,", "");
+                            }
+                            String NewString = vResultado.Substring(vResultado.Length - 1, 1);
+                            if (NewString == ",")
+                                vResultado = vResultado.Remove(vResultado.Length - 1, 1);
                         }
-                        String NewString = vResultado.Substring(vResultado.Length - 1, 1);
-                        if (NewString == ",")
-                            vResultado = vResultado.Remove(vResultado.Length - 1, 1);
                     }
 
                     LbMonto.Text = vDatos.Rows[i]["financMonto"].ToString();
@@ -447,7 +451,13 @@ namespace BiometricoWeb.pages
         }
 
         protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
-
+            try{
+                GVBusqueda.PageIndex = e.NewPageIndex;
+                GVBusqueda.DataSource = (DataTable)Session["CONSTANCIAS_GENERAL"];
+                GVBusqueda.DataBind();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
 
         protected void DDLDestinoCL_SelectedIndexChanged(object sender, EventArgs e){
@@ -583,7 +593,13 @@ namespace BiometricoWeb.pages
         }
 
         protected void GVHistorico_PageIndexChanging(object sender, GridViewPageEventArgs e){
-
+            try{
+                GVHistorico.PageIndex = e.NewPageIndex;
+                GVHistorico.DataSource = (DataTable)Session["CONSTANCIA_HISTORICO"];
+                GVHistorico.DataBind();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
 
         protected void DDLEstadoConstancia_SelectedIndexChanged(object sender, EventArgs e){
@@ -610,48 +626,64 @@ namespace BiometricoWeb.pages
                 Session["CONSTANCIA_ID"] = null;
 
                 if (e.CommandName == "VerSolicitudHistorial"){
-                    DataTable vDatos = (DataTable)Session["CONSTANCIAS_GENERAL"];
-                    DataTable vDataFiltro = new DataTable();
-                    vDataFiltro.Columns.Add("Tipo");
-                    vDataFiltro.Columns.Add("Categoria");
-                    vDataFiltro.Columns.Add("Destino");
+                    DataTable vDatos = (DataTable)Session["CONSTANCIA_HISTORICO"];
+                    if (vDatos.Rows.Count > 0){
+                        DataTable vDataFiltro = new DataTable();
+                        vDataFiltro.Columns.Add("Tipo");
+                        vDataFiltro.Columns.Add("Categoria");
+                        vDataFiltro.Columns.Add("Destino");
 
-                    DivModFinanc.Visible = false;
-                    DivModAval.Visible = false;
-                    DivModEmbajada.Visible = false;
-                    DivModCapa.Visible = false;
-                    EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
-                        .Where(r => r.Field<Int32>("idSolicitud").Equals(Convert.ToInt32(vId)));
+                        DivModFinanc.Visible = false;
+                        DivModAval.Visible = false;
+                        DivModEmbajada.Visible = false;
+                        DivModCapa.Visible = false;
+                        EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
+                            .Where(r => r.Field<Int32>("idSolicitud").Equals(Convert.ToInt32(vId)));
 
-                    foreach (DataRow item in filtered){
-                        vDataFiltro.Rows.Add(
-                            item["Tipo"].ToString(),
-                            item["Categoria"].ToString(),
-                            item["Destino"].ToString()
+                        foreach (DataRow item in filtered){
+                            vDataFiltro.Rows.Add(
+                                item["Tipo"].ToString(),
+                                item["Categoria"].ToString(),
+                                item["Destino"].ToString()
 
-                            );
-                    }
+                                );
+                        }
 
-                    Boolean vFlag = true;
-                    if (vDataFiltro.Rows[0]["Tipo"].ToString() == "Financiamiento")
-                        DivModFinanc.Visible = true;
-                    else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Aval")
-                        DivModAval.Visible = true;
-                    else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Visa Embajada")
-                        DivModEmbajada.Visible = true;
-                    else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Visa para capacitacion")
-                        DivModCapa.Visible = true;
-                    else
-                        vFlag = false;
+                        Boolean vFlag = true;
+                        if (vDataFiltro.Rows[0]["Tipo"].ToString() == "Financiamiento")
+                            DivModFinanc.Visible = true;
+                        else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Aval")
+                            DivModAval.Visible = true;
+                        else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Visa Embajada")
+                            DivModEmbajada.Visible = true;
+                        else if (vDataFiltro.Rows[0]["Destino"].ToString() == "Visa para capacitacion")
+                            DivModCapa.Visible = true;
+                        else
+                            vFlag = false;
 
-                    if (vFlag){
-                        verInfo(vId);
-                        LbTituloInfo.Text = "Información de Solicitud " + vId;
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openInfo();", true);
+                        if (vFlag){
+                            verInfo(vId, vDatos);
+                            LbTituloInfo.Text = "Información de Solicitud " + vId;
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openInfo();", true);
+                        }
                     }
                 }
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnDescargarArchivo_Click(object sender, EventArgs e){
+            try{
+                String vDocumento = "InformacionFinanciamiento.pdf";
+                Response.ContentType = "application/pdf";  
+                Response.AddHeader("Content-disposition", "attachment;filename=" + vDocumento);
+                Response.TransmitFile(Server.MapPath("plantilla/" + vDocumento));  
+                Response.End();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeDescarga();", true);
+
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
             }
         }
     }

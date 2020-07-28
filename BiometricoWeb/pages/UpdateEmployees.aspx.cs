@@ -81,7 +81,7 @@ namespace BiometricoWeb.pages
 
                 DDLModJefatura.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
-                    DDLModJefatura.Items.Add(new ListItem { Value = item["codigoSAP"].ToString(), Text =  item["nombre"].ToString() });
+                    DDLModJefatura.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text =  item["nombre"].ToString() });
                 }
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }

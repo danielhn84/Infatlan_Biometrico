@@ -28,6 +28,9 @@ namespace BiometricoWeb.clases
             DataTable vDatos = new DataTable();
             try{
                 SqlDataAdapter vDataAdapter = new SqlDataAdapter(vQuery, vConexion);
+                SqlCommand vSqlCommand = new SqlCommand(vQuery, vConexion);
+
+
                 vDataAdapter.Fill(vDatos);
             }catch{
                 throw;
@@ -69,7 +72,6 @@ namespace BiometricoWeb.clases
             try{
                 SqlCommand vSqlCommand = new SqlCommand(vQuery, vConexionSysAid);
                 vSqlCommand.CommandType = CommandType.Text;
-
                 vConexionSysAid.Open();
                 vResultado = vSqlCommand.ExecuteNonQuery();
                 vConexionSysAid.Close();
@@ -93,11 +95,28 @@ namespace BiometricoWeb.clases
             return vDatos;
         }
 
-        public DataTable obtenerDataTableLocalidad(string vQuery){
+        public DataTable obtenerDataTableSTEI(string vQuery){
             DataTable vDatos = new DataTable();
             try{
                 SqlDataAdapter vDataAdapter = new SqlDataAdapter(vQuery, vConexionLocalidad);
                 vDataAdapter.Fill(vDatos);
+            }catch (Exception){
+                throw;
+            }
+            return vDatos;
+        }
+
+        public DataTable obtenerDataTableDashboard(string vQuery){
+            DataTable vDatos = new DataTable();
+            try{
+                SqlCommand vSqlCommand = new SqlCommand(vQuery, vConexion);
+                vSqlCommand.CommandTimeout = 60000;
+
+                SqlDataAdapter vDataAdapter = new SqlDataAdapter(vQuery, vConexion);
+                vConexion.Open();
+                vDataAdapter.SelectCommand = new SqlCommand(vQuery, vConexion);
+                vDataAdapter.Fill(vDatos);
+                vConexion.Close();
             }catch (Exception){
                 throw;
             }

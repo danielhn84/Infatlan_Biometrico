@@ -19,10 +19,13 @@ namespace BiometricoWeb.pages.viaticos
         {
             if (!Page.IsPostBack)
             {
-                cargarData();
+                if (Convert.ToBoolean(Session["AUTH"])){
+                    cargarData();
+                }else{
+                    Response.Redirect("/login.aspx");
+                }
             }
         }
-        
         void cargarData()
         {
             TxFechaInicio.Text = Convert.ToString(Session["VIATICOS_FECHA_INICIO"]);
@@ -38,7 +41,7 @@ namespace BiometricoWeb.pages.viaticos
             {
                 //CARGAR DESTINO FINAL
                 String vQuery10 = "STEISP_ATM_Generales 27,'"+ Convert.ToString(Session["VIATICOS_DESTINOF"]) + "'";
-                DataTable vDatos10 = vConexion2.obtenerDataTableLocalidad(vQuery10);
+                DataTable vDatos10 = vConexion2.obtenerDataTableSTEI(vQuery10);
                 foreach (DataRow item in vDatos10.Rows)
                 {
                     txtDestino.Text = item["nombre"].ToString();
@@ -61,12 +64,10 @@ namespace BiometricoWeb.pages.viaticos
             }
 
             }
-        
         public void Mensaje(string vMensaje, WarningType type)
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
-        
         protected void BtnCrearPermiso_Click(object sender, EventArgs e)
         {
             if (txtCompañia.Text == "" || txtcosto.Text == "")
@@ -78,8 +79,47 @@ namespace BiometricoWeb.pages.viaticos
         protected void btnModalEnviar_Click(object sender, EventArgs e)
         {
             //string vEmpleado = Convert.ToString(Session["VIATICOS_IDEMPLEADO"]);
-            string vQuery = "VIATICOS_Solicitud 5, '" + Session["VIATICOS_CODIGO"].ToString() + "','" + txtCompañia.Text + "','" + txtcosto.Text + "','" + txtcomentario.Text + "', '"+ Session["USUARIO"].ToString() + "'";
+            string vQuery = "VIATICOS_Solicitud 5, '" + Session["VIATICOS_CODIGO"].ToString() + "','" + txtCompañia.Text + "','" + txtcosto.Text + "','" + txtcomentario.Text + "', '"+ Session["USUARIO"].ToString() + "','" + Session["VIATICOS_IDEMPLEADO"] + "'";
             Int32 vInfo = vConexion.ejecutarSql(vQuery);
+            DataTable vDatosSiguiente = vConexion.obtenerDataTable(vQuery);
+            if (vInfo == 1)
+            {
+                //SmtpService vService = new SmtpService();
+                //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+
+                //Boolean vFlagEnvioSupervisor = false;
+                //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                //if (vDatosJefatura.Rows.Count > 0)
+                //{
+                //    foreach (DataRow item in vDatosJefatura.Rows)
+                //    {
+                //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                //        {
+                //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                //                typeBody.Cotizar,
+                //                item["nombre"].ToString(),
+                //                vDatosEmpleado.Rows[0]["Nombre"].ToString()
+                //                );
+                //            vFlagEnvioSupervisor = true;
+                //        }
+                //    }
+                //}
+
+                //if (vFlagEnvioSupervisor)
+                //{
+                //    foreach (DataRow item in vDatosSiguiente.Rows)
+                //    {
+                //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                //            vService.EnviarMensaje(item["Email"].ToString(),
+                //                typeBody.Jefe,
+                //               item["Nombre"].ToString(),
+                //              vDatosEmpleado.Rows[0]["Nombre"].ToString()
+
+                //            );
+                //    }
+                //}
+            }
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "closeModal();", true);
             Response.Redirect("cotizacion.aspx");
         }

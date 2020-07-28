@@ -18,8 +18,12 @@ namespace BiometricoWeb.pages.viaticos
         {
             if (!Page.IsPostBack)
             {
-                limpiarSession();
-                cargarData();
+                if (Convert.ToBoolean(Session["AUTH"])){
+                    limpiarSession();
+                    cargarData();
+                } else{
+                    Response.Redirect("/login.aspx");
+                }
             }
         }
         void limpiarSession()
@@ -34,6 +38,7 @@ namespace BiometricoWeb.pages.viaticos
             Session["VIATICOS_DESTINO"] = null;
             Session["VIATICOS_COMENTARIORRHH"] = null;
             Session["VIATICOS_NEWPAIS"] = null;
+            Session["VIATICOS_IDEMPLEADO"] = null;
         }
         void cargarData()
         {
@@ -65,6 +70,7 @@ namespace BiometricoWeb.pages.viaticos
                         Session["VIATICOS_FECHA_INICIO"] = Convert.ToDateTime(item["FechaI"]).ToString("dd/MM/yyyy HH:mm:ss");
                         Session["VIATICOS_FECHA_FIN"] = Convert.ToDateTime(item["FechaF"]).ToString("dd/MM/yyyy HH:mm:ss");                                                                    
                         Session["VIATICOS_EMPLEADO"] = item["Empleado"].ToString();
+                        Session["VIATICOS_IDEMPLEADO"] = item["IDEmpleado"].ToString(); 
                         Session["VIATICOS_CORREO"] = item["Correo"].ToString();
                         Session["VIATICOS_MOTIVOVIAJE"] = item["MotivoViaje"].ToString();
                         Session["VIATICOS_TIPOVIAJE"] = item["TipoViaje"].ToString();

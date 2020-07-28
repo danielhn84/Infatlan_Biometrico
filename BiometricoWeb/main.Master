@@ -146,13 +146,6 @@
                                             <span class="menu-title">Permisos</span>
                                         </a>
                                     </li>
-
-                                    <li class="" id="LIToken" runat="server" visible="false" style="margin-left:-20%">
-                                        <a class="nav-link" href="/pages/token.aspx" >
-                                            <i class="mdi mdi-key menu-icon"></i>
-                                            <span class="menu-title">Token</span>
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -342,6 +335,13 @@
                                             <a class="nav-link" href="/pages/access.aspx">Accesos Grupos</a>
                                             <a class="nav-link" href="/pages/clockuser.aspx">Usuarios Biometrico</a>
                                         </div>
+                                    </li>
+
+                                    <li class="" id="LIToken" runat="server" visible="false" style="margin-left:-20%">
+                                        <a class="nav-link" href="/pages/token.aspx" >
+                                            <i class="mdi mdi-key menu-icon"></i>
+                                            <span class="menu-title">Token</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
