@@ -7,416 +7,335 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace BiometricoWeb
+namespace BiometricoWeb.pages.documentacion
 {
 
 
-    public partial class main
+    public partial class crearDocumentos
     {
 
         /// <summary>
-        /// Control head.
+        /// Control UpdateProgress1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
 
         /// <summary>
-        /// Control FrmCambios.
+        /// Control UpdatePanel1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm FrmCambios;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
-        /// Control ScriptManager1.
+        /// Control GvTipos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.GridView GvTipos;
 
         /// <summary>
-        /// Control LitConfiguraciones.
+        /// Control UPBuzonGeneral.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitConfiguraciones;
+        protected global::System.Web.UI.UpdatePanel UPBuzonGeneral;
 
         /// <summary>
-        /// Control LitUsuario.
+        /// Control LitTitulo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitUsuario;
+        protected global::System.Web.UI.WebControls.Literal LitTitulo;
 
         /// <summary>
-        /// Control LIDashboard.
+        /// Control TxNombre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDashboard;
+        protected global::System.Web.UI.WebControls.TextBox TxNombre;
 
         /// <summary>
-        /// Control LIServicios.
+        /// Control DDLCategoria.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIServicios;
+        protected global::System.Web.UI.WebControls.DropDownList DDLCategoria;
 
         /// <summary>
-        /// Control LIAutorizaciones.
+        /// Control DivEmpleados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIAutorizaciones;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivEmpleados;
 
         /// <summary>
-        /// Control LIConstancias.
+        /// Control LBAgregarCorreos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIConstancias;
+        protected global::System.Web.UI.WebControls.LinkButton LBAgregarCorreos;
 
         /// <summary>
-        /// Control LICumpleaños.
+        /// Control DDLConfirmacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LICumpleaños;
+        protected global::System.Web.UI.WebControls.DropDownList DDLConfirmacion;
 
         /// <summary>
-        /// Control LIPermisos.
+        /// Control DDLCorreo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIPermisos;
+        protected global::System.Web.UI.WebControls.DropDownList DDLCorreo;
 
         /// <summary>
-        /// Control LITEx.
+        /// Control DivCorreos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITEx;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivCorreos;
 
         /// <summary>
-        /// Control LITExSolicitud.
+        /// Control DivRecurrencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExSolicitud;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivRecurrencia;
 
         /// <summary>
-        /// Control LITExJefatura.
+        /// Control DDLRecurrencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExJefatura;
+        protected global::System.Web.UI.WebControls.DropDownList DDLRecurrencia;
 
         /// <summary>
-        /// Control LITExSubgerencia.
+        /// Control TxFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExSubgerencia;
+        protected global::System.Web.UI.WebControls.TextBox TxFecha;
 
         /// <summary>
-        /// Control LITExRRHH.
+        /// Control CBxAdjunto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExRRHH;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox CBxAdjunto;
 
         /// <summary>
-        /// Control LITExReportes.
+        /// Control DivSiempre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExReportes;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivSiempre;
 
         /// <summary>
-        /// Control LITExMantenimiento.
+        /// Control TxFrecuencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITExMantenimiento;
+        protected global::System.Web.UI.WebControls.TextBox TxFrecuencia;
 
         /// <summary>
-        /// Control LITExManFeriados.
+        /// Control DDLFormatoFrecuencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LITExManFeriados;
+        protected global::System.Web.UI.WebControls.DropDownList DDLFormatoFrecuencia;
 
         /// <summary>
-        /// Control LITExManProyectos.
+        /// Control TxDurante.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LITExManProyectos;
+        protected global::System.Web.UI.WebControls.TextBox TxDurante;
 
         /// <summary>
-        /// Control LITExManPropuesta.
+        /// Control DDLDurante.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LITExManPropuesta;
+        protected global::System.Web.UI.WebControls.DropDownList DDLDurante;
 
         /// <summary>
-        /// Control LITExManEquipos.
+        /// Control DDLEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LITExManEquipos;
+        protected global::System.Web.UI.WebControls.DropDownList DDLEstado;
 
         /// <summary>
-        /// Control LIPoliticas.
+        /// Control FUArchivo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIPoliticas;
+        protected global::System.Web.UI.WebControls.FileUpload FUArchivo;
 
         /// <summary>
-        /// Control LIViaticos.
+        /// Control DivMensaje.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIViaticos;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivMensaje;
 
         /// <summary>
-        /// Control LIViatAprobacion.
+        /// Control LbAdvertencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIViatAprobacion;
+        protected global::System.Web.UI.WebControls.Label LbAdvertencia;
 
         /// <summary>
-        /// Control LIViatCotizacion.
+        /// Control UpdatePanel11.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIViatCotizacion;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel11;
 
         /// <summary>
-        /// Control LIViatMantenimiento.
+        /// Control BtnCargar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIViatMantenimiento;
+        protected global::System.Web.UI.WebControls.Button BtnCargar;
 
         /// <summary>
-        /// Control LIEmpleados.
+        /// Control Label1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIEmpleados;
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// Control LIEstructura.
+        /// Control UpdatePanel5.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIEstructura;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
 
         /// <summary>
-        /// Control LIOrganigrama.
+        /// Control DDLEmpleados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIOrganigrama;
+        protected global::System.Web.UI.WebControls.DropDownList DDLEmpleados;
 
         /// <summary>
-        /// Control LIDescriptor.
+        /// Control BtnAgregarCorreo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDescriptor;
+        protected global::System.Web.UI.WebControls.LinkButton BtnAgregarCorreo;
 
         /// <summary>
-        /// Control LIConfig.
+        /// Control GvCorreos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIConfig;
+        protected global::System.Web.UI.WebControls.GridView GvCorreos;
 
         /// <summary>
-        /// Control LIMantenimientos.
+        /// Control DivMensajeCorreo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIMantenimientos;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivMensajeCorreo;
 
         /// <summary>
-        /// Control LIBiometricos.
+        /// Control LbMensajeCorreo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIBiometricos;
+        protected global::System.Web.UI.WebControls.Label LbMensajeCorreo;
 
         /// <summary>
-        /// Control LIToken.
+        /// Control UpdatePanel6.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIToken;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
 
         /// <summary>
-        /// Control LISecurity.
+        /// Control BtnAgregar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISecurity;
-
-        /// <summary>
-        /// Control LISEC_Entradas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Entradas;
-
-        /// <summary>
-        /// Control LISEC_Salidas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Salidas;
-
-        /// <summary>
-        /// Control LISEC_Historico.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Historico;
-
-        /// <summary>
-        /// Control LISEC_Aprobaciones.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Aprobaciones;
-
-        /// <summary>
-        /// Control LI1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LI1;
-
-        /// <summary>
-        /// Control LIDocumentos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDocumentos;
-
-        /// <summary>
-        /// Control LIBuzon.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIBuzon;
-
-        /// <summary>
-        /// Control ContentPlaceHolder1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
-
-        /// <summary>
-        /// Control ContentPlaceHolder2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder2;
+        protected global::System.Web.UI.WebControls.Button BtnAgregar;
     }
 }

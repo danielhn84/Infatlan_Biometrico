@@ -16,7 +16,6 @@ namespace BiometricoWeb.pages
             if (!Page.IsPostBack){
                 LbTitulo.Text = "POLITICA DE VESTIMENTA";
                 //cargarPDF();
-
             }
         }
 

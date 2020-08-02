@@ -130,7 +130,7 @@
 
     <%--MODAL DE MODIFICACION--%>
     <div class="modal fade" id="PuestosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="ModalLabelModificacion">
@@ -161,7 +161,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Nombre del puesto</label>
+                                        <label class="col-sm-3">Nombre del puesto</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox ID="TxPuesto" placeholder="" class="form-control" runat="server"></asp:TextBox>
                                         </div>

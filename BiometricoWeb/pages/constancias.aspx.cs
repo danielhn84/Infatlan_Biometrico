@@ -314,7 +314,13 @@ namespace BiometricoWeb.pages
         }
 
         protected void GvMisConstancias_PageIndexChanging(object sender, GridViewPageEventArgs e){
-
+            try{
+                GvMisConstancias.PageIndex = e.NewPageIndex;
+                GvMisConstancias.DataSource = (DataTable)Session["CONSTANCIAS_EMPLEADO"];
+                GvMisConstancias.DataBind();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
 
         protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){

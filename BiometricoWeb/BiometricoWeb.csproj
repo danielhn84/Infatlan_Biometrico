@@ -153,6 +153,9 @@
     <Content Include="pages\access.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
+    <Content Include="pages\documentacion\archivo.aspx" />
+    <Content Include="pages\documentacion\crearDocumentos.aspx" />
+    <Content Include="pages\documentacion\tipoDocumentos.aspx" />
     <Content Include="pages\mail\TemplateReport.html" />
     <Content Include="pages\mantenimiento\costos.aspx" />
     <Content Include="pages\mantenimiento\hotel.aspx" />
@@ -283,6 +286,27 @@
     </Compile>
     <Compile Include="pages\authorizations.aspx.designer.cs">
       <DependentUpon>authorizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\documentacion\archivo.aspx.cs">
+      <DependentUpon>archivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\documentacion\archivo.aspx.designer.cs">
+      <DependentUpon>archivo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\documentacion\crearDocumentos.aspx.cs">
+      <DependentUpon>crearDocumentos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\documentacion\crearDocumentos.aspx.designer.cs">
+      <DependentUpon>crearDocumentos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\documentacion\tipoDocumentos.aspx.cs">
+      <DependentUpon>tipoDocumentos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\documentacion\tipoDocumentos.aspx.designer.cs">
+      <DependentUpon>tipoDocumentos.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\mantenimiento\costos.aspx.cs">
       <DependentUpon>costos.aspx</DependentUpon>
@@ -672,6 +696,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\SapServiceConstancias\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\SapServicesH\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -749,6 +778,14 @@
     <Content Include="Web References\ReportExecutionService\Warning.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
+    <Content Include="Web References\SapServiceConstancias\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\SapServiceConstancias\ZMF_HR_CONS_CAPAC_INF2Response.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\SapServiceConstancias\zws_rh_cons_capac_inf2.wsdl" />
     <None Include="Web References\SapServicesH\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -790,6 +827,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>BiometricoWeb_ReportExecutionService_ReportExecutionService</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/101/zws_rh_cons_capac_inf2/zws_rh_cons_capac_inf2%3fsap-client=101">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SapServiceConstancias\</RelPath>
+      <UpdateFromURL>http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/101/zws_rh_cons_capac_inf2/zws_rh_cons_capac_inf2%3fsap-client=101</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>BiometricoWeb_SapServiceConstancias_ZWS_RH_CONS_CAPAC_INF2</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_setdata/300/zws_hr_setdata/zws_hr_setdata%3fsap-client=300">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\SapServicesP\</RelPath>
@@ -815,6 +863,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Carga\" />
+    <Folder Include="pages\documentacion\repositorio\boletines\" />
+    <Folder Include="pages\documentacion\repositorio\formatos\" />
+    <Folder Include="pages\documentacion\repositorio\manuales\" />
+    <Folder Include="pages\documentacion\repositorio\politicas\" />
+    <Folder Include="pages\documentacion\repositorio\procesos\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\go\go-2.1.14.d.ts" />

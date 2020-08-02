@@ -54,5 +54,16 @@ namespace BiometricoWeb.Properties {
                 return ((string)(this["BiometricoWeb_ReportExecutionService_ReportExecutionService"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/101" +
+            "/zws_rh_cons_capac_inf2/zws_rh_cons_capac_inf2")]
+        public string BiometricoWeb_SapServiceConstancias_ZWS_RH_CONS_CAPAC_INF2 {
+            get {
+                return ((string)(this["BiometricoWeb_SapServiceConstancias_ZWS_RH_CONS_CAPAC_INF2"]));
+            }
+        }
     }
 }

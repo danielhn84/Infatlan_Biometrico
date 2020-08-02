@@ -67,6 +67,20 @@ namespace BiometricoWeb.clases
             return vResultado;
         }
 
+        public int obtenerId(String vQuery){
+            DataTable vDatos = new DataTable();
+            int vId = 0;
+            try{
+                SqlDataAdapter vDataAdapter = new SqlDataAdapter(vQuery, vConexion);
+                SqlCommand vSqlCommand = new SqlCommand(vQuery, vConexion);
+                vDataAdapter.Fill(vDatos);
+                vId = Convert.ToInt32(vDatos.Rows[0][0].ToString());
+            }catch{
+                throw;
+            }
+            return vId;
+        }
+
         public int ejecutarSqlSysAid(String vQuery){
             int vResultado = 0;
             try{
