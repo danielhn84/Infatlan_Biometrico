@@ -34,7 +34,7 @@
         <nav>
             <div class="nav nav-pills " id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#navTiposDoc" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-library-books"> </i>Secciones</a>
-                <a class="nav-item nav-link" id="A1" data-toggle="tab" href="#navCrear" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-plus" > </i>Crear</a>
+                <a class="nav-item nav-link" id="A1" runat="server" visible="false" data-toggle="tab" href="#navCrear" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-plus" > </i>Crear</a>
             </div>
         </nav>
     </div>
@@ -157,12 +157,12 @@
                                     </div>
                                 </div>
                                 <div runat="server" id="DivCorreos" visible="false" class="row col-12 mt-3">   
-                                    <div runat="server" id="DivRecurrencia" visible="false" class="row col-6">
+                                    <div runat="server" id="DivRecurrencia" visible="true" class="row col-6">
                                         <label class="col-4 col-form-label">Frecuencia</label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLRecurrencia" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DDLRecurrencia_SelectedIndexChanged">
                                                 <asp:ListItem Value="0" Text="Una vez"></asp:ListItem>
-                                                <%--<asp:ListItem Value="1" Text="Específica"></asp:ListItem>--%>
+                                                <asp:ListItem Value="1" Text="Específica"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </div>

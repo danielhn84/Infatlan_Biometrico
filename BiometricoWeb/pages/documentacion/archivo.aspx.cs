@@ -18,16 +18,18 @@ namespace BiometricoWeb.pages.documentacion
             try{
                 if (!Page.IsPostBack){
                     if (Convert.ToBoolean(Session["AUTH"])){
-                        string vId = Request.QueryString["id"];
-                        Session["DOCUMENTOS_ARCHIVO_ID"] = vId;
-                        LbTitulo.Text = Request.QueryString["ti"];
+                        if (Session["DOCUMENTO_ARCHIVO_ID"] != null){
+                            string vId = Session["DOCUMENTO_ARCHIVO_ID"].ToString();
+                            LbTitulo.Text = Request.QueryString["ti"];
 
-                        DataTable vDatos = (DataTable)Session["AUTHCLASS"];
-                        cargarDatos(vId);
+                            DataTable vDatos = (DataTable)Session["AUTHCLASS"];
+                            cargarDatos(vId);
+                        }else
+                            Response.Redirect("tipoDocumentos.aspx");
                     }
                 }
 			}catch (Exception ex){
-				throw new Exception(ex.Message);
+				throw;
 			}
         }
 
@@ -37,8 +39,15 @@ namespace BiometricoWeb.pages.documentacion
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     DivLectura.Visible = Convert.ToBoolean(vDatos.Rows[0]["flagLectura"].ToString()) == true ? true : false;
-                    String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("C:/httdocs/Biometrico","");
+                    //String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("C:/Users/wpadilla/source/repos/danielhn84/Infatlan_Biometrico/BiometricoWeb", "");
+                    String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("E:/htdocs/BiometricoDev", "");
                     IFramePDF.Attributes.Add("src", vDireccion);
+                    
+                    //for (int i = 0; i < vDireccion.Length; i++){
+                    //    if (vDireccion.){
+                    //    }
+                    //}
+                    //string[] vSplit = vDatos.Rows[0]["direccionArchivo"].ToString().Split('/');
                 }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
@@ -68,6 +77,15 @@ namespace BiometricoWeb.pages.documentacion
                     }
                 }else
                     Mensaje("Ya se ha registrado su confirmación de lectura.", WarningType.Warning);
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnVolver_Click(object sender, EventArgs e){
+            try{
+                Session["DOCUMENTO_ARCHIVO_ID"] = null;
+                Response.Redirect("tipoDocumentos.aspx");
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }

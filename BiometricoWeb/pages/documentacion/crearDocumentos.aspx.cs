@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using System.IO;
+using System.Text;
 
 namespace BiometricoWeb.pages.documentacion
 {
@@ -19,13 +20,18 @@ namespace BiometricoWeb.pages.documentacion
                 if (!Page.IsPostBack){
                     if (Convert.ToBoolean(Session["AUTH"])){
                         String vEx = Request.QueryString["ex"];
-                        if (vEx == "1")
-                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('" + Session["DOCUMENTOS_LOG"].ToString() + "')", true);
-                        else if (vEx == "2")
+                        if (vEx == "2")
                             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('Documento cargado con éxito.')", true);
                         else if(vEx == "3")
                             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('Solicitud no completada, favor comuníquese con sistemas.')", true);
-
+                        else if (vEx == "4")
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('Favor ingrese el nombre.')", true);
+                        else if (vEx == "5")
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('Favor seleccione la categoría del documento.')", true);
+                        else if (vEx == "6")
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('Favor agrege usuarios que verán el documento.')", true);
+                        else if (vEx == "7")
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('Favor ingrese el documento.')", true);
                         DataTable vDatos = (DataTable)Session["AUTHCLASS"];
                         cargarDatos();
                     }
@@ -107,7 +113,7 @@ namespace BiometricoWeb.pages.documentacion
 
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }else if (e.CommandName == "EntrarDoc"){
-                    Response.Redirect("tipoDocumentos.aspx?id=" + vId);
+                    Response.Redirect("tipoDocumentos.aspx");
                 }
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
@@ -164,7 +170,8 @@ namespace BiometricoWeb.pages.documentacion
                     vDatosMaestro[6] = vDireccionCarga;
                     vDatosMaestro[7] = DDLConfirmacion.SelectedValue;
                     vDatosMaestro[8] = DDLCorreo.SelectedValue;
-                    vDatosMaestro[9] = Convert.ToDateTime(TxFecha.Text).ToString("yyyy-MM-dd HH:mm:ss");
+                    //vDatosMaestro[9] = DDLCorreo.SelectedValue == "1" ? Convert.ToDateTime(TxFecha.Text).ToString("yyyy-MM-dd HH:mm:ss") : "1900-01-01 00:00:00";
+                    vDatosMaestro[9] = "1900-01-01 00:00:00";
                     vDatosMaestro[10] = TxFrecuencia.Text;
                     vDatosMaestro[11] = DDLFormatoFrecuencia.SelectedItem;
                     vDatosMaestro[12] = TxDurante.Text;
@@ -181,13 +188,26 @@ namespace BiometricoWeb.pages.documentacion
                     if (vInfo > 0){
                         if (DDLCategoria.SelectedValue == "2"){
                             DataTable vDTConfidenciales = (DataTable)Session["DOCUMENTOS_CORREOS"];
+                            String vUsuarios = "";
                             for (int i = 0; i < vDTConfidenciales.Rows.Count; i++){
                                 vQuery = "[RSP_Documentacion] 8" +
                                     "," + vDTConfidenciales.Rows[i]["idEmpleado"].ToString() +
                                     ",null," + vInfo + 
                                     ",'" + vDTConfidenciales.Rows[i]["emailEmpresa"].ToString() + "'";
                                 vConexion.ejecutarSql(vQuery);
+
+                                vUsuarios += vDTConfidenciales.Rows[i]["emailEmpresa"].ToString() + ",";
+                                //vUsuarios += vDTConfidenciales.Rows[i]["emailEmpresa"].ToString() + ";";
                             }
+                            StringBuilder text = new StringBuilder(vUsuarios);
+                            text.Replace(",","",vUsuarios.Length -1, 1);
+                            //text.Replace(";","",vUsuarios.Length -1, 1);
+                            vUsuarios = text.ToString();
+                            if (DDLCorreo.SelectedValue == "1")
+                                enviarMail(vUsuarios, TxNombre.Text, Session["DOCUMENTOS_TIPO_ID"].ToString());
+                        }else{
+                            if (DDLCorreo.SelectedValue == "1")
+                                enviarMail("infatlan@bancatlan.hn", TxNombre.Text, Session["DOCUMENTOS_TIPO_ID"].ToString());
                         }
                         Response.Redirect("crearDocumentos.aspx?ex=2");
                     }else
@@ -197,14 +217,14 @@ namespace BiometricoWeb.pages.documentacion
                     
                 limpiarModal();
             }catch (Exception ex){
-                Session["DOCUMENTOS_LOG"] = ex.Message;
-                Response.Redirect("crearDocumentos.aspx?ex=1");
+                Mensaje(ex.Message, WarningType.Danger);
             }
         }
 
         protected void DDLCorreo_SelectedIndexChanged(object sender, EventArgs e){
             try{
                 if (DDLCorreo.SelectedValue == "1") 
+                    //DivCorreos.Visible = false;
                     DivCorreos.Visible = true;
                 else if (DDLCorreo.SelectedValue == "0") { 
                     DivCorreos.Visible = false;
@@ -245,24 +265,22 @@ namespace BiometricoWeb.pages.documentacion
 
         private void validarDatos() {
             if (TxNombre.Text == string.Empty || TxNombre.Text == "")
-                throw new Exception("Favor ingrese el nombre");
+                Response.Redirect("crearDocumentos.aspx?ex=4");
             if (DDLCategoria.SelectedValue == "0")
-                throw new Exception("Favor seleccione la categoría del documento.");
+                Response.Redirect("crearDocumentos.aspx?ex=5");
             if (DDLCategoria.SelectedValue == "2"){
                 DataTable vDatos = (DataTable)Session["DOCUMENTOS_CORREOS"];
                 if (vDatos == null || vDatos.Rows.Count < 1)
-                    throw new Exception("Favor agrege usuarios que verán el documento.");
-            }
-
-            if (DDLCorreo.SelectedValue == "1") {
-                if (TxFecha.Text == string.Empty || TxFecha.Text == "")
-                    throw new Exception("Favor ingrese la fecha de inicio del correo.");
-                if (DDLRecurrencia.SelectedValue == "0") { 
-                
-                }
+                    Response.Redirect("crearDocumentos.aspx?ex=6");
             }
             if (!FUArchivo.HasFile)
-                throw new Exception("Favor ingrese el documento.");
+                Response.Redirect("crearDocumentos.aspx?ex=7");
+
+            //if (DDLCorreo.SelectedValue == "1") {
+            //    if (TxFecha.Text == string.Empty || TxFecha.Text == "")
+            //        Response.Redirect("crearDocumentos.aspx?ex=6");
+            //    throw new Exception("Favor ingrese la fecha de inicio del correo.");
+            //}
         }
 
         protected void DDLCategoria_SelectedIndexChanged(object sender, EventArgs e){
@@ -292,10 +310,8 @@ namespace BiometricoWeb.pages.documentacion
                 DataTable vDatosCorreos = (DataTable)Session["DOCUMENTOS_CORREOS"];
                 if (vDatosCorreos == null || vDatosCorreos.Rows.Count < 1)
                     throw new Exception("Favor ingrese al menos un empleado");
-                
 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModalCorreos();", true);
-
             }catch (Exception ex){
                 DivMensajeCorreo.Visible = true;
                 LbMensajeCorreo.Text = ex.Message;
@@ -376,6 +392,34 @@ namespace BiometricoWeb.pages.documentacion
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
+        }
+
+        private Boolean enviarMail(String vPara, String vNombre, String vArchivo) {
+            Boolean vFlag = false;
+            try{
+                if (vArchivo == "1")
+                    vArchivo = " Boletin";
+                else if (vArchivo == "2")
+                    vArchivo = " Formato";
+                else if (vArchivo == "3")
+                    vArchivo = " Manual";
+                else if (vArchivo == "4")
+                    vArchivo = "a Politica";
+                else if (vArchivo == "5")
+                    vArchivo = "Proceso";
+
+                SmtpService vService = new SmtpService();
+                vService.EnviarMensaje(vPara,
+                    typeBody.Documentos,
+                    "",
+                    "Se ha creado un" + vArchivo + " en el módulo de documentación. Favor revisarlo",
+                    "El nombre del documento es: " + vNombre
+                    );
+                vFlag = true;
+            }catch (Exception ex){
+                throw;
+            }
+            return vFlag;
         }
     }
 }

@@ -375,13 +375,13 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LISEC_Aprobaciones;
 
         /// <summary>
-        /// Control LI1.
+        /// Control LIDocumentacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LI1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDocumentacion;
 
         /// <summary>
         /// Control LIDocumentos.
@@ -391,6 +391,24 @@ namespace BiometricoWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDocumentos;
+
+        /// <summary>
+        /// Control LIDocumentosReportes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDocumentosReportes;
+
+        /// <summary>
+        /// Control LIDocumentosGrupos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDocumentosGrupos;
 
         /// <summary>
         /// Control LIBuzon.

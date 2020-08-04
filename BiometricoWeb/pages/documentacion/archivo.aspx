@@ -29,6 +29,14 @@
                         <p class="mb-md-0">Recursos Humanos</p>
                     </div>
                 </div>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:Button ID="BtnVolver" Text="Volver" CssClass="btn btn-primary" runat="server" OnClick="BtnVolver_Click" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <%--<a href="tipoDocumentos.aspx" class="btn btn-primary">Volver</a>--%>
+                </div>
             </div>
         </div>
     </div>

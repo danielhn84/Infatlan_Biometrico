@@ -50,8 +50,6 @@
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Documentos</h4>
-                            <p>Departamentos de trabajo existentes.</p>
                             <div class="col-md-12">
                                 <div class="row">
                                     <label class="col-sm-1 col-form-label">Buscar</label>

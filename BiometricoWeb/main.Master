@@ -363,7 +363,7 @@
                             </div>
                         </li>
 
-                        <li class="nav-item" id="LI1" runat="server" visible="true">
+                        <li class="nav-item" id="LIDocumentacion" runat="server" visible="true">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic5">
                                 <i class="mdi mdi-folder menu-icon"></i>
                                 <span class="menu-title">Documentacion</span>
@@ -372,6 +372,8 @@
                             <div class="collapse" id="ui-basic1">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item" runat="server" visible="true" id="LIDocumentos"><a class="nav-link" href="/pages/documentacion/crearDocumentos.aspx">Generales</a></li>
+                                    <li class="nav-item" runat="server" visible="true" id="LIDocumentosReportes"><a class="nav-link" href="/pages/documentacion/docReportes.aspx">Reportes</a></li>
+                                    <li class="nav-item" runat="server" visible="true" id="LIDocumentosGrupos"><a class="nav-link" href="/pages/documentacion/docGrupos.aspx">Grupos</a></li>
                                 </ul>
                             </div>
                         </li>

@@ -27,6 +27,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 
             }
         }        
+
         public void Mensaje(string vMensaje, WarningType type)
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);

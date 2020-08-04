@@ -18,34 +18,40 @@ namespace BiometricoWeb.pages.documentacion
             try{
                 if (!Page.IsPostBack){
                     if (Convert.ToBoolean(Session["AUTH"])){
-                        string vId = Request.QueryString["id"];
-                        if (vId == "1")
+                        if (Session["DOCUMENTOS_TIPO_ID"] == null)
+                            Response.Redirect("crearDocumentos.aspx");
+                        
+                        
+                        string vIdTipo = Session["DOCUMENTOS_TIPO_ID"].ToString();
+                        if (vIdTipo == "1")
                             TxTitulo.Text = "Boletines";
-                        else if(vId == "2")
+                        else if(vIdTipo == "2")
                             TxTitulo.Text = "Formatos";
-                        else if(vId == "3")
+                        else if(vIdTipo == "3")
                             TxTitulo.Text = "Manuales";
-                        else if(vId == "4")
+                        else if(vIdTipo == "4")
                             TxTitulo.Text = "Politicas";
-                        else if(vId == "5")
+                        else if(vIdTipo == "5")
                             TxTitulo.Text = "Procesos";
 
                         DataTable vDatos = (DataTable)Session["AUTHCLASS"];
-                        cargarDatos(vId);
+                        cargarDatos(vIdTipo);
                     }
                 }
 			}catch (Exception ex){
-				throw new Exception(ex.Message);
+				throw;
 			}
         }
         
         private void cargarDatos(String vId) {
             try{
-                String vQuery = "[RSP_Documentacion] 3," + vId;
+                String vQuery = "[RSP_Documentacion] 3," + vId + ",NULL," + Session["USUARIO"].ToString();
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-                GVBusqueda.DataSource = vDatos;
-                GVBusqueda.DataBind();
-                Session["DOCUMENTOS"] = vDatos;
+                if (vDatos.Rows.Count > 0){
+                    GVBusqueda.DataSource = vDatos;
+                    GVBusqueda.DataBind();
+                    Session["DOCUMENTOS"] = vDatos;
+                }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -62,9 +68,9 @@ namespace BiometricoWeb.pages.documentacion
         protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){
             try{
                 String vId = e.CommandArgument.ToString();
-                Session["DOCUMENTO_ID"] = vId;
+                Session["DOCUMENTO_ARCHIVO_ID"] = vId;
                 if (e.CommandName == "verDocumento"){
-                    Response.Redirect("archivo.aspx?id=" + vId + "&ti=" + TxTitulo.Text);
+                    Response.Redirect("archivo.aspx?ti=" + TxTitulo.Text);
                 }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);

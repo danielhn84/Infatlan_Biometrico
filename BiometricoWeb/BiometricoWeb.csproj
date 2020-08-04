@@ -155,6 +155,8 @@
     <Content Include="pages\authorizations.aspx" />
     <Content Include="pages\documentacion\archivo.aspx" />
     <Content Include="pages\documentacion\crearDocumentos.aspx" />
+    <Content Include="pages\documentacion\docGrupos.aspx" />
+    <Content Include="pages\documentacion\docReportes.aspx" />
     <Content Include="pages\documentacion\tipoDocumentos.aspx" />
     <Content Include="pages\mail\TemplateReport.html" />
     <Content Include="pages\mantenimiento\costos.aspx" />
@@ -300,6 +302,20 @@
     </Compile>
     <Compile Include="pages\documentacion\crearDocumentos.aspx.designer.cs">
       <DependentUpon>crearDocumentos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\documentacion\docGrupos.aspx.cs">
+      <DependentUpon>docGrupos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\documentacion\docGrupos.aspx.designer.cs">
+      <DependentUpon>docGrupos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\documentacion\docReportes.aspx.cs">
+      <DependentUpon>docReportes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\documentacion\docReportes.aspx.designer.cs">
+      <DependentUpon>docReportes.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\documentacion\tipoDocumentos.aspx.cs">
       <DependentUpon>tipoDocumentos.aspx</DependentUpon>

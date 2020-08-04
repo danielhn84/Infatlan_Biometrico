@@ -74,6 +74,7 @@ namespace BiometricoWeb
                             LIBuzon.Visible = false;
                             LITEx.Visible = false;
                             LIViaticos.Visible = false;
+                            LIDocumentacion.Visible = false;
                         }
 
                         if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3")) {
