@@ -75,20 +75,16 @@ namespace BiometricoWeb.pages.documentacion
                 throw new Exception("Favor seleccione un documento.");
         }
 
-        private void limpiarDatos()
-        {
+        private void limpiarDatos(){
            DDLTipoPDoc.SelectedIndex = 0;       
            DDLDocumento.SelectedIndex = 0;
         }
 
-        protected void BtnConfirmar_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnConfirmar_Click(object sender, EventArgs e){
+            try{
                 DataTable vDatos = (DataTable)Session["DOCUMENTO_REPORTE"];
-                string Parametro1 = vDatos.Rows[0]["idCategoria"].ToString(); ;
+                string Parametro1 = vDatos.Rows[0]["idCategoria"].ToString(); 
                 string Parametro2 = DDLDocumento.SelectedValue;
-
 
                 ReportExecutionService.ReportExecutionService vRSE = new ReportExecutionService.ReportExecutionService();
                 vRSE.Credentials = new NetworkCredential("report_user", "kEbn2HUzd$Fs2T", "adbancat.hn");
@@ -111,6 +107,7 @@ namespace BiometricoWeb.pages.documentacion
 
                 byte[] vResultado = vRSE.Render("EXCEL", deviceinfo, out mime, out encoding, out encoding, out warning, out stream);
 
+
                 Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 Response.AppendHeader("Content-Type", "application/vnd.ms-excel");
                 byte[] bytFile = vResultado;
@@ -118,23 +115,16 @@ namespace BiometricoWeb.pages.documentacion
                 Response.AddHeader("Content-disposition", "attachment;filename=Reporte.xls");
                 Response.End();
 
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
-
             }
         }
 
-        protected void BtnCancelarModal_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnCancelarModal_Click(object sender, EventArgs e){
+            try{
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
                 limpiarDatos();
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
