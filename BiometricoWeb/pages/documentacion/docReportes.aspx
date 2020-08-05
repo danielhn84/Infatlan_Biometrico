@@ -107,9 +107,13 @@
                 <div class="modal-footer">
                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                         <ContentTemplate>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <%--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>--%>
+                            <asp:Button ID="BtnCancelarModal" runat="server" Text="Cancelar" class="btn btn-danger"  OnClick="BtnCancelarModal_Click"/>
                             <asp:Button ID="BtnConfirmar" runat="server" Text="Aceptar" class="btn btn-success" OnClick="BtnConfirmar_Click"/>
                         </ContentTemplate>
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID="BtnConfirmar" />
+                        </Triggers>
                     </asp:UpdatePanel>
                 </div>
             </div>

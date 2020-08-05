@@ -32,89 +32,7 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
-        //protected void DdlMes_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    string vFechaReporte = "";
-        //    String vFormato = "dd/MM/yyyy";
-        //    DateTime moment = DateTime.Now;
-        //    int year = moment.Year;
-        //    DateTime vEnero = DateTime.Now;
-        //    DateTime vFebrero = DateTime.Now;
-        //    DateTime vMarzo = DateTime.Now;
-        //    DateTime vAbril = DateTime.Now;
-        //    DateTime vMayo = DateTime.Now;
-        //    DateTime vJunio = DateTime.Now;
-        //    DateTime vJulio = DateTime.Now;
-        //    DateTime vAgosto = DateTime.Now;
-        //    DateTime vSeptiembre = DateTime.Now;
-        //    DateTime vOctubre = DateTime.Now;
-        //    DateTime vNoviembre = DateTime.Now;
-        //    DateTime vDiciembe = DateTime.Now;
-
-        //    if (DdlMes.SelectedValue.Equals("1"))
-        //    {
-        //        vEnero = new DateTime(year, 1, 1, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vEnero).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("2"))
-        //    {
-        //        vFebrero = new DateTime(year, 1, 2, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vFebrero).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("3"))
-        //    {
-        //        vMarzo = new DateTime(year, 1, 3, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vMarzo).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("4"))
-        //    {
-        //        vAbril = new DateTime(year, 1, 4, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vAbril).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("5"))
-        //    {
-        //        vMayo = new DateTime(year, 1, 5, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vMayo).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("6"))
-        //    {
-        //        vJunio = new DateTime(year, 1, 6, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vJunio).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("7"))
-        //    {
-        //        vJulio = new DateTime(year, 1, 7, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vJulio).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("8"))
-        //    {
-        //        vAgosto = new DateTime(year, 1, 8, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vAgosto).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("9"))
-        //    {
-        //        vSeptiembre = new DateTime(year, 1, 9, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vSeptiembre).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("10"))
-        //    {
-        //        vOctubre = new DateTime(year, 1, 10, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vOctubre).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("11"))
-        //    {
-        //        vNoviembre = new DateTime(year, 1, 11, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vNoviembre).ToString(vFormato);
-        //    }
-        //    else if (DdlMes.SelectedValue.Equals("12"))
-        //    {
-        //        vDiciembe = new DateTime(year, 1, 12, 00, 00, 00);
-        //        vFechaReporte = Convert.ToDateTime(vDiciembe).ToString(vFormato);
-        //    }
-
-        //    Session["STEFECHAREPORTE"] = vFechaReporte;
-
-        //}
+ 
         void validaciones(){
             
             if (DdlReporte.SelectedValue.Equals("0"))
@@ -449,9 +367,6 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 RowProyectoPropuesta.Visible = true;
                 cargarProyectoPropuesta();
                 UpdateDivProyectoPropuesta.Update();
-
-  
-
             }
         }
         void cargarProyectoPropuesta()

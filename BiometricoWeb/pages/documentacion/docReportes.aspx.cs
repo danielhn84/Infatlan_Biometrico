@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using System.IO;
+using System.Net;
 
 namespace BiometricoWeb.pages.documentacion
 {
@@ -44,8 +45,9 @@ namespace BiometricoWeb.pages.documentacion
 
         protected void DDLTipoPDoc_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                String vQuery = "[RSP_Documentacion] 12," + DDLTipoPDoc.SelectedValue;
+                String vQuery = "[RSP_Documentacion] 11," + DDLTipoPDoc.SelectedValue;
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                Session["DOCUMENTO_DOCUMENTO_SELECCIONADO"] = vDatos;
 
                 DDLDocumento.Items.Clear();
                 DDLDocumento.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
@@ -73,9 +75,68 @@ namespace BiometricoWeb.pages.documentacion
                 throw new Exception("Favor seleccione un documento.");
         }
 
+        private void limpiarDatos()
+        {
+           DDLTipoPDoc.SelectedIndex = 0;       
+           DDLDocumento.SelectedIndex = 0;
+        }
+
         protected void BtnConfirmar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                DataTable vDatos = (DataTable)Session["DOCUMENTO_DOCUMENTO_SELECCIONADO"];
+                string Parametro1 = vDatos.Rows[0]["idCategoria"].ToString(); ;
+                string Parametro2 = DDLDocumento.SelectedValue;
 
+
+                ReportExecutionService.ReportExecutionService vRSE = new ReportExecutionService.ReportExecutionService();
+                vRSE.Credentials = new NetworkCredential("report_user", "kEbn2HUzd$Fs2T", "adbancat.hn");
+                vRSE.Url = "http://10.128.0.52/reportserver/reportexecution2005.asmx";
+
+                vRSE.ExecutionHeaderValue = new ReportExecutionService.ExecutionHeader();
+                var vEInfo = new ReportExecutionService.ExecutionInfo();
+                vEInfo = vRSE.LoadReport("/Recursos Humanos Interno/GestionDocumentalConsultas", null);
+
+                List<ReportExecutionService.ParameterValue> vParametros = new List<ReportExecutionService.ParameterValue>();
+                vParametros.Add(new ReportExecutionService.ParameterValue { Name = "D1", Value = Parametro1 });
+                vParametros.Add(new ReportExecutionService.ParameterValue { Name = "D2", Value = Parametro2 });
+
+                vRSE.SetExecutionParameters(vParametros.ToArray(), "en-US");
+                String deviceinfo = "<DeviceInfo><Toolbar>false</Toolbar></DeviceInfo>";
+                String mime;
+                String encoding;
+                string[] stream;
+                ReportExecutionService.Warning[] warning;
+
+                byte[] vResultado = vRSE.Render("EXCEL", deviceinfo, out mime, out encoding, out encoding, out warning, out stream);
+
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.AppendHeader("Content-Type", "application/vnd.ms-excel");
+                byte[] bytFile = vResultado;
+                Response.OutputStream.Write(bytFile, 0, bytFile.Length);
+                Response.AddHeader("Content-disposition", "attachment;filename=Reporte.xls");
+                Response.End();
+
+            }
+            catch (Exception Ex)
+            {
+                Mensaje(Ex.Message, WarningType.Danger);
+
+            }
+        }
+
+        protected void BtnCancelarModal_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
+                limpiarDatos();
+            }
+            catch (Exception Ex)
+            {
+                Mensaje(Ex.Message, WarningType.Danger);
+            }
         }
     }
 }
