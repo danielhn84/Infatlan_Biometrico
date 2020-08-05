@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using Newtonsoft.Json;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using System.IO;
@@ -15,22 +16,40 @@ namespace BiometricoWeb.pages.documentacion
     {
         db vConexion = new db();
         protected void Page_Load(object sender, EventArgs e){
-            try{
-                if (!Page.IsPostBack){
-                    if (Convert.ToBoolean(Session["AUTH"])){
-                        if (Session["DOCUMENTO_ARCHIVO_ID"] != null){
-                            string vId = Session["DOCUMENTO_ARCHIVO_ID"].ToString();
-                            LbTitulo.Text = Request.QueryString["ti"];
+            String vToken = Request.QueryString["id"];
+            if (vToken != null){
+                try{
+                    token vTokenClass = new token();
+                    CryptoToken.CryptoToken vTokenCrypto = new CryptoToken.CryptoToken();
+                    vTokenClass = JsonConvert.DeserializeObject<token>(vTokenCrypto.Decrypt(vToken, ConfigurationManager.AppSettings["TOKEN_DOC"].ToString()));
 
-                            DataTable vDatos = (DataTable)Session["AUTHCLASS"];
-                            cargarDatos(vId);
-                        }else
-                            Response.Redirect("tipoDocumentos.aspx");
-                    }
+                    //SI NO HAY ERROR
+                    //1. uso de las variables que vienen en token
+                    //2. almacenar el token consultado 
+                    //3. consulta de token
+                    
+                    Session["AUTH"] = true;
+                }catch{
+                    Session["AUTH"] = false;
+                    Response.Redirect("/login.aspx");
                 }
-			}catch (Exception ex){
-				throw;
-			}
+            }
+
+            if (!Page.IsPostBack){
+                if (Convert.ToBoolean(Session["AUTH"])){
+                    if (Session["DOCUMENTO_ARCHIVO_ID"] != null){
+                        string vId = Session["DOCUMENTO_ARCHIVO_ID"].ToString();
+                        String vQuery = "[RSP_Documentacion] 5" +
+                            "," + Session["DOCUMENTO_ARCHIVO_ID"].ToString();
+                        DataTable vData = vConexion.obtenerDataTable(vQuery);
+                        LbTitulo.Text = vData.Rows[0]["nombre"].ToString();
+
+                        DataTable vDatos = (DataTable)Session["AUTHCLASS"];
+                        cargarDatos(vId);
+                    }else
+                        Response.Redirect("tipoDocumentos.aspx");
+                }
+            }
         }
 
         private void cargarDatos(String vId) {
@@ -39,8 +58,8 @@ namespace BiometricoWeb.pages.documentacion
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     DivLectura.Visible = Convert.ToBoolean(vDatos.Rows[0]["flagLectura"].ToString()) == true ? true : false;
-                    //String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("C:/Users/wpadilla/source/repos/danielhn84/Infatlan_Biometrico/BiometricoWeb", "");
-                    String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("E:/htdocs/BiometricoDev", "");
+                    String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("C:/Users/wpadilla/source/repos/danielhn84/Infatlan_Biometrico/BiometricoWeb", "");
+                    //String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("E:/htdocs/BiometricoDev", "");
                     IFramePDF.Attributes.Add("src", vDireccion);
                     
                     //for (int i = 0; i < vDireccion.Length; i++){

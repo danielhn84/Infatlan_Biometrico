@@ -58,6 +58,9 @@
       <HintPath>bin\Interop.zkemkeeper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Runtime.Serialization" />
@@ -239,6 +242,7 @@
     <Compile Include="clases\SmtpService.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="clases\tokenClass.cs" />
     <Compile Include="clases\xml.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>

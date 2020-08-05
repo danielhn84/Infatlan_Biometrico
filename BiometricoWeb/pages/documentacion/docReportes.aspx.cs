@@ -44,7 +44,7 @@ namespace BiometricoWeb.pages.documentacion
 
         protected void DDLTipoPDoc_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                String vQuery = "[RSP_Documentacion] 12," + DDLTipoPDoc.SelectedValue;
+                String vQuery = "[RSP_Documentacion] 11," + DDLTipoPDoc.SelectedValue;
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
 
                 DDLDocumento.Items.Clear();

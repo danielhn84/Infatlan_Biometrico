@@ -70,7 +70,7 @@ namespace BiometricoWeb.pages.documentacion
                 String vId = e.CommandArgument.ToString();
                 Session["DOCUMENTO_ARCHIVO_ID"] = vId;
                 if (e.CommandName == "verDocumento"){
-                    Response.Redirect("archivo.aspx?ti=" + TxTitulo.Text);
+                    Response.Redirect("archivo.aspx");
                 }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
