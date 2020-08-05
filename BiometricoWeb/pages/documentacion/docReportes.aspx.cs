@@ -47,7 +47,7 @@ namespace BiometricoWeb.pages.documentacion
             try{
                 String vQuery = "[RSP_Documentacion] 11," + DDLTipoPDoc.SelectedValue;
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-                Session["DOCUMENTO_DOCUMENTO_SELECCIONADO"] = vDatos;
+                Session["DOCUMENTO_REPORTE"] = vDatos;
 
                 DDLDocumento.Items.Clear();
                 DDLDocumento.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
@@ -85,7 +85,7 @@ namespace BiometricoWeb.pages.documentacion
         {
             try
             {
-                DataTable vDatos = (DataTable)Session["DOCUMENTO_DOCUMENTO_SELECCIONADO"];
+                DataTable vDatos = (DataTable)Session["DOCUMENTO_REPORTE"];
                 string Parametro1 = vDatos.Rows[0]["idCategoria"].ToString(); ;
                 string Parametro2 = DDLDocumento.SelectedValue;
 
