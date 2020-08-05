@@ -105,6 +105,15 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.UpdatePanel UpdatePanel4;
 
         /// <summary>
+        /// Control BtnCancelarModal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnCancelarModal;
+
+        /// <summary>
         /// Control BtnConfirmar.
         /// </summary>
         /// <remarks>
