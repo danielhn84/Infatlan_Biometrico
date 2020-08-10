@@ -2150,47 +2150,50 @@
                 Decimal vHrsSolicitadasSinModificar = ((vHrs * 60) + vMin) / 60;
                 Decimal vHrssolicitadas = ((Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) * 60) + Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString())) / 60;
 
-
-
-                //SOLO PARA PROYECTO Y PROPUESTAS   
-                if (vDescTipoTrabajo == DdlTipoDescripcion.SelectedValue && vHrsSolicitadasSinModificar > vHrssolicitadas)
+                if (DdlTipoTrabajo.SelectedValue.Equals("1") || DdlTipoTrabajo.SelectedValue.Equals("2"))
                 {
-                    Decimal vHrsExcedentes = vHrssolicitadas - vHrsSolicitadasSinModificar;
 
-                    vQuery = "RSP_TiempoExtraordinarioGenerales 7," + DdlTipoDescripcion.SelectedValue;
-                    vDatos = vConexion.obtenerDataTable(vQuery);
-                    string cantHrsProyectoRegistradas = vDatos.Rows[0]["RESULTADO"].ToString();
-                    if (cantHrsProyectoRegistradas=="")
+                    //SOLO PARA PROYECTO Y PROPUESTAS   
+                    if (vDescTipoTrabajo == DdlTipoDescripcion.SelectedValue && vHrsSolicitadasSinModificar > vHrssolicitadas)
                     {
-                        cantHrsProyectoRegistradas = "0";
+                        Decimal vHrsExcedentes = vHrssolicitadas - vHrsSolicitadasSinModificar;
+
+                        vQuery = "RSP_TiempoExtraordinarioGenerales 7," + DdlTipoDescripcion.SelectedValue;
+                        vDatos = vConexion.obtenerDataTable(vQuery);
+                        string cantHrsProyectoRegistradas = vDatos.Rows[0]["RESULTADO"].ToString();
+                        if (cantHrsProyectoRegistradas == "")
+                        {
+                            cantHrsProyectoRegistradas = "0";
+                        }
+
+                        vQuery = "RSP_TiempoExtraordinarioGenerales 8," + DdlTipoDescripcion.SelectedValue;
+                        vDatos = vConexion.obtenerDataTable(vQuery);
+                        string cantHrsProyecto = vDatos.Rows[0]["totalHrs"].ToString();
+
+                        Decimal faltante = Convert.ToDecimal(cantHrsProyecto) - Convert.ToDecimal(cantHrsProyectoRegistradas);
+
+                        if (vHrsExcedentes > faltante)
+                            throw new Exception("La cantidad de horas solicitadas superan la cantidad de horas disponibles para el proyecto o propuesta " + ", total horas disponibles: " + faltante);
                     }
 
-                    vQuery = "RSP_TiempoExtraordinarioGenerales 8," + DdlTipoDescripcion.SelectedValue;
-                    vDatos = vConexion.obtenerDataTable(vQuery);
-                    string cantHrsProyecto = vDatos.Rows[0]["totalHrs"].ToString();
+                    else if (vDescTipoTrabajo != DdlTipoDescripcion.SelectedValue)
+                    {
+                        vQuery = "RSP_TiempoExtraordinarioGenerales 7," + DdlTipoDescripcion.SelectedValue;
+                        vDatos = vConexion.obtenerDataTable(vQuery);
+                        string cantHrsProyectoRegistradas = vDatos.Rows[0]["RESULTADO"].ToString();
 
-                    Decimal faltante = Convert.ToDecimal(cantHrsProyecto) - Convert.ToDecimal(cantHrsProyectoRegistradas);
+                        vQuery = "RSP_TiempoExtraordinarioGenerales 8," + DdlTipoDescripcion.SelectedValue;
+                        vDatos = vConexion.obtenerDataTable(vQuery);
+                        string cantHrsProyecto = vDatos.Rows[0]["totalHrs"].ToString();
 
-                    if (vHrsExcedentes > faltante)
-                        throw new Exception("La cantidad de horas solicitadas superan la cantidad de horas disponibles para el proyecto o propuesta " + ", total horas disponibles: " + faltante);
-                }
-                else if (vDescTipoTrabajo != DdlTipoDescripcion.SelectedValue)
-                {
-                    vQuery = "RSP_TiempoExtraordinarioGenerales 7," + DdlTipoDescripcion.SelectedValue;
-                    vDatos = vConexion.obtenerDataTable(vQuery);
-                    string cantHrsProyectoRegistradas = vDatos.Rows[0]["RESULTADO"].ToString();
+                        Decimal faltante = Convert.ToDecimal(cantHrsProyecto) - Convert.ToDecimal(cantHrsProyectoRegistradas);
 
-                    vQuery = "RSP_TiempoExtraordinarioGenerales 8," + DdlTipoDescripcion.SelectedValue;
-                    vDatos = vConexion.obtenerDataTable(vQuery);
-                    string cantHrsProyecto = vDatos.Rows[0]["totalHrs"].ToString();
+                        //Decimal vHrssolicitadas = (Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) *60 )+ Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString());
+                        Decimal vHrssolicitada = ((Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) * 60) + Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString())) / 60;
 
-                    Decimal faltante = Convert.ToDecimal(cantHrsProyecto) - Convert.ToDecimal(cantHrsProyectoRegistradas);
-
-                    //Decimal vHrssolicitadas = (Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) *60 )+ Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString());
-                    Decimal vHrssolicitada = ((Convert.ToDecimal(Session["STEHRTOTALSOLICITADAS"].ToString()) * 60) + Convert.ToDecimal(Session["STEMINTOTALSOLICITADAS"].ToString())) / 60;
-
-                    if (vHrssolicitada > faltante)
-                        throw new Exception("La cantidad de horas solicitadas superan la cantidad de horas disponibles para el proyecto o propuesta, Total horas disponibles: " + faltante);
+                        if (vHrssolicitada > faltante)
+                            throw new Exception("La cantidad de horas solicitadas superan la cantidad de horas disponibles para el proyecto o propuesta, Total horas disponibles: " + faltante);
+                    }
                 }
 
 
