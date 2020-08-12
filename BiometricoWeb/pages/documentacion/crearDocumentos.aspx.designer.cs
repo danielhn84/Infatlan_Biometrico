@@ -69,6 +69,15 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.WebControls.Literal LitTitulo;
 
         /// <summary>
+        /// Control TxCodigo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxCodigo;
+
+        /// <summary>
         /// Control TxNombre.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,15 @@ namespace BiometricoWeb.pages.documentacion
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLCategoria;
+
+        /// <summary>
+        /// Control DDLConfirmacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDLConfirmacion;
 
         /// <summary>
         /// Control DivEmpleados.
@@ -105,15 +123,6 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.WebControls.LinkButton LBAgregarCorreos;
 
         /// <summary>
-        /// Control DDLConfirmacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLConfirmacion;
-
-        /// <summary>
         /// Control DDLCorreo.
         /// </summary>
         /// <remarks>
@@ -121,6 +130,15 @@ namespace BiometricoWeb.pages.documentacion
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLCorreo;
+
+        /// <summary>
+        /// Control CBxConfidencial.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox CBxConfidencial;
 
         /// <summary>
         /// Control DivCorreos.
@@ -157,15 +175,6 @@ namespace BiometricoWeb.pages.documentacion
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxFecha;
-
-        /// <summary>
-        /// Control CBxAdjunto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox CBxAdjunto;
 
         /// <summary>
         /// Control DivSiempre.
@@ -276,15 +285,6 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// Control UpdatePanel5.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
-
-        /// <summary>
         /// Control DDLEmpleados.
         /// </summary>
         /// <remarks>
@@ -294,6 +294,15 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.WebControls.DropDownList DDLEmpleados;
 
         /// <summary>
+        /// Control UpdatePanel3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
+
+        /// <summary>
         /// Control BtnAgregarCorreo.
         /// </summary>
         /// <remarks>
@@ -301,6 +310,15 @@ namespace BiometricoWeb.pages.documentacion
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton BtnAgregarCorreo;
+
+        /// <summary>
+        /// Control UpdatePanel4.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
 
         /// <summary>
         /// Control GvCorreos.

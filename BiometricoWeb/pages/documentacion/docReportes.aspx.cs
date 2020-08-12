@@ -69,10 +69,14 @@ namespace BiometricoWeb.pages.documentacion
         }
 
         private void validarDatos() {
+            if (DDLReporte.SelectedValue == "0")
+                throw new Exception("Favor seleccione un tipo de reporte.");            
             if (DDLTipoPDoc.SelectedValue == "0")
-                throw new Exception("Favor seleccione un tipo de documento.");            
-            if (DDLDocumento.SelectedValue == "0")
-                throw new Exception("Favor seleccione un documento.");
+                throw new Exception("Favor seleccione un tipo de documento.");
+            if (DDLReporte.SelectedValue == "1"){
+                if (DDLDocumento.SelectedValue == "0")
+                    throw new Exception("Favor seleccione un documento.");
+            }
         }
 
         private void limpiarDatos(){
@@ -126,6 +130,14 @@ namespace BiometricoWeb.pages.documentacion
                 limpiarDatos();
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void DDLReporte_SelectedIndexChanged(object sender, EventArgs e){
+            try{
+                DivDocs.Visible = DDLReporte.SelectedValue == "1" ? true : false;
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
             }
         }
     }

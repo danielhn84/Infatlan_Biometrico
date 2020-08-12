@@ -22,14 +22,20 @@ namespace BiometricoWeb.pages.documentacion
                     token vTokenClass = new token();
                     CryptoToken.CryptoToken vTokenCrypto = new CryptoToken.CryptoToken();
                     vTokenClass = JsonConvert.DeserializeObject<token>(vTokenCrypto.Decrypt(vToken, ConfigurationManager.AppSettings["TOKEN_DOC"].ToString()));
+                    Session["DOCUMENTO_ARCHIVO_ID"] = Request.QueryString["d"];
 
+                    String vUser = "[RSP_Documentacion] 12,'" + vToken + "'";
+                    DataTable vDatos = vConexion.obtenerDataTable(vUser);
+                    Session["AUTHCLASS"] = vDatos;
                     //SI NO HAY ERROR
                     //1. uso de las variables que vienen en token
                     //2. almacenar el token consultado 
                     //3. consulta de token
-                    
+                    Session["USUARIO"] = vDatos.Rows[0]["idEmpleado"].ToString();
                     Session["AUTH"] = true;
-                }catch{
+                    Response.Redirect("archivo.aspx", false);
+
+                }catch(Exception ex){
                     Session["AUTH"] = false;
                     Response.Redirect("/login.aspx");
                 }
@@ -37,17 +43,15 @@ namespace BiometricoWeb.pages.documentacion
 
             if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"])){
-                    if (Session["DOCUMENTO_ARCHIVO_ID"] != null){
-                        string vId = Session["DOCUMENTO_ARCHIVO_ID"].ToString();
-                        String vQuery = "[RSP_Documentacion] 5" +
-                            "," + Session["DOCUMENTO_ARCHIVO_ID"].ToString();
-                        DataTable vData = vConexion.obtenerDataTable(vQuery);
-                        LbTitulo.Text = vData.Rows[0]["nombre"].ToString();
+                    string vId = Session["DOCUMENTO_ARCHIVO_ID"].ToString();
+                    String vQuery = "[RSP_Documentacion] 5" +
+                        "," + Session["DOCUMENTO_ARCHIVO_ID"].ToString();
+                    DataTable vData = vConexion.obtenerDataTable(vQuery);
+                    LbTitulo.Text = vData.Rows[0]["nombre"].ToString();
 
-                        DataTable vDatos = (DataTable)Session["AUTHCLASS"];
-                        cargarDatos(vId);
-                    }else
-                        Response.Redirect("tipoDocumentos.aspx");
+                    DataTable vDatos = (DataTable)Session["AUTHCLASS"];
+                    cargarDatos(vId);
+                    //Response.Redirect("tipoDocumentos.aspx");
                 }
             }
         }
@@ -60,7 +64,12 @@ namespace BiometricoWeb.pages.documentacion
                     DivLectura.Visible = Convert.ToBoolean(vDatos.Rows[0]["flagLectura"].ToString()) == true ? true : false;
                     String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("C:/Users/wpadilla/source/repos/danielhn84/Infatlan_Biometrico/BiometricoWeb", "");
                     //String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("E:/htdocs/BiometricoDev", "");
-                    IFramePDF.Attributes.Add("src", vDireccion);
+
+                    String vConfidencial = "";
+                    if (Convert.ToBoolean(vDatos.Rows[0]["flagConfidencial"].ToString()))
+                        vConfidencial = "#toolbar=0";
+                    
+                    IFramePDF.Attributes.Add("src", vDireccion + vConfidencial);
                     
                     //for (int i = 0; i < vDireccion.Length; i++){
                     //    if (vDireccion.){
