@@ -137,7 +137,7 @@ namespace BiometricoWeb.clases
                     vXmlTW.WriteString(Convert.ToString(vDatos[15]));
                     vXmlTW.WriteEndElement();
 
-                    vXmlTW.WriteStartElement("flagAdjunto");
+                    vXmlTW.WriteStartElement("flagConfidencial");
                     vXmlTW.WriteString(Convert.ToString(vDatos[16]));
                     vXmlTW.WriteEndElement();
 

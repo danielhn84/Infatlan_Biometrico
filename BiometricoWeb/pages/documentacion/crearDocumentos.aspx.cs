@@ -33,6 +33,8 @@ namespace BiometricoWeb.pages.documentacion
                             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('Favor agrege usuarios que verán el documento.')", true);
                         else if (vEx == "7")
                             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('Favor ingrese el documento.')", true);
+                        else if (vEx == "8")
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Pop", "window.alert('Favor ingrese la fecha que se enviará el correo.')", true);
                         DataTable vDatos = (DataTable)Session["AUTHCLASS"];
                         cargarDatos();
                     }
@@ -134,7 +136,7 @@ namespace BiometricoWeb.pages.documentacion
         protected void BtnCargar_Click(object sender, EventArgs e){
             try{
                 validarDatos();
-                String vArchivo = "", vExtension = "";
+                String vArchivo = "", vExtension = "", vBody = "";
                 vExtension = Path.GetExtension(FUArchivo.FileName);
 
                 if (DDLCorreo.SelectedValue == "1"){
@@ -153,7 +155,8 @@ namespace BiometricoWeb.pages.documentacion
                 }
 
                 String archivoLog = string.Format("{0}_{1}", Convert.ToString(Session["usuario"]), DateTime.Now.ToString("yyyyMMddHHmmss"));
-                String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS"].ToString() + LitTitulo.Text.ToLower();
+                //String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS"].ToString() + LitTitulo.Text.ToLower();
+                String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS_LOCAL"].ToString() + LitTitulo.Text.ToLower();
 
                 String vNombreArchivo = FUArchivo.FileName;
                 vDireccionCarga += "/" + archivoLog + "_" + vNombreArchivo;
@@ -161,8 +164,10 @@ namespace BiometricoWeb.pages.documentacion
                 Boolean vCargado = File.Exists(vDireccionCarga) ? true : false;
                 if (vCargado){
                     xml vDatos = new xml();
+                    String vIdArchivo = Session["DOCUMENTOS_TIPO_ID"].ToString();
+
                     Object[] vDatosMaestro = new object[17];
-                    vDatosMaestro[0] = Session["DOCUMENTOS_TIPO_ID"].ToString();
+                    vDatosMaestro[0] = vIdArchivo;
                     vDatosMaestro[1] = DDLCategoria.SelectedValue;
                     vDatosMaestro[2] = TxNombre.Text;
                     vDatosMaestro[3] = FUArchivo.FileName;
@@ -171,15 +176,14 @@ namespace BiometricoWeb.pages.documentacion
                     vDatosMaestro[6] = vDireccionCarga;
                     vDatosMaestro[7] = DDLConfirmacion.SelectedValue;
                     vDatosMaestro[8] = DDLCorreo.SelectedValue;
-                    //vDatosMaestro[9] = DDLCorreo.SelectedValue == "1" ? Convert.ToDateTime(TxFecha.Text).ToString("yyyy-MM-dd HH:mm:ss") : "1900-01-01 00:00:00";
-                    vDatosMaestro[9] = "1900-01-01 00:00:00";
+                    vDatosMaestro[9] = TxFecha.Text != "" ? Convert.ToDateTime(TxFecha.Text).ToString("yyyy-MM-dd HH:mm:ss") : "1900-01-01 00:00:00";
                     vDatosMaestro[10] = TxFrecuencia.Text;
                     vDatosMaestro[11] = DDLFormatoFrecuencia.SelectedItem;
                     vDatosMaestro[12] = TxDurante.Text;
                     vDatosMaestro[13] = DDLDurante.SelectedItem;
                     vDatosMaestro[14] = DDLEstado.SelectedValue;
                     vDatosMaestro[15] = Session["USUARIO"].ToString();
-                    vDatosMaestro[16] = CBxAdjunto.Checked;
+                    vDatosMaestro[16] = CBxConfidencial.Checked;
                     String vXML = vDatos.ObtenerXMLDocumentos(vDatosMaestro);
                     vXML = vXML.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
                 
@@ -188,28 +192,18 @@ namespace BiometricoWeb.pages.documentacion
                     int vInfo = vConexion.obtenerId(vQuery);
                     if (vInfo > 0){
                         DataTable vDTConfidenciales = (DataTable)Session["DOCUMENTOS_CORREOS"];
-                        if (DDLCategoria.SelectedValue == "2"){
-                            String vUsuarios = "";
-                            for (int i = 0; i < vDTConfidenciales.Rows.Count; i++){
-                                vQuery = "[RSP_Documentacion] 8" +
-                                    "," + vDTConfidenciales.Rows[i]["idEmpleado"].ToString() +
-                                    ",null," + vInfo + 
-                                    ",'" + vDTConfidenciales.Rows[i]["emailEmpresa"].ToString() + "'";
-                                vConexion.ejecutarSql(vQuery);
+                        if (vIdArchivo == "1")
+                            vBody = "Se ha creado un nuevo Boletín, favor revisar el documento.";
+                        else if (vIdArchivo == "2")
+                            vBody = "Se ha creado un nuevo Formato, favor revisar el documento.";
+                        else if (vIdArchivo == "3")
+                            vBody = "Se ha creado un nuevo Manual, favor revisar el documento.";
+                        else if (vIdArchivo == "4")
+                            vBody = "Se ha creado una nuevoa Política, favor revisar el documento.";
+                        else if (vIdArchivo == "5")
+                            vBody = "Se ha creado un nuevo Proceso, favor revisar el documento.";
 
-                                int vIdEmpleado = Convert.ToInt32(vDTConfidenciales.Rows[i]["idEmpleado"].ToString());
-                                vUsuarios += vDTConfidenciales.Rows[i]["emailEmpresa"].ToString() + ",";
-                                if (DDLCorreo.SelectedValue == "1")
-                                    registrarMail(TxNombre.Text, vDTConfidenciales.Rows[i]["emailEmpresa"].ToString(), Session["DOCUMENTOS_TIPO_ID"].ToString(), vInfo,  vIdEmpleado);
-                            }
-                            /*
-                            StringBuilder text = new StringBuilder(vUsuarios);
-                            text.Replace(",","",vUsuarios.Length -1, 1);
-                            vUsuarios = text.ToString();
-                            if (DDLCorreo.SelectedValue == "1")
-                                registrarMail(vUsuarios, TxNombre.Text, Session["DOCUMENTOS_TIPO_ID"].ToString());
-                            */
-                        }else{
+                        if (DDLCategoria.SelectedValue == "1"){
                             if (DDLCorreo.SelectedValue == "1") {
                                 String vConsulta = "[RSP_Documentacion] 6";
                                 DataTable vData = vConexion.obtenerDataTable(vConsulta);
@@ -217,8 +211,25 @@ namespace BiometricoWeb.pages.documentacion
                                     registrarMail(TxNombre.Text, vData.Rows[i]["emailEmpresa"].ToString(), Session["DOCUMENTOS_TIPO_ID"].ToString(), vInfo, Convert.ToInt32(vData.Rows[i]["idEmpleado"].ToString()));
                                 }
                             }
-                            //if (DDLCorreo.SelectedValue == "1")
-                            //    registrarMail("infatlan@bancatlan.hn", TxNombre.Text, Session["DOCUMENTOS_TIPO_ID"].ToString());
+                        }else if (DDLCategoria.SelectedValue == "2"){
+                            for (int i = 0; i < vDTConfidenciales.Rows.Count; i++){
+                                String vTokenString = "";
+                                if (DDLCorreo.SelectedValue == "1") { 
+                                    CryptoToken.CryptoToken vToken = new CryptoToken.CryptoToken();
+                                    tokenClass vClassToken = new tokenClass(){
+                                        usuario = Convert.ToInt32(vDTConfidenciales.Rows[i]["idEmpleado"].ToString()),
+                                        parametro1 = vInfo.ToString()
+                                    };
+                                    vTokenString = vToken.Encrypt(JsonConvert.SerializeObject(vClassToken), ConfigurationManager.AppSettings["TOKEN_DOC"].ToString());
+                                }
+
+                                vQuery = "[RSP_Documentacion] 8" +
+                                    "," + vDTConfidenciales.Rows[i]["idEmpleado"].ToString() +
+                                    ",null," + vInfo +
+                                    ",'" + vBody + "'" +
+                                    ",0,'" + vTokenString + "'";
+                                vConexion.ejecutarSql(vQuery);
+                            }
                         }
                         Response.Redirect("crearDocumentos.aspx?ex=2");
                     }else
@@ -287,11 +298,10 @@ namespace BiometricoWeb.pages.documentacion
             if (!FUArchivo.HasFile)
                 Response.Redirect("crearDocumentos.aspx?ex=7");
 
-            //if (DDLCorreo.SelectedValue == "1") {
-            //    if (TxFecha.Text == string.Empty || TxFecha.Text == "")
-            //        Response.Redirect("crearDocumentos.aspx?ex=6");
-            //    throw new Exception("Favor ingrese la fecha de inicio del correo.");
-            //}
+            if (DDLCorreo.SelectedValue == "1"){
+                if (TxFecha.Text == string.Empty || TxFecha.Text == "")
+                    Response.Redirect("crearDocumentos.aspx?ex=8");
+            }
         }
 
         protected void DDLCategoria_SelectedIndexChanged(object sender, EventArgs e){
@@ -427,13 +437,16 @@ namespace BiometricoWeb.pages.documentacion
                     parametro1 = vIdDocumento.ToString()
                 };
 
-                String vTokenString = vToken.Encrypt(JsonConvert.SerializeObject(vClassToken), ConfigurationManager.AppSettings["TOKEN_DOC"].ToString());
-                String vQuery = "[RSP_Documentacion] 12" +
-                    ",'" + vNombre + "'" +
-                    ",'" + vPara + "'" +
-                    "Se ha creado un nuevo ducumento, favor revisarlo'" +
-                    ",null," + vEmpleado +
-                    "," + "<a href=http://10.128.0.149:1007/pages/documentacion/archivo.aspx?id='" + vTokenString + "'></a>";
+                String vQuery = "";
+                if (TxFecha.Text == ""){
+                    String vTokenString = vToken.Encrypt(JsonConvert.SerializeObject(vClassToken), ConfigurationManager.AppSettings["TOKEN_DOC"].ToString());
+                    vQuery = "[RSP_Documentacion] 12" +
+                        ",'" + vPara + "'" +
+                        ",null" + 
+                        ",'Se ha creado un" + vArchivo + ", favor revisar el documento.'" +
+                        "," + vEmpleado +
+                        ",'http://10.128.0.149:1007/pages/documentacion/archivo.aspx?id=" + vTokenString + "&d=" + vIdDocumento + "'";
+                }
                 int vRes = vConexion.ejecutarSql(vQuery);
 
 
@@ -447,7 +460,7 @@ namespace BiometricoWeb.pages.documentacion
                     );
                 */
                 vFlag = vRes == 1 ? true : false;
-            }catch (Exception ex){
+            }catch{
                 throw;
             }
             return vFlag;

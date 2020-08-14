@@ -25,8 +25,8 @@ namespace BiometricoWeb
                     DataTable vDatosPerfil = vConexion.obtenerDataTable(vQuery);
                     LitUsuario.Text = ((DataRow)vDatos.Rows[0])["nombre"].ToString();
 
-                    if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")){
-                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
+                    if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")) {
+                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")) {
                             LIBiometricos.Visible = true;
                             LIEmpleados.Visible = true;
                             LIAutorizaciones.Visible = true;
@@ -53,42 +53,18 @@ namespace BiometricoWeb
                             LIViatMantenimiento.Visible = true;
                             LITExReportes.Visible = true;
 
-                            if (vDatos.Rows[0]["idEmpleado"].ToString() == "80037"){
+                            if (vDatos.Rows[0]["idEmpleado"].ToString() == "80037") {
                                 LIViatAprobacion.Visible = false;
                                 LIViatCotizacion.Visible = false;
                                 LIViatMantenimiento.Visible = false;
                             }
                         }
 
-                        //MODULO PARA SEGURIDAD
-                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2")){
-                            LIEmpleados.Visible = false;
-                            LIDashboard.Visible = false;
-                            LISecurity.Visible = true;
-                            LISEC_Entradas.Visible = true;
-                            LISEC_Salidas.Visible = true;
-                            LISEC_Historico.Visible = false;
-                            LIPoliticas.Visible = false;
-                            LIConfig.Visible= false;
-                            LIServicios.Visible = false;
-                            LIBuzon.Visible = false;
-                            LITEx.Visible = false;
-                            LIViaticos.Visible = false;
-                            LIDocumentacion.Visible = false;
-                        }
-
-                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3")) {
-                            LISecurity.Visible = true;
-                            LISEC_Aprobaciones.Visible = true;
-                            LIPermisos.Visible = true;
-                            LIConfig.Visible = false;
-                            LIConstancias.Visible = true;
-                            LITEx.Visible = false;
-                            LIEstructura.Visible = true;
-                        }
+                        EntradaSalidas(vDatosPerfil);
                         extraordinarios(vDatos);
                         viaticos(vDatosPerfil);
-                    
+                        documentacion(vDatosPerfil);
+
                     }else{
                         LIAutorizaciones.Visible = true;
                         LIPermisos.Visible = true;
@@ -96,9 +72,12 @@ namespace BiometricoWeb
                         LIConstancias.Visible = true;
                         LITEx.Visible = false;
                         LIEstructura.Visible = true;
+
+                        EntradaSalidas(vDatosPerfil);
                         extraordinarios(vDatos);
                         viaticos(vDatosPerfil);
-                    }
+                        documentacion(vDatosPerfil);
+                    } 
                 }catch (Exception Ex){
                     vError = Ex.Message;
                 }
@@ -152,8 +131,48 @@ namespace BiometricoWeb
                     break;
                 }
             }
+        }
 
-            
+        private void EntradaSalidas(DataTable vDatos) {
+            for (int i = 0; i < vDatos.Rows.Count; i++){
+                if (vDatos.Rows[i]["idAplicacion"].ToString() == "4"){
+                    if (vDatos.Rows[i]["idPerfil"].ToString() == "6"){
+                        LISecurity.Visible = true;
+                        LISEC_Aprobaciones.Visible = true;
+                        LIPermisos.Visible = true;
+                        LIConfig.Visible = false;
+                        LIConstancias.Visible = true;
+                        LITEx.Visible = false;
+                        LIEstructura.Visible = true;
+                    }else if (vDatos.Rows[i]["idPerfil"].ToString() == "7") {
+                        LIEmpleados.Visible = false;
+                        LIDashboard.Visible = false;
+                        LISecurity.Visible = true;
+                        LISEC_Entradas.Visible = true;
+                        LISEC_Salidas.Visible = true;
+                        LISEC_Historico.Visible = false;
+                        LIPoliticas.Visible = false;
+                        LIConfig.Visible = false;
+                        LIServicios.Visible = false;
+                        LIBuzon.Visible = false;
+                        LITEx.Visible = false;
+                        LIViaticos.Visible = false;
+                        LIDocumentacion.Visible = false;
+                    }
+                    break;
+                }
+            }
+        }
+        
+        private void documentacion(DataTable vDatos) {
+            for (int i = 0; i < vDatos.Rows.Count; i++){
+                if (vDatos.Rows[i]["idAplicacion"].ToString() == "3"){
+                    if (vDatos.Rows[i]["idPerfil"].ToString() == "5"){
+                        LIDocumentosReportes.Visible = true;
+                    }
+                    break;
+                }
+            }
         }
     }
 }

@@ -54,11 +54,23 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Tipo Documento</label>
                                         <div class="col-sm-9">
-                                            <asp:DropDownList ClientIDMode="AutoID" ID="DDLTipoPDoc" runat="server" class="form-control" AutoPostBack="True" OnSelectedIndexChanged="DDLTipoPDoc_SelectedIndexChanged"></asp:DropDownList>
+                                            <asp:DropDownList ClientIDMode="AutoID" ID="DDLReporte" runat="server" class="form-control" AutoPostBack="True" OnSelectedIndexChanged="DDLReporte_SelectedIndexChanged">
+                                                <asp:ListItem Value="0" Text="Seleccione una opción"></asp:ListItem>
+                                                <asp:ListItem Value="1" Text="Lectura y aprobación"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="Inventario de Documentos"></asp:ListItem>
+                                            </asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Tipo Documento</label>
+                                        <div class="col-sm-9">
+                                            <asp:DropDownList ClientIDMode="AutoID" ID="DDLTipoPDoc" runat="server" class="form-control" AutoPostBack="True" OnSelectedIndexChanged="DDLTipoPDoc_SelectedIndexChanged"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div runat="server" id="DivDocs" visible="false" class="col-md-6">
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Documento</label>
                                         <div class="col-sm-9">

@@ -42,7 +42,7 @@
     </div>
     <asp:UpdatePanel runat="server">
         <ContentTemplate>   
-            <iframe runat="server" id="IFramePDF" style="width:100%; height:340px"></iframe>
+            <iframe runat="server" id="IFramePDF" frameborder="0" style="width:100%; height:340px"></iframe>
         </ContentTemplate>
     </asp:UpdatePanel>
     <br /><br />
@@ -57,7 +57,7 @@
         <asp:UpdatePanel runat="server" ID="UPBtn">
             <ContentTemplate>
                 <div class="row col-12" style="justify-content:center">
-                    <asp:Button runat="server" ID="BtnLeido" OnClick="BtnLeido_Click" CssClass="btn btn-info" Text="Enviar" />                                
+                    <asp:Button runat="server" ID="BtnLeido" OnClick="BtnLeido_Click" CssClass="btn btn-success" Text="Enviar" />                                
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>

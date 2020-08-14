@@ -550,6 +550,7 @@ namespace BiometricoWeb.pages
                                     "," + vId + "," + vEstado;
                     int vInfo = vConexion.ejecutarSql(vQuery);
                     if (vInfo == 1){
+                        CargarConstancia();
                         Mensaje(vMensaje, WarningType.Success);
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
                     }else
@@ -690,6 +691,17 @@ namespace BiometricoWeb.pages
 
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        void CargarConstancia(){
+            try{
+                SapConnector vTest = new SapConnector();
+                String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
+                //String vDias = "12.62";
+                Session["DIASSAP"] = vDias;
+            }catch (Exception Ex){
+                Mensaje(Ex.Message, WarningType.Danger);
             }
         }
     }

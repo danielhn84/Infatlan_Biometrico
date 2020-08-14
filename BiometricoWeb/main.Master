@@ -372,8 +372,8 @@
                             <div class="collapse" id="ui-basic1">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item" runat="server" visible="true" id="LIDocumentos"><a class="nav-link" href="/pages/documentacion/crearDocumentos.aspx">Generales</a></li>
-                                    <li class="nav-item" runat="server" visible="true" id="LIDocumentosReportes"><a class="nav-link" href="/pages/documentacion/docReportes.aspx">Reportes</a></li>
-                                    <li class="nav-item" runat="server" visible="true" id="LIDocumentosGrupos"><a class="nav-link" href="/pages/documentacion/docGrupos.aspx">Grupos</a></li>
+                                    <li class="nav-item" runat="server" visible="false" id="LIDocumentosReportes"><a class="nav-link" href="/pages/documentacion/docReportes.aspx">Reportes</a></li>
+                                    <li class="nav-item" runat="server" visible="false" id="LIDocumentosGrupos"><a class="nav-link" href="/pages/documentacion/docGrupos.aspx">Grupos</a></li>
                                 </ul>
                             </div>
                         </li>

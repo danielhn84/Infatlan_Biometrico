@@ -116,27 +116,25 @@
                             <div class="row">
                                 <div class="row col-12">
                                     <div class="row col-6">
+                                        <label class="col-4 col-form-label">Código</label>
+                                        <div class="col-8">
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="TxCodigo" />
+                                        </div>
+                                    </div>
+                                    <div class="row col-6">
                                         <label class="col-4 col-form-label">Nombre</label>
                                         <div class="col-8">
                                             <asp:TextBox runat="server" CssClass="form-control" ID="TxNombre" />
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row col-12 mt-3">
                                     <div class="row col-6">
                                         <label class="col-4 col-form-label">Categoría</label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLCategoria" AutoPostBack="true" CssClass="form-control" OnSelectedIndexChanged="DDLCategoria_SelectedIndexChanged"></asp:DropDownList>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row col-12 mt-3" runat="server" id ="DivEmpleados" visible="false">
-                                    <div class="row col-6">
-                                    </div>
-                                    <div class="row col-6">
-                                        <div class="col-4 ml-2"></div>
-                                        <asp:LinkButton Text="Agregar" runat="server" ID="LBAgregarCorreos" OnClick="LBAgregarCorreos_Click"/>
-                                    </div>
-                                </div>
-                                <div class="row col-12 mt-3">
                                     <div class="row col-6">
                                         <label class="col-4">Confirmación de lectura</label>
                                         <div class="col-8">
@@ -146,6 +144,14 @@
                                             </asp:DropDownList>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row col-12 mt-3" runat="server" id ="DivEmpleados" visible="false">
+                                    <div class="row col-6">
+                                        <div class="col-4 ml-2"></div>
+                                        <asp:LinkButton Text="Agregar" runat="server" ID="LBAgregarCorreos" OnClick="LBAgregarCorreos_Click"/>
+                                    </div>
+                                </div>
+                                <div class="row col-12 mt-3">
                                     <div class="row col-6">
                                         <label class="col-4">Envío de correo</label>
                                         <div class="col-8">
@@ -155,7 +161,19 @@
                                             </asp:DropDownList>
                                         </div>
                                     </div>
+                                    <div class="row col-6">
+                                        <div class="col-4">
+                                            <label>Confidencial</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <label class="custom-control custom-switch m-b-0">
+                                                <input type="checkbox" runat="server" id="CBxConfidencial" class="custom-control-input">
+                                                <span class="custom-control-label"></span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div runat="server" id="DivCorreos" visible="false" class="row col-12 mt-3">   
                                     <div runat="server" id="DivRecurrencia" visible="true" class="row col-6">
                                         <label class="col-4 col-form-label">Frecuencia</label>
@@ -170,15 +188,6 @@
                                         <label class="col-4 col-form-label">Fecha Envío</label>
                                         <div class="col-8">
                                             <asp:TextBox runat="server" ID="TxFecha" TextMode="DateTimeLocal" CssClass="form-control"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                    <div class="row col-6">
-                                        <div class="col-4"></div>
-                                        <div class="col-8">
-                                            <label class="custom-control custom-switch m-b-0">
-                                                <input type="checkbox" runat="server" id="CBxAdjunto" class="custom-control-input">
-                                                <span class="custom-control-label">Documento adjunto</span>
-                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -252,7 +261,7 @@
     </div>
 
     <%--MODAL AGREGAR CORREOS--%>
-    <div class="modal fade" id="ModalCorreos" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal fade" id="ModalCorreos" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header table-dark">
@@ -261,20 +270,24 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <asp:UpdatePanel ID="UpdatePanel5" runat="server">
-                        <ContentTemplate>
-                            <div class="row">
-                                <div class="row col-12">
-                                    <div class="col-3" style="margin-left:2%">
-                                        <label>Empleado</label>
-                                    </div>
-                                    <div class="col-6">
-                                        <asp:DropDownList runat="server" ID="DDLEmpleados" AutoPostBack="true" CssClass="fstdropdown-select form-control"></asp:DropDownList>
-                                    </div>
+                    <div class="row">
+                        <div class="row col-12">
+                            <div class="col-3" style="margin-left: 2%">
+                                <label>Empleado</label>
+                            </div>
+                            <div class="col-6">
+                                <asp:DropDownList runat="server" ID="DDLEmpleados" CssClass="fstdropdown-select form-control"></asp:DropDownList>
+                            </div>
+                            <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                <ContentTemplate>
                                     <asp:LinkButton ID="BtnAgregarCorreo" runat="server" title="Agregar" class="btn btn-success" OnClick="BtnAgregarCorreo_Click">
                                         <i class="mdi mdi-plus text-white"></i>
                                     </asp:LinkButton>
-                                </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </div>
+                        <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                            <ContentTemplate>
                                 <div class="row col-12 mt-3">
                                     <div class="table-responsive">
                                         <asp:GridView ID="GvCorreos" runat="server"
@@ -302,12 +315,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12" runat="server" id="DivMensajeCorreo" visible="false" style="display: flex; background-color:tomato; justify-content:center">
+                                <div class="col-12" runat="server" id="DivMensajeCorreo" visible="false" style="display: flex; background-color: tomato; justify-content: center">
                                     <asp:Label runat="server" CssClass="col-form-label text-white" ID="LbMensajeCorreo"></asp:Label>
                                 </div>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
