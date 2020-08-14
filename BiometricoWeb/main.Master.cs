@@ -168,6 +168,7 @@ namespace BiometricoWeb
             for (int i = 0; i < vDatos.Rows.Count; i++){
                 if (vDatos.Rows[i]["idAplicacion"].ToString() == "3"){
                     if (vDatos.Rows[i]["idPerfil"].ToString() == "5"){
+                        LIDocumentacion.Visible = true;
                         LIDocumentosReportes.Visible = true;
                     }
                     break;

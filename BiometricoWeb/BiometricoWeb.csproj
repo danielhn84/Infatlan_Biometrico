@@ -882,7 +882,11 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Carga\" />
+    <Folder Include="Carga\repositorio\boletines\" />
+    <Folder Include="Carga\repositorio\formatos\" />
+    <Folder Include="Carga\repositorio\manuales\" />
+    <Folder Include="Carga\repositorio\politicas\" />
+    <Folder Include="Carga\repositorio\procesos\" />
     <Folder Include="pages\documentacion\repositorio\boletines\" />
     <Folder Include="pages\documentacion\repositorio\formatos\" />
     <Folder Include="pages\documentacion\repositorio\manuales\" />

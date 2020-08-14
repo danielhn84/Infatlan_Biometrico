@@ -36,7 +36,7 @@
                 <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#navCompensatorio" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-message-text"> </i>Nuevo</a>
                 <a class="nav-item nav-link" id="A1" data-toggle="tab" href="#navMisSolicitudes" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-account" > </i>Mis Solicitudes</a>
                 <a runat="server" visible="false" class="nav-item nav-link" id="ConstanciasGenerales" data-toggle="tab" href="#navPendientes" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-tag" > </i>Pendientes</a>
-                <a runat="server" visible="false" class="nav-item nav-link" id="Busquedas" data-toggle="tab" href="#navRegistros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-folder" > </i>Solicitudes</a>
+                <a runat="server" visible="false" class="nav-item nav-link" id="Busquedas" data-toggle="tab" href="#navRegistros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-history" > </i>Histórico</a>
             </div>
         </nav>
     </div>
@@ -377,7 +377,7 @@
                                                             <asp:LinkButton ID="BtnEditar" runat="server" title="Eliminar" style="background-color:transparent" class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="EliminarMensaje">
                                                                 <i class="mdi mdi-delete text-gray"></i>
                                                             </asp:LinkButton>
-                                                            <asp:LinkButton ID="BtnEditar3" runat="server" title="Info" style="background-color:transparent" class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="DescargarInfo">
+                                                            <asp:LinkButton ID="BtnDownload" runat="server" title="Info" style="background-color:transparent" class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="DescargarInfo">
                                                                 <i class="mdi mdi-download text-gray"></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
@@ -423,7 +423,7 @@
                                                     <asp:BoundField DataField="estado" HeaderText="Estado"/>
                                                     <asp:BoundField DataField="usuario" HeaderText="Usuario" />                                                    
                                                     <asp:BoundField DataField="fecha" HeaderText="Fecha" />                                                    
-                                                    <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
+                                                    <asp:TemplateField HeaderText="Seleccione" ItemStyle-Width="120">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="BtnEditar2" runat="server" title="Responder" style="background-color:transparent;"  class="btn btn-inverse" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="ResponderSolicitud">
                                                                 <i class="mdi mdi-reply text-gray" ></i>

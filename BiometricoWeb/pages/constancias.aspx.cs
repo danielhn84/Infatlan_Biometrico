@@ -305,8 +305,12 @@ namespace BiometricoWeb.pages
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 if (e.CommandName == "DescargarInfo"){
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDescarga();", true);
-                    //Response.Redirect("plantilla/InformacionFinanciamiento.pdf");
+                    DataTable vDatos = (DataTable)Session["CONSTANCIAS_EMPLEADO"];
+                    for (int i = 0; i < vDatos.Rows.Count; i++){
+                        if (vDatos.Rows[i]["idSolicitud"].ToString() == vId && vDatos.Rows[i]["Tipo"].ToString() != "Laboral" && vDatos.Rows[i]["Estado"].ToString() == "Aprobado"){
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openDescarga();", true);
+                        }
+                    }
                 }
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
@@ -532,8 +536,13 @@ namespace BiometricoWeb.pages
                     DataRowView drv = e.Row.DataItem as DataRowView;
 
                     TableCell vCel = new TableCell();
-                    if (drv["estado"].ToString().Equals("Aprobado"))
+                    if (drv["estado"].ToString().Equals("Aprobado")) {
+                        if (drv["Tipo"].ToString().Equals("Financiamiento")){
+                            LinkButton LbDescarga = e.Row.FindControl("BtnDownload") as LinkButton;
+                            LbDescarga.CssClass = "btn btn-success";
+                        }
                         e.Row.Attributes.CssStyle.Value = "color : LimeGreen; font-weight: bold;"; //System.Drawing.Color.LimeGreen;
+                    }
                 }
             }catch (Exception Ex){
                 throw new Exception(Ex.Message);
@@ -550,7 +559,7 @@ namespace BiometricoWeb.pages
                                     "," + vId + "," + vEstado;
                     int vInfo = vConexion.ejecutarSql(vQuery);
                     if (vInfo == 1){
-                        CargarConstancia();
+                        //CargarConstancia();
                         Mensaje(vMensaje, WarningType.Success);
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
                     }else

@@ -62,20 +62,14 @@ namespace BiometricoWeb.pages.documentacion
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     DivLectura.Visible = Convert.ToBoolean(vDatos.Rows[0]["flagLectura"].ToString()) == true ? true : false;
-                    String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("C:/Users/wpadilla/source/repos/danielhn84/Infatlan_Biometrico/BiometricoWeb", "");
-                    //String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("E:/htdocs/BiometricoDev", "");
-
+                    String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("E:/htdocs/BiometricoDev", "");
+                    vDireccion = vDireccion.StartsWith("E:/") ? vDireccion.Replace("E:/htdocs/BiometricoDev", "") : vDireccion.Replace("C:/Users/wpadilla/source/repos/danielhn84/Infatlan_Biometrico/BiometricoWeb", "");
+                    
                     String vConfidencial = "";
                     if (Convert.ToBoolean(vDatos.Rows[0]["flagConfidencial"].ToString()))
                         vConfidencial = "#toolbar=0";
                     
                     IFramePDF.Attributes.Add("src", vDireccion + vConfidencial);
-                    
-                    //for (int i = 0; i < vDireccion.Length; i++){
-                    //    if (vDireccion.){
-                    //    }
-                    //}
-                    //string[] vSplit = vDatos.Rows[0]["direccionArchivo"].ToString().Split('/');
                 }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
