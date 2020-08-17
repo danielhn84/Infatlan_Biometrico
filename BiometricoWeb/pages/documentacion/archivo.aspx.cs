@@ -19,21 +19,22 @@ namespace BiometricoWeb.pages.documentacion
             String vToken = Request.QueryString["id"];
             if (vToken != null){
                 try{
-                    token vTokenClass = new token();
-                    CryptoToken.CryptoToken vTokenCrypto = new CryptoToken.CryptoToken();
-                    vTokenClass = JsonConvert.DeserializeObject<token>(vTokenCrypto.Decrypt(vToken, ConfigurationManager.AppSettings["TOKEN_DOC"].ToString()));
-                    Session["DOCUMENTO_ARCHIVO_ID"] = Request.QueryString["d"];
+                    String vQuery = "[RSP_Documentacion] 12,'" + vToken + "'";
+                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                    if (vDatos.Rows.Count > 0){
+                        token vTokenClass = new token();
+                        CryptoToken.CryptoToken vTokenCrypto = new CryptoToken.CryptoToken();
+                        vTokenClass = JsonConvert.DeserializeObject<token>(vTokenCrypto.Decrypt(vToken, ConfigurationManager.AppSettings["TOKEN_DOC"].ToString()));
+                        Session["DOCUMENTOS_ARCHIVO_ID"] = Request.QueryString["d"];
 
-                    String vUser = "[RSP_Documentacion] 12,'" + vToken + "'";
-                    DataTable vDatos = vConexion.obtenerDataTable(vUser);
-                    Session["AUTHCLASS"] = vDatos;
-                    //SI NO HAY ERROR
-                    //1. uso de las variables que vienen en token
-                    //2. almacenar el token consultado 
-                    //3. consulta de token
-                    Session["USUARIO"] = vDatos.Rows[0]["idEmpleado"].ToString();
-                    Session["AUTH"] = true;
-                    Response.Redirect("archivo.aspx", false);
+                        Session["AUTHCLASS"] = vDatos;
+                        Session["USUARIO"] = vDatos.Rows[0]["idEmpleado"].ToString();
+                        Session["AUTH"] = true;
+                        vQuery = "[RSP_Documentacion] 13,'" + vToken + "'";
+                        vConexion.ejecutarSql(vQuery);
+                        Response.Redirect("archivo.aspx", false);
+                    }else 
+                        throw new Exception();
 
                 }catch(Exception ex){
                     Session["AUTH"] = false;
@@ -43,9 +44,9 @@ namespace BiometricoWeb.pages.documentacion
 
             if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"])){
-                    string vId = Session["DOCUMENTO_ARCHIVO_ID"].ToString();
+                    string vId = Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
                     String vQuery = "[RSP_Documentacion] 5" +
-                        "," + Session["DOCUMENTO_ARCHIVO_ID"].ToString();
+                        "," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
                     DataTable vData = vConexion.obtenerDataTable(vQuery);
                     LbTitulo.Text = vData.Rows[0]["nombre"].ToString();
 
@@ -62,8 +63,8 @@ namespace BiometricoWeb.pages.documentacion
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     DivLectura.Visible = Convert.ToBoolean(vDatos.Rows[0]["flagLectura"].ToString()) == true ? true : false;
-                    String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString().Replace("E:/htdocs/BiometricoDev", "");
-                    vDireccion = vDireccion.StartsWith("E:/") ? vDireccion.Replace("E:/htdocs/BiometricoDev", "") : vDireccion.Replace("C:/Users/wpadilla/source/repos/danielhn84/Infatlan_Biometrico/BiometricoWeb", "");
+                    String vDireccion = vDatos.Rows[0]["direccionArchivo"].ToString();
+                    vDireccion = vDireccion.StartsWith("E:/") ? vDireccion.Replace("E:/htdocs/Biometrico", "") : vDireccion.Replace("C:/Users/wpadilla/source/repos/danielhn84/Infatlan_Biometrico/BiometricoWeb", "");
                     
                     String vConfidencial = "";
                     if (Convert.ToBoolean(vDatos.Rows[0]["flagConfidencial"].ToString()))
@@ -83,7 +84,7 @@ namespace BiometricoWeb.pages.documentacion
         protected void BtnLeido_Click(object sender, EventArgs e){
             try{
                 String vQuery = "[RSP_Documentacion] 10" +
-                    "," + Session["USUARIO"].ToString() +
+                    ",'" + Session["USUARIO"].ToString() + "'" +
                     ",null," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
                 DataTable vData = vConexion.obtenerDataTable(vQuery);
                 if (vData.Rows.Count < 1){
@@ -91,7 +92,7 @@ namespace BiometricoWeb.pages.documentacion
                         Mensaje("Falta confirmar en la casilla de lectura.", WarningType.Warning);
                     }else{
                         vQuery = "[RSP_Documentacion] 9" +
-                            "," + Session["USUARIO"].ToString() +
+                            ",'" + Session["USUARIO"].ToString() + "'" +
                             ",null," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
                         int vInfo = vConexion.ejecutarSql(vQuery);
                         if (vInfo == 1)
@@ -106,7 +107,7 @@ namespace BiometricoWeb.pages.documentacion
 
         protected void BtnVolver_Click(object sender, EventArgs e){
             try{
-                Session["DOCUMENTO_ARCHIVO_ID"] = null;
+                Session["DOCUMENTOS_ARCHIVO_ID"] = null;
                 Response.Redirect("tipoDocumentos.aspx");
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);

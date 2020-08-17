@@ -93,7 +93,7 @@ namespace BiometricoWeb.clases
                     vXmlTW.WriteString(Convert.ToString(vDatos[4]));
                     vXmlTW.WriteEndElement();
 
-                    vXmlTW.WriteStartElement("archivo");
+                    vXmlTW.WriteStartElement("codigo");
                     vXmlTW.WriteString(Convert.ToString(vDatos[5]));
                     vXmlTW.WriteEndElement();
 

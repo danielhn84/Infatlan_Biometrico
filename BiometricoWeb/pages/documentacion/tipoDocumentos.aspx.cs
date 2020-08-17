@@ -68,7 +68,7 @@ namespace BiometricoWeb.pages.documentacion
         protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){
             try{
                 String vId = e.CommandArgument.ToString();
-                Session["DOCUMENTO_ARCHIVO_ID"] = vId;
+                Session["DOCUMENTOS_ARCHIVO_ID"] = vId;
                 if (e.CommandName == "verDocumento"){
                     Response.Redirect("archivo.aspx");
                 }

@@ -139,24 +139,24 @@ namespace BiometricoWeb.pages.documentacion
                 String vArchivo = "", vExtension = "", vBody = "";
                 vExtension = Path.GetExtension(FUArchivo.FileName);
 
-                if (DDLCorreo.SelectedValue == "1"){
-                    HttpPostedFile bufferDepositoT = FUArchivo.PostedFile;
-                    String vNombreDepot = String.Empty;
-                    byte[] vFileDeposito = null;
+                //if (DDLCorreo.SelectedValue == "1"){
+                //    HttpPostedFile bufferDepositoT = FUArchivo.PostedFile;
+                //    String vNombreDepot = String.Empty;
+                //    byte[] vFileDeposito = null;
 
-                    if (bufferDepositoT != null){
-                        vNombreDepot = FUArchivo.FileName;
-                        Stream vStream = bufferDepositoT.InputStream;
-                        BinaryReader vReader = new BinaryReader(vStream);
-                        vFileDeposito = vReader.ReadBytes((int)vStream.Length);
-                    }
-                    if (vFileDeposito != null)
-                        vArchivo = Convert.ToBase64String(vFileDeposito);
-                }
+                //    if (bufferDepositoT != null){
+                //        vNombreDepot = FUArchivo.FileName;
+                //        Stream vStream = bufferDepositoT.InputStream;
+                //        BinaryReader vReader = new BinaryReader(vStream);
+                //        vFileDeposito = vReader.ReadBytes((int)vStream.Length);
+                //    }
+                //    if (vFileDeposito != null)
+                //        vArchivo = Convert.ToBase64String(vFileDeposito);
+                //}
 
                 String archivoLog = string.Format("{0}_{1}", Convert.ToString(Session["usuario"]), DateTime.Now.ToString("yyyyMMddHHmmss"));
-                //String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS"].ToString() + LitTitulo.Text.ToLower();
-                String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS_LOCAL"].ToString() + LitTitulo.Text.ToLower();
+                String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS"].ToString() + LitTitulo.Text.ToLower();
+                //String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS_LOCAL"].ToString() + LitTitulo.Text.ToLower();
 
                 String vNombreArchivo = FUArchivo.FileName;
                 vDireccionCarga += "/" + archivoLog + "_" + vNombreArchivo;
@@ -172,7 +172,7 @@ namespace BiometricoWeb.pages.documentacion
                     vDatosMaestro[2] = TxNombre.Text;
                     vDatosMaestro[3] = FUArchivo.FileName;
                     vDatosMaestro[4] = vExtension;
-                    vDatosMaestro[5] = vArchivo;
+                    vDatosMaestro[5] = TxCodigo.Text;
                     vDatosMaestro[6] = vDireccionCarga;
                     vDatosMaestro[7] = DDLConfirmacion.SelectedValue;
                     vDatosMaestro[8] = DDLCorreo.SelectedValue;
@@ -208,7 +208,7 @@ namespace BiometricoWeb.pages.documentacion
                                 String vConsulta = "[RSP_Documentacion] 6";
                                 DataTable vData = vConexion.obtenerDataTable(vConsulta);
                                 for (int i = 0; i < vData.Rows.Count; i++){
-                                    registrarMail(TxNombre.Text, vData.Rows[i]["emailEmpresa"].ToString(), Session["DOCUMENTOS_TIPO_ID"].ToString(), vInfo, Convert.ToInt32(vData.Rows[i]["idEmpleado"].ToString()));
+                                    //registrarMail(TxNombre.Text, vData.Rows[i]["emailEmpresa"].ToString(), Session["DOCUMENTOS_TIPO_ID"].ToString(), vInfo, Convert.ToInt32(vData.Rows[i]["idEmpleado"].ToString()));
                                 }
                             }
                         }else if (DDLCategoria.SelectedValue == "2"){
