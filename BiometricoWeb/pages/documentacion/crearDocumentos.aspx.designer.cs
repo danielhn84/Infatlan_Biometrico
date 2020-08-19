@@ -132,13 +132,13 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.WebControls.DropDownList DDLCorreo;
 
         /// <summary>
-        /// Control CBxConfidencial.
+        /// Control DDLNivelConfidencialidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox CBxConfidencial;
+        protected global::System.Web.UI.WebControls.DropDownList DDLNivelConfidencialidad;
 
         /// <summary>
         /// Control DivCorreos.
@@ -150,24 +150,6 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivCorreos;
 
         /// <summary>
-        /// Control DivRecurrencia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivRecurrencia;
-
-        /// <summary>
-        /// Control DDLRecurrencia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLRecurrencia;
-
-        /// <summary>
         /// Control TxFecha.
         /// </summary>
         /// <remarks>
@@ -177,49 +159,13 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.WebControls.TextBox TxFecha;
 
         /// <summary>
-        /// Control DivSiempre.
+        /// Control DDLRecordatorios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivSiempre;
-
-        /// <summary>
-        /// Control TxFrecuencia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxFrecuencia;
-
-        /// <summary>
-        /// Control DDLFormatoFrecuencia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLFormatoFrecuencia;
-
-        /// <summary>
-        /// Control TxDurante.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxDurante;
-
-        /// <summary>
-        /// Control DDLDurante.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLDurante;
+        protected global::System.Web.UI.WebControls.DropDownList DDLRecordatorios;
 
         /// <summary>
         /// Control DDLEstado.
@@ -229,6 +175,15 @@ namespace BiometricoWeb.pages.documentacion
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLEstado;
+
+        /// <summary>
+        /// Control CBxConfidencial.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox CBxConfidencial;
 
         /// <summary>
         /// Control FUArchivo.

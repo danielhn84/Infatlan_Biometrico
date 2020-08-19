@@ -85,8 +85,10 @@
                                                 PageSize="10" OnRowCommand="GVBusqueda_RowCommand"
                                                 AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging" >
                                                 <Columns>
-                                                    <asp:BoundField DataField="idDocumento" HeaderText="Id" ItemStyle-HorizontalAlign="Left" />
+                                                    <asp:BoundField DataField="idDocumento" Visible="false" HeaderText="Id" ItemStyle-HorizontalAlign="Left" />
+                                                    <asp:BoundField DataField="codigo" HeaderText="Código" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
+                                                    <asp:BoundField DataField="nivel" HeaderText="Nivel" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:BoundField DataField="activo" HeaderText="Estado" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:TemplateField HeaderStyle-Width="60px">

@@ -9,6 +9,10 @@
             return true;
         }
     </script>
+    <script type="text/javascript">
+        function openModal() { $('#ModalConfirmar').modal('show'); }
+        function closeModal() { $('#ModalConfirmar').modal('hide'); }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
@@ -46,21 +50,44 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     <br /><br />
-    <div runat="server" id="DivLectura" visible="false" class="col-2">
-        <div class="row col-12" style="justify-content:center">
-            <label class="custom-control custom-checkbox m-b-0">
-                <input type="checkbox" runat="server" id="CBxLectura" class="custom-control-input">
-                <span class="custom-control-label">He leído el documento</span>
-            </label>
-        </div>
-        <br />
+    <div runat="server" id="DivLectura" visible="false" class="col-12">
         <asp:UpdatePanel runat="server" ID="UPBtn">
             <ContentTemplate>
-                <div class="row col-12" style="justify-content:center">
-                    <asp:Button runat="server" ID="BtnLeido" OnClick="BtnLeido_Click" CssClass="btn btn-success" Text="Enviar" />                                
+                <div class="row col-12" style="display: flex; justify-content: center;">
+                    <asp:Button runat="server" ID="BtnLeido" OnClick="BtnLeido_Click" CssClass="btn btn-success" Text="Firmar" />                                
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
+    </div>
+
+
+    <%--MODAL DE CONFIRMACION--%>
+    <div class="modal fade" id="ModalConfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100 text-center" id="ModalLabelConfirmar">
+                        <b><asp:Label runat="server" Text="DECLARACION" ID="Label1" CssClass="col-form-label"></asp:Label></b>
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:Label runat="server" Text="" ID="LbMensaje" CssClass="col-form-label"></asp:Label>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <%--<asp:Button ID="BtnCancelarModal" runat="server" Text="Cancelar" class="btn btn-danger"  OnClick="BtnCancelarModal_Click"/>--%>
+                            <asp:Button ID="BtnConfirmar" runat="server" Text="Aceptar" class="btn btn-success" OnClick="BtnConfirmar_Click"/>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">

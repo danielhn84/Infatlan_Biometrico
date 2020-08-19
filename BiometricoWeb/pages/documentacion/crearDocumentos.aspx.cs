@@ -166,7 +166,7 @@ namespace BiometricoWeb.pages.documentacion
                     xml vDatos = new xml();
                     String vIdArchivo = Session["DOCUMENTOS_TIPO_ID"].ToString();
 
-                    Object[] vDatosMaestro = new object[17];
+                    Object[] vDatosMaestro = new object[15];
                     vDatosMaestro[0] = vIdArchivo;
                     vDatosMaestro[1] = DDLCategoria.SelectedValue;
                     vDatosMaestro[2] = TxNombre.Text;
@@ -177,13 +177,11 @@ namespace BiometricoWeb.pages.documentacion
                     vDatosMaestro[7] = DDLConfirmacion.SelectedValue;
                     vDatosMaestro[8] = DDLCorreo.SelectedValue;
                     vDatosMaestro[9] = TxFecha.Text != "" ? Convert.ToDateTime(TxFecha.Text).ToString("yyyy-MM-dd HH:mm:ss") : "1900-01-01 00:00:00";
-                    vDatosMaestro[10] = TxFrecuencia.Text;
-                    vDatosMaestro[11] = DDLFormatoFrecuencia.SelectedItem;
-                    vDatosMaestro[12] = TxDurante.Text;
-                    vDatosMaestro[13] = DDLDurante.SelectedItem;
-                    vDatosMaestro[14] = DDLEstado.SelectedValue;
-                    vDatosMaestro[15] = Session["USUARIO"].ToString();
-                    vDatosMaestro[16] = CBxConfidencial.Checked;
+                    vDatosMaestro[10] = DDLRecordatorios.SelectedValue;
+                    vDatosMaestro[11] = DDLEstado.SelectedValue;
+                    vDatosMaestro[12] = Session["USUARIO"].ToString();
+                    vDatosMaestro[13] = CBxConfidencial.Checked;
+                    vDatosMaestro[14] = DDLNivelConfidencialidad.SelectedValue;
                     String vXML = vDatos.ObtenerXMLDocumentos(vDatosMaestro);
                     vXML = vXML.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
                 
@@ -208,7 +206,21 @@ namespace BiometricoWeb.pages.documentacion
                                 String vConsulta = "[RSP_Documentacion] 6";
                                 DataTable vData = vConexion.obtenerDataTable(vConsulta);
                                 for (int i = 0; i < vData.Rows.Count; i++){
-                                    //registrarMail(TxNombre.Text, vData.Rows[i]["emailEmpresa"].ToString(), Session["DOCUMENTOS_TIPO_ID"].ToString(), vInfo, Convert.ToInt32(vData.Rows[i]["idEmpleado"].ToString()));
+                                    String vTokenString = "";
+
+                                    CryptoToken.CryptoToken vToken = new CryptoToken.CryptoToken();
+                                    tokenClass vClassToken = new tokenClass(){
+                                        usuario = Convert.ToInt32(vData.Rows[i]["idEmpleado"].ToString()),
+                                        parametro1 = vInfo.ToString()
+                                    };
+                                    vTokenString = vToken.Encrypt(JsonConvert.SerializeObject(vClassToken), ConfigurationManager.AppSettings["TOKEN_DOC"].ToString());
+                                    
+                                    vQuery = "[RSP_Documentacion] 8" +
+                                    "," + vData.Rows[i]["idEmpleado"].ToString() +
+                                    ",null," + vInfo +
+                                    ",'" + vBody + "'" +
+                                    ",0,'" + vTokenString + "'";
+                                    vConexion.ejecutarSql(vQuery);
                                 }
                             }
                         }else if (DDLCategoria.SelectedValue == "2"){
@@ -250,20 +262,8 @@ namespace BiometricoWeb.pages.documentacion
                     DivCorreos.Visible = true;
                 else if (DDLCorreo.SelectedValue == "0") { 
                     DivCorreos.Visible = false;
-                    DivSiempre.Visible = false;
-                    DDLRecurrencia.SelectedValue = "0";
+                    DDLRecordatorios.SelectedValue = "0";
                 }
-            }catch (Exception ex){
-                Mensaje(ex.Message, WarningType.Danger);
-            }
-        }
-
-        protected void DDLRecurrencia_SelectedIndexChanged(object sender, EventArgs e){
-            try{
-                if (DDLRecurrencia.SelectedValue == "0") 
-                    DivSiempre.Visible = false;
-                else if (DDLRecurrencia.SelectedValue == "1") 
-                    DivSiempre.Visible = true;
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -272,15 +272,12 @@ namespace BiometricoWeb.pages.documentacion
         private void limpiarModal() {
             TxNombre.Text = string.Empty;
             TxFecha.Text = string.Empty;
-            TxFrecuencia.Text = string.Empty;
-            DDLFormatoFrecuencia.SelectedValue = "0";
             DDLCategoria.SelectedValue = "0";
             DDLConfirmacion.SelectedValue = "0";
             DDLCorreo.SelectedValue = "0";
-            DDLRecurrencia.SelectedValue = "0";
+            DDLRecordatorios.SelectedValue = "0";
             DivMensaje.Visible = false;
             DivCorreos.Visible = false;
-            DivSiempre.Visible = false;
             LbAdvertencia.Text = string.Empty;
             DDLEstado.SelectedValue = "1";
         }

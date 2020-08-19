@@ -113,32 +113,24 @@ namespace BiometricoWeb.clases
                     vXmlTW.WriteString(Convert.ToString(vDatos[9]));
                     vXmlTW.WriteEndElement();
 
-                    vXmlTW.WriteStartElement("frecuenciaCorreo");
+                    vXmlTW.WriteStartElement("recordatorios");
                     vXmlTW.WriteString(Convert.ToString(vDatos[10]));
                     vXmlTW.WriteEndElement();
 
-                    vXmlTW.WriteStartElement("formatoFrecuencia");
+                    vXmlTW.WriteStartElement("estado");
                     vXmlTW.WriteString(Convert.ToString(vDatos[11]));
                     vXmlTW.WriteEndElement();
 
-                    vXmlTW.WriteStartElement("duracionCorreo");
+                    vXmlTW.WriteStartElement("usuarioCreacion");
                     vXmlTW.WriteString(Convert.ToString(vDatos[12]));
                     vXmlTW.WriteEndElement();
 
-                    vXmlTW.WriteStartElement("formatoDuracion");
+                    vXmlTW.WriteStartElement("flagConfidencial");
                     vXmlTW.WriteString(Convert.ToString(vDatos[13]));
                     vXmlTW.WriteEndElement();
 
-                    vXmlTW.WriteStartElement("estado");
+                    vXmlTW.WriteStartElement("nivelConfidencialidad");
                     vXmlTW.WriteString(Convert.ToString(vDatos[14]));
-                    vXmlTW.WriteEndElement();
-
-                    vXmlTW.WriteStartElement("usuarioCreacion");
-                    vXmlTW.WriteString(Convert.ToString(vDatos[15]));
-                    vXmlTW.WriteEndElement();
-
-                    vXmlTW.WriteStartElement("flagConfidencial");
-                    vXmlTW.WriteString(Convert.ToString(vDatos[16]));
                     vXmlTW.WriteEndElement();
 
                     vXmlTW.WriteEndElement();

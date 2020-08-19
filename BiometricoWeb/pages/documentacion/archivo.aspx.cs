@@ -83,23 +83,24 @@ namespace BiometricoWeb.pages.documentacion
 
         protected void BtnLeido_Click(object sender, EventArgs e){
             try{
-                String vQuery = "[RSP_Documentacion] 10" +
-                    ",'" + Session["USUARIO"].ToString() + "'" +
-                    ",null," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
-                DataTable vData = vConexion.obtenerDataTable(vQuery);
-                if (vData.Rows.Count < 1){
-                    if (!CBxLectura.Checked){
-                        Mensaje("Falta confirmar en la casilla de lectura.", WarningType.Warning);
-                    }else{
-                        vQuery = "[RSP_Documentacion] 9" +
-                            ",'" + Session["USUARIO"].ToString() + "'" +
-                            ",null," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
-                        int vInfo = vConexion.ejecutarSql(vQuery);
-                        if (vInfo == 1)
-                            Mensaje("Respuesta enviada con éxito!", WarningType.Success);
-                    }
-                }else
-                    Mensaje("Ya se ha registrado su confirmación de lectura.", WarningType.Warning);
+                String vQuery = "[RSP_Documentacion] 5," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                String vDoc = "";
+                if (vDatos.Rows[0]["idTipoDoc"].ToString() == "1")
+                    vDoc = "el Boletín";
+                else if(vDatos.Rows[0]["idTipoDoc"].ToString() == "2")
+                    vDoc = "el Formato";
+                else if(vDatos.Rows[0]["idTipoDoc"].ToString() == "3")
+                    vDoc = "el Manual";
+                else if(vDatos.Rows[0]["idTipoDoc"].ToString() == "4")
+                    vDoc = "la Política";
+                else if(vDatos.Rows[0]["idTipoDoc"].ToString() == "5")
+                    vDoc = "el Proceso";
+
+
+                LbMensaje.Text = "Declaro que he leído, entendido y doy por enterado(a) " + vDoc + " <b>" + LbTitulo.Text + "</b>,  <br><br>" +
+                    "Me comprometo a dar cumplimiento a los lineamientos incluidos en " + vDoc + " y entiendo que el hecho de no hacerlo puede dar lugar a que INFATLAN proceda a aplicarme las acciones disciplinarias o legales correspondientes.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -109,6 +110,28 @@ namespace BiometricoWeb.pages.documentacion
             try{
                 Session["DOCUMENTOS_ARCHIVO_ID"] = null;
                 Response.Redirect("tipoDocumentos.aspx");
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnConfirmar_Click(object sender, EventArgs e){
+            try{
+                String vQuery = "[RSP_Documentacion] 10" +
+                    ",'" + Session["USUARIO"].ToString() + "'" +
+                    ",null," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
+                DataTable vData = vConexion.obtenerDataTable(vQuery);
+                if (vData.Rows.Count < 1){
+                    vQuery = "[RSP_Documentacion] 9" +
+                        ",'" + Session["USUARIO"].ToString() + "'" +
+                        ",null," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
+                    int vInfo = vConexion.ejecutarSql(vQuery);
+                    if (vInfo == 1)
+                        Mensaje("Respuesta enviada con éxito!", WarningType.Success);
+                }else
+                    Mensaje("Ya se ha registrado su confirmación de lectura.", WarningType.Warning);
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }

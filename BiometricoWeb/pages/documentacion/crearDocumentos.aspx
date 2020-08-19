@@ -162,63 +162,38 @@
                                         </div>
                                     </div>
                                     <div class="row col-6">
-                                        <div class="col-4">
-                                            <label>Confidencial</label>
-                                        </div>
+                                        <label class="col-4">Nivel Confidencial</label>
                                         <div class="col-8">
-                                            <label class="custom-control custom-switch m-b-0">
-                                                <input type="checkbox" runat="server" id="CBxConfidencial" class="custom-control-input">
-                                                <span class="custom-control-label"></span>
-                                            </label>
+                                            <asp:DropDownList runat="server" ID="DDLNivelConfidencialidad" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DDLCorreo_SelectedIndexChanged">
+                                                <asp:ListItem Value="0" Text="Seleccione una opción."></asp:ListItem>
+                                                <asp:ListItem Value="1" Text="Público"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="Uso Interno"></asp:ListItem>
+                                                <asp:ListItem Value="3" Text="Restringido"></asp:ListItem>
+                                                <asp:ListItem Value="4" Text="Confidencial"></asp:ListItem>
+                                            </asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div runat="server" id="DivCorreos" visible="false" class="row col-12 mt-3">   
-                                    <div runat="server" id="DivRecurrencia" visible="true" class="row col-6">
-                                        <label class="col-4 col-form-label">Frecuencia</label>
-                                        <div class="col-8">
-                                            <asp:DropDownList runat="server" ID="DDLRecurrencia" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DDLRecurrencia_SelectedIndexChanged">
-                                                <asp:ListItem Value="0" Text="Una vez"></asp:ListItem>
-                                                <asp:ListItem Value="1" Text="Específica"></asp:ListItem>
-                                            </asp:DropDownList>
-                                        </div>
-                                    </div>
                                     <div class="row col-6">   
                                         <label class="col-4 col-form-label">Fecha Envío</label>
                                         <div class="col-8">
                                             <asp:TextBox runat="server" ID="TxFecha" TextMode="DateTimeLocal" CssClass="form-control"></asp:TextBox>
                                         </div>
                                     </div>
-                                </div>
-                                <div runat="server" id="DivSiempre" visible="false" class="row col-12 mt-3">   
                                     <div class="row col-6">
-                                        <label class="col-4 col-form-label">Cada</label>
-                                        <div class="col-4">
-                                            <asp:TextBox runat="server" ID="TxFrecuencia" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                        </div>
-                                        <div class="col-4">
-                                            <asp:DropDownList runat="server" ID="DDLFormatoFrecuencia" CssClass="form-control">
-                                                <asp:ListItem Value="0" Text="Día(s)"></asp:ListItem>
-                                                <asp:ListItem Value="1" Text="Mes(es)"></asp:ListItem>
-                                                <asp:ListItem Value="2" Text="Año(s)"></asp:ListItem>
-                                            </asp:DropDownList>
-                                        </div>
-                                    </div>
-                                    <div runat="server" class="row col-6">   
-                                        <label class="col-4 col-form-label">Durante</label>
-                                        <div class="col-4">
-                                            <asp:TextBox runat="server" ID="TxDurante" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                        </div>
-                                        <div class="col-4">
-                                            <asp:DropDownList runat="server" ID="DDLDurante" CssClass="form-control">
-                                                <asp:ListItem Value="0" Text="Día(s)"></asp:ListItem>
-                                                <asp:ListItem Value="1" Text="Mes(es)"></asp:ListItem>
-                                                <asp:ListItem Value="2" Text="Año(s)"></asp:ListItem>
+                                        <label class="col-4 col-form-label">Recordatorios</label>
+                                        <div class="col-8">
+                                            <asp:DropDownList runat="server" ID="DDLRecordatorios" CssClass="form-control">
+                                                <asp:ListItem Value="0" Text="No"></asp:ListItem>
+                                                <asp:ListItem Value="1" Text="Cada 15 días"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="Cada 30 días"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row col-12">
                                     <div class="row col-6 mt-3">
                                         <label class="col-4 col-form-label">Estado</label>
@@ -229,14 +204,27 @@
                                             </asp:DropDownList>
                                         </div>
                                     </div>
-                                
                                     <div class="row col-6 mt-3">
-                                        <label class="col-4 col-form-label">Archivo</label>
-                                        <div class="col-8">
+                                        <div class="col-5">
+                                            <label class="col-form-label">Derechos de autor</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <label class="col-form-label custom-control custom-switch m-b-0">
+                                                <input type="checkbox" runat="server" id="CBxConfidencial" class="custom-control-input">
+                                                <span class="custom-control-label"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-12">
+                                    <div class="row col-12 mt-3">
+                                        <label class="col-2 col-form-label">Archivo</label>
+                                        <div class="col-10">
                                             <asp:FileUpload runat="server" ID="FUArchivo" CssClass="form-control"></asp:FileUpload>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-12 mt-3" runat="server" id="DivMensaje" visible="false" style="display: flex; background-color:tomato; justify-content:center">
                                     <asp:Label runat="server" CssClass="col-form-label text-white" ID="LbAdvertencia"></asp:Label>
                                 </div>
