@@ -291,7 +291,7 @@ namespace BiometricoWeb.pages.documentacion
             LbAdvertencia.Text = string.Empty;
             DDLEstado.SelectedValue = "1";
             TxCodigo.Text = string.Empty;
-            DDLNivelConfidencialidad.SelectedValue = "";
+            DDLNivelConfidencialidad.SelectedValue = "0";
         }
 
         private void validarDatos() {
