@@ -24,6 +24,7 @@ namespace BiometricoWeb.pages
                     }
                     cargarDatos();
                     Session["CONTEO"] = null;
+                    CargarConstancia();
                 }
             }
         }
@@ -707,8 +708,8 @@ namespace BiometricoWeb.pages
             try{
                 SapConnector vTest = new SapConnector();
                 String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
-                //String vDias = "12.62";
-                Session["DIASSAP"] = vDias;
+
+
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }

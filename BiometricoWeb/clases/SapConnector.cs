@@ -95,16 +95,17 @@ namespace BiometricoWeb.clases
         public String getConstancias(String vEmpleado){
             String vResultado = String.Empty;
             try{
-                SapServicesH.ZFM_CONSULTA_VACACIONES vConsulta = new SapServicesH.ZFM_CONSULTA_VACACIONES();
-                vConsulta.P_BEGDA = ConfigurationManager.AppSettings["SapDateInicio"];
-                vConsulta.P_ENDDA = ConfigurationManager.AppSettings["SapDateFinal"];
-                vConsulta.P_BUKRS = ConfigurationManager.AppSettings["SapCodigoEmpresa"];
-                vConsulta.P_PERNR = vEmpleado;
+                SapServiceConstancias.ZMF_HR_CONS_CAPAC_INF2 vConsulta = new SapServiceConstancias.ZMF_HR_CONS_CAPAC_INF2();
+                //SapServicesH.ZFM_CONSULTA_VACACIONES vConsulta = new SapServicesH.ZFM_CONSULTA_VACACIONES();
+                //vConsulta.P_BEGDA = ConfigurationManager.AppSettings["SapDateInicio"];
+                //vConsulta.P_ENDDA = ConfigurationManager.AppSettings["SapDateFinal"];
+                //vConsulta.P_BUKRS = ConfigurationManager.AppSettings["SapCodigoEmpresa"];
+                //vConsulta.P_PERNR = vEmpleado;
                 SapServicesH.ZWS_HR_VACACIONES vRequest = new SapServicesH.ZWS_HR_VACACIONES();
                 vRequest.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["SapUsername"], ConfigurationManager.AppSettings["SapPassword"]);
 
-                SapServicesH.ZFM_CONSULTA_VACACIONESResponse vResponse = vRequest.ZFM_CONSULTA_VACACIONES(vConsulta);
-                vResultado = Convert.ToString(vResponse.P_DIAS);
+                //SapServicesH.ZFM_CONSULTA_VACACIONESResponse vResponse = vRequest.ZFM_CONSULTA_VACACIONES(vConsulta);
+                //vResultado = Convert.ToString(vResponse.P_DIAS);
             }catch (Exception Ex){
                 String vError = Ex.Message;
                 throw;

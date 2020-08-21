@@ -15,6 +15,9 @@
         function openModal() { $('#ModalCargar').modal('show'); }
         function closeModal() { $('#ModalCargar').modal('hide'); }
     </script>
+    <style>
+        .hiddencol { display: none; }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
@@ -86,20 +89,28 @@
                                                 AutoGenerateColumns="false" OnPageIndexChanging="GVBusqueda_PageIndexChanging" >
                                                 <Columns>
                                                     <asp:BoundField DataField="idDocumento" Visible="false" HeaderText="Id" ItemStyle-HorizontalAlign="Left" />
+                                                    <asp:TemplateField ItemStyle-HorizontalAlign="Left">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="BtnNiveles" runat="server" Text="" title="" class="btn btn-default"></asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                     <asp:BoundField DataField="codigo" HeaderText="Código" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
-                                                    <asp:BoundField DataField="nivel" HeaderText="Nivel" ItemStyle-HorizontalAlign="Left"/>
+                                                    <asp:BoundField DataField="nivelConfidencialidad" HeaderStyle-CssClass="hiddencol" ItemStyle-CssClass="hiddencol"/>
                                                     <asp:BoundField DataField="activo" HeaderText="Estado" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:TemplateField HeaderStyle-Width="60px">
                                                         <ItemTemplate>
-                                                            <asp:Button ID="BtnVer" runat="server" Text="Ver" class="btn btn-inverse-success" CommandArgument='<%# Eval("idDocumento") %>' CommandName="verDocumento" />
-                                                            <%--<asp:LinkButton ID="Btn" runat="server" title="Entrar" style="background-color:#5bc0de" class="btn btn-info" CommandArgument='<%# Eval("idDocumento") %>' CommandName="EntrarDoc">
-                                                                <i class="mdi mdi-redo text-white"></i>
-                                                            </asp:LinkButton>--%>
-                                               
+                                                            <asp:Button ID="BtnVer" runat="server" Text="Entrar" class="btn btn-inverse-success" CommandArgument='<%# Eval("idDocumento") %>' CommandName="verDocumento" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+                                                    <%--<asp:TemplateField HeaderStyle-Width="60px">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="BtnEntrar" runat="server" title="Entrar" style="background-color:#5bc0de" class="btn" CommandArgument='<%# Eval("idTipoDoc") %>' CommandName="EntrarDoc">
+                                                                <i class="mdi mdi-pencil text-white"></i>
+                                                            </asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>--%>
                                                 </Columns>
                                             </asp:GridView>
                                         </ContentTemplate>

@@ -50,6 +50,29 @@ namespace BiometricoWeb.pages.documentacion
                 if (vDatos.Rows.Count > 0){
                     GVBusqueda.DataSource = vDatos;
                     GVBusqueda.DataBind();
+                    int vCuenta = 0;
+                    foreach (GridViewRow row in GVBusqueda.Rows){
+                        if (row.Cells[4].Text.Equals("2")){
+                            LinkButton button = row.FindControl("BtnNiveles") as LinkButton;
+                            button.Text = "Uso Interno";
+                            button.Style.Value = "background-color:#5bc0de";
+                            button.ToolTip = vDatos.Rows[vCuenta]["descripcion"].ToString();
+                        }
+                        if (row.Cells[4].Text.Equals("3")){
+                            LinkButton button = row.FindControl("BtnNiveles") as LinkButton;
+                            button.Text = "Restringido";
+                            button.Style.Value = "background-color:#f0ad4e";
+                            button.ToolTip = vDatos.Rows[vCuenta]["descripcion"].ToString();
+                        }
+                        if (row.Cells[4].Text.Equals("4")){
+                            LinkButton button = row.FindControl("BtnNiveles") as LinkButton;
+                            button.Text = "Confidencial";
+                            button.Style.Value = "background-color:#d9534f";
+                            button.ToolTip = vDatos.Rows[vCuenta]["descripcion"].ToString();
+                        }
+                        vCuenta++;
+                    }
+
                     Session["DOCUMENTOS"] = vDatos;
                 }
             }catch (Exception ex){

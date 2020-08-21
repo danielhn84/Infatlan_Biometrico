@@ -164,13 +164,7 @@
                                     <div class="row col-6">
                                         <label class="col-4">Nivel Confidencial</label>
                                         <div class="col-8">
-                                            <asp:DropDownList runat="server" ID="DDLNivelConfidencialidad" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DDLCorreo_SelectedIndexChanged">
-                                                <asp:ListItem Value="0" Text="Seleccione una opción."></asp:ListItem>
-                                                <asp:ListItem Value="1" Text="Público"></asp:ListItem>
-                                                <asp:ListItem Value="2" Text="Uso Interno"></asp:ListItem>
-                                                <asp:ListItem Value="3" Text="Restringido"></asp:ListItem>
-                                                <asp:ListItem Value="4" Text="Confidencial"></asp:ListItem>
-                                            </asp:DropDownList>
+                                            <asp:DropDownList runat="server" ID="DDLNivelConfidencialidad" CssClass="form-control"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
