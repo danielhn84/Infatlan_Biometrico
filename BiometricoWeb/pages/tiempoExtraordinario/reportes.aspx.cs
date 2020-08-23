@@ -77,8 +77,8 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
 
                 if (DdlQuincena.SelectedValue.Equals("1"))
                 {
-                    vMaxAprobacion1 = new DateTime(year, mesSeleccionado, 10, 00, 00, 00);
-                    vMaxAprobacion2 = new DateTime(year, mesSeleccionado, 22, 00, 00, 00);
+                    vMaxAprobacion1 = new DateTime(year, mesSeleccionado, 14, 00, 00, 00);
+                    vMaxAprobacion2 = new DateTime(year, mesSeleccionado, 29, 00, 00, 00);
 
                     vInicioQuincenaActual = new DateTime(year, mesSeleccionado, 1, 00, 00, 00);
                     //vFinSiguienteQuincena = vInicioQuincenaActual.AddMonths(1).AddDays(-1);
@@ -87,8 +87,8 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
                 }
                 else
                 {
-                    vMaxAprobacion1 = new DateTime(year, mesSeleccionado, 22, 00, 00, 00);
-                    vMaxAprobacion2 = new DateTime(year, siguienteMes, 10, 00, 00, 00);
+                    vMaxAprobacion1 = new DateTime(year, mesSeleccionado, 29, 00, 00, 00);
+                    vMaxAprobacion2 = new DateTime(year, siguienteMes, 14, 00, 00, 00);
 
                     vInicioQuincenaActual = new DateTime(year, mesSeleccionado, 16, 00, 00, 00);
                     //vFinSiguienteQuincena = vInicioQuincenaActual.AddDays(29);
