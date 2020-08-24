@@ -52,7 +52,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Tipo Documento</label>
+                                        <label class="col-sm-3 col-form-label">Reporte</label>
                                         <div class="col-sm-9">
                                             <asp:DropDownList ClientIDMode="AutoID" ID="DDLReporte" runat="server" class="form-control" AutoPostBack="True" OnSelectedIndexChanged="DDLReporte_SelectedIndexChanged">
                                                 <asp:ListItem Value="0" Text="Seleccione una opción"></asp:ListItem>
@@ -74,7 +74,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Documento</label>
                                         <div class="col-sm-9">
-                                            <asp:DropDownList ID="DDLDocumento" runat="server" class="form-control"></asp:DropDownList>
+                                            <asp:DropDownList ClientIDMode="AutoID" ID="DDLDocumento" runat="server" AutoPostBack="True" class="form-control"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>

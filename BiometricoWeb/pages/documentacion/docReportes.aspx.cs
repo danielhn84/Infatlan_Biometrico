@@ -42,7 +42,6 @@ namespace BiometricoWeb.pages.documentacion
         public void Mensaje(string vMensaje, WarningType type){
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
-
         protected void DDLTipoPDoc_SelectedIndexChanged(object sender, EventArgs e){
             try{
                 String vQuery = "[RSP_Documentacion] 11," + DDLTipoPDoc.SelectedValue;
@@ -73,53 +72,90 @@ namespace BiometricoWeb.pages.documentacion
                 throw new Exception("Favor seleccione un tipo de reporte.");            
             if (DDLTipoPDoc.SelectedValue == "0")
                 throw new Exception("Favor seleccione un tipo de documento.");
-            if (DDLReporte.SelectedValue == "1"){
-                if (DDLDocumento.SelectedValue == "0")
-                    throw new Exception("Favor seleccione un documento.");
-            }
+            //if (DDLReporte.SelectedValue == "2"){
+            //    if (DDLDocumento.SelectedValue == "0")
+            //        throw new Exception("Favor seleccione un documento.");
+            //}
         }
 
         private void limpiarDatos(){
-           DDLTipoPDoc.SelectedIndex = 0;       
-           DDLDocumento.SelectedIndex = 0;
+           DDLTipoPDoc.SelectedIndex = -1;
+           DDLDocumento.SelectedIndex = -1;
+           DDLReporte.SelectedIndex = -1;
+           UpdatePanel2.Update();
         }
-
         protected void BtnConfirmar_Click(object sender, EventArgs e){
             try{
-                DataTable vDatos = (DataTable)Session["DOCUMENTO_REPORTE"];
-                string Parametro1 = vDatos.Rows[0]["idCategoria"].ToString(); 
-                string Parametro2 = DDLDocumento.SelectedValue;
+                if (DDLReporte.SelectedValue.Equals("1"))
+                {
+                    DataTable vDatos = (DataTable)Session["DOCUMENTO_REPORTE"];
+                    string Parametro1 = vDatos.Rows[0]["idCategoria"].ToString();
+                    string Parametro2 = DDLDocumento.SelectedValue;
 
-                ReportExecutionService.ReportExecutionService vRSE = new ReportExecutionService.ReportExecutionService();
-                vRSE.Credentials = new NetworkCredential("report_user", "kEbn2HUzd$Fs2T", "adbancat.hn");
-                vRSE.Url = "http://10.128.0.52/reportserver/reportexecution2005.asmx";
+                    ReportExecutionService.ReportExecutionService vRSE = new ReportExecutionService.ReportExecutionService();
+                    vRSE.Credentials = new NetworkCredential("report_user", "kEbn2HUzd$Fs2T", "adbancat.hn");
+                    vRSE.Url = "http://10.128.0.52/reportserver/reportexecution2005.asmx";
 
-                vRSE.ExecutionHeaderValue = new ReportExecutionService.ExecutionHeader();
-                var vEInfo = new ReportExecutionService.ExecutionInfo();
-                vEInfo = vRSE.LoadReport("/Recursos Humanos Interno/GestionDocumentalConsultas", null);
+                    vRSE.ExecutionHeaderValue = new ReportExecutionService.ExecutionHeader();
+                    var vEInfo = new ReportExecutionService.ExecutionInfo();
+                    vEInfo = vRSE.LoadReport("/Recursos Humanos Interno/GestionDocumentalConsultas", null);
 
-                List<ReportExecutionService.ParameterValue> vParametros = new List<ReportExecutionService.ParameterValue>();
-                vParametros.Add(new ReportExecutionService.ParameterValue { Name = "D1", Value = Parametro1 });
-                vParametros.Add(new ReportExecutionService.ParameterValue { Name = "D2", Value = Parametro2 });
+                    List<ReportExecutionService.ParameterValue> vParametros = new List<ReportExecutionService.ParameterValue>();
+                    vParametros.Add(new ReportExecutionService.ParameterValue { Name = "D1", Value = Parametro1 });
+                    vParametros.Add(new ReportExecutionService.ParameterValue { Name = "D2", Value = Parametro2 });
 
-                vRSE.SetExecutionParameters(vParametros.ToArray(), "en-US");
-                String deviceinfo = "<DeviceInfo><Toolbar>false</Toolbar></DeviceInfo>";
-                String mime;
-                String encoding;
-                string[] stream;
-                ReportExecutionService.Warning[] warning;
+                    vRSE.SetExecutionParameters(vParametros.ToArray(), "en-US");
+                    String deviceinfo = "<DeviceInfo><Toolbar>false</Toolbar></DeviceInfo>";
+                    String mime;
+                    String encoding;
+                    string[] stream;
+                    ReportExecutionService.Warning[] warning;
 
-                byte[] vResultado = vRSE.Render("EXCEL", deviceinfo, out mime, out encoding, out encoding, out warning, out stream);
+                    byte[] vResultado = vRSE.Render("EXCEL", deviceinfo, out mime, out encoding, out encoding, out warning, out stream);
 
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    Response.AppendHeader("Content-Type", "application/vnd.ms-excel");
+                    byte[] bytFile = vResultado;
+                    Response.OutputStream.Write(bytFile, 0, bytFile.Length);
+                    Response.AddHeader("Content-disposition", "attachment;filename=Reporte.xls");
+                    Response.End();
+                }
+                else if(DDLReporte.SelectedValue.Equals("2")){
+                    string Parametro1 = DDLTipoPDoc.SelectedValue;
 
-                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Response.AppendHeader("Content-Type", "application/vnd.ms-excel");
-                byte[] bytFile = vResultado;
-                Response.OutputStream.Write(bytFile, 0, bytFile.Length);
-                Response.AddHeader("Content-disposition", "attachment;filename=Reporte.xls");
-                Response.End();
+                    ReportExecutionService.ReportExecutionService vRSE = new ReportExecutionService.ReportExecutionService();
+                    vRSE.Credentials = new NetworkCredential("report_user", "kEbn2HUzd$Fs2T", "adbancat.hn");
+                    vRSE.Url = "http://10.128.0.52/reportserver/reportexecution2005.asmx";
 
-            }catch (Exception Ex){
+                    vRSE.ExecutionHeaderValue = new ReportExecutionService.ExecutionHeader();
+                    var vEInfo = new ReportExecutionService.ExecutionInfo();
+                    vEInfo = vRSE.LoadReport("/Recursos Humanos Interno/GestionDocumentalInventario", null);
+
+                    List<ReportExecutionService.ParameterValue> vParametros = new List<ReportExecutionService.ParameterValue>();
+                    vParametros.Add(new ReportExecutionService.ParameterValue { Name = "D1", Value = Parametro1 });
+    
+
+                    vRSE.SetExecutionParameters(vParametros.ToArray(), "en-US");
+                    String deviceinfo = "<DeviceInfo><Toolbar>false</Toolbar></DeviceInfo>";
+                    String mime;
+                    String encoding;
+                    string[] stream;
+                    ReportExecutionService.Warning[] warning;
+
+                    byte[] vResultado = vRSE.Render("EXCEL", deviceinfo, out mime, out encoding, out encoding, out warning, out stream);
+
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    Response.AppendHeader("Content-Type", "application/vnd.ms-excel");
+                    byte[] bytFile = vResultado;
+                    Response.OutputStream.Write(bytFile, 0, bytFile.Length);
+                    string nombreExcel = "ReporteInventario" + DDLTipoPDoc.SelectedItem.Text + ".xls";
+                    Response.AddHeader("Content-disposition", "attachment;filename="+ nombreExcel);
+                    Response.End();
+                }
+                limpiarDatos();
+
+            }
+            catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
