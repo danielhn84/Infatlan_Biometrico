@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:sap-com:document:sap:rfc:functions" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:sap-com:document:sap:rfc:functions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+  </wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+      <xsd:simpleType name="char100">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="100" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char20">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="20" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char25">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="25" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char50">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="50" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char65">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="65" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char80">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="80" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="date10">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="10" />
+          <xsd:pattern value="\d\d\d\d-\d\d-\d\d" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="numeric8">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="8" />
+          <xsd:pattern value="\d*" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="ZMF_HR_CONS_CAPAC_INF2">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="CIEVE" type="tns:char50" />
+            <xsd:element name="CONSU" type="tns:char80" />
+            <xsd:element name="CONTA" type="tns:char50" />
+            <xsd:element name="DICON" type="tns:char80" />
+            <xsd:element name="DOMI1" type="tns:char100" />
+            <xsd:element name="DOMI2" type="tns:char100" />
+            <xsd:element name="FCONS" type="tns:date10" />
+            <xsd:element name="FEVEN" type="tns:char80" />
+            <xsd:element name="LUEVE" type="tns:char50" />
+            <xsd:element name="PAIS" type="tns:char50" />
+            <xsd:element name="PASAP" type="tns:char25" />
+            <xsd:element name="PERNR" type="tns:numeric8" />
+            <xsd:element name="RTN" type="tns:char20" />
+            <xsd:element name="SEMIN" type="tns:char100" />
+            <xsd:element name="TELEF" type="tns:char50" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZMF_HR_CONS_CAPAC_INF2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="MSJ" type="tns:char65" />
+            <xsd:element name="PDF" type="xsd:base64Binary" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ZMF_HR_CONS_CAPAC_INF2">
+    <wsdl:part name="parameters" element="tns:ZMF_HR_CONS_CAPAC_INF2" />
+  </wsdl:message>
+  <wsdl:message name="ZMF_HR_CONS_CAPAC_INF2Response">
+    <wsdl:part name="parameter" element="tns:ZMF_HR_CONS_CAPAC_INF2Response" />
+  </wsdl:message>
+  <wsdl:portType name="ZWS_HR_CONS_CAPAC_INF2">
+    <wsdl:documentation>
+      <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation">
+        <sapdoc:docitem docURL="http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/esdt/docu/sd_text?sap-client=101&amp;sd_name=ZWS_HR_CONS_CAPAC_INF2" />
+      </sapdoc:sapdoc>
+    </wsdl:documentation>
+    <wsdl:operation name="ZMF_HR_CONS_CAPAC_INF2">
+      <wsdl:input message="tns:ZMF_HR_CONS_CAPAC_INF2" />
+      <wsdl:output message="tns:ZMF_HR_CONS_CAPAC_INF2Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ZWS_RH_CONS_CAPAC_INF2" type="tns:ZWS_HR_CONS_CAPAC_INF2">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ZMF_HR_CONS_CAPAC_INF2">
+      <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZWS_HR_CONS_CAPAC_INF2:ZMF_HR_CONS_CAPAC_INF2Request" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ZWS_RH_CONS_CAPAC_INF2_soap12" type="tns:ZWS_HR_CONS_CAPAC_INF2">
+    <wsoap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ZMF_HR_CONS_CAPAC_INF2">
+      <wsoap12:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZWS_HR_CONS_CAPAC_INF2:ZMF_HR_CONS_CAPAC_INF2Request" style="document" />
+      <wsdl:input>
+        <wsoap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsoap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ZWS_RH_CONS_CAPAC_INF2">
+    <wsdl:port name="ZWS_RH_CONS_CAPAC_INF2" binding="tns:ZWS_RH_CONS_CAPAC_INF2">
+      <soap:address location="http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/101/zws_rh_cons_capac_inf2/zws_rh_cons_capac_inf2" />
+    </wsdl:port>
+    <wsdl:port name="ZWS_RH_CONS_CAPAC_INF2_soap12" binding="tns:ZWS_RH_CONS_CAPAC_INF2_soap12">
+      <wsoap12:address location="http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/101/zws_rh_cons_capac_inf2/zws_rh_cons_capac_inf2" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

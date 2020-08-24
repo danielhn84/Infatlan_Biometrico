@@ -92,20 +92,30 @@ namespace BiometricoWeb.clases
             return vResultado;
         }
 
-        public String getConstancias(String vEmpleado){
+        public String getConstancias(String vCiudad, String vConsul, String vConta, String vDicon, String vDom1, String vDom2, String vFcons, String vFeven, String vLueve, String vPais, String vPasap, String vEmpleado, String vRtn, String vSemin, String vTelef){
             String vResultado = String.Empty;
             try{
-                SapServiceConstancias.ZMF_HR_CONS_CAPAC_INF2 vConsulta = new SapServiceConstancias.ZMF_HR_CONS_CAPAC_INF2();
-                //SapServicesH.ZFM_CONSULTA_VACACIONES vConsulta = new SapServicesH.ZFM_CONSULTA_VACACIONES();
-                //vConsulta.P_BEGDA = ConfigurationManager.AppSettings["SapDateInicio"];
-                //vConsulta.P_ENDDA = ConfigurationManager.AppSettings["SapDateFinal"];
-                //vConsulta.P_BUKRS = ConfigurationManager.AppSettings["SapCodigoEmpresa"];
-                //vConsulta.P_PERNR = vEmpleado;
-                SapServicesH.ZWS_HR_VACACIONES vRequest = new SapServicesH.ZWS_HR_VACACIONES();
-                vRequest.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["SapUsername"], ConfigurationManager.AppSettings["SapPassword"]);
+                SapServicesC.ZMF_HR_CONS_CAPAC_INF2 vConsulta = new SapServicesC.ZMF_HR_CONS_CAPAC_INF2();
+                vConsulta.CIEVE = vCiudad;
+                vConsulta.CONSU = vConsul;
+                vConsulta.CONTA = vConta;
+                vConsulta.DICON = vDicon;
+                vConsulta.DOMI1 = vDom1;
+                vConsulta.DOMI2 = vDom2;
+                vConsulta.FCONS = vFcons;
+                vConsulta.FEVEN = vFeven;
+                vConsulta.LUEVE = vLueve;
+                vConsulta.PAIS = vPais;
+                vConsulta.PASAP = vPasap;
+                vConsulta.PERNR = vEmpleado;
+                vConsulta.RTN = vRtn;
+                vConsulta.SEMIN = vSemin;
+                vConsulta.TELEF = vTelef;
+                
+                SapServicesC.ZMF_HR_CONS_CAPAC_INF2Response vResponse = new SapServicesC.ZMF_HR_CONS_CAPAC_INF2Response();
+                //vResponse = SapServicesC.ZMF_HR_CONS_CAPAC_INF2Response(vConsulta);
 
-                //SapServicesH.ZFM_CONSULTA_VACACIONESResponse vResponse = vRequest.ZFM_CONSULTA_VACACIONES(vConsulta);
-                //vResultado = Convert.ToString(vResponse.P_DIAS);
+                vResultado = Convert.ToString(vResponse.PDF);
             }catch (Exception Ex){
                 String vError = Ex.Message;
                 throw;

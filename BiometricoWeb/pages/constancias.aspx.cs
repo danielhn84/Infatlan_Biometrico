@@ -24,7 +24,7 @@ namespace BiometricoWeb.pages
                     }
                     cargarDatos();
                     Session["CONTEO"] = null;
-                    CargarConstancia();
+                    
                 }
             }
         }
@@ -206,6 +206,8 @@ namespace BiometricoWeb.pages
                                 ",'" + TxConsulado.Text + "'" +
                                 ",'" + TxDirConsul.Text + "'";
                             vInfo = vConexion.ejecutarSql(vQuery);
+
+                            CargarConstancia();
                         }else
                             vDA = false;
 
@@ -707,7 +709,7 @@ namespace BiometricoWeb.pages
         void CargarConstancia(){
             try{
                 SapConnector vTest = new SapConnector();
-                String vDias = vTest.getDiasVacaciones(Convert.ToString(Session["CODIGOSAP"]));
+                String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, Convert.ToString(Session["CODIGOSAP"]), TxRTN.Text, TxEvento.Text, TxTelefono.Text);
 
 
             }catch (Exception Ex){
