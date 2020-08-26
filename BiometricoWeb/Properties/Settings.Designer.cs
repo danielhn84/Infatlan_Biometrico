@@ -58,8 +58,8 @@ namespace BiometricoWeb.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/101" +
-            "/zws_rh_cons_capac_inf2/zws_rh_cons_capac_inf2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://150.150.6.142:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/101/zws_rh_co" +
+            "ns_capac_inf2/zws_rh_cons_capac_inf2")]
         public string BiometricoWeb_SapServiceConstancias_ZWS_RH_CONS_CAPAC_INF2 {
             get {
                 return ((string)(this["BiometricoWeb_SapServiceConstancias_ZWS_RH_CONS_CAPAC_INF2"]));
@@ -69,11 +69,11 @@ namespace BiometricoWeb.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hdev-mgmt.adbancat.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/101" +
-            "/zws_rh_cons_capac_inf2/zws_rh_cons_capac_inf2")]
-        public string BiometricoWeb_SapServicesC_ZWS_RH_CONS_CAPAC_INF2 {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/21" +
+            "0/zws_hr_cons_capac_inf2/zws_hr_cons_capac_inf2")]
+        public string BiometricoWeb_SapServiceC_ZWS_HR_CONS_CAPAC_INF2 {
             get {
-                return ((string)(this["BiometricoWeb_SapServicesC_ZWS_RH_CONS_CAPAC_INF2"]));
+                return ((string)(this["BiometricoWeb_SapServiceC_ZWS_HR_CONS_CAPAC_INF2"]));
             }
         }
     }

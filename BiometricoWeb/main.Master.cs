@@ -151,7 +151,6 @@ namespace BiometricoWeb
                         LISEC_Entradas.Visible = true;
                         LISEC_Salidas.Visible = true;
                         LISEC_Historico.Visible = false;
-                        LIPoliticas.Visible = false;
                         LIConfig.Visible = false;
                         LIServicios.Visible = false;
                         LIBuzon.Visible = false;

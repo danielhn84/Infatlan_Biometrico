@@ -213,15 +213,6 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlAnchor LITExManEquipos;
 
         /// <summary>
-        /// Control LIPoliticas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIPoliticas;
-
-        /// <summary>
         /// Control LIViaticos.
         /// </summary>
         /// <remarks>

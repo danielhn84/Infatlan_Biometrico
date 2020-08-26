@@ -61,7 +61,7 @@ namespace BiometricoWeb.pages
                     int days = 1;
                     if (ts.Days >= 1)
                         days = dias; //ts.Days + 1 - 
-                    else if (ts.Hours > 0)
+                    else if (ts.Hours > 0 || ts.Minutes > 0)
                         days = 0;
                     
                     vDatos.Rows[i]["Detalle"] = days + " días, " + ts.Hours + " horas, " + ts.Minutes + " minutos";

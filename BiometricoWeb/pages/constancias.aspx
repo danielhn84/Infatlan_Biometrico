@@ -257,8 +257,8 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group row">
-                                                    <label class="col-2 col-form-label">Ciudad</label>
-                                                    <div class="col-10">
+                                                    <label class="col-3 col-form-label">Ciudad</label>
+                                                    <div class="col-9">
                                                         <asp:TextBox runat="server" ID="TxCiudad" CssClass="form-control"></asp:TextBox>
                                                     </div>
                                                 </div>
@@ -273,8 +273,8 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group row">
-                                                    <label class="col-2 ">Fecha Inicio</label>
-                                                    <div class="col-10">
+                                                    <label class="col-3">Fecha Inicio</label>
+                                                    <div class="col-9">
                                                         <asp:TextBox runat="server" TextMode="Date" ID="TxFechaInicio" CssClass="form-control"></asp:TextBox>
                                                     </div>
                                                 </div>
@@ -289,8 +289,8 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group row">
-                                                    <label class="col-2 col-form-label">Fecha Fin</label>
-                                                    <div class="col-10">
+                                                    <label class="col-3 col-form-label">Fecha Fin</label>
+                                                    <div class="col-9">
                                                         <asp:TextBox runat="server" TextMode="Date" ID="TxFechaFin" CssClass="form-control"></asp:TextBox>
                                                     </div>
                                                 </div>
@@ -341,6 +341,9 @@
                         </div>
                     </div>
                 </ContentTemplate>
+                <Triggers>
+                    <asp:PostBackTrigger ControlID="BtnEnviar" />
+                </Triggers>
             </asp:UpdatePanel>
         </div>
 

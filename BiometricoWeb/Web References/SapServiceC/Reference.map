@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A101AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/210/zws_hr_cons_capac_inf2/zws_hr_cons_capac_inf2?sap-client=210" filename="zws_hr_cons_capac_inf2.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

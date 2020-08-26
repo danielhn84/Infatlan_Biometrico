@@ -104,6 +104,10 @@ namespace BiometricoWeb.pages.documentacion
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
 
+        public void MensajeLoad(string vMensaje, WarningType type){
+            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", " document.addEventListener(\"DOMContentLoaded\", function (event) { infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "'); });", true);
+        }
+
         protected void GvTipos_RowCommand(object sender, GridViewCommandEventArgs e){
             try{
                 limpiarModal();

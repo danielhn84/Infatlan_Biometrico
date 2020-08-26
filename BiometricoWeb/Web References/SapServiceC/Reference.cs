@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace BiometricoWeb.SapServicesC {
+namespace BiometricoWeb.SapServiceC {
     using System;
     using System.Web.Services;
     using System.Diagnostics;
@@ -26,16 +26,16 @@ namespace BiometricoWeb.SapServicesC {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="ZWS_RH_CONS_CAPAC_INF2", Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZWS_RH_CONS_CAPAC_INF2 : System.Web.Services.Protocols.SoapHttpClientProtocol {
+    [System.Web.Services.WebServiceBindingAttribute(Name="ZWS_HR_CONS_CAPAC_INF2", Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZWS_HR_CONS_CAPAC_INF2 : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback ZMF_HR_CONS_CAPAC_INF2OperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
-        public ZWS_RH_CONS_CAPAC_INF2() {
-            this.Url = global::BiometricoWeb.Properties.Settings.Default.BiometricoWeb_SapServicesC_ZWS_RH_CONS_CAPAC_INF2;
+        public ZWS_HR_CONS_CAPAC_INF2() {
+            this.Url = global::BiometricoWeb.Properties.Settings.Default.BiometricoWeb_SapServiceC_ZWS_HR_CONS_CAPAC_INF2;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;

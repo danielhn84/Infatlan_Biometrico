@@ -92,10 +92,10 @@ namespace BiometricoWeb.clases
             return vResultado;
         }
 
-        public String getConstancias(String vCiudad, String vConsul, String vConta, String vDicon, String vDom1, String vDom2, String vFcons, String vFeven, String vLueve, String vPais, String vPasap, String vEmpleado, String vRtn, String vSemin, String vTelef){
+        public String getConstancias(String vCiudad, String vConsul, String vConta, String vDicon, String vDom1, String vDom2, String vFcons, String vFeven, String vLueve, String vPais, String vPasap, String vEmpleado, String vRtn, String vSemin, String vTelef, ref byte[] pdf){
             String vResultado = String.Empty;
             try{
-                SapServicesC.ZMF_HR_CONS_CAPAC_INF2 vConsulta = new SapServicesC.ZMF_HR_CONS_CAPAC_INF2();
+                SapServiceC.ZMF_HR_CONS_CAPAC_INF2 vConsulta = new SapServiceC.ZMF_HR_CONS_CAPAC_INF2();
                 vConsulta.CIEVE = vCiudad;
                 vConsulta.CONSU = vConsul;
                 vConsulta.CONTA = vConta;
@@ -112,10 +112,15 @@ namespace BiometricoWeb.clases
                 vConsulta.SEMIN = vSemin;
                 vConsulta.TELEF = vTelef;
                 
-                SapServicesC.ZMF_HR_CONS_CAPAC_INF2Response vResponse = new SapServicesC.ZMF_HR_CONS_CAPAC_INF2Response();
-                //vResponse = SapServicesC.ZMF_HR_CONS_CAPAC_INF2Response(vConsulta);
+                SapServiceC.ZWS_HR_CONS_CAPAC_INF2 vRequest = new SapServiceC.ZWS_HR_CONS_CAPAC_INF2();
+                SapServiceC.ZMF_HR_CONS_CAPAC_INF2Response vResponse = vRequest.ZMF_HR_CONS_CAPAC_INF2(vConsulta);
 
-                vResultado = Convert.ToString(vResponse.PDF);
+                if (vResponse.MSJ.Equals("Código SAP incorrecto"))
+                    vResultado = vResponse.MSJ.ToString();
+                else{
+                    pdf = vResponse.PDF;
+                    vResultado = Convert.ToString(vResponse.PDF);
+                }
             }catch (Exception Ex){
                 String vError = Ex.Message;
                 throw;

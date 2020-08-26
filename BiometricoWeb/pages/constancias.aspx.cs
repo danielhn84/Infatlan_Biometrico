@@ -81,6 +81,10 @@ namespace BiometricoWeb.pages
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
 
+        public void MensajeLoad(string vMensaje, WarningType type){
+            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", " document.addEventListener(\"DOMContentLoaded\", function (event) { infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "'); });", true);
+        }
+
         protected void DDLTipoConstancia_SelectedIndexChanged(object sender, EventArgs e){
             try{
                 if (DDLTipoConstancia.SelectedValue == "2"){
@@ -189,6 +193,8 @@ namespace BiometricoWeb.pages
                                 ",'" + TxFechaCita.Text + "'";
                             vInfo = vConexion.ejecutarSql(vQuery);
                         }else if (vDest == "12") {
+                            //CargarConstancia();
+
                             vQuery = "[RSP_Constancias] 6" +
                                 "," + vIdSolicitud +
                                 ",'" + TxRepresentante.Text + "'" +
@@ -206,27 +212,26 @@ namespace BiometricoWeb.pages
                                 ",'" + TxConsulado.Text + "'" +
                                 ",'" + TxDirConsul.Text + "'";
                             vInfo = vConexion.ejecutarSql(vQuery);
-
-                            CargarConstancia();
+                            
                         }else
                             vDA = false;
 
                         if (vDA){
                             if (vInfo == 1)
-                                Mensaje("Constancia solicitada con éxito.", WarningType.Success);
+                                MensajeLoad("Constancia solicitada con éxito.", WarningType.Success);
                             else
-                                Mensaje("Solicitud no completada, favor comuníquese con sistemas.", WarningType.Success);
+                                MensajeLoad("Solicitud no completada, favor comuníquese con sistemas.", WarningType.Success);
                         }else
-                            Mensaje("Constancia solicitada con éxito.", WarningType.Success);
+                            MensajeLoad("Constancia solicitada con éxito.", WarningType.Success);
                     }else
-                        Mensaje("Solicitud no completada, favor comuníquese con sistemas.", WarningType.Warning);
+                        MensajeLoad("Solicitud no completada, favor comuníquese con sistemas.", WarningType.Warning);
                     limpiarFormulario();
                 }
                 cargarDatos();
                 UPBuzonGeneral.Update();
                 UpdatePanel1.Update();
             }catch (Exception ex){
-                Mensaje(ex.Message, WarningType.Danger);
+                MensajeLoad(ex.Message, WarningType.Danger);
             }
         }
         
@@ -709,11 +714,71 @@ namespace BiometricoWeb.pages
         void CargarConstancia(){
             try{
                 SapConnector vTest = new SapConnector();
-                String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, Convert.ToString(Session["CODIGOSAP"]), TxRTN.Text, TxEvento.Text, TxTelefono.Text);
+                byte[] vResultado = null;
+                //String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, Convert.ToString(Session["CODIGOSAP"]), TxRTN.Text, TxEvento.Text, TxTelefono.Text, ref vResultado);
+                String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, "60", TxRTN.Text, TxEvento.Text, TxTelefono.Text, ref vResultado);
 
+                if (vPDF.Equals("Código SAP incorrecto")){
+                    MensajeLoad(vPDF, WarningType.Danger);
+                }else {
+                    byte[] fileData = vResultado;
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    GetExtension(".pdf");
+                    byte[] bytFile = fileData;
+                    Response.OutputStream.Write(bytFile, 0, bytFile.Length);
+                    Response.AddHeader("Content-disposition", "attachment;filename=" + "Constancia.pdf");
+                    Response.End();
+                }
 
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
+            }
+        }
+
+        private string GetExtension(string Extension)
+        {
+            switch (Extension)
+            {
+                case ".doc":
+                    return "application/ms-word";
+                case ".xls":
+                    return "application/vnd.ms-excel";
+                case ".ppt":
+                    return "application/mspowerpoint";
+                case "jpeg":
+                    return "image/jpeg";
+                case ".bmp":
+                    return "image/bmp";
+                case ".zip":
+                    return "application/zip";
+                case ".log":
+                    return "text/HTML";
+                case ".txt":
+                    return "text/plain";
+                case ".tiff":
+                case ".tif":
+                    return "image/tiff";
+                case ".asf":
+                    return "video/x-ms-asf";
+                case ".avi":
+                    return "video/avi";
+                case ".gif":
+                    return "image/gif";
+                case ".jpg":
+                case ".wav":
+                    return "audio/wav";
+                case ".pdf":
+                    return "application/pdf";
+                case ".fdf":
+                    return "application/vnd.fdf";
+                case ".dwg":
+                    return "image/vnd.dwg";
+                case ".msg":
+                    return "application/msoutlook";
+                case ".xml":
+                    return "application/xml";
+                default:
+                    return "application/octet-stream";
             }
         }
     }

@@ -221,18 +221,9 @@
                                             <a class="nav-link" runat="server" id="LITExManPropuesta" visible="false" href="/pages/tiempoExtraordinario/propuesta.aspx">Propuesta</a>
                                             <a class="nav-link" runat="server" id="LITExManEquipos" visible="false" href="/pages/tiempoExtraordinario/mantenimiento.aspx">Tipos de Trabajo</a>
                                         </div>
-                           
                                     </li>
                                 </ul>
                             </div>
-                        </li>
-
-
-                        <li class="nav-item" id="LIPoliticas" runat="server" visible="true">
-                            <a class="nav-link" href="/pages/politicas.aspx" >
-                                <i class="mdi mdi-file-document menu-icon"></i>
-                                <span class="menu-title">Politicas</span>
-                            </a>
                         </li>
 
                         <li class="nav-item" id="LIViaticos" runat="server" visible="false">
@@ -363,7 +354,7 @@
                             </div>
                         </li>
 
-                        <li class="nav-item" id="LIDocumentacion" runat="server" visible="false">
+                        <li class="nav-item" id="LIDocumentacion" runat="server" visible="true">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic5">
                                 <i class="mdi mdi-folder menu-icon"></i>
                                 <span class="menu-title">Documentacion</span>
