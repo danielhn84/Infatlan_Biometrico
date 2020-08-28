@@ -193,7 +193,7 @@ namespace BiometricoWeb.pages
                                 ",'" + TxFechaCita.Text + "'";
                             vInfo = vConexion.ejecutarSql(vQuery);
                         }else if (vDest == "12") {
-                            //CargarConstancia();
+                            CargarConstancia();
 
                             vQuery = "[RSP_Constancias] 6" +
                                 "," + vIdSolicitud +
@@ -716,7 +716,7 @@ namespace BiometricoWeb.pages
                 SapConnector vTest = new SapConnector();
                 byte[] vResultado = null;
                 //String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, Convert.ToString(Session["CODIGOSAP"]), TxRTN.Text, TxEvento.Text, TxTelefono.Text, ref vResultado);
-                String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, "60", TxRTN.Text, TxEvento.Text, TxTelefono.Text, ref vResultado);
+                String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, "80000123", TxRTN.Text, TxEvento.Text, TxTelefono.Text, ref vResultado);
 
                 if (vPDF.Equals("Código SAP incorrecto")){
                     MensajeLoad(vPDF, WarningType.Danger);

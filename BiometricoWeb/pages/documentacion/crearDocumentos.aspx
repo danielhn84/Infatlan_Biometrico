@@ -181,8 +181,8 @@
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLRecordatorios" CssClass="form-control">
                                                 <asp:ListItem Value="0" Text="No"></asp:ListItem>
-                                                <asp:ListItem Value="1" Text="Cada 15 días"></asp:ListItem>
-                                                <asp:ListItem Value="2" Text="Cada 30 días"></asp:ListItem>
+                                                <asp:ListItem Value="1" Text="Cada 3 días"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="Cada 7 días"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </div>

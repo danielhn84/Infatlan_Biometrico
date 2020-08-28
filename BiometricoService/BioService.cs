@@ -36,6 +36,9 @@ namespace BiometricoService
             vTimer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
             vTimer.Interval = 300000; 
             vTimer.Enabled = true;
+
+
+
         }
 
         protected override void OnStop()
@@ -47,6 +50,13 @@ namespace BiometricoService
 
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
+
+            if (DateTime.Now.Hour == 8 && DateTime.Now.Minute < 6){
+                SapConnector vSapConnection = new SapConnector();
+                String vInformacion = vSapConnection.updateEmployees(DateTime.Now);
+            }
+
+
             if (Convert.ToBoolean(ConfigurationManager.AppSettings["TestServicio"]))
             {
                 this.WriteToFile("Test de servicio {0}");
