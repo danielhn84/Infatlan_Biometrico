@@ -25,12 +25,12 @@ namespace BiometricoWeb
                     LitPermisosCreados.Text = vDatos.Rows[0]["TotalPermisos"].ToString();
                     LitPermisosFinalizados.Text = vDatos.Rows[0]["Autorizados"].ToString();
 
-
+                    if (Session["USUARIO"].ToString() == "80244"){
+                        DivUpdate.Visible = true;
+                    }
                 }
-
             }
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "$('#ModalInfo').modal('show');", true);
-
         }
 
         public void Mensaje(string vMensaje, WarningType type){
@@ -49,6 +49,19 @@ namespace BiometricoWeb
                 GVBusqueda.DataBind();
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); } 
+        }
+
+        protected void Unnamed_Click(object sender, EventArgs e){
+            string vError = "";
+            try{
+                SapConnector vSapConnection = new SapConnector();
+                int vResult = vSapConnection.updateEmployees(DateTime.Now);
+                if (vResult > 0)
+                    Mensaje("Se actualizaron: <b>" + vResult + "</b> registros", WarningType.Success);
+
+            }catch (Exception ex){
+                vError = ex.Message;
+            }
         }
     }
 }

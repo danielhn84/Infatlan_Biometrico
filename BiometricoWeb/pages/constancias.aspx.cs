@@ -567,7 +567,6 @@ namespace BiometricoWeb.pages
                                     "," + vId + "," + vEstado;
                     int vInfo = vConexion.ejecutarSql(vQuery);
                     if (vInfo == 1){
-                        //CargarConstancia();
                         Mensaje(vMensaje, WarningType.Success);
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
                     }else

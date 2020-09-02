@@ -13,6 +13,25 @@
         function openModal() { $('#ModalConfirmar').modal('show'); }
         function closeModal() { $('#ModalConfirmar').modal('hide'); }
     </script>
+
+    <style>
+        .container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
@@ -46,7 +65,9 @@
     </div>
     <asp:UpdatePanel runat="server">
         <ContentTemplate>   
-            <iframe runat="server" id="IFramePDF" frameborder="0" style="width:100%; height:340px"></iframe>
+            <div class="container"> 
+                <iframe runat="server" class="responsive-iframe" id="IFramePDF" frameborder="0"></iframe>
+            </div>
         </ContentTemplate>
     </asp:UpdatePanel>
     <br /><br />

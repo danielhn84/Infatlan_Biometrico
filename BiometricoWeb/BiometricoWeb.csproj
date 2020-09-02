@@ -726,6 +726,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\SapServiceEmployees\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\SapServicesH\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -819,6 +824,14 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
     <None Include="Web References\SapServiceC\zws_hr_cons_capac_inf2.wsdl" />
+    <Content Include="Web References\SapServiceEmployees\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\SapServiceEmployees\ZMFRH_SER_INFResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\SapServiceEmployees\zws_hr_ser_inf.wsdl" />
     <None Include="Web References\SapServicesH\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -903,6 +916,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>BiometricoWeb_SapServiceC_ZWS_HR_CONS_CAPAC_INF2</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_ser_inf/210/zws_hr_ser_inf/zws_hr_ser_inf%3fsap-client=210">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SapServiceEmployees\</RelPath>
+      <UpdateFromURL>http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_ser_inf/210/zws_hr_ser_inf/zws_hr_ser_inf%3fsap-client=210</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>BiometricoWeb_SapServiceEmployees_ZWS_HR_SER_INF</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>

@@ -91,6 +91,13 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row" runat="server" visible="false" id="DivUpdate">
+                <div class="col-12">
+                    <asp:Button Text="Actualizar" OnClick="Unnamed_Click" CssClass="btn btn-success" runat="server" />
+                </div>
+            </div>
+
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

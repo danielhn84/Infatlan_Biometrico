@@ -207,15 +207,15 @@ namespace BiometricoWeb.pages.documentacion
                     if (vInfo > 0){
                         DataTable vDTConfidenciales = (DataTable)Session["DOCUMENTOS_CORREOS"];
                         if (vIdArchivo == "1")
-                            vBody = "Se ha creado un nuevo Boletín, favor revisar el documento.";
+                            vBody = "Se ha creado un nuevo Boletín, por favor revisar el documento.";
                         else if (vIdArchivo == "2")
-                            vBody = "Se ha creado un nuevo Formato, favor revisar el documento.";
+                            vBody = "Se ha creado un nuevo Formato, por favor revisar el documento.";
                         else if (vIdArchivo == "3")
-                            vBody = "Se ha creado un nuevo Manual, favor revisar el documento.";
+                            vBody = "Se ha creado un nuevo Manual, por favor revisar el documento.";
                         else if (vIdArchivo == "4")
-                            vBody = "Se ha creado una nuevoa Política, favor revisar el documento.";
+                            vBody = "Se ha creado una nueva Política, por favor revisar el documento.";
                         else if (vIdArchivo == "5")
-                            vBody = "Se ha creado un nuevo Proceso, favor revisar el documento.";
+                            vBody = "Se ha creado un nuevo Proceso, por favor revisar el documento.";
 
                         if (DDLCategoria.SelectedValue == "1"){
                             if (DDLCorreo.SelectedValue == "1") {

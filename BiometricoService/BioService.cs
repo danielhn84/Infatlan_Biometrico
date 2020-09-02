@@ -48,12 +48,20 @@ namespace BiometricoService
         }
 
 
-        private void OnElapsedTime(object source, ElapsedEventArgs e)
-        {
-
+        private void OnElapsedTime(object source, ElapsedEventArgs e){
             if (DateTime.Now.Hour == 8 && DateTime.Now.Minute < 6){
                 SapConnector vSapConnection = new SapConnector();
-                String vInformacion = vSapConnection.updateEmployees(DateTime.Now);
+                DataTable vData = vSapConnection.updateEmployees(DateTime.Now);
+                int vInfo, vContador = 0;
+                String vQuery = "";
+
+                for (int i = 0; i < vData.Rows.Count; i++){
+                    vQuery = "RSP_ActualizarEmpleado 1" +
+                        "," + vData.Rows[i]["CODIGOSAP"].ToString() + 
+                        "," + vData.Rows[i]["ESTADO"].ToString();
+                    vInfo = vConexion.ejecutarSql(vQuery);
+                    vContador++;
+                }
             }
 
 

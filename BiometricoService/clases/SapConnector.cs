@@ -4,38 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BiometricoService.clases;
+using System.Data;
 
 namespace BiometricoService.clases
 {
     class SapConnector{
 
         db vConexion = new db();
-        public String updateEmployees(DateTime vInicio){
-            String vResultado = String.Empty;
+        public Int32 updateEmployees(DateTime vInicio){
+            int vCounter = 0;
             try{
                 SapServiceEmployees.ZMFRH_SER_INF vItem = new SapServiceEmployees.ZMFRH_SER_INF() { 
                     BEGDA = vInicio.ToString("yyyy-MM-dd")
                 };
 
-                //SapServiceEmployees.ZMFRH_SER_INF vPermiso = new SapServiceEmployees.ZMFRH_SER_INF();
-                //vPermiso.BEGDA = vItem;
-
-                //SapServiceEmployees.ZWS_HR_SETDATA vRequest = new SapServiceEmployees.ZWS_HR_SETDATA();
-                //vRequest.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["SapUsername"], ConfigurationManager.AppSettings["SapPassword"]);
-                //SapServiceEmployees.ZMFRH_SER_INFResponse vResponse = vRequest.ZFM_SAVE_INFTP(vPermiso);
-
-                //SapServiceEmployees.ZST_GETDATA_INFA[] vResponseInfo = vResponse.ST_GETDATAS;
-
-                //if (vResponseInfo.Length > 0){
-                //    vResultado = vResponseInfo[0].ESTADO;
-                //    vMensaje = vResponseInfo[0].MESSAGE;
-                //}
-
+                SapServiceEmployees.ZWS_HR_SER_INF vRequest = new SapServiceEmployees.ZWS_HR_SER_INF();
+                SapServiceEmployees.ZMFRH_SER_INFResponse vResponse = vRequest.ZMFRH_SER_INF(vItem);
+                for (int i = 0; i < vResponse.IT_SALIDA.Length; i++){
+                    String vEstado = vResponse.IT_SALIDA[i].STAT2 == "3" ? "1" : "0";
+                    String vQuery = "RSP_ActualizarEmpleado 1" +
+                        "," + vResponse.IT_SALIDA[i].PERNR.ToString() +
+                        "," + vEstado;
+                    int vInfo = vConexion.ejecutarSql(vQuery);
+                    vCounter = vCounter + vInfo;
+                }
             }catch (Exception Ex){
                 String vError = Ex.Message;
-                throw;
             }
-            return vResultado;
+            return vCounter;
         }
     }
 

@@ -76,5 +76,16 @@ namespace BiometricoWeb.Properties {
                 return ((string)(this["BiometricoWeb_SapServiceC_ZWS_HR_CONS_CAPAC_INF2"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_ser_inf/210/zws_hr" +
+            "_ser_inf/zws_hr_ser_inf")]
+        public string BiometricoWeb_SapServiceEmployees_ZWS_HR_SER_INF {
+            get {
+                return ((string)(this["BiometricoWeb_SapServiceEmployees_ZWS_HR_SER_INF"]));
+            }
+        }
     }
 }
