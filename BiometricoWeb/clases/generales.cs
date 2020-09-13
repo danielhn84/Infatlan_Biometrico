@@ -10,6 +10,7 @@ namespace BiometricoWeb.clases
 {
     public class generales
     {
+        db vConexion = new db();
         public generales() { }
         public string MD5Hash(string text)
         {
@@ -25,7 +26,6 @@ namespace BiometricoWeb.clases
 
             return strBuilder.ToString();
         }
-
 
         public bool PermisosRecursosHumanos(DataTable vDatosLogin){
             Boolean vFlag = false;
@@ -46,14 +46,14 @@ namespace BiometricoWeb.clases
         public bool PermisosPersonalSeguridad(DataTable vDatosLogin){
             Boolean vFlag = false;
             try{
-                DataTable vDatos = vDatosLogin;
-
-                if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")){
-                    if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("2") || vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1") || vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("3")){
+                String vQuery = "RSP_Perfiles 1," + vDatosLogin.Rows[0]["idEmpleado"].ToString();
+                DataTable vDatosPerfil = vConexion.obtenerDataTable(vQuery);
+                
+                for (int i = 0; i < vDatosPerfil.Rows.Count; i++){
+                    if (vDatosPerfil.Rows[i]["idPerfil"].ToString() == "6" || vDatosPerfil.Rows[i]["idPerfil"].ToString() == "7" || vDatosLogin.Rows[0]["tipoEmpleado"].ToString() == "1"){
                         vFlag = true;
+                        break;
                     }
-                }else{
-                    vFlag = false;
                 }
             }catch { vFlag = false; }
             return vFlag;

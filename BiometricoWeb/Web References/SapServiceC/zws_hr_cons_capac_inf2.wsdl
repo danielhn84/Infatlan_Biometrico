@@ -51,13 +51,15 @@
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element name="CIEVE" type="tns:char50" />
+            <xsd:element name="CODRE" type="tns:numeric8" />
             <xsd:element name="CONSU" type="tns:char80" />
             <xsd:element name="CONTA" type="tns:char50" />
             <xsd:element name="DICON" type="tns:char80" />
             <xsd:element name="DOMI1" type="tns:char100" />
             <xsd:element name="DOMI2" type="tns:char100" />
             <xsd:element name="FCONS" type="tns:date10" />
-            <xsd:element name="FEVEN" type="tns:char80" />
+            <xsd:element name="FEFIN" type="tns:date10" />
+            <xsd:element name="FEINI" type="tns:date10" />
             <xsd:element name="LUEVE" type="tns:char50" />
             <xsd:element name="PAIS" type="tns:char50" />
             <xsd:element name="PASAP" type="tns:char25" />

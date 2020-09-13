@@ -168,6 +168,7 @@
     <Content Include="pages\mantenimiento\reportes.aspx" />
     <Content Include="pages\mantenimiento\tipoViaje.aspx" />
     <Content Include="pages\mantenimiento\transporte.aspx" />
+    <Content Include="pages\firmantes.aspx" />
     <Content Include="pages\servicios\birthdayCalendar.aspx" />
     <Content Include="pages\buzonSugerencias.aspx" />
     <Content Include="pages\canceled.aspx" />
@@ -369,6 +370,13 @@
     </Compile>
     <Compile Include="pages\mantenimiento\transporte.aspx.designer.cs">
       <DependentUpon>transporte.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\firmantes.aspx.cs">
+      <DependentUpon>firmantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\firmantes.aspx.designer.cs">
+      <DependentUpon>firmantes.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\servicios\birthdayCalendar.aspx.cs">
       <DependentUpon>birthdayCalendar.aspx</DependentUpon>
@@ -816,6 +824,13 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
     <None Include="Web References\SapServiceConstancias\zws_rh_cons_capac_inf2.wsdl" />
+    <Content Include="Web References\SapServiceEmployees\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\SapServiceEmployees\ZMFRH_SER_INFResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
     <Content Include="Web References\SapServiceC\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -824,13 +839,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
     <None Include="Web References\SapServiceC\zws_hr_cons_capac_inf2.wsdl" />
-    <Content Include="Web References\SapServiceEmployees\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
-    <Content Include="Web References\SapServiceEmployees\ZMFRH_SER_INFResponse.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </Content>
     <None Include="Web References\SapServiceEmployees\zws_hr_ser_inf.wsdl" />
     <None Include="Web References\SapServicesH\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

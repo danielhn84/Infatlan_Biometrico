@@ -314,6 +314,7 @@
                                         <div class="dropdown-menu" id="ui-basic4">
                                             <a class="nav-link" href="/pages/areas.aspx">Departamentos</a>
                                             <a class="nav-link" href="/pages/puestos.aspx">Posiciones</a>
+                                            <a class="nav-link" href="/pages/firmantes.aspx">Firmantes</a>
                                         </div>
                                     </li>
 

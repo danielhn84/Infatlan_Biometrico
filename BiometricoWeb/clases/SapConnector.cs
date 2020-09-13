@@ -95,7 +95,7 @@ namespace BiometricoWeb.clases
             return vResultado;
         }
 
-        public String getConstancias(String vCiudad, String vConsul, String vConta, String vDicon, String vDom1, String vDom2, String vFcons, String vFeven, String vLueve, String vPais, String vPasap, String vEmpleado, String vRtn, String vSemin, String vTelef, ref byte[] pdf){
+        public String getConstancias(String vCiudad, String vConsul, String vConta, String vDicon, String vDom1, String vDom2, String vFcons, String vFIni, String vFFin, String vLueve, String vPais, String vPasap, String vEmpleado, String vRtn, String vSemin, String vTelef, String vFirma, ref byte[] pdf){
             String vResultado = String.Empty;
             try{
                 SapServiceC.ZMF_HR_CONS_CAPAC_INF2 vConsulta = new SapServiceC.ZMF_HR_CONS_CAPAC_INF2();
@@ -106,7 +106,8 @@ namespace BiometricoWeb.clases
                 vConsulta.DOMI1 = vDom1;
                 vConsulta.DOMI2 = vDom2;
                 vConsulta.FCONS = vFcons;
-                vConsulta.FEVEN = vFeven;
+                vConsulta.FEINI = vFIni;
+                vConsulta.FEFIN = vFFin;
                 vConsulta.LUEVE = vLueve;
                 vConsulta.PAIS = vPais;
                 vConsulta.PASAP = vPasap;
@@ -114,11 +115,12 @@ namespace BiometricoWeb.clases
                 vConsulta.RTN = vRtn;
                 vConsulta.SEMIN = vSemin;
                 vConsulta.TELEF = vTelef;
+                vConsulta.CODRE = vFirma;
                 
                 SapServiceC.ZWS_HR_CONS_CAPAC_INF2 vRequest = new SapServiceC.ZWS_HR_CONS_CAPAC_INF2();
                 SapServiceC.ZMF_HR_CONS_CAPAC_INF2Response vResponse = vRequest.ZMF_HR_CONS_CAPAC_INF2(vConsulta);
 
-                if (vResponse.MSJ.Equals("Código SAP incorrecto"))
+                if (vResponse.MSJ.Equals("Código SAP incorrecto") || vResponse.MSJ.Equals("Código de representate invalido"))
                     vResultado = vResponse.MSJ.ToString();
                 else{
                     pdf = vResponse.PDF;
@@ -144,7 +146,10 @@ namespace BiometricoWeb.clases
                     String vEstado = vResponse.IT_SALIDA[i].STAT2 == "3" ? "1" : "0";
                     String vQuery = "RSP_ActualizarEmpleado 1" +
                         "," + vResponse.IT_SALIDA[i].PERNR.ToString() +
-                        "," + vEstado;
+                        "," + vEstado +
+                        ",'" + vResponse.IT_SALIDA[i].GBDAT.ToString() + "'" +
+                        "," + vResponse.IT_SALIDA[i].PERNR_J.ToString() +
+                        ",'" + vResponse.IT_SALIDA[i].DAT01.ToString() + "'" ;
                     int vInfo = vConexion.ejecutarSql(vQuery);
                     vCounter = vCounter + vInfo;
                 }

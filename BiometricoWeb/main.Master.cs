@@ -26,6 +26,10 @@ namespace BiometricoWeb
                     LitUsuario.Text = ((DataRow)vDatos.Rows[0])["nombre"].ToString();
 
                     if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")) {
+                        EntradaSalidas(vDatosPerfil);
+                        extraordinarios(vDatos);
+                        viaticos(vDatosPerfil);
+                        documentacion(vDatosPerfil);
                         if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")) {
                             LIBiometricos.Visible = true;
                             LIEmpleados.Visible = true;
@@ -52,18 +56,7 @@ namespace BiometricoWeb
                             LIViatCotizacion.Visible = true;
                             LIViatMantenimiento.Visible = true;
                             LITExReportes.Visible = true;
-
-                            if (vDatos.Rows[0]["idEmpleado"].ToString() == "80037") {
-                                LIViatAprobacion.Visible = false;
-                                LIViatCotizacion.Visible = false;
-                                LIViatMantenimiento.Visible = false;
-                            }
                         }
-
-                        EntradaSalidas(vDatosPerfil);
-                        extraordinarios(vDatos);
-                        viaticos(vDatosPerfil);
-                        documentacion(vDatosPerfil);
 
                     }else{
                         LIAutorizaciones.Visible = true;

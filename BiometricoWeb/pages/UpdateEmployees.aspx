@@ -273,8 +273,8 @@
 
     <%--MODAL DE MODIFICACION--%>
     <div class="modal fade" id="EmpleadoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 1000px; top: 370px; left: 50%; transform: translate(-50%, -50%);">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="ModalLabelModificacion">
 
@@ -292,12 +292,12 @@
                 <div class="modal-body">
                     <asp:UpdatePanel ID="UpdateModificarUsuario" runat="server">
                         <ContentTemplate>
-                            <div class="row">
-                                <div class="col-md-6">
+                            <div class="row col-12">
+                                <div class="col-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Estado</label>
-                                        <div class="col-sm-9">
-                                            <asp:DropDownList ID="DDLEstado" runat="server" class="form-control">
+                                        <label class="col-3 col-form-label">Estado</label>
+                                        <div class="col-9">
+                                            <asp:DropDownList ID="DDLEstado" runat="server" CssClass="form-control">
                                                 <asp:ListItem Value="0">Seleccione una opción</asp:ListItem>
                                                 <asp:ListItem Value="True">Activado</asp:ListItem>
                                                 <asp:ListItem Value="False">Desactivado</asp:ListItem>
@@ -305,19 +305,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Identidad</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-3 col-form-label">Identidad</label>
+                                        <div class="col-9">
                                             <asp:TextBox ID="TxModIdentidad" placeholder="ej. 0801190000123" class="form-control" runat="server"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
+
+                            <div class="row col-12" style="margin-top:-2%">
+                                <div class="col-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Codigo SAP</label>
+                                        <label class="col-3">Codigo SAP</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox ID="TxModCodigoSAP" placeholder="ej.80000000" class="form-control" runat="server"></asp:TextBox>
                                         </div>
@@ -325,7 +326,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Ciudad</label>
+                                        <label class="col-3 col-form-label">Ciudad</label>
                                         <div class="col-sm-9">
                                             <asp:DropDownList ID="DDLModCiudad" runat="server" class="form-control">
                                                 <asp:ListItem Value="0">Seleccione una opción</asp:ListItem>
@@ -346,10 +347,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+
+                            <div class="row col-12" style="margin-top:-2%">
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Nombre</label>
+                                        <label class="col-3 col-form-label">Nombre</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox ID="TxModNombre" placeholder="ej. Carlos Jose Hernandez" class="form-control" runat="server"></asp:TextBox>
                                         </div>
@@ -357,17 +359,18 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Area</label>
+                                        <label class="col-3 col-form-label">Area</label>
                                         <div class="col-sm-9">
                                             <asp:DropDownList ID="DDLModArea" runat="server" class="form-control"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+
+                            <div class="row col-12" style="margin-top:-2%">
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Nacimiento</label>
+                                        <label class="col-3 col-form-label">Nacimiento</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox ID="TxModNacimiento" placeholder="" class="form-control" runat="server" TextMode="Date"></asp:TextBox>
                                         </div>
@@ -375,17 +378,18 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Telefono</label>
+                                        <label class="col-3 col-form-label">Telefono</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox ID="TxModTelefono" placeholder="ej. 99900012" class="form-control" runat="server"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+
+                            <div class="row col-12" style="margin-top:-2%">
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Email Empresa</label>
+                                        <label class="col-3">Email Empresa</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox ID="TxModEmailEmpresa" placeholder="ej. test@bancatlan.hn" class="form-control" runat="server"></asp:TextBox>
                                         </div>
@@ -393,7 +397,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Email Personal</label>
+                                        <label class="col-3">Email Personal</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox ID="TxModEmailPersonal" placeholder="ej. test@hotmail.com" class="form-control" runat="server"></asp:TextBox>
                                         </div>
@@ -401,39 +405,37 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row col-12" style="margin-top:-0.5%">
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Turnos</label>
+                                        <label class="col-3 col-form-label">Turnos</label>
                                         <div class="col-sm-9">
-                                            <asp:DropDownList ID="DDLModTurnos" runat="server" class="form-control">
-                                            </asp:DropDownList>
+                                            <asp:DropDownList ID="DDLModTurnos" runat="server" class="form-control"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Puesto</label>
+                                        <label class="col-3 col-form-label">Puesto</label>
                                         <div class="col-sm-9">
-                                            <asp:DropDownList ID="DDLModPuestos" runat="server" class="form-control">
-                                            </asp:DropDownList>
+                                            <asp:DropDownList ID="DDLModPuestos" runat="server" class="form-control"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row col-12" style="margin-top:-2%">
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">Jefe</label>
+                                        <label class="col-3 col-form-label">Jefe</label>
                                         <div class="col-sm-9">
-                                            <asp:DropDownList ID="DDLModJefatura" runat="server" class="fstdropdown-select form-control"></asp:DropDownList>
+                                            <asp:DropDownList ID="DDLModJefatura" runat="server" class="form-control"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">ADUser</label>
+                                        <label class="col-3 col-form-label">ADUser</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox ID="TxModADUser" placeholder="ej. egutierrez" class="form-control" runat="server"></asp:TextBox>
                                         </div>
@@ -441,7 +443,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row col-12" style="margin-top:-2%">
                                 <div class="col-md-6">
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label"></label>

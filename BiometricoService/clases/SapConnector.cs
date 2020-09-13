@@ -34,6 +34,4 @@ namespace BiometricoService.clases
             return vCounter;
         }
     }
-
-
 }

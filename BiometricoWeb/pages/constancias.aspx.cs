@@ -48,6 +48,14 @@ namespace BiometricoWeb.pages
                     DDLCategoria.Items.Add(new ListItem { Value = item["idAgrupacion"].ToString(), Text = item["nombre"].ToString() });
                 }
 
+                vQuery = "[RSP_Constancias] 16";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+
+                DDLFirmante.Items.Clear();
+                foreach (DataRow item in vDatos.Rows){
+                    DDLFirmante.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
+                }
+
                 // MIS SOLICITUDES
                 vQuery = "[RSP_Constancias] 8," + Session["USUARIO"].ToString();
                 vDatos = vConexion.obtenerDataTable(vQuery);
@@ -71,7 +79,6 @@ namespace BiometricoWeb.pages
                 foreach (DataRow item in vDatos.Rows){
                     DDLEstadoConstancia.Items.Add(new ListItem { Value = item["idEstado"].ToString(), Text = item["nombre"].ToString() });
                 }
-
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -193,11 +200,11 @@ namespace BiometricoWeb.pages
                                 ",'" + TxFechaCita.Text + "'";
                             vInfo = vConexion.ejecutarSql(vQuery);
                         }else if (vDest == "12") {
-                            CargarConstancia();
+                            
 
                             vQuery = "[RSP_Constancias] 6" +
                                 "," + vIdSolicitud +
-                                ",'" + TxRepresentante.Text + "'" +
+                                ",'" + DDLFirmante.SelectedItem + "'" +
                                 ",'" + TxFecha.Text + "'" +
                                 ",'" + TxPasaporte.Text + "'" +
                                 ",'" + TxRTN.Text + "'" +
@@ -217,9 +224,15 @@ namespace BiometricoWeb.pages
                             vDA = false;
 
                         if (vDA){
-                            if (vInfo == 1)
+                            if (vInfo == 1){
                                 MensajeLoad("Constancia solicitada con éxito.", WarningType.Success);
-                            else
+                                if (vDest == "12") { 
+                                    CargarConstancia();
+                                    cargarDatos();
+                                    UPBuzonGeneral.Update();
+                                    UpdatePanel1.Update();
+                                }
+                            }else
                                 MensajeLoad("Solicitud no completada, favor comuníquese con sistemas.", WarningType.Success);
                         }else
                             MensajeLoad("Constancia solicitada con éxito.", WarningType.Success);
@@ -270,8 +283,7 @@ namespace BiometricoWeb.pages
                 }
 
                 if (DDLDestinoCL.SelectedValue == "12") {
-                    if (TxRepresentante.Text == "" || TxRepresentante.Text == string.Empty)
-                        throw new Exception("Favor ingrese el representante.");
+                    
                     if (TxFecha.Text == "" || TxFecha.Text == string.Empty)
                         throw new Exception("Favor ingrese la Fecha de emisión.");
                     if (TxPasaporte.Text == "" || TxPasaporte.Text == string.Empty)
@@ -521,7 +533,6 @@ namespace BiometricoWeb.pages
             DDLParentezco.SelectedValue = "0";
 
             //visa capacitacion
-            TxRepresentante.Text = string.Empty;
             TxFecha.Text = string.Empty;
             TxPasaporte.Text = string.Empty;
             TxRTN.Text = string.Empty;
@@ -714,8 +725,11 @@ namespace BiometricoWeb.pages
             try{
                 SapConnector vTest = new SapConnector();
                 byte[] vResultado = null;
+                String vInicio = Convert.ToDateTime(TxFechaInicio.Text).ToString("yyyy-MM-dd");
+                String vFin = Convert.ToDateTime(TxFechaFin.Text).ToString("yyyy-MM-dd");
+
                 //String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, Convert.ToString(Session["CODIGOSAP"]), TxRTN.Text, TxEvento.Text, TxTelefono.Text, ref vResultado);
-                String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, "80000123", TxRTN.Text, TxEvento.Text, TxTelefono.Text, ref vResultado);
+                String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, vInicio, vFin, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, "80000123", TxRTN.Text, TxEvento.Text, TxTelefono.Text, DDLFirmante.SelectedValue, ref vResultado);
 
                 if (vPDF.Equals("Código SAP incorrecto")){
                     MensajeLoad(vPDF, WarningType.Danger);
@@ -727,6 +741,9 @@ namespace BiometricoWeb.pages
                     Response.OutputStream.Write(bytFile, 0, bytFile.Length);
                     Response.AddHeader("Content-disposition", "attachment;filename=" + "Constancia.pdf");
                     Response.End();
+                    //Response.Flush();
+                    //Response.SuppressContent = true;
+                    //ApplicationInstance.CompleteRequest();
                 }
 
             }catch (Exception Ex){

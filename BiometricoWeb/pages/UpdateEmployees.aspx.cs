@@ -133,7 +133,8 @@ namespace BiometricoWeb.pages
                         DDLEstado.SelectedIndex = CargarInformacionDDL(DDLEstado, item["estado"].ToString());
                         DDLModTurnos.SelectedIndex = CargarInformacionDDL(DDLModTurnos, item["idTurno"].ToString());
                         DDLModPuestos.SelectedIndex = CargarInformacionDDL(DDLModPuestos, item["idPuesto"].ToString());
-                        DDLModJefatura.SelectedIndex = CargarInformacionDDL(DDLModJefatura, item["idJefe"].ToString().PadLeft(8, '0'));
+                        //DDLModJefatura.SelectedIndex = CargarInformacionDDL(DDLModJefatura, item["idJefe"].ToString().PadLeft(8, '0'));
+                        DDLModJefatura.SelectedIndex = CargarInformacionDDL(DDLModJefatura, item["idJefe"].ToString());
                         TxModADUser.Text = item["adUser"].ToString();
                         string vPermiso = item["PermisosCGS"].ToString();
 

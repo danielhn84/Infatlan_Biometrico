@@ -132,6 +132,8 @@ namespace BiometricoWeb.SapServiceC {
         
         private string cIEVEField;
         
+        private string cODREField;
+        
         private string cONSUField;
         
         private string cONTAField;
@@ -144,7 +146,9 @@ namespace BiometricoWeb.SapServiceC {
         
         private string fCONSField;
         
-        private string fEVENField;
+        private string fEFINField;
+        
+        private string fEINIField;
         
         private string lUEVEField;
         
@@ -168,6 +172,17 @@ namespace BiometricoWeb.SapServiceC {
             }
             set {
                 this.cIEVEField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string CODRE {
+            get {
+                return this.cODREField;
+            }
+            set {
+                this.cODREField = value;
             }
         }
         
@@ -239,12 +254,23 @@ namespace BiometricoWeb.SapServiceC {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string FEVEN {
+        public string FEFIN {
             get {
-                return this.fEVENField;
+                return this.fEFINField;
             }
             set {
-                this.fEVENField = value;
+                this.fEFINField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string FEINI {
+            get {
+                return this.fEINIField;
+            }
+            set {
+                this.fEINIField = value;
             }
         }
         
