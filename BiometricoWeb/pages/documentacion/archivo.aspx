@@ -75,12 +75,15 @@
         <asp:UpdatePanel runat="server" ID="UPBtn">
             <ContentTemplate>
                 <div class="row col-12" style="display: flex; justify-content: center;">
+                    <div class="row col-12" style="display: flex; justify-content: center;">
+                        <asp:Label Text="He leído y acepto los términos y condiciones." runat="server" ID="LbMensajeFirma" />
+                    </div> 
+                    <br /><br /> 
                     <asp:Button runat="server" ID="BtnLeido" OnClick="BtnLeido_Click" CssClass="btn btn-success" Text="Firmar" />                                
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-
 
     <%--MODAL DE CONFIRMACION--%>
     <div class="modal fade" id="ModalConfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

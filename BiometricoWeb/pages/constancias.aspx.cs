@@ -225,9 +225,11 @@ namespace BiometricoWeb.pages
 
                         if (vDA){
                             if (vInfo == 1){
-                                MensajeLoad("Constancia solicitada con éxito.", WarningType.Success);
+                                Mensaje("Constancia solicitada con éxito.", WarningType.Success);
                                 if (vDest == "12") { 
                                     CargarConstancia();
+                                    limpiarDivs();
+                                    limpiarFormulario();
                                     cargarDatos();
                                     UPBuzonGeneral.Update();
                                     UpdatePanel1.Update();
@@ -740,10 +742,10 @@ namespace BiometricoWeb.pages
                     byte[] bytFile = fileData;
                     Response.OutputStream.Write(bytFile, 0, bytFile.Length);
                     Response.AddHeader("Content-disposition", "attachment;filename=" + "Constancia.pdf");
-                    Response.End();
-                    //Response.Flush();
-                    //Response.SuppressContent = true;
-                    //ApplicationInstance.CompleteRequest();
+                    //Response.End();
+                    Response.Flush();
+                    Response.SuppressContent = true;
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
                 }
 
             }catch (Exception Ex){

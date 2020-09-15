@@ -52,6 +52,17 @@ namespace BiometricoWeb.pages.documentacion
 
                     DataTable vDatos = (DataTable)Session["AUTHCLASS"];
                     cargarDatos(vId);
+
+                    vQuery = "[RSP_Documentacion] 10" +
+                        ",'" + Session["USUARIO"].ToString() + "'" +
+                        ",null," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
+                    vData = vConexion.obtenerDataTable(vQuery);
+                    if (vData.Rows.Count > 0){
+                        LbMensajeFirma.Text = "Documento firmado!";
+                        BtnLeido.Enabled = false;
+                        BtnLeido.CssClass = "btn btn-dark";
+                    }
+
                     //Response.Redirect("tipoDocumentos.aspx");
                 }
             }

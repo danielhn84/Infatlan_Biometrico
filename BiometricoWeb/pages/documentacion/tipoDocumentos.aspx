@@ -98,6 +98,7 @@
                                                     <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:BoundField DataField="nivelConfidencialidad" HeaderStyle-CssClass="hiddencol" ItemStyle-CssClass="hiddencol"/>
                                                     <asp:BoundField DataField="activo" HeaderText="Estado" ItemStyle-HorizontalAlign="Left"/>
+                                                    <asp:BoundField DataField="firma" HeaderText="Firma" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:TemplateField HeaderStyle-Width="60px">
                                                         <ItemTemplate>

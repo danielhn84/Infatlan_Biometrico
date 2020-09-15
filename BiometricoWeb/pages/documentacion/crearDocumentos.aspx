@@ -62,16 +62,17 @@
                                                 GridLines="None" OnRowCommand="GvTipos_RowCommand"
                                                 PageSize="10" OnPageIndexChanging="GvTipos_PageIndexChanging"> 
                                                 <Columns>
-                                                    <asp:BoundField DataField="idTipoDoc" HeaderText="No." />
+                                                    <asp:BoundField DataField="idTipoDoc" HeaderText="ID" />
                                                     <asp:BoundField DataField="nombre" HeaderText="Tipo" />
-                                                    <asp:BoundField DataField="activo" HeaderText="Estado" />
+                                                    <asp:BoundField DataField="cantidad" HeaderText="Cantidad" />
+                                                    <asp:BoundField DataField="Pendientes" HeaderText="Pendientes" />
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="BtnEditar" runat="server" title="Nuevo" style="background-color:#5cb85c" class="btn btn-success" CommandArgument='<%# Eval("idTipoDoc") %>' CommandName="NuevoDoc">
-                                                                <i class="mdi mdi-plus text-white"></i>
+                                                                <i class="mdi mdi-plus text-white" style="-webkit-text-stroke-width: 1px"></i>
                                                             </asp:LinkButton>
                                                             <asp:LinkButton ID="BtnEntrar" runat="server" title="Entrar" style="background-color:#5bc0de" class="btn" CommandArgument='<%# Eval("idTipoDoc") %>' CommandName="EntrarDoc">
-                                                                <i class="mdi mdi-redo text-white"></i>
+                                                                <i class="mdi mdi-arrow-right-bold text-white"></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>

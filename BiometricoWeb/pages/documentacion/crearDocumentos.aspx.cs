@@ -48,7 +48,7 @@ namespace BiometricoWeb.pages.documentacion
 
 		private void cargarDatos() {
             try{
-                String vQuery = "[RSP_Documentacion] 1";
+                String vQuery = "[RSP_Documentacion] 15," + Session["USUARIO"].ToString() ;
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     GvTipos.DataSource = vDatos;
