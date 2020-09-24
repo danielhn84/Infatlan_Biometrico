@@ -95,7 +95,7 @@ namespace BiometricoWeb.clases
             return vResultado;
         }
 
-        public String getConstancias(String vCiudad, String vConsul, String vConta, String vDicon, String vDom1, String vDom2, String vFcons, String vFIni, String vFFin, String vLueve, String vPais, String vPasap, String vEmpleado, String vRtn, String vSemin, String vTelef, String vFirma, ref byte[] pdf){
+        public String getConstancias(String vCiudad, String vConsul, String vConta, String vDicon, String vDom1, String vDom2, String vFEmi, String vFIni, String vFFin, String vLueve, String vPais, String vPasap, String vEmpleado, String vRtn, String vSemin, String vTelef, String vFirma, ref byte[] pdf){
             String vResultado = String.Empty;
             try{
                 SapServiceC.ZMF_HR_CONS_CAPAC_INF2 vConsulta = new SapServiceC.ZMF_HR_CONS_CAPAC_INF2();
@@ -105,7 +105,7 @@ namespace BiometricoWeb.clases
                 vConsulta.DICON = vDicon;
                 vConsulta.DOMI1 = vDom1;
                 vConsulta.DOMI2 = vDom2;
-                vConsulta.FCONS = vFcons;
+                vConsulta.FCONS = vFEmi;
                 vConsulta.FEINI = vFIni;
                 vConsulta.FEFIN = vFFin;
                 vConsulta.LUEVE = vLueve;

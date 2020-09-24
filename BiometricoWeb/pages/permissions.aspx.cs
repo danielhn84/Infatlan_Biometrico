@@ -51,8 +51,7 @@ namespace BiometricoWeb.pages
             ScriptManager.RegisterClientScriptBlock(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
 
-        public void CerrarModal(String vModal)
-        {
+        public void CerrarModal(String vModal){
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "$('#" + vModal + "').modal('hide');", true);
         }
         

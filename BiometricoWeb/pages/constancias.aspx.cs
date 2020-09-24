@@ -53,7 +53,7 @@ namespace BiometricoWeb.pages
 
                 DDLFirmante.Items.Clear();
                 foreach (DataRow item in vDatos.Rows){
-                    DDLFirmante.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
+                    DDLFirmante.Items.Add(new ListItem { Value = item["codigoSAP"].ToString(), Text = item["nombre"].ToString() });
                 }
 
                 // MIS SOLICITUDES
@@ -204,7 +204,7 @@ namespace BiometricoWeb.pages
 
                             vQuery = "[RSP_Constancias] 6" +
                                 "," + vIdSolicitud +
-                                ",'" + DDLFirmante.SelectedItem + "'" +
+                                ",'" + DDLFirmante.SelectedValue + "'" +
                                 ",'" + TxFecha.Text + "'" +
                                 ",'" + TxPasaporte.Text + "'" +
                                 ",'" + TxRTN.Text + "'" +
@@ -217,7 +217,9 @@ namespace BiometricoWeb.pages
                                 ",'" + TxFechaInicio.Text + "'" +
                                 ",'" + TxFechaFin.Text + "'" +
                                 ",'" + TxConsulado.Text + "'" +
-                                ",'" + TxDirConsul.Text + "'";
+                                ",'" + TxDirConsul.Text + "'" +
+                                ",'" + TxPais.Text + "'" +
+                                ",'" + TxCiudad.Text + "'";
                             vInfo = vConexion.ejecutarSql(vQuery);
                             
                         }else
@@ -225,15 +227,7 @@ namespace BiometricoWeb.pages
 
                         if (vDA){
                             if (vInfo == 1){
-                                Mensaje("Constancia solicitada con éxito.", WarningType.Success);
-                                if (vDest == "12") { 
-                                    CargarConstancia();
-                                    limpiarDivs();
-                                    limpiarFormulario();
-                                    cargarDatos();
-                                    UPBuzonGeneral.Update();
-                                    UpdatePanel1.Update();
-                                }
+                                MensajeLoad("Constancia solicitada con éxito.", WarningType.Success);
                             }else
                                 MensajeLoad("Solicitud no completada, favor comuníquese con sistemas.", WarningType.Success);
                         }else
@@ -285,7 +279,6 @@ namespace BiometricoWeb.pages
                 }
 
                 if (DDLDestinoCL.SelectedValue == "12") {
-                    
                     if (TxFecha.Text == "" || TxFecha.Text == string.Empty)
                         throw new Exception("Favor ingrese la Fecha de emisión.");
                     if (TxPasaporte.Text == "" || TxPasaporte.Text == string.Empty)
@@ -296,8 +289,6 @@ namespace BiometricoWeb.pages
                         throw new Exception("Favor ingrese el domicilio 1.");
                     if (TxContacto.Text == "" || TxContacto.Text == string.Empty)
                         throw new Exception("Favor ingrese el contacto.");
-                    if (TxDomicilio2.Text == "" || TxDomicilio2.Text == string.Empty)
-                        throw new Exception("Favor ingrese el domicilio 2.");
                     if (TxLugar.Text == "" || TxLugar.Text == string.Empty)
                         throw new Exception("Favor ingrese el Lugar.");
                     if (TxCiudad.Text == "" || TxCiudad.Text == string.Empty)
@@ -312,6 +303,8 @@ namespace BiometricoWeb.pages
                         throw new Exception("Favor ingrese la Fecha Final.");
                     if (TxConsulado.Text == "" || TxConsulado.Text == string.Empty)
                         throw new Exception("Favor ingrese el consulado.");
+                    if (TxPais.Text == "" || TxPais.Text == string.Empty)
+                        throw new Exception("Favor ingrese el país.");
                     if (TxDirConsul.Text == "" || TxDirConsul.Text == string.Empty)
                         throw new Exception("Favor ingrese la dirección del consulado.");
                 }
@@ -572,6 +565,8 @@ namespace BiometricoWeb.pages
 
         protected void BtnConfirmar_Click(object sender, EventArgs e){
             try{
+                DataTable vDatos = (DataTable)Session["CONSTANCIAS_GENERAL"];
+
                 if (HttpContext.Current.Session["CONSTANCIA_ELIMINAR"] == null){
                     String vId = HttpContext.Current.Session["CONSTANCIA_ID"] != null ? Session["CONSTANCIA_ID"].ToString() : Session["SOLICITUD_RESPUESTA"].ToString();
                     String vEstado = HttpContext.Current.Session["CONSTANCIA_ID"] != null ? "2" : "1";
@@ -580,6 +575,12 @@ namespace BiometricoWeb.pages
                                     "," + vId + "," + vEstado;
                     int vInfo = vConexion.ejecutarSql(vQuery);
                     if (vInfo == 1){
+                        for (int i = 0; i < vDatos.Rows.Count; i++){
+                            if (vDatos.Rows[i]["idSolicitud"].ToString() == vId && vDatos.Rows[i]["Destino"].ToString() == "Visa para capacitacion"){
+                                CargarConstancia(vDatos, i);
+                            }
+                        }
+
                         Mensaje(vMensaje, WarningType.Success);
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
                     }else
@@ -599,7 +600,7 @@ namespace BiometricoWeb.pages
                 UPBuzonGeneral.Update();
             }catch (Exception Ex){
                 ScriptManager.RegisterClientScriptBlock(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + Ex.Message + "','" + WarningType.Danger.ToString().ToLower() + "')", true);
-            }
+            }finally { CerrarModal("ModalConfirmar"); }
         }
 
         protected void BtnAgregar_Click(object sender, EventArgs e){
@@ -714,24 +715,41 @@ namespace BiometricoWeb.pages
                 String vDocumento = "InformacionFinanciamiento.pdf";
                 Response.ContentType = "application/pdf";  
                 Response.AddHeader("Content-disposition", "attachment;filename=" + vDocumento);
-                Response.TransmitFile(Server.MapPath("plantilla/" + vDocumento));  
-                Response.End();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeDescarga();", true);
+                Response.TransmitFile(Server.MapPath("plantilla/" + vDocumento));
+                Response.Flush();
+                Response.Close();
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeDescarga();", true);
 
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
         }
 
-        void CargarConstancia(){
+        void CargarConstancia(DataTable vDatos, int i){
             try{
                 SapConnector vTest = new SapConnector();
                 byte[] vResultado = null;
-                String vInicio = Convert.ToDateTime(TxFechaInicio.Text).ToString("yyyy-MM-dd");
-                String vFin = Convert.ToDateTime(TxFechaFin.Text).ToString("yyyy-MM-dd");
-
-                //String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, TxFechaCita.Text, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, Convert.ToString(Session["CODIGOSAP"]), TxRTN.Text, TxEvento.Text, TxTelefono.Text, ref vResultado);
-                String vPDF = vTest.getConstancias(TxCiudad.Text, TxConsulado.Text, TxContacto.Text, TxDirConsul.Text, TxDomicilio1.Text, TxDomicilio2.Text, TxFecha.Text, vInicio, vFin, TxLugar.Text, TxConsulado.Text, TxPasaporte.Text, "80000123", TxRTN.Text, TxEvento.Text, TxTelefono.Text, DDLFirmante.SelectedValue, ref vResultado);
+                String vInicio = Convert.ToDateTime(vDatos.Rows[i]["fechaInicio"]).ToString("yyyy-MM-dd");
+                String vFin = Convert.ToDateTime(vDatos.Rows[i]["fechaFin"]).ToString("yyyy-MM-dd");
+                String vFEmision = Convert.ToDateTime(vDatos.Rows[i]["fechaEmision"]).ToString("yyyy-MM-dd");
+                String vPDF = vTest.getConstancias(vDatos.Rows[i]["ciudad"].ToString(),
+                    vDatos.Rows[i]["consulado"].ToString(), 
+                    vDatos.Rows[i]["contacto"].ToString(), 
+                    vDatos.Rows[i]["direccionConsulado"].ToString(), 
+                    vDatos.Rows[i]["domicilio1"].ToString(), 
+                    vDatos.Rows[i]["domicilio2"].ToString(),
+                    vFEmision, 
+                    vInicio, 
+                    vFin,
+                    vDatos.Rows[i]["lugar"].ToString(),
+                    vDatos.Rows[i]["pais"].ToString(),
+                    vDatos.Rows[i]["pasaporte"].ToString(),
+                    vDatos.Rows[i]["codigoSAP"].ToString(),
+                    vDatos.Rows[i]["rtn"].ToString(),
+                    vDatos.Rows[i]["eventoParticipacion"].ToString(),
+                    vDatos.Rows[i]["telefono"].ToString(),
+                    vDatos.Rows[i]["representante"].ToString(),
+                    ref vResultado);
 
                 if (vPDF.Equals("Código SAP incorrecto")){
                     MensajeLoad(vPDF, WarningType.Danger);
@@ -742,15 +760,18 @@ namespace BiometricoWeb.pages
                     byte[] bytFile = fileData;
                     Response.OutputStream.Write(bytFile, 0, bytFile.Length);
                     Response.AddHeader("Content-disposition", "attachment;filename=" + "Constancia.pdf");
-                    //Response.End();
-                    Response.Flush();
-                    Response.SuppressContent = true;
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    Response.End();
+                    //Response.Close();
+                    //Response.SuppressContent = true;
+                    //HttpContext.Current.ApplicationInstance.CompleteRequest();
                 }
-
             }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
-            }
+            }finally { CerrarModal("ModalConfirmar"); }
+        }
+
+        public void CerrarModal(String vModal){
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "$('#" + vModal + "').modal('hide');", true);
         }
 
         private string GetExtension(string Extension)

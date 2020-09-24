@@ -70,44 +70,7 @@ namespace BiometricoWeb.pages
 
                 GVBusqueda.DataSource = vDatos;
                 GVBusqueda.DataBind();
-                foreach (GridViewRow row in GVBusqueda.Rows){
-                    vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + row.Cells[4].Text;
-                    DataTable vDatosBusqueda = vConexion.obtenerDataTable(vQuery);
-
-                    foreach (DataRow item in vDatosBusqueda.Rows){
-                        if (item["Autorizado"].ToString().Equals("True")){
-                            Button button = row.FindControl("BtnAutorizar") as Button;
-                            button.Text = "Listo";
-                            button.CssClass = "btn btn-inverse-success mr-2 ";
-                            button.Enabled = false;
-                            button.CommandName = "Cerrado";
-                        }
-                        /*
-                        if (item["Autorizado"].ToString().Equals("False") && !item["fechaAutorizacion"].ToString().Equals(""))
-                        {
-                            Button button = row.FindControl("BtnAutorizar") as Button;
-                            button.Text = "Cancelado";
-                            button.CssClass = "btn btn-inverse-danger mr-2 ";
-                            button.Enabled = false;
-                            button.CommandName = "Cerrado";
-
-                            Button buttonRH = row.FindControl("BtnAutorizarRecursosHumanos") as Button;
-                            buttonRH.Text = "Cancelado";
-                            buttonRH.CssClass = "btn btn-inverse-danger mr-2 ";
-                            buttonRH.Enabled = false;
-                            buttonRH.CommandName = "Cerrado";
-                        }
-                        */
-                        if (item["autorizadoSAP"].ToString().Equals("True"))
-                        {
-                            Button button = row.FindControl("BtnAutorizarRecursosHumanos") as Button;
-                            button.Text = "Listo";
-                            button.CssClass = "btn btn-inverse-success mr-2 ";
-                            button.Enabled = false;
-                            button.CommandName = "Cerrado";
-                        }
-                    }
-                }
+                drawActions();
                 DataTable vDatosLogin = (DataTable)Session["AUTHCLASS"];
                 if (!vDatosLogin.Rows[0]["tipoEmpleado"].ToString().Equals("")){
                     if (vDatosLogin.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
@@ -192,43 +155,8 @@ namespace BiometricoWeb.pages
                 GVBusqueda.PageIndex = e.NewPageIndex;
                 GVBusqueda.DataSource = (DataTable)Session["DATOSAUTORIZAR"];
                 GVBusqueda.DataBind();
-
-                foreach (GridViewRow row in GVBusqueda.Rows){
-                    String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + row.Cells[4].Text;
-                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-
-                    foreach (DataRow item in vDatos.Rows){
-                        if (item["Autorizado"].ToString().Equals("True")){
-                            Button button = row.FindControl("BtnAutorizar") as Button;
-                            button.Text = "Autorizado";
-                            button.CssClass = "btn btn-inverse-success mr-2 ";
-                            button.Enabled = false;
-                            button.CommandName = "Cerrado";
-                        }
-
-                        if (item["Autorizado"].ToString().Equals("False") && !item["fechaAutorizacion"].ToString().Equals("")){
-                            Button button = row.FindControl("BtnAutorizar") as Button;
-                            button.Text = "Cancelado";
-                            button.CssClass = "btn btn-inverse-danger mr-2 ";
-                            button.Enabled = false;
-                            button.CommandName = "Cerrado";
-
-                            Button buttonRH = row.FindControl("BtnAutorizarRecursosHumanos") as Button;
-                            buttonRH.Text = "Cancelado";
-                            buttonRH.CssClass = "btn btn-inverse-danger mr-2 ";
-                            buttonRH.Enabled = false;
-                            buttonRH.CommandName = "Cerrado";
-                        }
-                        
-                        if (item["autorizadoSAP"].ToString().Equals("True")){
-                            Button button = row.FindControl("BtnAutorizarRecursosHumanos") as Button;
-                            button.Text = "Listo";
-                            button.CssClass = "btn btn-inverse-success mr-2 ";
-                            button.Enabled = false;
-                            button.CommandName = "Cerrado";
-                        }
-                    }
-                }
+                drawActions();
+                
                 DataTable vDatosLogin = (DataTable)Session["AUTHCLASS"];
                 if (!vDatosLogin.Rows[0]["tipoEmpleado"].ToString().Equals("")){
                     if (vDatosLogin.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
@@ -330,6 +258,7 @@ namespace BiometricoWeb.pages
                 if (vBusqueda.Equals("")){
                     GVBusqueda.DataSource = vDatos;
                     GVBusqueda.DataBind();
+                    drawActions();
                     UpdateGridView.Update();
                 }else{
                     EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
@@ -362,6 +291,7 @@ namespace BiometricoWeb.pages
                     GVBusqueda.DataSource = vDatosFiltrados;
                     GVBusqueda.DataBind();
                     Session["DATOSAUTORIZAR"] = vDatosFiltrados;
+                    drawActions();
                     UpdateGridView.Update();
                 }
             }catch (Exception Ex) { 
@@ -433,7 +363,7 @@ namespace BiometricoWeb.pages
                                 + 0;
                             int vDatosCancelacion = vConexion.ejecutarSql(vQueryCancelacion);
 
-                            vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + LbNumeroPermiso.Text;
+                            vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + LbFinalizarPermiso.Text;
                             DataTable vDatosBusqueda = vConexion.obtenerDataTable(vQuery);
 
                             foreach (DataRow itemEmpleado in vDatosBusqueda.Rows){
@@ -557,6 +487,35 @@ namespace BiometricoWeb.pages
             DivMotivoJefe.Visible = DDLOpciones.SelectedValue == "0" ? true : false;
             LbAutorizarMensaje.Text = string.Empty;
             TxMotivoJefe.Text = string.Empty;
+        }
+
+        void drawActions() {
+            try{
+                foreach (GridViewRow row in GVBusqueda.Rows){
+                    String vQuery = "RSP_ObtenerPermisos 3," + Session["USUARIO"] + "," + row.Cells[4].Text;
+                    DataTable vDatosBusqueda = vConexion.obtenerDataTable(vQuery);
+
+                    foreach (DataRow item in vDatosBusqueda.Rows){
+                        if (item["Autorizado"].ToString().Equals("True")){
+                            Button button = row.FindControl("BtnAutorizar") as Button;
+                            button.Text = "Listo";
+                            button.CssClass = "btn btn-inverse-success mr-2 ";
+                            button.Enabled = false;
+                            button.CommandName = "Cerrado";
+                        }
+                        
+                        if (item["autorizadoSAP"].ToString().Equals("True")){
+                            Button button = row.FindControl("BtnAutorizarRecursosHumanos") as Button;
+                            button.Text = "Listo";
+                            button.CssClass = "btn btn-inverse-success mr-2 ";
+                            button.Enabled = false;
+                            button.CommandName = "Cerrado";
+                        }
+                    }
+                }
+            }catch (Exception ex){
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

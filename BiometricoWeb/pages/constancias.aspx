@@ -305,6 +305,14 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group row">
+                                                    <label class="col-3 col-form-label">País</label>
+                                                    <div class="col-9">
+                                                        <asp:TextBox runat="server" ID="TxPais" CssClass="form-control"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group row">
                                                     <label class="col-3">Dirección del Consulado</label>
                                                     <div class="col-9">
                                                         <asp:TextBox runat="server" ID="TxDirConsul" TextMode="MultiLine" Rows="3" CssClass="form-control"></asp:TextBox>
@@ -722,7 +730,7 @@
     </div>
 
     <%--MODAL DE CONFIRMACION--%>
-    <div class="modal fade" id="ModalConfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ModalConfirmar" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -741,6 +749,9 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                             <asp:Button ID="BtnConfirmar" runat="server" Text="Aceptar" class="btn btn-success" OnClick="BtnConfirmar_Click"/>
                         </ContentTemplate>
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID="BtnConfirmar" />
+                        </Triggers>
                     </asp:UpdatePanel>
                 </div>
             </div>
