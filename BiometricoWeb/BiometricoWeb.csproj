@@ -919,6 +919,7 @@
     <Folder Include="Carga\repositorio\manuales\" />
     <Folder Include="Carga\repositorio\politicas\" />
     <Folder Include="Carga\repositorio\procesos\" />
+    <Folder Include="pages\activos\" />
     <Folder Include="pages\documentacion\repositorio\boletines\" />
     <Folder Include="pages\documentacion\repositorio\formatos\" />
     <Folder Include="pages\documentacion\repositorio\manuales\" />

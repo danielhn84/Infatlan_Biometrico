@@ -137,7 +137,8 @@ namespace BiometricoWeb.pages
                     "'" + DDLTurnos.SelectedValue + "'," +
                     "'" + DDLPuestos.SelectedValue + "'," +
                     DDLJefatura2.SelectedValue + "," +
-                    "'" + TxAdUser.Text + "'";
+                    "'" + TxAdUser.Text + "'," +
+                    "'" + TxTarjeta.Text + "'";
 
                 Int32 vInformacion = vConexion.ejecutarSql(vQuery);
 
@@ -181,6 +182,7 @@ namespace BiometricoWeb.pages
                 DDLPuestos.SelectedIndex = -1;
                 DDLJefatura2.SelectedIndex = -1;
                 TxAdUser.Text = "";
+                TxTarjeta.Text = "";
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }

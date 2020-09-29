@@ -64,7 +64,7 @@
                                                 <Columns>
                                                     <asp:BoundField DataField="idTipoDoc" HeaderText="ID" />
                                                     <asp:BoundField DataField="nombre" HeaderText="Tipo" />
-                                                    <asp:BoundField DataField="cantidad" HeaderText="Cantidad" />
+                                                    <asp:BoundField DataField="cantidad" HeaderText="Archivos" />
                                                     <asp:BoundField DataField="Pendientes" HeaderText="Pendientes" />
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>
