@@ -1612,7 +1612,7 @@
                     TxDescontarEntrada.Text= "00:00:00";
                     TxDescontarSalida.Text = "00:00:00";
                     TxTotalAlmuerzo.Text = "00:00:00";
-                }                if (vAcuDesDiurnas > TimeSpan.Parse("00:00:00") || vAcuDesNoc > TimeSpan.Parse("00:00:00") || vAcuDesNocNoc > TimeSpan.Parse("00:00:00"))                {                    string vRealHrsDiurnas = Convert.ToString(STETOTDIURNAS).Substring(0, 2);                    string vRealMinDiurnas = Convert.ToString(STETOTDIURNAS).Substring(3, 2);                    Double vRealDiurnas_Resumen = ((Convert.ToInt32(vRealHrsDiurnas) * 60) + Convert.ToInt32(vRealMinDiurnas));                    vRealDiurnas_Resumen = vRealDiurnas_Resumen / 60;                    string vRealHrsNoc = Convert.ToString(STETOTNOC).Substring(0, 2);                    string vRealMinNoc = Convert.ToString(STETOTNOC).Substring(3, 2);                    Double vRealNoc_Resumen = ((Convert.ToInt32(vRealHrsNoc) * 60) + Convert.ToInt32(vRealMinNoc));                    vRealNoc_Resumen = vRealNoc_Resumen / 60;                    string vRealHrsNocNoc = Convert.ToString(STETOTNOCNOC).Substring(0, 2);                    string vRealMinNocNoc = Convert.ToString(STETOTNOCNOC).Substring(3, 2);                    Double vRealNocNoc_Resumen = ((Convert.ToInt32(vRealHrsNocNoc) * 60) + Convert.ToInt32(vRealMinNocNoc));                    vRealNocNoc_Resumen = vRealNocNoc_Resumen / 60;                    int vRealHrsTotal = Convert.ToInt32(vRealHrsDiurnas) + Convert.ToInt32(vRealHrsNoc) + Convert.ToInt32(vRealHrsNocNoc) + acu_horasDomingosFeriados_Resumen;                    int vRealMinTotal = Convert.ToInt32(vRealMinDiurnas) + Convert.ToInt32(vRealMinNoc) + Convert.ToInt32(vRealMinNocNoc) + acu_minutosDomingosFeriados_Resumen;                    Double vRealTot_Resumen = ((vRealHrsTotal * 60) + vRealMinTotal);                    vRealTot_Resumen = vRealTot_Resumen / 60;                    TxRealDiurnas.Text = vRealHrsDiurnas + ":" + vRealMinDiurnas + " (" + vRealDiurnas_Resumen.ToString("N2") + ")";                    TxRealNoc.Text = vRealHrsNoc + ":" + vRealMinNoc + " (" + vRealNoc_Resumen.ToString("N2") + ")";                    TxRealNocNoc.Text = vRealHrsNocNoc + ":" + vRealMinNocNoc + " (" + vRealNocNoc_Resumen.ToString("N2") + ")";                    TxRealDomingoFeriados.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N2") + ")";                    TxRealTotal.Text = vRealHrsTotal + ":" + vRealMinTotal + " (" + vRealTot_Resumen.ToString("N2") + ")";                    Session["STEHRDIURNASREAL"] = vRealHrsDiurnas;                    Session["STEMINDIURNASREAL"] = vRealMinDiurnas;                    Session["STEHRNOCREAL"] = vRealHrsNoc;                    Session["STEMINNOCREAL"] = vRealMinNoc;                    Session["STEHRNOCNOCREAL"] = vRealHrsNocNoc;                    Session["STEMINNOCNOCREAL"] = vRealMinNocNoc;                    Session["STEHRDOMINGOFERIADOREAL"] = acu_horasDomingosFeriados_Resumen;                    Session["STEMINDOMINGOFERIADOREAL"] = acu_minutosDomingosFeriados_Resumen;                    Session["STEHRTOTREAL"] = vRealHrsTotal;                    Session["STEMINTOTREAL"] = vRealMinTotal;                }                else                {                    TxRealNocNoc.Text = acu_horasNoc_Noc_Resumen + ":" + acu_minutosNoc_Noc_Resumen + " (" + NocNoc_Resumen.ToString("N2") + ")";                    TxRealDiurnas.Text = acu_horasDiurnas_Resumen + ":" + acu_minutosDiurnas_Resumen + " (" + Diurnas_Resumen.ToString("N2") + ")";                    TxRealNoc.Text = acu_horasNoc_Resumen + ":" + acu_minutosNoc_Resumen + " (" + Noc_Resumen.ToString("N2") + ")";                    TxRealDomingoFeriados.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N2") + ")";                    TxRealTotal.Text = acu_horasTotales_Resumen + ":" + acu_minutosTotales_Resumen + " (" + Totales_Resumen.ToString("N2") + ")";                    Session["STEHRDIURNASREAL"] = acu_horasDiurnas_Resumen;                    Session["STEMINDIURNASREAL"] = acu_minutosDiurnas_Resumen;                    Session["STEHRNOCREAL"] = acu_horasNoc_Resumen;                    Session["STEMINNOCREAL"] = acu_minutosNoc_Resumen;                    Session["STEHRNOCNOCREAL"] = acu_horasNoc_Noc_Resumen;                    Session["STEMINNOCNOCREAL"] = acu_minutosNoc_Noc_Resumen;                    Session["STEHRDOMINGOFERIADOREAL"] = acu_horasDomingosFeriados_Resumen;                    Session["STEMINDOMINGOFERIADOREAL"] = acu_minutosDomingosFeriados_Resumen;                    Session["STEHRTOTREAL"] = acu_horasTotales_Resumen;                    Session["STEMINTOTREAL"] = acu_minutosTotales_Resumen;                }
+                }                if (vAcuDesDiurnas > TimeSpan.Parse("00:00:00") || vAcuDesNoc > TimeSpan.Parse("00:00:00") || vAcuDesNocNoc > TimeSpan.Parse("00:00:00"))                {                    string vRealHrsDiurnas = Convert.ToString(STETOTDIURNAS).Substring(0, 2);                    string vRealMinDiurnas = Convert.ToString(STETOTDIURNAS).Substring(3, 2);                    Double vRealDiurnas_Resumen = ((Convert.ToInt32(vRealHrsDiurnas) * 60) + Convert.ToInt32(vRealMinDiurnas));                    vRealDiurnas_Resumen = vRealDiurnas_Resumen / 60;                    string vRealHrsNoc = Convert.ToString(STETOTNOC).Substring(0, 2);                    string vRealMinNoc = Convert.ToString(STETOTNOC).Substring(3, 2);                    Double vRealNoc_Resumen = ((Convert.ToInt32(vRealHrsNoc) * 60) + Convert.ToInt32(vRealMinNoc));                    vRealNoc_Resumen = vRealNoc_Resumen / 60;                    string vRealHrsNocNoc = Convert.ToString(STETOTNOCNOC).Substring(0, 2);                    string vRealMinNocNoc = Convert.ToString(STETOTNOCNOC).Substring(3, 2);                    Double vRealNocNoc_Resumen = ((Convert.ToInt32(vRealHrsNocNoc) * 60) + Convert.ToInt32(vRealMinNocNoc));                    vRealNocNoc_Resumen = vRealNocNoc_Resumen / 60;                    int vRealHrsTotal = Convert.ToInt32(vRealHrsDiurnas) + Convert.ToInt32(vRealHrsNoc) + Convert.ToInt32(vRealHrsNocNoc) + acu_horasDomingosFeriados_Resumen;                    int vRealMinTotal = Convert.ToInt32(vRealMinDiurnas) + Convert.ToInt32(vRealMinNoc) + Convert.ToInt32(vRealMinNocNoc) + acu_minutosDomingosFeriados_Resumen;                    Double vRealTot_Resumen = ((vRealHrsTotal * 60) + vRealMinTotal);                    vRealTot_Resumen = vRealTot_Resumen / 60;                    TxRealDiurnas.Text = vRealHrsDiurnas + ":" + vRealMinDiurnas + " (" + vRealDiurnas_Resumen.ToString("N2") + ")";                    TxRealNoc.Text = vRealHrsNoc + ":" + vRealMinNoc + " (" + vRealNoc_Resumen.ToString("N2") + ")";                    TxRealNocNoc.Text = vRealHrsNocNoc + ":" + vRealMinNocNoc + " (" + vRealNocNoc_Resumen.ToString("N2") + ")";                    TxRealDomingoFeriados.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N2") + ")";                    TxRealTotal.Text = vRealHrsTotal + ":" + vRealMinTotal + " (" + vRealTot_Resumen.ToString("N2") + ")";                    Session["STEHRDIURNASREAL"] = vRealHrsDiurnas;                    Session["STEMINDIURNASREAL"] = vRealMinDiurnas;                    Session["STEHRNOCREAL"] = vRealHrsNoc;                    Session["STEMINNOCREAL"] = vRealMinNoc;                    Session["STEHRNOCNOCREAL"] = vRealHrsNocNoc;                    Session["STEMINNOCNOCREAL"] = vRealMinNocNoc;                    Session["STEHRDOMINGOFERIADOREAL"] = acu_horasDomingosFeriados_Resumen;                    Session["STEMINDOMINGOFERIADOREAL"] = acu_minutosDomingosFeriados_Resumen;                    Session["STEHRTOTREAL"] = vRealHrsTotal;                    Session["STEMINTOTREAL"] = vRealMinTotal;                }                else                {                    TxRealNocNoc.Text = acu_horasNoc_Noc_Resumen + ":" + acu_minutosNoc_Noc_Resumen + " (" + NocNoc_Resumen.ToString("N2") + ")";                    TxRealDiurnas.Text = acu_horasDiurnas_Resumen + ":" + acu_minutosDiurnas_Resumen + " (" + Diurnas_Resumen.ToString("N2") + ")";                    TxRealNoc.Text = acu_horasNoc_Resumen + ":" + acu_minutosNoc_Resumen + " (" + Noc_Resumen.ToString("N2") + ")";                    TxRealDomingoFeriados.Text = acu_horasDomingosFeriados_Resumen + ":" + acu_minutosDomingosFeriados_Resumen + " (" + DomingosFeriados_Resumen.ToString("N2") + ")";                    TxRealTotal.Text = acu_horasTotales_Resumen + ":" + acu_minutosTotales_Resumen + " (" + Totales_Resumen.ToString("N2") + ")";                    Session["STEHRDIURNASREAL"] = acu_horasDiurnas_Resumen;                    Session["STEMINDIURNASREAL"] = acu_minutosDiurnas_Resumen;                    Session["STEHRNOCREAL"] = acu_horasNoc_Resumen;                    Session["STEMINNOCREAL"] = acu_minutosNoc_Resumen;                    Session["STEHRNOCNOCREAL"] = acu_horasNoc_Noc_Resumen;                    Session["STEMINNOCNOCREAL"] = acu_minutosNoc_Noc_Resumen;                    Session["STEHRDOMINGOFERIADOREAL"] = acu_horasDomingosFeriados_Resumen;                    Session["STEMINDOMINGOFERIADOREAL"] = acu_minutosDomingosFeriados_Resumen;                    Session["STEHRTOTREAL"] = acu_horasTotales_Resumen;                    Session["STEMINTOTREAL"] = acu_minutosTotales_Resumen;                }
 
                 Session["STEFALTANTEDIURNAS"] = Convert.ToString(vFaltaDiurnas);
                 Session["STEFALTANTENOC"] = Convert.ToString(vFaltaNoc);
@@ -2078,7 +2078,8 @@
         public void CerrarModal(String vModal)        {            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Pop", "$('#" + vModal + "').modal('hide');", true);
 
         }
-        protected void BtnCrearSolicitud_Click(object sender, EventArgs e)        {            try            {                validacionesCrearSolicitud();                String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";                String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";                DateTime desde = Convert.ToDateTime(vFI);                DateTime hasta = Convert.ToDateTime(vFF);                DateTime vFechaInicio = Convert.ToDateTime(vFI);                LbInformacionTE.Text = "Buen dia <b> " + TxEmpleado.Text + "</b><br /><br />" +                   "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b>" + " .Total de horas <b> " + TxTotalHoras.Text + "</b> <br /><br />" +                   "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";                LbInformacionPreguntaTE.Text = "<b>¿Está seguro que desea enviar la solicitud en el rango de fechas y horas detalladas?</b>";                UpdateAutorizarMensaje.Update();                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+        protected void BtnCrearSolicitud_Click(object sender, EventArgs e)        {            try            {                validacionesCrearSolicitud();                String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";                String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";                DateTime desde = Convert.ToDateTime(vFI);                DateTime hasta = Convert.ToDateTime(vFF);                DateTime vFechaInicio = Convert.ToDateTime(vFI);                Session["vConfirmarSolicitud"] = 0;
+                LbInformacionTE.Text = "Buen dia <b> " + TxEmpleado.Text + "</b><br /><br />" +                   "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b>" + " .Total de horas <b> " + TxTotalHoras.Text + "</b> <br /><br />" +                   "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";                LbInformacionPreguntaTE.Text = "<b>¿Está seguro que desea enviar la solicitud en el rango de fechas y horas detalladas?</b>";                UpdateAutorizarMensaje.Update();                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
             }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }        }
         private void validacionesCrearSolicitud()        {
@@ -2276,28 +2277,120 @@
             //UpdatePanel22.Update();
         }
         private string GetExtension(string Extension)        {            switch (Extension)            {                case ".doc":                    return "application/ms-word";                case ".xls":                    return "application/vnd.ms-excel";                case ".ppt":                    return "application/mspowerpoint";                case "jpeg":                    return "image/jpeg";                case ".bmp":                    return "image/bmp";                case ".zip":                    return "application/zip";                case ".log":                    return "text/HTML";                case ".txt":                    return "text/plain";                case ".tiff":                case ".tif":                    return "image/tiff";                case ".asf":                    return "video/x-ms-asf";                case ".avi":                    return "video/avi";                case ".gif":                    return "image/gif";                case ".jpg":                case ".wav":                    return "audio/wav";                case ".pdf":                    return "application/pdf";                case ".fdf":                    return "application/vnd.fdf";                case ".dwg":                    return "image/vnd.dwg";                case ".msg":                    return "application/msoutlook";                case ".xml":                    return "application/xml";                default:                    return "application/octet-stream";            }        }
-        protected void BtnEnviarSolicitud_Click(object sender, EventArgs e)        {            try            {                String vNombreDepot1 = String.Empty;                HttpPostedFile bufferDeposito1T = FuHojaServicio.PostedFile;                byte[] vFileDeposito1 = null;                String vExtension = String.Empty;                if (bufferDeposito1T != null)                {                    vNombreDepot1 = FuHojaServicio.FileName;                    Stream vStream = bufferDeposito1T.InputStream;                    BinaryReader vReader = new BinaryReader(vStream);                    vFileDeposito1 = vReader.ReadBytes((int)vStream.Length);                    vExtension = System.IO.Path.GetExtension(FuHojaServicio.FileName);                }                String vArchivo = String.Empty;                if (vFileDeposito1 != null)                    vArchivo = Convert.ToBase64String(vFileDeposito1);                String vFormato = "yyyy-MM-dd HH:mm:ss"; //"dd-MM-yyyy HH:mm:ss"; 
-                String vFeINI = Convert.ToDateTime(TxFechaInicio.Text).ToString(vFormato);                String vFeFIN = Convert.ToDateTime(TxFechaRegreso.Text).ToString(vFormato);                DataTable vDatos = new DataTable();                String vQuery = "RSP_TiempoExtraordinarioGenerales 5,'"                    + Session["STECODIGOSAP"]                    + "'," + RbCambioTurno.SelectedValue                     + "," + DDLCambioTurnoColaborador.SelectedValue                    + ",'" + TxMotivoCambioTurno.Text                    + "','" + TxTotalHoras.Text                    + "','" + TxHrDiurnas.Text                    + "','" + TxHrNoc.Text                    + "','" + TxHrNocNoc.Text                    + "','" + TxHrDomFeriado.Text                    + "','" + vFeINI                    + "','" + vFeFIN                    + "','" + Session["STEHRINICIO"]                    + "','" + Session["STEHRFIN"]                    + "'," + Session["STEHRDIURNASOLICITADAS"]                    + "," + Session["STEMINDIURNASOLICITADAS"]                    + "," + Session["STEHRNOCSOLICITADAS"]                    + "," + Session["STEMINNOCSOLICITADAS"]                    + "," + Session["STEHRNOCNOCSOLICITADAS"]                    + "," + Session["STEMINNOCNOCSOLICITADAS"]                    + "," + Session["STEHRDOMINGOFERIADOSOLICITADAS"]                    + "," + Session["STEMINDOMINGOFERIADOSOLICITADAS"]                    + "," + Session["STEHRTOTALSOLICITADAS"]                    + "," + Session["STEMINTOTALSOLICITADAS"]                    + ",'" + TxPeticion.Text                    + "','" + TxTituloSysaid.Text                    + "'," + DdlConductor.SelectedValue                    + "," + DdlConductorNombre.SelectedValue                    + "," + DdlTipoTrabajo.SelectedValue                    + ",'" + DdlTipoDescripcion.SelectedValue                    + "','" + TxDescripcionTrabajo.Text                    + "','" + vArchivo                    + "',1,'" + vExtension                    + "','" + Session["STEIDJEFE"]                    + "','" + Session["STEIDTURNOCAMBIO"]                    + "','" + vNombreDepot1
-                    + "','" + DdlMotivoAprobacionSubgerente.SelectedValue                    + "','" + TxSoliAprobacionSubGerente.Text                    + "'," + Session["STEAPROBACIONSUBGERENTE"]
-                    + "," + Session["STEIDJEFESUBGERENCIA"]
-                    + "," + RbFormaTrabajo.SelectedValue
-                    + ",'" + Session["USUARIO"].ToString() + "'";
-                //vDatos = vConexion.obtenerDataTable(vQuery);
-                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
-
-                if (vRespuesta == 1)
-                {                    DataTable vData = (DataTable)Session["TIEMPO_EX_TECNICO"];                    vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();                    DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);                                        Boolean vFlagEnvio = false;
-
-                    foreach (DataRow item in vDatosJefe.Rows){                        if (!item["emailEmpresa"].ToString().Trim().Equals("")){                            vService.EnviarMensaje(                                item["emailEmpresa"].ToString(), // CORREO DEL JEFE                                typeBody.TiempoExtraordinario,                                item["nombre"].ToString(), // NOMBRE DEL JEFE                                "El empleado " + vData.Rows[0]["nombre"].ToString() + " ha creado una solicitud de Tiempo Extraordinario.",                                "Le informamos que la solicitud debe ser autorizada, para que sea procesada por Recursos Humanos.",                                vData.Rows[0]["emailEmpresa"].ToString() // CORREO DEL SOLICITANTE - COPIADO                                );                            vFlagEnvio = true;                        }                    }
-
-                    if (vFlagEnvio){
-                        Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=3");                    }                }
-                else
-                {                    Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=4");                }            }
-            catch (Exception Ex)
+        protected void BtnEnviarSolicitud_Click(object sender, EventArgs e)        {
+            if (Convert.ToString(Session["vConfirmarSolicitud"]) == "0")
             {
-                Mensaje(Ex.Message, WarningType.Danger);
-            }        }
+                Session["vConfirmarSolicitud"] = "1";
+                try
+                {
+                    String vNombreDepot1 = String.Empty;
+                    HttpPostedFile bufferDeposito1T = FuHojaServicio.PostedFile;
+                    byte[] vFileDeposito1 = null;
+                    String vExtension = String.Empty;
+
+                    if (bufferDeposito1T != null)
+                    {
+                        vNombreDepot1 = FuHojaServicio.FileName;
+                        Stream vStream = bufferDeposito1T.InputStream;
+                        BinaryReader vReader = new BinaryReader(vStream);
+                        vFileDeposito1 = vReader.ReadBytes((int)vStream.Length);
+                        vExtension = System.IO.Path.GetExtension(FuHojaServicio.FileName);
+                    }
+                    String vArchivo = String.Empty;
+                    if (vFileDeposito1 != null)
+                        vArchivo = Convert.ToBase64String(vFileDeposito1);
+
+
+                    String vFormato = "yyyy-MM-dd HH:mm:ss"; //"dd-MM-yyyy HH:mm:ss"; 
+                    String vFeINI = Convert.ToDateTime(TxFechaInicio.Text).ToString(vFormato);
+                    String vFeFIN = Convert.ToDateTime(TxFechaRegreso.Text).ToString(vFormato);
+
+                    DataTable vDatos = new DataTable();
+                    String vQuery = "RSP_TiempoExtraordinarioGenerales 5,'"
+                        + Session["STECODIGOSAP"]
+                        + "'," + RbCambioTurno.SelectedValue
+                         + "," + DDLCambioTurnoColaborador.SelectedValue
+                        + ",'" + TxMotivoCambioTurno.Text
+                        + "','" + TxTotalHoras.Text
+                        + "','" + TxHrDiurnas.Text
+                        + "','" + TxHrNoc.Text
+                        + "','" + TxHrNocNoc.Text
+                        + "','" + TxHrDomFeriado.Text
+                        + "','" + vFeINI
+                        + "','" + vFeFIN
+                        + "','" + Session["STEHRINICIO"]
+                        + "','" + Session["STEHRFIN"]
+                        + "'," + Session["STEHRDIURNASOLICITADAS"]
+                        + "," + Session["STEMINDIURNASOLICITADAS"]
+                        + "," + Session["STEHRNOCSOLICITADAS"]
+                        + "," + Session["STEMINNOCSOLICITADAS"]
+                        + "," + Session["STEHRNOCNOCSOLICITADAS"]
+                        + "," + Session["STEMINNOCNOCSOLICITADAS"]
+                        + "," + Session["STEHRDOMINGOFERIADOSOLICITADAS"]
+                        + "," + Session["STEMINDOMINGOFERIADOSOLICITADAS"]
+                        + "," + Session["STEHRTOTALSOLICITADAS"]
+                        + "," + Session["STEMINTOTALSOLICITADAS"]
+                        + ",'" + TxPeticion.Text
+                        + "','" + TxTituloSysaid.Text
+                        + "'," + DdlConductor.SelectedValue
+                        + "," + DdlConductorNombre.SelectedValue
+                        + "," + DdlTipoTrabajo.SelectedValue
+                        + ",'" + DdlTipoDescripcion.SelectedValue
+                        + "','" + TxDescripcionTrabajo.Text
+                        + "','" + vArchivo
+                        + "',1,'" + vExtension
+                        + "','" + Session["STEIDJEFE"]
+                        + "','" + Session["STEIDTURNOCAMBIO"]
+                        + "','" + vNombreDepot1
+                        + "','" + DdlMotivoAprobacionSubgerente.SelectedValue
+                        + "','" + TxSoliAprobacionSubGerente.Text
+                        + "'," + Session["STEAPROBACIONSUBGERENTE"]
+                        + "," + Session["STEIDJEFESUBGERENCIA"]
+                        + "," + RbFormaTrabajo.SelectedValue
+                        + ",'" + Session["USUARIO"].ToString() + "'";
+                    //vDatos = vConexion.obtenerDataTable(vQuery);
+                    Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
+
+                    if (vRespuesta == 1)
+                    {
+                        Session["vConfirmarSolicitud"] = "0";
+                        DataTable vData = (DataTable)Session["TIEMPO_EX_TECNICO"];
+                        vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();
+                        DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
+
+                        Boolean vFlagEnvio = false;
+                        foreach (DataRow item in vDatosJefe.Rows)
+                        {
+                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                            {
+                                vService.EnviarMensaje(
+                                    item["emailEmpresa"].ToString(), // CORREO DEL JEFE
+                                                        typeBody.TiempoExtraordinario,
+                                    item["nombre"].ToString(), // NOMBRE DEL JEFE
+                                                        "El empleado " + vData.Rows[0]["nombre"].ToString() + " ha creado una solicitud de Tiempo Extraordinario.",
+                                    "Le informamos que la solicitud debe ser autorizada, para que sea procesada por Recursos Humanos.",
+                                    vData.Rows[0]["emailEmpresa"].ToString() // CORREO DEL SOLICITANTE - COPIADO
+                                                                         );
+                                vFlagEnvio = true;
+                            }
+                        }
+
+                        if (vFlagEnvio)
+                        {
+                            Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=3");
+                        }
+                    }
+                    else
+                    {
+                        Session["vConfirmarSolicitud"] = "0";
+                        Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=4");
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    Mensaje(Ex.Message, WarningType.Danger);
+                }
+            }         }
         void CargarSolicitudes()        {            try            {                string usuario = Session["USUARIO"].ToString();                DataTable vDatos = new DataTable();                vDatos = vConexion.obtenerDataTable("RSP_TiempoExtraordinarioGenerales 11,'" + Convert.ToString(Session["USUARIO"]) + "'"); //2902
                 GVBusqueda.DataSource = vDatos;                GVBusqueda.DataBind();                UpdateDivBusquedas.Update();
                 Session["STESOLICITUDESCREADAS"] = vDatos;
@@ -3148,85 +3241,165 @@
 
         protected void BtnEnviarModificada_Click(object sender, EventArgs e)
         {
-            try
-            {
-                validacionesCrearSolicitud();
-                String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";                String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";                DateTime desde = Convert.ToDateTime(vFI);                DateTime hasta = Convert.ToDateTime(vFF);                DateTime vFechaInicio = Convert.ToDateTime(vFI);                LbInformacionTEModificada.Text = "Buen dia <b> " + TxEmpleado.Text + "</b><br /><br />" +                   "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b>" + " .Total de horas <b> " + TxTotalHoras.Text + "</b> <br /><br />" +                   "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";                LbInformacionPreguntaTEModificada.Text = "<b>¿Está seguro que desea enviar la solicitud modificada en el rango de fechas y horas detalladas?</b>";                UpdatePanel24.Update();                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenSolicitudModificada();", true);
-            }            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
+     
+                try
+                {
+                    validacionesCrearSolicitud();
+                    String vFI = TxFechaInicio.Text != "" ? TxFechaInicio.Text : "1999-01-01 00:00:00";
+                    String vFF = TxFechaRegreso.Text != "" ? TxFechaRegreso.Text : "1999-01-01 00:00:00";
+
+                    DateTime desde = Convert.ToDateTime(vFI);
+                    DateTime hasta = Convert.ToDateTime(vFF);
+                    DateTime vFechaInicio = Convert.ToDateTime(vFI);
+
+                    Session["vConfirmarSolicitud"] = "0";
+
+
+                LbInformacionTEModificada.Text = "Buen dia <b> " + TxEmpleado.Text + "</b><br /><br />" +
+                       "Fechas solicitadas del <b>" + desde.ToString("yyyy-MM-dd HH:mm:ss") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm:ss") + "</b>" + " .Total de horas <b> " + TxTotalHoras.Text + "</b> <br /><br />" +
+                       "Trabajo realizado: <b>" + TxDescripcionTrabajo.Text + "</b><br /><br />";
+                    LbInformacionPreguntaTEModificada.Text = "<b>¿Está seguro que desea enviar la solicitud modificada en el rango de fechas y horas detalladas?</b>";
+                    UpdatePanel24.Update();
+
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "OpenSolicitudModificada();", true);
+                }
+                catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
+
 
         protected void BtnEnviarSoliModificada_Click(object sender, EventArgs e)
         {
-            try            {
-                DataTable vDatosSolicitud = new DataTable();
-                vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];
-
-                String vNombreDepot1 = String.Empty;                String vExtension = String.Empty;                String vArchivo = String.Empty;                if (RbCambioHoja.SelectedValue == "1")
+            if (Convert.ToString(Session["vConfirmarSolicitud"]) == "0")
+            {
+                Session["vConfirmarSolicitud"] = "1";
+                try
                 {
-                    HttpPostedFile bufferDeposito1T = FuHojaServicio.PostedFile;
-                    byte[] vFileDeposito1 = null;
+                    DataTable vDatosSolicitud = new DataTable();
+                    vDatosSolicitud = (DataTable)Session["STEDATOSSOLICITUDINDIVIDUAL"];
 
-                    if (bufferDeposito1T != null)
+                    String vNombreDepot1 = String.Empty;
+                    String vExtension = String.Empty;
+                    String vArchivo = String.Empty;
+                    if (RbCambioHoja.SelectedValue == "1")
                     {
-                        vNombreDepot1 = FuHojaServicio.FileName;
-                        Stream vStream = bufferDeposito1T.InputStream;
-                        BinaryReader vReader = new BinaryReader(vStream);
-                        vFileDeposito1 = vReader.ReadBytes((int)vStream.Length);
-                        vExtension = System.IO.Path.GetExtension(FuHojaServicio.FileName);
+                        HttpPostedFile bufferDeposito1T = FuHojaServicio.PostedFile;
+                        byte[] vFileDeposito1 = null;
+
+                        if (bufferDeposito1T != null)
+                        {
+                            vNombreDepot1 = FuHojaServicio.FileName;
+                            Stream vStream = bufferDeposito1T.InputStream;
+                            BinaryReader vReader = new BinaryReader(vStream);
+                            vFileDeposito1 = vReader.ReadBytes((int)vStream.Length);
+                            vExtension = System.IO.Path.GetExtension(FuHojaServicio.FileName);
+                        }
+
+                        if (vFileDeposito1 != null)
+                            vArchivo = Convert.ToBase64String(vFileDeposito1);
+                    }
+                    else
+                    {
+                        vNombreDepot1 = vDatosSolicitud.Rows[0]["nombreHojaServicio"].ToString();
+                        vExtension = vDatosSolicitud.Rows[0]["extension"].ToString();
+                        vArchivo = vDatosSolicitud.Rows[0]["hojaServicio"].ToString();
                     }
 
-                    if (vFileDeposito1 != null)
-                        vArchivo = Convert.ToBase64String(vFileDeposito1);
+                    String vFormato = "yyyy-MM-dd HH:mm:ss.000"; //"dd-MM-yyyy HH:mm:ss.000"; 
+                    String vFeINI = Convert.ToDateTime(TxFechaInicio.Text).ToString(vFormato);
+                    String vFeFIN = Convert.ToDateTime(TxFechaRegreso.Text).ToString(vFormato);
+
+                    DataTable vDatos = new DataTable();
+                    String vQuery = "RSP_TiempoExtraordinarioGenerales 42,'"
+                        + vDatosSolicitud.Rows[0]["idSolicitud"].ToString()
+                        + "','" + RbCambioTurno.SelectedValue
+                        + "','" + Session["STEIDTURNOCAMBIO"]
+                        + "'," + DDLCambioTurnoColaborador.SelectedValue
+                        + ",'" + TxMotivoCambioTurno.Text
+                        + "','" + TxTotalHoras.Text
+                        + "','" + TxHrDiurnas.Text
+                        + "','" + TxHrNoc.Text
+                        + "','" + TxHrNocNoc.Text
+                        + "','" + TxHrDomFeriado.Text
+                        + "','" + vFeINI
+                        + "','" + vFeFIN
+                        + "','" + Session["STEHRINICIO"]
+                        + "','" + Session["STEHRFIN"]
+                        + "'," + Session["STEHRDIURNASOLICITADAS"]
+                        + "," + Session["STEMINDIURNASOLICITADAS"]
+                        + "," + Session["STEHRNOCSOLICITADAS"]
+                        + "," + Session["STEMINNOCSOLICITADAS"]
+                        + "," + Session["STEHRNOCNOCSOLICITADAS"]
+                        + "," + Session["STEMINNOCNOCSOLICITADAS"]
+                        + "," + Session["STEHRDOMINGOFERIADOSOLICITADAS"]
+                        + "," + Session["STEMINDOMINGOFERIADOSOLICITADAS"]
+                        + "," + Session["STEHRTOTALSOLICITADAS"]
+                        + "," + Session["STEMINTOTALSOLICITADAS"]
+                        + ",'" + TxPeticion.Text
+                        + "','" + TxTituloSysaid.Text
+                        + "','" + DdlConductor.SelectedValue
+                        + "','" + DdlConductorNombre.SelectedValue
+                        + "','" + DdlTipoTrabajo.SelectedValue
+                        + "','" + DdlTipoDescripcion.SelectedValue
+                        + "','" + TxDescripcionTrabajo.Text
+                        + "','" + vArchivo
+                        + "',1,'" + vExtension
+                        + "','" + Session["STEIDJEFE"]
+                        + "','" + vNombreDepot1
+                        + "','" + DdlMotivoAprobacionSubgerente.SelectedValue
+                        + "','" + TxSoliAprobacionSubGerente.Text
+                        + "','" + vDatosSolicitud.Rows[0]["aprobacionSubgerente"].ToString()
+                        + "'," + Session["STEIDJEFESUBGERENCIA"]
+                        + "," + RbFormaTrabajo.SelectedValue;
+                    //vDatos = vConexion.obtenerDataTable(vQuery);
+                    Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
+
+                    if (vRespuesta == 1)
+                    {
+                        DataTable vData = (DataTable)Session["TIEMPO_EX_TECNICO"];
+                        vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();
+                        DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
+
+                        Boolean vFlagEnvio = false;
+                        foreach (DataRow item in vDatosJefe.Rows)
+                        {
+                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                            {
+                                vService.EnviarMensaje(
+                                    item["emailEmpresa"].ToString(), // CORREO DEL JEFE
+                                                        typeBody.TiempoExtraordinario,
+                                    item["nombre"].ToString(), // NOMBRE DEL JEFE
+                                                        "El empleado " + vData.Rows[0]["nombre"].ToString() + " ha modificado la solicitud de Tiempo Extraordinario como se lo indico.",
+                                    "Le informamos que la solicitud debe ser autorizada, para que sea procesada por Recursos Humanos.",
+                                    vData.Rows[0]["emailEmpresa"].ToString() // CORREO DEL SOLICITANTE - COPIADO
+                                                                         );
+                                vFlagEnvio = true;
+               
+                            }
+                        }
+
+                        if (vFlagEnvio)
+                        {
+                            Session["vConfirmarSolicitud"] = "0";
+                            Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=8");
+                            
+                        }
+                    }
+                    else
+                    {
+                        Session["vConfirmarSolicitud"] = "0";
+                        Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=9");
+                        
+                    }
+                    limpiarCrearSolicitud();
+                    nav_tecnicos_tab.Visible = true;
+                    nav_modificarSolicitud_tab.Visible = true;
+                    btnDescargarHoja.Visible = true;
                 }
-                else
+                catch (Exception Ex)
                 {
-
-                    vNombreDepot1 = vDatosSolicitud.Rows[0]["nombreHojaServicio"].ToString();
-                    vExtension = vDatosSolicitud.Rows[0]["extension"].ToString();
-                    vArchivo = vDatosSolicitud.Rows[0]["hojaServicio"].ToString();
+                    Mensaje(Ex.Message, WarningType.Danger);
                 }
 
-
-                String vFormato = "yyyy-MM-dd HH:mm:ss.000"; //"dd-MM-yyyy HH:mm:ss.000"; 
-                String vFeINI = Convert.ToDateTime(TxFechaInicio.Text).ToString(vFormato);                String vFeFIN = Convert.ToDateTime(TxFechaRegreso.Text).ToString(vFormato);                DataTable vDatos = new DataTable();                String vQuery = "RSP_TiempoExtraordinarioGenerales 42,'"                    + vDatosSolicitud.Rows[0]["idSolicitud"].ToString()
-                    + "','" + RbCambioTurno.SelectedValue                    + "','" + Session["STEIDTURNOCAMBIO"]                    + "'," + DDLCambioTurnoColaborador.SelectedValue                    + ",'" + TxMotivoCambioTurno.Text                    + "','" + TxTotalHoras.Text                    + "','" + TxHrDiurnas.Text                    + "','" + TxHrNoc.Text                    + "','" + TxHrNocNoc.Text                    + "','" + TxHrDomFeriado.Text                    + "','" + vFeINI                    + "','" + vFeFIN                    + "','" + Session["STEHRINICIO"]                    + "','" + Session["STEHRFIN"]                    + "'," + Session["STEHRDIURNASOLICITADAS"]                    + "," + Session["STEMINDIURNASOLICITADAS"]                    + "," + Session["STEHRNOCSOLICITADAS"]                    + "," + Session["STEMINNOCSOLICITADAS"]                    + "," + Session["STEHRNOCNOCSOLICITADAS"]                    + "," + Session["STEMINNOCNOCSOLICITADAS"]                    + "," + Session["STEHRDOMINGOFERIADOSOLICITADAS"]                    + "," + Session["STEMINDOMINGOFERIADOSOLICITADAS"]                    + "," + Session["STEHRTOTALSOLICITADAS"]                    + "," + Session["STEMINTOTALSOLICITADAS"]                    + ",'" + TxPeticion.Text                    + "','" + TxTituloSysaid.Text                    + "','" + DdlConductor.SelectedValue                    + "','" + DdlConductorNombre.SelectedValue                    + "','" + DdlTipoTrabajo.SelectedValue                    + "','" + DdlTipoDescripcion.SelectedValue                    + "','" + TxDescripcionTrabajo.Text                    + "','" + vArchivo                    + "',1,'" + vExtension                    + "','" + Session["STEIDJEFE"]
-                    + "','" + vNombreDepot1
-                    + "','" + DdlMotivoAprobacionSubgerente.SelectedValue                    + "','" + TxSoliAprobacionSubGerente.Text                    + "','" + vDatosSolicitud.Rows[0]["aprobacionSubgerente"].ToString()
-                    + "'," + Session["STEIDJEFESUBGERENCIA"]
-                    + "," + RbFormaTrabajo.SelectedValue;
-                //vDatos = vConexion.obtenerDataTable(vQuery);
-                Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
-
-                if (vRespuesta == 1)
-                {
-
-
-
-                    DataTable vData = (DataTable)Session["TIEMPO_EX_TECNICO"];
-                    vQuery = "RSP_ObtenerEmpleados 2," + vData.Rows[0]["idJefe"].ToString();
-                    DataTable vDatosJefe = vConexion.obtenerDataTable(vQuery);
-
-                    
-                    Boolean vFlagEnvio = false;
-
-                    foreach (DataRow item in vDatosJefe.Rows){                        if (!item["emailEmpresa"].ToString().Trim().Equals("")){                            vService.EnviarMensaje(                                item["emailEmpresa"].ToString(), // CORREO DEL JEFE                                typeBody.TiempoExtraordinario,                                item["nombre"].ToString(), // NOMBRE DEL JEFE                                "El empleado " + vData.Rows[0]["nombre"].ToString() + " ha modificado la solicitud de Tiempo Extraordinario como se lo indico.",                                "Le informamos que la solicitud debe ser autorizada, para que sea procesada por Recursos Humanos.",                                vData.Rows[0]["emailEmpresa"].ToString() // CORREO DEL SOLICITANTE - COPIADO                                );                            vFlagEnvio = true;                        }                    }
-
-                    if (vFlagEnvio){
-                        Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=8");
-                    }                }
-                else
-
-                {
-                    Response.Redirect("/pages/tiempoExtraordinario/solicitudTE.aspx?ex=9");                }
-
-                limpiarCrearSolicitud();
-                nav_tecnicos_tab.Visible = true;
-                nav_modificarSolicitud_tab.Visible = true;
-                btnDescargarHoja.Visible = true;
-            }
-            catch (Exception Ex)
-            {
-                Mensaje(Ex.Message, WarningType.Danger);
             }
 
         }

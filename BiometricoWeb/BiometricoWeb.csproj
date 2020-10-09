@@ -154,6 +154,7 @@
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="pages\access.aspx" />
+    <Content Include="pages\activos\registroVisitas.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
     <Content Include="pages\documentacion\archivo.aspx" />
@@ -279,6 +280,13 @@
     </Compile>
     <Compile Include="pages\access.aspx.designer.cs">
       <DependentUpon>access.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\registroVisitas.aspx.cs">
+      <DependentUpon>registroVisitas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\registroVisitas.aspx.designer.cs">
+      <DependentUpon>registroVisitas.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\areas.aspx.cs">
       <DependentUpon>areas.aspx</DependentUpon>
@@ -919,7 +927,6 @@
     <Folder Include="Carga\repositorio\manuales\" />
     <Folder Include="Carga\repositorio\politicas\" />
     <Folder Include="Carga\repositorio\procesos\" />
-    <Folder Include="pages\activos\" />
     <Folder Include="pages\documentacion\repositorio\boletines\" />
     <Folder Include="pages\documentacion\repositorio\formatos\" />
     <Folder Include="pages\documentacion\repositorio\manuales\" />
