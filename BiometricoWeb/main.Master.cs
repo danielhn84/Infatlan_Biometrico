@@ -25,52 +25,14 @@ namespace BiometricoWeb
                     DataTable vDatosPerfil = vConexion.obtenerDataTable(vQuery);
                     LitUsuario.Text = ((DataRow)vDatos.Rows[0])["nombre"].ToString();
 
-                    if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")) {
-                        viaticos(vDatosPerfil);
-                        documentacion(vDatosPerfil);
-                        extraordinarios(vDatosPerfil);
-                        EntradaSalidas(vDatosPerfil);
-                        if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")) {
-                            LIBiometricos.Visible = true;
-                            LIEmpleados.Visible = true;
-                            LIAutorizaciones.Visible = true;
-                            LIPermisos.Visible = true;
-                            LIMantenimientos.Visible = true;
-                            LIToken.Visible = true;
-                            LISecurity.Visible = true;
-                            LISEC_Aprobaciones.Visible = true;
-                            LISEC_Entradas.Visible = true;
-                            LISEC_Salidas.Visible = true;
-                            LISEC_Historico.Visible = true;
-                            LIConstancias.Visible = true;
-                            LIEstructura.Visible = true;
+                    if (!vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("")) 
+                        administrador(vDatos);
 
-                            LITEx.Visible = true;
-                            LITExJefatura.Visible = true;
-                            LITExSubgerencia.Visible = true;
-                            LITExRRHH.Visible = true;
-                            LITExMantenimiento.Visible = true;
-
-                            LIViaticos.Visible = true;
-                            LIViatAprobacion.Visible = true;
-                            LIViatCotizacion.Visible = true;
-                            LIViatMantenimiento.Visible = true;
-                            LITExReportes.Visible = true;
-                        }
-
-                    }else{
-                        LIAutorizaciones.Visible = true;
-                        LIPermisos.Visible = true;
-                        LIConfig.Visible = false;
-                        LIConstancias.Visible = true;
-                        LITEx.Visible = false;
-                        LIEstructura.Visible = true;
-
-                        viaticos(vDatosPerfil);
-                        documentacion(vDatosPerfil);
-                        extraordinarios(vDatosPerfil);
-                        EntradaSalidas(vDatosPerfil);
-                    } 
+                    viaticos(vDatosPerfil);
+                    documentacion(vDatosPerfil);
+                    extraordinarios(vDatosPerfil);
+                    EntradaSalidas(vDatosPerfil); 
+                    desarrollo(vDatosPerfil);
                 }catch (Exception Ex){
                     vError = Ex.Message;
                 }
@@ -131,27 +93,18 @@ namespace BiometricoWeb
         private void EntradaSalidas(DataTable vDatos) {
             for (int i = 0; i < vDatos.Rows.Count; i++){
                 if (vDatos.Rows[i]["idAplicacion"].ToString() == "4"){
+                    LISecurity.Visible = true;
                     if (vDatos.Rows[i]["idPerfil"].ToString() == "6"){
-                        LISecurity.Visible = true;
                         LISEC_Aprobaciones.Visible = true;
-                        LIPermisos.Visible = true;
-                        LIConfig.Visible = false;
-                        LIConstancias.Visible = true;
-                        LITEx.Visible = false;
-                        LIEstructura.Visible = true;
                     }else if (vDatos.Rows[i]["idPerfil"].ToString() == "7") {
-                        LIEmpleados.Visible = false;
-                        LIDashboard.Visible = false;
-                        LISecurity.Visible = true;
                         LISEC_Entradas.Visible = true;
                         LISEC_Salidas.Visible = true;
-                        LISEC_Historico.Visible = false;
-                        LIConfig.Visible = false;
+                        
+                        LIDashboard.Visible = false;
                         LIServicios.Visible = false;
                         LIBuzon.Visible = false;
-                        LITEx.Visible = false;
-                        LIViaticos.Visible = false;
                         LIDocumentacion.Visible = false;
+                        LIEstructura.Visible = false;
                     }
                     break;
                 }
@@ -159,14 +112,53 @@ namespace BiometricoWeb
         }
         
         private void documentacion(DataTable vDatos) {
-            for (int i = 0; i < vDatos.Rows.Count; i++){
-                if (vDatos.Rows[i]["idAplicacion"].ToString() == "3"){
-                    if (vDatos.Rows[i]["idPerfil"].ToString() == "5"){
-                        LIDocumentacion.Visible = true;
+            try{
+                for (int i = 0; i < vDatos.Rows.Count; i++){
+                    if (vDatos.Rows[i]["idPerfil"].ToString() == "5")
                         LIDocumentosReportes.Visible = true;
-                    }
+                    
                     break;
                 }
+            }catch (Exception ex){
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private void administrador(DataTable vDatos) {
+            if (vDatos.Rows[0]["tipoEmpleado"].ToString().Equals("1")){
+                LIConfig.Visible = true;
+                LIEmpleados.Visible = true;
+                LISecurity.Visible = true;
+                LISEC_Aprobaciones.Visible = true;
+                LISEC_Entradas.Visible = true;
+                LISEC_Salidas.Visible = true;
+                LISEC_Historico.Visible = true;
+
+                LITEx.Visible = true;
+                LITExJefatura.Visible = true;
+                LITExSubgerencia.Visible = true;
+                LITExRRHH.Visible = true;
+                LITExMantenimiento.Visible = true;
+
+                LIViaticos.Visible = true;
+                LIViatAprobacion.Visible = true;
+                LIViatCotizacion.Visible = true;
+                LIViatMantenimiento.Visible = true;
+                LITExReportes.Visible = true;
+                LIDocumentosReportes.Visible = true;
+            }
+        }
+        
+        private void desarrollo(DataTable vDatos) {
+            try{
+                for (int i = 0; i < vDatos.Rows.Count; i++){
+                    if (vDatos.Rows[i]["idPerfil"].ToString() == "15"){
+                        LISEC_ActivosInternos.Visible = true;
+                        LISEC_Asignacion.Visible = true;
+                    }
+                }
+            }catch (Exception ex){
+                throw new Exception(ex.Message);
             }
         }
     }

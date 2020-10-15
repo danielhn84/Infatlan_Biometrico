@@ -105,6 +105,7 @@
     <Content Include="css\smart_wizard_theme_dots.css" />
     <Content Include="css\style.css" />
     <Content Include="default.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="images\auth\lockscreen-bg.jpg" />
     <Content Include="images\auth\login-bg2.jpg" />
     <Content Include="images\auth\login-bg.jpg" />
@@ -154,6 +155,9 @@
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="pages\access.aspx" />
+    <Content Include="pages\activos\asignacion.aspx" />
+    <Content Include="pages\activos\activosInternos.aspx" />
+    <Content Include="pages\activos\visitas.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
     <Content Include="pages\documentacion\archivo.aspx" />
@@ -252,6 +256,9 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -279,6 +286,27 @@
     </Compile>
     <Compile Include="pages\access.aspx.designer.cs">
       <DependentUpon>access.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\asignacion.aspx.cs">
+      <DependentUpon>asignacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\asignacion.aspx.designer.cs">
+      <DependentUpon>asignacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\activosInternos.aspx.cs">
+      <DependentUpon>activosInternos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\activosInternos.aspx.designer.cs">
+      <DependentUpon>activosInternos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\visitas.aspx.cs">
+      <DependentUpon>visitas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\visitas.aspx.designer.cs">
+      <DependentUpon>visitas.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\areas.aspx.cs">
       <DependentUpon>areas.aspx</DependentUpon>
@@ -815,7 +843,7 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
-    <Content Include="Web References\SapServiceEmployees\ZMFRH_SER_INFResponse.datasource">
+    <Content Include="Web References\SapServiceEmployees\ZMFRH_SER_INFResponse1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
     <Content Include="Web References\SapServiceC\Reference.map">
@@ -825,7 +853,7 @@
     <Content Include="Web References\SapServiceC\ZMF_HR_CONS_CAPAC_INF2Response.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
-    <None Include="Web References\SapServiceC\zws_hr_cons_capac_inf2.wsdl" />
+    <None Include="Web References\SapServiceC\zws_cons_capac_inf2.wsdl" />
     <None Include="Web References\SapServiceEmployees\zws_hr_ser_inf.wsdl" />
     <None Include="Web References\SapServicesH\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -868,6 +896,28 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>BiometricoWeb_ReportExecutionService_ReportExecutionService</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A101AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/300/zws_cons_capac_inf2/zws_cons_capac_inf2%3fsap-client=300">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SapServiceC\</RelPath>
+      <UpdateFromURL>http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A101AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/300/zws_cons_capac_inf2/zws_cons_capac_inf2%3fsap-client=300</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>BiometricoWeb_SapServiceC_ZWS_CONS_CAPAC_INF2</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A101AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_ser_inf/300/zws_hr_ser_inf/zws_hr_ser_inf%3fsap-client=300">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SapServiceEmployees\</RelPath>
+      <UpdateFromURL>http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A101AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_ser_inf/300/zws_hr_ser_inf/zws_hr_ser_inf%3fsap-client=300</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>BiometricoWeb_SapServiceC_ZWS_HR_SER_INF</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_setdata/300/zws_hr_setdata/zws_hr_setdata%3fsap-client=300">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\SapServicesP\</RelPath>
@@ -890,28 +940,6 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>BiometricoWeb_SapServicesH_ZWS_HR_VACACIONES</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A101AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/210/zws_hr_cons_capac_inf2/zws_hr_cons_capac_inf2%3fsap-client=210">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\SapServiceC\</RelPath>
-      <UpdateFromURL>http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A101AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/210/zws_hr_cons_capac_inf2/zws_hr_cons_capac_inf2%3fsap-client=210</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>BiometricoWeb_SapServiceC_ZWS_HR_CONS_CAPAC_INF2</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_ser_inf/210/zws_hr_ser_inf/zws_hr_ser_inf%3fsap-client=210">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\SapServiceEmployees\</RelPath>
-      <UpdateFromURL>http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_hr_ser_inf/210/zws_hr_ser_inf/zws_hr_ser_inf%3fsap-client=210</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>BiometricoWeb_SapServiceEmployees_ZWS_HR_SER_INF</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Carga\repositorio\boletines\" />
@@ -919,7 +947,6 @@
     <Folder Include="Carga\repositorio\manuales\" />
     <Folder Include="Carga\repositorio\politicas\" />
     <Folder Include="Carga\repositorio\procesos\" />
-    <Folder Include="pages\activos\" />
     <Folder Include="pages\documentacion\repositorio\boletines\" />
     <Folder Include="pages\documentacion\repositorio\formatos\" />
     <Folder Include="pages\documentacion\repositorio\manuales\" />

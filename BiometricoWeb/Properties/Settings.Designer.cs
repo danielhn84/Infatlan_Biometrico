@@ -58,22 +58,22 @@ namespace BiometricoWeb.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_ser_inf/210/zws_hr" +
+        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_ser_inf/300/zws_hr" +
             "_ser_inf/zws_hr_ser_inf")]
-        public string BiometricoWeb_SapServiceEmployees_ZWS_HR_SER_INF {
+        public string BiometricoWeb_SapServiceC_ZWS_HR_SER_INF {
             get {
-                return ((string)(this["BiometricoWeb_SapServiceEmployees_ZWS_HR_SER_INF"]));
+                return ((string)(this["BiometricoWeb_SapServiceC_ZWS_HR_SER_INF"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/21" +
-            "0/zws_hr_cons_capac_inf2/zws_hr_cons_capac_inf2")]
-        public string BiometricoWeb_SapServiceC_ZWS_HR_CONS_CAPAC_INF2 {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/30" +
+            "0/zws_cons_capac_inf2/zws_cons_capac_inf2")]
+        public string BiometricoWeb_SapServiceC_ZWS_CONS_CAPAC_INF2 {
             get {
-                return ((string)(this["BiometricoWeb_SapServiceC_ZWS_HR_CONS_CAPAC_INF2"]));
+                return ((string)(this["BiometricoWeb_SapServiceC_ZWS_CONS_CAPAC_INF2"]));
             }
         }
     }

@@ -117,7 +117,7 @@ namespace BiometricoWeb.clases
                 vConsulta.TELEF = vTelef;
                 vConsulta.CODRE = vFirma;
                 
-                SapServiceC.ZWS_HR_CONS_CAPAC_INF2 vRequest = new SapServiceC.ZWS_HR_CONS_CAPAC_INF2();
+                SapServiceC.ZWS_CONS_CAPAC_INF2 vRequest = new SapServiceC.ZWS_CONS_CAPAC_INF2();
                 SapServiceC.ZMF_HR_CONS_CAPAC_INF2Response vResponse = vRequest.ZMF_HR_CONS_CAPAC_INF2(vConsulta);
 
                 if (vResponse.MSJ.Equals("Código SAP incorrecto") || vResponse.MSJ.Equals("Código de representate invalido"))

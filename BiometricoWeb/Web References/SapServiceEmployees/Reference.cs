@@ -23,7 +23,6 @@ namespace BiometricoWeb.SapServiceEmployees {
     
     
     /// <remarks/>
-    // CODEGEN: No se controló el elemento de extensión WSDL opcional 'Policy' del espacio de nombres 'http://schemas.xmlsoap.org/ws/2004/09/policy'.
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -36,7 +35,7 @@ namespace BiometricoWeb.SapServiceEmployees {
         
         /// <remarks/>
         public ZWS_HR_SER_INF() {
-            this.Url = global::BiometricoWeb.Properties.Settings.Default.BiometricoWeb_SapServiceEmployees_ZWS_HR_SER_INF;
+            this.Url = global::BiometricoWeb.Properties.Settings.Default.BiometricoWeb_SapServiceC_ZWS_HR_SER_INF;
             if ((this.IsLocalFileSystemWebService(this.Url) == true)) {
                 this.UseDefaultCredentials = true;
                 this.useDefaultCredentialsSetExplicitly = false;
