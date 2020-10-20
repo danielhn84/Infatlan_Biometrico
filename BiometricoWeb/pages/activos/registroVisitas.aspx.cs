@@ -1,15 +1,16 @@
 ﻿using BiometricoWeb.clases;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Configuration;
+using System.Drawing;
+using System.Collections.Generic;
 using System.IO;
-using System.Text;
-
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
+using System.Configuration;
 
 namespace BiometricoWeb.pages.activos
 {
@@ -22,59 +23,31 @@ namespace BiometricoWeb.pages.activos
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                CargarInformacionGeneral();
+            }
         }
 
-        protected void BtnAgregar_Click(object sender, EventArgs e)
+        void CargarInformacionGeneral()
         {
             try
             {
+                String vQuery = "RSP_SeguridadActivosDataCenter 1,'" + Convert.ToString(Session["USUARIO"]) + "'";
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
 
-                DataTable vData = new DataTable();
-                DataTable vDatos = (DataTable)Session["PERSONAL_VISITA"];
-                int vVisita = 1;
-                string vEmpresa = DdlEmpresa.SelectedItem.Text;
-                string vNombre = TxNombre.Text;
-                string Videntidad = TxIdentidad.Text;
-                //string vCantidad = txtcantidad.Text;
-                //int vUbic = Convert.ToInt32(Session["ATM_INVUBI_MATERIAL"]);
-
-                vData.Columns.Add("idVisita");
-                vData.Columns.Add("nombre");
-                vData.Columns.Add("identidad");
-                vData.Columns.Add("empresa");
-
-
-                if (vDatos == null)
-                    vDatos = vData.Clone();
-
-                if (vDatos != null)
-                {
-                    if (vDatos.Rows.Count < 1)
-                        vDatos.Rows.Add(Session["PERSONAL_VISITA"].ToString(), vVisita, TxNombre.Text, TxIdentidad.Text, DdlEmpresa.SelectedItem.Text);
-                    else
-                    {
-                        
-
-                            vDatos.Rows.Add(Session["PERSONAL_VISITA"].ToString(), vVisita, TxNombre.Text, TxIdentidad.Text, DdlEmpresa.SelectedItem.Text);
-                    }
-                }
-
-                GvVisitas.DataSource = vDatos;
-                GvVisitas.DataBind();
-                Session["PERSONAL_VISITA"] = vDatos;
-                UPVisitas.Update();
-
-                DdlEmpresa.SelectedIndex = -1;
-                TxNombre.Text = "";
-                TxIdentidad.Text = "";
-
-
+                TxResponsable.Text= vDatos.Rows[0]["nombre"].ToString();
+                TxIdentidadResponsable.Text = vDatos.Rows[0]["identidad"].ToString();
+                TxSubgerencia.Text = vDatos.Rows[0]["area"].ToString();
+                TxJefe.Text = vDatos.Rows[0]["jefeNombre"].ToString();
+                //TxFechaSolicitud.Text= DateTime.Today.ToString("dd/MM/yyyy");
             }
-            catch (Exception Ex)
-            {
-                Mensaje(Ex.Message, WarningType.Success);
-            }
+            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
+        }
+
+        protected void BtnAddTrabajo_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "abrirModal();", true);
         }
     }
 }

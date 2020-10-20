@@ -351,6 +351,8 @@
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Salidas"><a class="nav-link" href="/pages/salidas.aspx">Salidas</a></li>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Historico"><a class="nav-link" href="/pages/sec_historico.aspx">Historico</a></li>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Aprobaciones"><a class="nav-link" href="/pages/sec_aprobaciones.aspx">Aprobaciones</a></li>
+                                    
+                                    <li class="nav-item" runat="server" visible="true" id="LI1"><a class="nav-link" href="/pages/activos/registroVisitas.aspx">Solicitud Datacenter</a></li>
                                 </ul>
                             </div>
                         </li>
