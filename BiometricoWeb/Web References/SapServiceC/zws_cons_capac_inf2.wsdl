@@ -92,7 +92,7 @@
       <wsdl:output message="tns:ZMF_HR_CONS_CAPAC_INF2Response" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="ZWS_HR_CONS_CAPAC_INF2" type="tns:ZWS_HR_CONS_CAPAC_INF2">
+  <wsdl:binding name="ZWS_CONS_CAPAC_INF2" type="tns:ZWS_HR_CONS_CAPAC_INF2">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ZMF_HR_CONS_CAPAC_INF2">
       <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZWS_HR_CONS_CAPAC_INF2:ZMF_HR_CONS_CAPAC_INF2Request" style="document" />
@@ -104,7 +104,7 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:binding name="ZWS_HR_CONS_CAPAC_INF2_soap12" type="tns:ZWS_HR_CONS_CAPAC_INF2">
+  <wsdl:binding name="ZWS_CONS_CAPAC_INF2_soap12" type="tns:ZWS_HR_CONS_CAPAC_INF2">
     <wsoap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ZMF_HR_CONS_CAPAC_INF2">
       <wsoap12:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZWS_HR_CONS_CAPAC_INF2:ZMF_HR_CONS_CAPAC_INF2Request" style="document" />
@@ -116,12 +116,12 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name="ZWS_HR_CONS_CAPAC_INF2">
-    <wsdl:port name="ZWS_HR_CONS_CAPAC_INF2" binding="tns:ZWS_HR_CONS_CAPAC_INF2">
-      <soap:address location="http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/210/zws_hr_cons_capac_inf2/zws_hr_cons_capac_inf2" />
+  <wsdl:service name="ZWS_CONS_CAPAC_INF2">
+    <wsdl:port name="ZWS_CONS_CAPAC_INF2" binding="tns:ZWS_CONS_CAPAC_INF2">
+      <soap:address location="http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/300/zws_cons_capac_inf2/zws_cons_capac_inf2" />
     </wsdl:port>
-    <wsdl:port name="ZWS_HR_CONS_CAPAC_INF2_soap12" binding="tns:ZWS_HR_CONS_CAPAC_INF2_soap12">
-      <wsoap12:address location="http://s4hqas-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/210/zws_hr_cons_capac_inf2/zws_hr_cons_capac_inf2" />
+    <wsdl:port name="ZWS_CONS_CAPAC_INF2_soap12" binding="tns:ZWS_CONS_CAPAC_INF2_soap12">
+      <wsoap12:address location="http://s4hprd-mgmt.bancatlan.hn:8000/sap/bc/srt/rfc/sap/zws_hr_cons_capac_inf2/300/zws_cons_capac_inf2/zws_cons_capac_inf2" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -375,11 +375,19 @@ namespace BiometricoWeb.pages
                                     );
 
                                 if (vDatosBusqueda.Rows[0]["TipoPermiso"].ToString() == "DÍAS/HORAS COMPENSATORIOS"){
+                                    Boolean vDia = itemEmpleado["FechaRegreso"].ToString() == itemEmpleado["FechaInicio"].ToString() ? true : false ;
                                     TimeSpan tsHorario = Convert.ToDateTime(itemEmpleado["FechaRegreso"]) - Convert.ToDateTime(itemEmpleado["FechaInicio"]);
                                     Decimal vDiasHoras = tsHorario.Hours + (Convert.ToDecimal(tsHorario.Minutes) / 60);
+                                    vDiasHoras = vDia ? 8 : vDiasHoras;
                                     String vCalculo = vDiasHoras.ToString().Contains(",") ? vDiasHoras.ToString().Replace(",", ".") : vDiasHoras.ToString();
 
-                                    vQuery = "RSP_Compensatorio 1,'" + itemEmpleado["CodigoSAP"].ToString() + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo + "," + itemEmpleado["idPermiso"].ToString();
+                                    String vEmpleado = "";
+                                    if (itemEmpleado["idEmpleadoJefe"].ToString() == itemEmpleado["usuarioCreacion"].ToString())
+                                        vEmpleado = itemEmpleado["idEmpleadoJefe"].ToString();
+                                    else
+                                        vEmpleado = itemEmpleado["CodigoSAP"].ToString();
+
+                                    vQuery = "RSP_Compensatorio 1,'" + vEmpleado + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo + "," + itemEmpleado["idPermiso"].ToString();
                                     int vInfo = vConexion.ejecutarSql(vQuery);
                                 }
                             }
@@ -516,6 +524,33 @@ namespace BiometricoWeb.pages
             }catch (Exception ex){
                 throw new Exception(ex.Message);
             }
+        }
+
+        private Decimal Calculo(DataTable vDatosSIM) {
+            Decimal vRes;
+            DateTime desde, hasta;
+            desde = Convert.ToDateTime(vDatosSIM.Rows[0]["FechaInicio"]);
+            hasta = Convert.ToDateTime(vDatosSIM.Rows[0]["FechaRegreso"]);
+            TimeSpan tsHorario = Convert.ToDateTime(hasta) - Convert.ToDateTime(desde);
+
+            int dias = 0, days = 1;
+            while (desde <= hasta){
+                if (desde.DayOfWeek != DayOfWeek.Saturday && desde.DayOfWeek != DayOfWeek.Sunday)
+                    dias++;
+
+                desde = desde.AddDays(1);
+            }
+
+            if (tsHorario.Days >= 1)
+                days = dias; //ts.Days + 1 - 
+            else if (tsHorario.Hours > 0 || tsHorario.Minutes > 0)
+                days = 0;
+
+            float vDiaSAP = float.Parse("8") / float.Parse("24") ;
+            float vHorasSAP = (float.Parse(tsHorario.Hours.ToString()) / 24 ) * (vDiaSAP) ;
+            vRes = Convert.ToDecimal(days + vHorasSAP);
+
+            return vRes;
         }
     }
 }
