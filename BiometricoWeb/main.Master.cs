@@ -40,9 +40,9 @@ namespace BiometricoWeb
         }
 
         private void extraordinarios(DataTable vDatos) {
-            LITEx.Visible = true;
             for (int i = 0; i < vDatos.Rows.Count; i++){ 
                 if (vDatos.Rows[i]["idAplicacion"].ToString() == "1"){
+                    LITEx.Visible = true;
                     if (vDatos.Rows[i]["idPerfil"].ToString().Equals("8")) {
                         LITExJefatura.Visible = true;
                         LITExMantenimiento.Visible = true;
