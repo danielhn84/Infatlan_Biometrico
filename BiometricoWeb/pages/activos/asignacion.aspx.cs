@@ -28,14 +28,14 @@ namespace BiometricoWeb.pages.activos
 
         private void cargar() {
             try{
-                String vQuery = "[RSP_SeguridadActivos] 1";
+                String vQuery = "[RSP_ActivosPI] 1";
                 DataTable vData = vConexion.obtenerDataTable(vQuery);
                 DDLEmpleado.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vData.Rows) {
                     DDLEmpleado.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
                 }
 
-                vQuery = "[RSP_SeguridadActivos] 4";
+                vQuery = "[RSP_ActivosPI] 4";
                 vData = vConexion.obtenerDataTable(vQuery);
                 DDLTipoEquipo.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vData.Rows) {
@@ -52,7 +52,7 @@ namespace BiometricoWeb.pages.activos
 
         protected void DDLTipoEquipo_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                String vQuery = "[RSP_SeguridadActivos] 3," + DDLTipoEquipo.SelectedValue;
+                String vQuery = "[RSP_ActivosPI] 3," + DDLTipoEquipo.SelectedValue;
                 DataTable vData = vConexion.obtenerDataTable(vQuery);
                 DDLEquipo.Items.Clear();
                 DDLEquipo.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
@@ -76,9 +76,10 @@ namespace BiometricoWeb.pages.activos
 
         protected void BtnConfirmar_Click(object sender, EventArgs e){
             try{
-                String vQuery = "[RSP_SeguridadActivos] 2" +
+                String vQuery = "[RSP_ActivosPI] 2" +
                     "," + DDLEquipo.SelectedValue +
                     "," + DDLEmpleado.SelectedValue + 
+                    "," + DDLAutorizado.SelectedValue +
                     "," + Session["USUARIO"].ToString();
                 int vInfo = vConexion.ejecutarSql(vQuery);
 

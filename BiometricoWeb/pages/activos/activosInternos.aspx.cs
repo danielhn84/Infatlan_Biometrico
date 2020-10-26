@@ -29,7 +29,7 @@ namespace BiometricoWeb.pages.activos
 
         private void cargarDatos(){
             try{
-                String vQuery = "[RSP_SeguridadActivos] 5";
+                String vQuery = "[RSP_ActivosPI] 5";
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     GVBusqueda.DataSource = vDatos;
@@ -48,7 +48,7 @@ namespace BiometricoWeb.pages.activos
         protected void TxBusqueda_TextChanged(object sender, EventArgs e){
             try{
                 if (TxBusqueda.Text != "" || TxBusqueda.Text != string.Empty){
-                    String vQuery = "[RSP_SeguridadActivos] 5,'" + TxBusqueda.Text + "'";
+                    String vQuery = "[RSP_ActivosPI] 5,'" + TxBusqueda.Text + "'";
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                     if (vDatos.Rows.Count < 1){
                         TxBusqueda.Focus();

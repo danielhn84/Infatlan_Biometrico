@@ -233,7 +233,7 @@ namespace BiometricoWeb.pages
                                     Decimal vDiasHoras = tsHorario.Hours + (Convert.ToDecimal(tsHorario.Minutes) / 60);
                                     String vCalculo = vDiasHoras.ToString().Contains(",") ? vDiasHoras.ToString().Replace(",", ".") : vDiasHoras.ToString();
 
-                                    vQuery = "RSP_Compensatorio 1,'" + item["CodigoSAP"].ToString() + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo + "," + item["idPermiso"].ToString();
+                                    vQuery = "[RSP_Compensatorio] 1,'" + item["CodigoSAP"].ToString() + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo + "," + item["idPermiso"].ToString();
                                     int vInfo = vConexion.ejecutarSql(vQuery);
                                 }
                             }
@@ -387,7 +387,7 @@ namespace BiometricoWeb.pages
                                     else
                                         vEmpleado = itemEmpleado["CodigoSAP"].ToString();
 
-                                    vQuery = "RSP_Compensatorio 1,'" + vEmpleado + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo + "," + itemEmpleado["idPermiso"].ToString();
+                                    vQuery = "[RSP_Compensatorio] 1,'" + vEmpleado + "', 2,NULL,'" + Session["USUARIO"].ToString() + "',NULL," + vCalculo + "," + itemEmpleado["idPermiso"].ToString();
                                     int vInfo = vConexion.ejecutarSql(vQuery);
                                 }
                             }
