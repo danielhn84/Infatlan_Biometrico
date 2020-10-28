@@ -79,7 +79,6 @@ namespace BiometricoWeb.pages.viaticos
             Session["VIATICOS_COMCANCELAR"] = null;
             Session["VIATICOS_COSTODEPRE"] = null;
         }
-
         void cargarData()
         {
             //CARGAR SOLICITUDES A APROBAR

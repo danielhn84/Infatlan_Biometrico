@@ -204,46 +204,43 @@ namespace BiometricoWeb.pages.viaticos
                 if (vInfo == 1)
                 {
                     
-                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
-                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+                    //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
 
-                    Boolean vFlagEnvioSupervisor = false;
-                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
-                    if (vDatosJefatura.Rows.Count > 0)
-                    {
-                        foreach (DataRow item in vDatosJefatura.Rows)
-                        {
-                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            {
-                                vService.EnviarMensaje(
-                                    item["emailEmpresa"].ToString(),
-                                    typeBody.Viaticos,
-                                    item["nombre"].ToString(),
-                                    vDatosEmpleado.Rows[0]["Nombre"].ToString(),
-                                    "Has aprobado boucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                    "/pages/viaticos/buscarRecibo.aspx"
-                                );
-                                vFlagEnvioSupervisor = true;
-                            }
-                        }
-                    }
+                    //Boolean vFlagEnvioSupervisor = false;
+                    //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    //if (vDatosJefatura.Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow item in vDatosJefatura.Rows)
+                    //    {
+                    //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        {
+                    //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                    //                typeBody.Viaticos,
+                    //                item["nombre"].ToString(),
+                    //                vDatosEmpleado.Rows[0]["Nombre"].ToString(),
+                    //                 "Has aprobado boucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //                 "/pages/viaticos/buscarRecibo.aspx"
+                    //                );
+                    //            vFlagEnvioSupervisor = true;
+                    //        }
+                    //    }
+                    //}
 
-                    if (vFlagEnvioSupervisor)
-                    {
-                        foreach (DataRow item in vDatosJefatura.Rows)
-                        {
-                            //if (!item["emailEmpresa"].ToString().Trim().Equals(""))                        
-                            vService.EnviarMensaje(
-                                item["Email"].ToString(),
-                                typeBody.Viaticos,
-                                item["Nombre"].ToString(),
-                                item["Nombre"].ToString(),
-                                "Voucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy")+" han sido aprobados.",
-                                "/pages/viaticos/solicitudViaticos.aspx"
-                            );
-                            vFlagEnvioSupervisor = true;
-                        }
-                    }
+                    //if (vFlagEnvioSupervisor)
+                    //{
+                    //    foreach (DataRow item in vDatosJefatura.Rows)
+                    //    {
+                    //        //if (!item["emailEmpresa"].ToString().Trim().Equals(""))                        
+                    //        vService.EnviarMensaje(item["Email"].ToString(),
+                    //        typeBody.Viaticos,
+                    //       item["Nombre"].ToString(),
+                    //      item["Nombre"].ToString(),
+                    //       "Boucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy")+" han sido aprobados.",
+                    //        "/pages/viaticos/solicitudViaticos.aspx"
+                    //        );
+                    //    }
+                    //}
                 }
                 HFRecibo.Value = null;
                 limpiarForm();
@@ -275,46 +272,48 @@ namespace BiometricoWeb.pages.viaticos
                 if (vInfo == 1)
                 {
 
-                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
-                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+                    //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
 
-                    Boolean vFlagEnvioSupervisor = false;
-                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
-                    if (vDatosJefatura.Rows.Count > 0)
-                    {
-                        foreach (DataRow item in vDatosJefatura.Rows)
-                        {
-                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            {
-                                vService.EnviarMensaje(
-                                    item["emailEmpresa"].ToString(),
-                                    typeBody.Viaticos,
-                                    item["nombre"].ToString(),
-                                    item["nombre"].ToString(),
-                                    "Has enviado baucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                    "/pages/viaticos/buscarRecibo.aspx"
-                                );
-                                vFlagEnvioSupervisor = true;
-                            }
-                        }
-                    }
+                    //Boolean vFlagEnvioSupervisor = false;
+                    //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    //if (vDatosJefatura.Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow item in vDatosJefatura.Rows)
+                    //    {
+                    //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        {
+                    //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                    //                typeBody.Viaticos,
+                    //                item["nombre"].ToString(),
+                    //                item["nombre"].ToString(),
+                    //                 "Has enviado baucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //                "/pages/viaticos/buscarRecibo.aspx"
+                    //                );
+                    //            vFlagEnvioSupervisor = true;
+                    //        }
+                    //    }
+                    //}
 
-                    if (vFlagEnvioSupervisor)
-                    {
-                        vService.EnviarMensaje("dzepeda@bancatlan.hn",
-                            typeBody.Viaticos,
-                            "DINA ZEPEDA",
-                            vDatosJefatura.Rows[0]["Nombre"].ToString(),
-                            "Es necesaria su aprobación de baucher de pago en solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
-                            "/pages/viaticos/buscarRecibo.aspx"
-                        );
-                    }
+                    //if (vFlagEnvioSupervisor)
+                    //{
+
+                    //    vService.EnviarMensaje("dzepeda@bancatlan.hn",
+                    //        typeBody.Viaticos,
+                    //       "DINA ZEPEDA",
+                    //      vDatosJefatura.Rows[0]["Nombre"].ToString(),
+                    //       "Es necesaria su aprobación de baucher de pago en solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //        "/pages/viaticos/buscarRecibo.aspx"
+                    //    );
+                    //}
                 }
                 HFRecibo.Value = null;
                 limpiarForm();
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "closeModal();", true);
                 Response.Redirect("buscarRecibo.aspx");
+
             }
+            
         }
 
         protected void btnModalCerrar_Click(object sender, EventArgs e)
@@ -336,45 +335,43 @@ namespace BiometricoWeb.pages.viaticos
                 if (vInfo == 1)
                 {
                     
-                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
-                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+                    //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
 
-                    Boolean vFlagEnvioSupervisor = false;
-                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
-                    if (vDatosJefatura.Rows.Count > 0)
-                    {
-                        foreach (DataRow item in vDatosJefatura.Rows)
-                        {
-                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            {
-                                vService.EnviarMensaje(
-                                    item["emailEmpresa"].ToString(),
-                                    typeBody.Viaticos,
-                                    item["nombre"].ToString(),
-                                    vDatosEmpleado.Rows[0]["Nombre"].ToString(),
-                                    "Has devuelto baucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                    "/pages/viaticos/buscarRecibo.aspx"
-                                );
-                                vFlagEnvioSupervisor = true;
-                            }
-                        }
-                    }
+                    //Boolean vFlagEnvioSupervisor = false;
+                    //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    //if (vDatosJefatura.Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow item in vDatosJefatura.Rows)
+                    //    {
+                    //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        {
+                    //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                    //                typeBody.Viaticos,
+                    //                item["nombre"].ToString(),
+                    //                vDatosEmpleado.Rows[0]["Nombre"].ToString(),
+                    //                 "Has devuelto baucher de pago de solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //                 "/pages/viaticos/buscarRecibo.aspx"
+                    //                );
+                    //            vFlagEnvioSupervisor = true;
+                    //        }
+                    //    }
+                    //}
 
-                    if (vFlagEnvioSupervisor)
-                    {
-                        foreach (DataRow item in vDatosJefatura.Rows)
-                        {
-                            //if (!item["emailEmpresa"].ToString().Trim().Equals(""))                        
-                            vService.EnviarMensaje(
-                                item["Email"].ToString(),
-                                typeBody.Viaticos,
-                                item["Nombre"].ToString(),
-                                "DINA ZEPEDA",
-                                "Baucher de pago fue devuellto correspondiente a solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                "/pages/viaticos/buscarRecibo.aspx"
-                            );
-                        }
-                    }
+                    //if (vFlagEnvioSupervisor)
+                    //{
+                    //    foreach (DataRow item in vDatosJefatura.Rows)
+                    //    {
+                    //        //if (!item["emailEmpresa"].ToString().Trim().Equals(""))                        
+                    //        vService.EnviarMensaje(item["Email"].ToString(),
+                    //        typeBody.Viaticos,
+                    //       item["Nombre"].ToString(),
+                    //      "DINA ZEPEDA",
+                    //       "Baucher de pago fue devuellto correspondiente a solicitud de viáticos solicitada el " + Convert.ToDateTime(txtFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //        "/pages/viaticos/buscarRecibo.aspx"
+                    //        );
+                    //    }
+                    //}
                 }
                 HFRecibo.Value = null;
                 limpiarForm();

@@ -113,6 +113,7 @@ namespace BiometricoWeb.pages.viaticos
             Decimal vLiquidarM = 0;
 
             Session["VIATICOS_LIQ_TOTAL"] = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"];
+           
             Session["VIATICOS_LIQ_COSTODEPRE"] = Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Contains(".") ? Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_COSTODEPRE"];
             //Session["VIATICOS_LIQ_TOTAL"] = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"];
             //Session["VIATICOS_LIQ_COSTODEPRE"] = Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Contains(".") ? Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_COSTODEPRE"];
@@ -694,31 +695,31 @@ namespace BiometricoWeb.pages.viaticos
                 if (vInfo == 1)
                 {
                     
-                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
-                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
-                    string vQueryJ = "VIATICOS_ObtenerGenerales 49," + Session["USUARIO"];
-                    DataTable vDatosJefe = vConexion.obtenerDataTable(vQueryJ);
+                    //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+                    //string vQueryJ = "VIATICOS_ObtenerGenerales 49," + Session["USUARIO"];
+                    //DataTable vDatosJefe = vConexion.obtenerDataTable(vQueryJ);
 
-                    Boolean vFlagEnvioSupervisor = false;
-                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
-                    if (vDatosJefatura.Rows.Count > 0)
-                    {
-                        foreach (DataRow item in vDatosJefatura.Rows)
-                        {
-                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            {
-                                vService.EnviarMensaje(
-                                    item["emailEmpresa"].ToString(),
-                                    typeBody.Viaticos,
-                                    item["nombre"].ToString(),
-                                    vDatosEmpleado.Rows[0]["Nombre"].ToString(),
-                                    "Se aprobó solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                    "/pages/viaticos/aprobarViaticos.aspx"
-                                );
-                                vFlagEnvioSupervisor = true;
-                            }
-                        }
-                    }
+                    //Boolean vFlagEnvioSupervisor = false;
+                    //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    //if (vDatosJefatura.Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow item in vDatosJefatura.Rows)
+                    //    {
+                    //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        {
+                    //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                    //                typeBody.Viaticos,
+                    //                item["nombre"].ToString(),
+                    //                vDatosEmpleado.Rows[0]["Nombre"].ToString(),
+                    //                "Se aprobó solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //                "/pages/viaticos/aprobarViaticos.aspx"
+                    //                );
+                    //            vFlagEnvioSupervisor = true;
+                    //        }
+                    //    }
+                    //}
+
                     string vEstadoViaticos = "";
                     string vEstadoLiquidacion = "";
                     string vTransporte = "";
@@ -738,8 +739,8 @@ namespace BiometricoWeb.pages.viaticos
                     if (vEstadoViaticos == "13" && vEstadoLiquidacion=="2" && vTipoViaje=="2" || vEstadoViaticos == "11" && vEstadoLiquidacion == "1" && vTipoViaje == "1")
                     {
                         string vReporteViaticos = "Recibo Liquidacion";
-                        string vCorreoAdministrativo = "dzepeda@bancatlan.hn";
-                        //string vCorreoAdministrativo = "acedillo@bancatlan.hn";
+                        //string vCorreoAdministrativo = "dzepeda@bancatlan.hn";
+                        string vCorreoAdministrativo = "acedillo@bancatlan.hn";
                         string vAsuntoRV = "Recibo de liquidación";
                         string vBody = "Aprobación de liquidación";
                         int vEstadoSuscripcion = 0;
@@ -763,41 +764,38 @@ namespace BiometricoWeb.pages.viaticos
                     if (vEstadoViaticos == "11")
                     {
 
-                        if (vFlagEnvioSupervisor)
-                        {
-                            foreach (DataRow item in vDatosEmpleado.Rows)
-                            {
-                                //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                                vService.EnviarMensaje(
-                                    item["Email"].ToString(),
-                                    typeBody.Viaticos,
-                                    item["Nombre"].ToString(),
-                                    vDatosJefatura.Rows[0]["nombre"].ToString(),
-                                    "Se aprobó su solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy")+" favor envía boucher de pago, si en los proximos 3 días no hace efectivo el pago se deducira de su planilla.",
-                                    "/pages/viaticos/buscarRecibo.aspx"
-                                );
-                                vFlagEnvioSupervisor = true;
-                            }
-                        }
+                        //if (vFlagEnvioSupervisor)
+                        //{
+                        //    foreach (DataRow item in vDatosEmpleado.Rows)
+                        //    {
+                        //        //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                        //        vService.EnviarMensaje(item["Email"].ToString(),
+                        //        typeBody.Viaticos,
+                        //        item["Nombre"].ToString(),
+                        //        vDatosJefatura.Rows[0]["nombre"].ToString(),
+                        //        "Se aprobó su solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy")+" favor envía boucher de pago, si en los proximos 3 días no hace efectivo el pago se deducira de su planilla.",
+                        //        "/pages/viaticos/buscarRecibo.aspx"
+                        //     );
+                        //    }
+                        //}
                     }
                     else
                     {
-                        if (vFlagEnvioSupervisor)
-                        {
-                            foreach (DataRow item in vDatosSiguiente.Rows)
-                            {
-                                //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                                vService.EnviarMensaje(
-                                    item["Email"].ToString(),
-                                    typeBody.Viaticos,
-                                    item["Nombre"].ToString(),
-                                    vDatosJefatura.Rows[0]["nombre"].ToString(),
-                                    "Se aprobó solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                    "/pages/viaticos/aprobarViaticos.aspx"
-                                );
-                                vFlagEnvioSupervisor = true;
-                            }
-                        }
+                        //if (vFlagEnvioSupervisor)
+                        //{
+                        //    foreach (DataRow item in vDatosSiguiente.Rows)
+                        //    {
+                        //        //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                        //        vService.EnviarMensaje(item["Email"].ToString(),
+                        //        typeBody.Viaticos,
+                        //        item["Nombre"].ToString(),
+                        //        vDatosJefatura.Rows[0]["nombre"].ToString(),
+                        //        "Se aprobó solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                        //        "/pages/viaticos/aprobarViaticos.aspx"
+
+                        //     );
+                        //    }
+                        //}
                     }
                 }
                 HFVerRecibo.Value = null;
@@ -873,48 +871,46 @@ namespace BiometricoWeb.pages.viaticos
                 if (vInfo == 1)
                 {
                    
-                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
-                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
-                    string vQueryJ = "VIATICOS_ObtenerGenerales 49," + Session["USUARIO"];
-                    DataTable vDatosJefe = vConexion.obtenerDataTable(vQueryJ);
+                    //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+                    //string vQueryJ = "VIATICOS_ObtenerGenerales 49," + Session["USUARIO"];
+                    //DataTable vDatosJefe = vConexion.obtenerDataTable(vQueryJ);
 
-                    Boolean vFlagEnvioSupervisor = false;
-                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
-                    if (vDatosJefatura.Rows.Count > 0)
-                    {
-                        foreach (DataRow item in vDatosJefatura.Rows)
-                        {
-                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            {
-                                vService.EnviarMensaje(
-                                    item["emailEmpresa"].ToString(),
-                                    typeBody.Viaticos,
-                                    item["nombre"].ToString(),
-                                    item["nombre"].ToString(),
-                                    "Se envió su solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                    "/pages/viaticos/liquidar.aspx"
-                                    );
-                                vFlagEnvioSupervisor = true;
-                            }
-                        }
-                    }
+                    //Boolean vFlagEnvioSupervisor = false;
+                    //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    //if (vDatosJefatura.Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow item in vDatosJefatura.Rows)
+                    //    {
+                    //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        {
+                    //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                    //                typeBody.Viaticos,
+                    //                item["nombre"].ToString(),
+                    //                item["nombre"].ToString(),
+                    //                 "Se envió su solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //                "/pages/viaticos/liquidar.aspx"
+                    //                );
+                    //            vFlagEnvioSupervisor = true;
+                    //        }
+                    //    }
+                    //}
 
-                    if (vFlagEnvioSupervisor)
-                    {
-                        foreach (DataRow item in vDatosJefe.Rows)
-                        {
-                            //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            vService.EnviarMensaje(
-                                item["Email"].ToString(),
-                                typeBody.Viaticos,
-                                item["Nombre"].ToString(),
-                                vDatosJefatura.Rows[0]["nombre"].ToString(),
-                                "Es necesaria su aprobación en solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                "/pages/viaticos/aprobarViaticos.aspx"
-                            );
-                            vFlagEnvioSupervisor = true;
-                        }
-                    }
+                    //if (vFlagEnvioSupervisor)
+                    //{
+                    //    foreach (DataRow item in vDatosJefe.Rows)
+                    //    {
+                    //        //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        vService.EnviarMensaje(item["Email"].ToString(),
+                    //        typeBody.Viaticos,
+                    //        item["Nombre"].ToString(),
+                    //        vDatosJefatura.Rows[0]["nombre"].ToString(),
+                    //         "Es necesaria su aprobación en solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //        "/pages/viaticos/aprobarViaticos.aspx"
+                    //     );
+                    //    }
+                    //}
+
                 }
                 HFVerRecibo.Value = null;
                 Response.Redirect("devolverViaticos.aspx");
@@ -973,48 +969,45 @@ namespace BiometricoWeb.pages.viaticos
                 if (vInfo2 == 1)
                 {
                     
-                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
-                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
-                    string vQueryJ = "VIATICOS_ObtenerGenerales 49," + Session["USUARIO"];
-                    DataTable vDatosJefe = vConexion.obtenerDataTable(vQueryJ);
+                    //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+                    //string vQueryJ = "VIATICOS_ObtenerGenerales 49," + Session["USUARIO"];
+                    //DataTable vDatosJefe = vConexion.obtenerDataTable(vQueryJ);
 
-                    Boolean vFlagEnvioSupervisor = false;
-                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
-                    if (vDatosJefatura.Rows.Count > 0)
-                    {
-                        foreach (DataRow item in vDatosJefatura.Rows)
-                        {
-                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            {
-                                vService.EnviarMensaje(
-                                    item["emailEmpresa"].ToString(),
-                                    typeBody.Viaticos,
-                                    item["nombre"].ToString(),
-                                    item["nombre"].ToString(),
-                                    "Se envió su solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                    "/pages/viaticos/liquidar.aspx"
-                                );
-                                vFlagEnvioSupervisor = true;
-                            }
-                        }
-                    }
+                    //Boolean vFlagEnvioSupervisor = false;
+                    //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    //if (vDatosJefatura.Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow item in vDatosJefatura.Rows)
+                    //    {
+                    //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        {
+                    //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                    //                typeBody.Viaticos,
+                    //                item["nombre"].ToString(),
+                    //                item["nombre"].ToString(),
+                    //                "Se envió su solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //                "/pages/viaticos/liquidar.aspx"
+                    //                );
+                    //            vFlagEnvioSupervisor = true;
+                    //        }
+                    //    }
+                    //}
 
-                    if (vFlagEnvioSupervisor)
-                    {
-                        foreach (DataRow item in vDatosJefe.Rows)
-                        {
-                            //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            vService.EnviarMensaje(
-                                item["Email"].ToString(),
-                                typeBody.Viaticos,
-                                item["Nombre"].ToString(),
-                                vDatosJefatura.Rows[0]["nombre"].ToString(),
-                                "Es necesaria su aprobación en solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                "/pages/viaticos/aprobarViaticos.aspx"
-                            );
-                            vFlagEnvioSupervisor = true;
-                        }
-                    }
+                    //if (vFlagEnvioSupervisor)
+                    //{
+                    //    foreach (DataRow item in vDatosJefe.Rows)
+                    //    {
+                    //        //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        vService.EnviarMensaje(item["Email"].ToString(),
+                    //        typeBody.Viaticos,
+                    //        item["Nombre"].ToString(),
+                    //        vDatosJefatura.Rows[0]["nombre"].ToString(),
+                    //        "Es necesaria su aprobación en solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //        "/pages/viaticos/aprobarViaticos.aspx"
+                    //     );
+                    //    }
+                    //}
 
                 }
 
@@ -1050,46 +1043,44 @@ namespace BiometricoWeb.pages.viaticos
             if (vInfo == 1)
             {
               
-                string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
-                DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+                //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
 
-                Boolean vFlagEnvioSupervisor = false;
-                DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
-                if (vDatosJefatura.Rows.Count > 0)
-                {
-                    foreach (DataRow item in vDatosJefatura.Rows)
-                    {
-                        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                        {
-                            vService.EnviarMensaje(
-                                item["emailEmpresa"].ToString(),
-                                typeBody.Viaticos,
-                                item["nombre"].ToString(),
-                                vDatosEmpleado.Rows[0]["Nombre"].ToString(),
-                                "Se devolvió solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                "/pages/viaticos/aprobarViaticos.aspx"
-                            );
-                            vFlagEnvioSupervisor = true;
-                        }
-                    }
-                }
+                //Boolean vFlagEnvioSupervisor = false;
+                //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                //if (vDatosJefatura.Rows.Count > 0)
+                //{
+                //    foreach (DataRow item in vDatosJefatura.Rows)
+                //    {
+                //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                //        {
+                //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                //                typeBody.Viaticos,
+                //                item["nombre"].ToString(),
+                //                vDatosEmpleado.Rows[0]["Nombre"].ToString(),
+                //                "Se devolvió solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                //                "/pages/viaticos/aprobarViaticos.aspx"
+                //                );
+                //            vFlagEnvioSupervisor = true;
+                //        }
+                //    }
+                //}
 
-                if (vFlagEnvioSupervisor)
-                {
-                    foreach (DataRow item in vDatosEmpleado.Rows)
-                    {
-                        //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                        vService.EnviarMensaje(
-                            item["Email"].ToString(),
-                            typeBody.Viaticos,
-                            item["Nombre"].ToString(),
-                            vDatosJefatura.Rows[0]["nombre"].ToString(),
-                            "Se devolvió solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                            "/pages/viaticos/devolverViaticos.aspx"
-                        );
-                        vFlagEnvioSupervisor = true;
-                    }
-                }
+                //if (vFlagEnvioSupervisor)
+                //{
+                //    foreach (DataRow item in vDatosEmpleado.Rows)
+                //    {
+                //        //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                //        vService.EnviarMensaje(item["Email"].ToString(),
+                //        typeBody.Viaticos,
+                //        item["Nombre"].ToString(),
+                //        vDatosJefatura.Rows[0]["nombre"].ToString(),
+                //        "Se devolvió solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                //            "/pages/viaticos/devolverViaticos.aspx"
+
+                //     );
+                //    }
+                //}
             }
             HFVerRecibo.Value = null;
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "closeModal2();", true);
@@ -1190,48 +1181,46 @@ namespace BiometricoWeb.pages.viaticos
                 if (vInfo1 == 1)
                 {
                    
-                    string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
-                    DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
-                    string vQueryJ = "VIATICOS_ObtenerGenerales 49," + Session["USUARIO"];
-                    DataTable vDatosJefe = vConexion.obtenerDataTable(vQueryJ);
+                    //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                    //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+                    //string vQueryJ = "VIATICOS_ObtenerGenerales 49," + Session["USUARIO"];
+                    //DataTable vDatosJefe = vConexion.obtenerDataTable(vQueryJ);
 
-                    Boolean vFlagEnvioSupervisor = false;
-                    DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
-                    if (vDatosJefatura.Rows.Count > 0)
-                    {
-                        foreach (DataRow item in vDatosJefatura.Rows)
-                        {
-                            if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            {
-                                vService.EnviarMensaje(
-                                    item["emailEmpresa"].ToString(),
-                                    typeBody.Viaticos,
-                                    item["nombre"].ToString(),
-                                    item["nombre"].ToString(),
-                                    "Ha cancelado su solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                    "/pages/viaticos/solicitudViaticos.aspx"
-                                    );
-                                vFlagEnvioSupervisor = true;
-                            }
-                        }
-                    }
+                    //Boolean vFlagEnvioSupervisor = false;
+                    //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
+                    //if (vDatosJefatura.Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow item in vDatosJefatura.Rows)
+                    //    {
+                    //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        {
+                    //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                    //                typeBody.Viaticos,
+                    //                item["nombre"].ToString(),
+                    //                item["nombre"].ToString(),
+                    //                "Ha cancelado su solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //                "/pages/viaticos/solicitudViaticos.aspx"
+                    //                );
+                    //            vFlagEnvioSupervisor = true;
+                    //        }
+                    //    }
+                    //}
 
-                    if (vFlagEnvioSupervisor)
-                    {
-                        foreach (DataRow item in vDatosJefe.Rows)
-                        {
-                            //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                            vService.EnviarMensaje(
-                                item["Email"].ToString(),
-                                typeBody.Viaticos,
-                                item["Nombre"].ToString(),
-                                vDatosJefatura.Rows[0]["nombre"].ToString(),
-                                "Se canceló solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
-                                "/pages/viaticos/aprobarViaticos.aspx"
-                            );
-                            vFlagEnvioSupervisor = true;
-                        }
-                    }
+                    //if (vFlagEnvioSupervisor)
+                    //{
+                    //    foreach (DataRow item in vDatosJefe.Rows)
+                    //    {
+                    //        //if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                    //        vService.EnviarMensaje(item["Email"].ToString(),
+                    //        typeBody.Viaticos,
+                    //        item["Nombre"].ToString(),
+                    //        vDatosJefatura.Rows[0]["nombre"].ToString(),
+                    //        "Se canceló solicitud de viáticos solicitada el " + Convert.ToDateTime(TxFechaInicio.Text).ToString("dd-MM-yyyy"),
+                    //        "/pages/viaticos/aprobarViaticos.aspx"
+
+                    //     );
+                    //    }
+                    //}
                 }
                 LimpiarForm();
                 HFVerRecibo.Value = null;

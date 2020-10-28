@@ -491,7 +491,7 @@
                                                              <asp:BoundField DataField="MotivoViaje" HeaderText="Motivo de viaje" ItemStyle-HorizontalAlign="center" Visible="false"/>
                                                              <asp:BoundField DataField="TipoViaje" HeaderText="Destino" ItemStyle-HorizontalAlign="center"/>
                                                              <asp:BoundField DataField="Empleado" HeaderText="Nombre" ItemStyle-HorizontalAlign="center"/>
-                                                             <asp:BoundField DataField="Total" HeaderText="Costo Total" ItemStyle-HorizontalAlign="center"/>
+                                                             <asp:BoundField DataField="Total" HtmlEncode=False DataFormatString="{0:n}" HeaderText="Costo Total" ItemStyle-HorizontalAlign="center"/>
                                                              <asp:BoundField DataField="Viaticos" HeaderText="Código" Visible="false" />
                                                          </Columns>
                                             </asp:GridView>

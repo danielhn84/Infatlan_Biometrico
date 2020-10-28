@@ -185,7 +185,7 @@
 
                                 <div class="row col-12" style="margin-left: 10px; margin-left: 10px;">
                                     <asp:Label Text="Agregue archivo PDF con todas las facturas disponibles." runat="server" ID="LBComArchivo" class="col-12"/>
-                                    <asp:FileUpload runat="server" ID="FULiquidacion" AllowMultiple="false" ClientIDMode="AutoID" CssClass="col-5" />                                  
+                                    <asp:FileUpload runat="server" accept=".pdf" ID="FULiquidacion" AllowMultiple="false" ClientIDMode="AutoID" CssClass="col-5" />                                  
                                 </div>
                                 <br />
                                   <%--SELECCIONA LOS MONTOS--%>
