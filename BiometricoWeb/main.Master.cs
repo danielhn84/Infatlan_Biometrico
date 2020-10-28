@@ -146,7 +146,6 @@ namespace BiometricoWeb
                 LIViatMantenimiento.Visible = true;
                 LITExReportes.Visible = true;
                 LIDocumentosReportes.Visible = true;
-                LIActivos.Visible = true;
             }
         }
         
@@ -156,6 +155,7 @@ namespace BiometricoWeb
                     if (vDatos.Rows[i]["idPerfil"].ToString() == "15"){
                         LISEC_ActivosInternos.Visible = true;
                         LISEC_Asignacion.Visible = true;
+                        LIActivos.Visible = true;
                     }
                 }
             }catch (Exception ex){

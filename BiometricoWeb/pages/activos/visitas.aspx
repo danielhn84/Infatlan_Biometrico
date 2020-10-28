@@ -47,7 +47,7 @@
     </div>
 
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-Entradas" role="tabpanel" aria-labelledby="nav-cargar-tab">
+        <div class="tab-pane fade show active" id="nav-Visitas" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
             <%--Resultado--%> 
             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
@@ -90,6 +90,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3">Motivo:</label>
+                                                <div class="col-9">
+                                                    <asp:TextBox runat="server" ID="TxDescripcion" TextMode="MultiLine" Rows="3" CssClass="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +131,7 @@
                                 <div class="row">   
                                     <label class="col-2">Nombre:</label>
                                     <div class="col-7">
-                                        <asp:TextBox runat="server" ID="TxBuscaSerie" AutoPostBack="true" CssClass="form-control" OnTextChanged="TxBuscaSerie_TextChanged"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="TxBusqueda" AutoPostBack="true" CssClass="form-control" OnTextChanged="TxBusqueda_TextChanged"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +145,7 @@
                     <div class="col-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Equipo Asignado a Empleados</h4>
+                                <h4 class="card-title">Visitas Registradas</h4>
                                 <div class="row">
                                     <div class="table-responsive">
                                         <asp:GridView ID="GVBusqueda" runat="server"
@@ -150,12 +158,11 @@
                                             GridLines="None"
                                             PageSize="10" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
                                             <Columns>
-                                                <asp:BoundField DataField="idEmpleado" HeaderText="No." Visible="false" ItemStyle-HorizontalAlign="Left" />
                                                 <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
-                                                <asp:BoundField DataField="tipoEquipo" HeaderText="Equipo" ItemStyle-HorizontalAlign="Left"/>
-                                                <asp:BoundField DataField="serie" HeaderText="Serie" ItemStyle-HorizontalAlign="Left"/>
-                                                <asp:BoundField DataField="CodInventario" HeaderText="No. Inventario" ItemStyle-HorizontalAlign="Left"/>
-                                                <asp:BoundField DataField="modelo" HeaderText="Modelo" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="apellidos" HeaderText="Apellidos" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="identidad" HeaderText="Identidad" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="descripcion" HeaderText="Descripcion" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="area" HeaderText="Destino" ItemStyle-HorizontalAlign="Left"/>
                                             </Columns>
                                         </asp:GridView>
                                     </div>
