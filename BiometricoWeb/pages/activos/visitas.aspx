@@ -29,11 +29,142 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h2>Personal Externo</h2>
+                        <h2>Visitas</h2>
                         <p class="mb-md-0">Recursos Humanos</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div runat="server" visible="true">   
+        <nav>
+            <div class="nav nav-pills " id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Visitas" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-plus" style=""> </i>Nuevo</a>
+                <a class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-database" style=""> </i>Historial</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-Entradas" role="tabpanel" aria-labelledby="nav-cargar-tab">
+            <br />
+            <%--Resultado--%> 
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div runat="server" id="DivEquipoPersonal">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body" runat="server" id="Div2" >
+                                    <h4 class="card-title">Nuevo Registro</h4>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3">Area:</label>
+                                                <div class="col-9">
+                                                    <asp:DropDownList runat="server" CssClass="form-control" ID="DDLArea"></asp:DropDownList>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3">Nombre:</label>
+                                                <div class="col-9">
+                                                    <asp:TextBox runat="server" CssClass="form-control" ID="TxNombre" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3">Apellido:</label>
+                                                <div class="col-9">
+                                                    <asp:TextBox runat="server" ID="TxApellido" CssClass="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3">Identidad:</label>
+                                                <div class="col-9">
+                                                    <asp:TextBox runat="server" ID="TxIdentidad" CssClass="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">REGISTRAR INFORMACION</h4>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <asp:Button ID="BtnGuardar" class="btn btn-success" runat="server" Text="Registrar" OnClick="BtnGuardar_Click" />
+                                        <asp:Button ID="BtnCancelar" class="btn btn-secondary" runat="server" Text="Cancelar" OnClick="BtnCancelar_Click" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+        <div class="tab-pane fade" id="nav-Registros" role="tabpanel" aria-labelledby="nav-cargar-tab">
+            <br />
+            <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Búsqueda</h4>
+                                <div class="row">   
+                                    <label class="col-2">Nombre:</label>
+                                    <div class="col-7">
+                                        <asp:TextBox runat="server" ID="TxBuscaSerie" AutoPostBack="true" CssClass="form-control" OnTextChanged="TxBuscaSerie_TextChanged"></asp:TextBox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+            <asp:UpdatePanel ID="UpdateDivBusquedas" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Equipo Asignado a Empleados</h4>
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <asp:GridView ID="GVBusqueda" runat="server"
+                                            CssClass="mydatagrid"
+                                            PagerStyle-CssClass="pgr"
+                                            HeaderStyle-CssClass="align-self-lg-start"
+                                            RowStyle-CssClass="rows"
+                                            AutoGenerateColumns="false"
+                                            AllowPaging="true"
+                                            GridLines="None"
+                                            PageSize="10" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
+                                            <Columns>
+                                                <asp:BoundField DataField="idEmpleado" HeaderText="No." Visible="false" ItemStyle-HorizontalAlign="Left" />
+                                                <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="tipoEquipo" HeaderText="Equipo" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="serie" HeaderText="Serie" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="CodInventario" HeaderText="No. Inventario" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="modelo" HeaderText="Modelo" ItemStyle-HorizontalAlign="Left"/>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </div>
 </asp:Content>

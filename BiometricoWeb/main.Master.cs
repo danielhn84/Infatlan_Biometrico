@@ -146,6 +146,7 @@ namespace BiometricoWeb
                 LIViatMantenimiento.Visible = true;
                 LITExReportes.Visible = true;
                 LIDocumentosReportes.Visible = true;
+                LIActivos.Visible = true;
             }
         }
         

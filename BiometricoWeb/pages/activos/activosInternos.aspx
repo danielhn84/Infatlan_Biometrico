@@ -28,7 +28,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h2>Entrada de Equipo</h2>
+                        <h2>Personal Interno</h2>
                         <p class="mb-md-0">Recursos Humanos</p>
                     </div>
                 </div>
@@ -132,25 +132,65 @@
                             </div>
                         </div>
                     </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
 
-            <%--Grabar Entrada--%>
-            <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Crear Entrada</h4>
-                        <div class="form-group">
-                            <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
-                                <ContentTemplate>
-                                    <asp:Button ID="BtnGuardar" class="btn btn-success" runat="server" Text="Crear" OnClick="BtnGuardar_Click" />
-                                    <asp:Button ID="BtnCancelar" class="btn btn-secondary" runat="server" Text="Cancelar" OnClick="BtnCancelar_Click" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
+                    <div runat="server" id="DivEquipoPersonal" visible="false">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body" runat="server" id="Div2" >
+                                    <h4 class="card-title">Nuevo Registro</h4>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3">Empleado:</label>
+                                                <div class="col-9">
+                                                    <asp:DropDownList runat="server" ID="DDLEmpleado" CssClass="form-control"></asp:DropDownList>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3">Serie:</label>
+                                                <div class="col-9">
+                                                    <asp:TextBox runat="server" ID="TxSerie" CssClass="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3">Marca:</label>
+                                                <div class="col-9">
+                                                    <asp:TextBox runat="server" ID="TxMarca" CssClass="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group row">
+                                                <label class="col-3">Modelo:</label>
+                                                <div class="col-9">
+                                                    <asp:TextBox runat="server" ID="TxModelo" CssClass="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">REGISTRAR INFORMACION</h4>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <asp:Button ID="BtnGuardar" class="btn btn-success" runat="server" Text="Registrar" OnClick="BtnGuardar_Click" />
+                                        <asp:Button ID="BtnCancelar" class="btn btn-secondary" runat="server" Text="Cancelar" OnClick="BtnCancelar_Click" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
 
         <div class="tab-pane fade" id="nav-Registros" role="tabpanel" aria-labelledby="nav-cargar-tab">
@@ -178,27 +218,25 @@
                     <div class="col-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Entradas Creadas</h4>
-                                <p>Ordenados por fecha de creación</p>
+                                <h4 class="card-title">Equipo Asignado a Empleados</h4>
                                 <div class="row">
                                     <div class="table-responsive">
                                         <asp:GridView ID="GVBusqueda" runat="server"
                                             CssClass="mydatagrid"
                                             PagerStyle-CssClass="pgr"
-                                            HeaderStyle-CssClass="header"
+                                            HeaderStyle-CssClass="align-self-lg-start"
                                             RowStyle-CssClass="rows"
                                             AutoGenerateColumns="false"
                                             AllowPaging="true"
                                             GridLines="None"
                                             PageSize="10" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
                                             <Columns>
-                                                <asp:BoundField DataField="id" HeaderText="No." />
-                                                <asp:BoundField DataField="nombre" HeaderText="Nombre" />
-                                                <asp:BoundField DataField="articulo" HeaderText="Artículo" />
-                                                <asp:BoundField DataField="serie" HeaderText="Serie" />
-                                                <asp:BoundField DataField="inventario" HeaderText="No. Inventario" />
-                                                <asp:BoundField DataField="destinatario" HeaderText="Destinatario" />
-                                                <asp:BoundField DataField="fechaEntrada" HeaderText="Fecha" />
+                                                <asp:BoundField DataField="idEmpleado" HeaderText="No." Visible="false" ItemStyle-HorizontalAlign="Left" />
+                                                <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="tipoEquipo" HeaderText="Equipo" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="serie" HeaderText="Serie" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="CodInventario" HeaderText="No. Inventario" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="modelo" HeaderText="Modelo" ItemStyle-HorizontalAlign="Left"/>
                                             </Columns>
                                         </asp:GridView>
                                     </div>

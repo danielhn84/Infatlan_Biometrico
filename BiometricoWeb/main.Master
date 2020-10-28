@@ -353,8 +353,6 @@
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Salidas"><a class="nav-link" href="/pages/salidas.aspx">Salidas</a></li>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Historico"><a class="nav-link" href="/pages/sec_historico.aspx">Historico</a></li>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Aprobaciones"><a class="nav-link" href="/pages/sec_aprobaciones.aspx">Aprobaciones</a></li>
-                                    
-                                    <li class="nav-item" runat="server" visible="true" id="LI1"><a class="nav-link" href="/pages/activos/registroVisitas.aspx">Solicitud Datacenter</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -375,7 +373,7 @@
                         </li>
 
                         <%--visible para pruebas--%>
-                        <li class="nav-item" id="LIActivos" runat="server" visible="true">
+                        <li class="nav-item" id="LIActivos" runat="server" visible="false">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic14" aria-expanded="false" aria-controls="ui-basic5">
                                 <i class="mdi mdi-shape-plus menu-icon"></i>
                                 <span class="menu-title">Activos</span>

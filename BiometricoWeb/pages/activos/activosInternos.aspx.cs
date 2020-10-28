@@ -22,19 +22,27 @@ namespace BiometricoWeb.pages.activos
                         Response.Redirect("/login.aspx");
 
                     TxBusqueda.Focus();
-                    //cargarDatos();
+                    cargarDatos();
                 }
             }
         }
 
         private void cargarDatos(){
             try{
-                String vQuery = "[RSP_ActivosPI] 5";
+                String vQuery = "[RSP_ActivosPI] 7";
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     GVBusqueda.DataSource = vDatos;
                     GVBusqueda.DataBind();
-                    Session["SEG_ENTRADAS"] = vDatos;
+                    Session["ACTIVOS_PI_ASIGNACIONES"] = vDatos;
+                }
+
+                vQuery = "[RSP_ActivosPI] 6";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+
+                DDLEmpleado.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                foreach (DataRow item in vDatos.Rows){
+                    DDLEmpleado.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
                 }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
@@ -52,23 +60,25 @@ namespace BiometricoWeb.pages.activos
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                     if (vDatos.Rows.Count < 1){
                         TxBusqueda.Focus();
+                        String vBusqueda = TxBusqueda.Text;
                         limpiarFormulario();
-                        Mensaje("El número de serie no esta en inventario o no está asignado. Favor ingrese otro.", WarningType.Warning);
+                        DivEquipoPersonal.Visible = true;
+                        TxSerie.Text = vBusqueda;
+                        //Mensaje("El número de serie no esta en inventario o no está asignado. Favor ingrese otro.", WarningType.Warning);
                     }else{
                         Session["ACTIVOS_ID"] = vDatos.Rows[0]["idEquipo"].ToString();
 
                         DivSalidas.Visible = true;
+                        DivEquipoPersonal.Visible = false;
                         LbIdSalida.Text = vDatos.Rows[0]["idEquipo"].ToString();
                         LbNombre.Text = vDatos.Rows[0]["nombre"].ToString();
                         LbSerieSalida.Text = vDatos.Rows[0]["serie"].ToString();
                         LbMarca.Text = vDatos.Rows[0]["marca"].ToString();
                         LbTipo.Text = vDatos.Rows[0]["TipoEquipo"].ToString();
                         LbCodInventario.Text = vDatos.Rows[0]["CodInventario"].ToString();
-
                         DivBody.Visible = true;
-                        UpdatePanel1.Update();
-                        
                     }
+                    UpdatePanel1.Update();
                 }else
                     limpiarFormulario();
 
@@ -129,6 +139,9 @@ namespace BiometricoWeb.pages.activos
             TxBusqueda.Text = string.Empty;
 
             DivSalidas.Visible = false;
+            DivEquipoPersonal.Visible = false;
+
+            TxSerie.Text = string.Empty;
             LbIdSalida.Text = string.Empty;
             LbNombre.Text = string.Empty;
             LbMarca.Text = string.Empty;
