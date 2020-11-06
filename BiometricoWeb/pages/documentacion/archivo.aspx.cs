@@ -22,10 +22,12 @@ namespace BiometricoWeb.pages.documentacion
                     String vQuery = "[RSP_Documentacion] 12,'" + vToken + "'";
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                     if (vDatos.Rows.Count > 0){
-                        token vTokenClass = new token();
+                        tokenClass vTokenClass = new tokenClass();
                         CryptoToken.CryptoToken vTokenCrypto = new CryptoToken.CryptoToken();
-                        vTokenClass = JsonConvert.DeserializeObject<token>(vTokenCrypto.Decrypt(vToken, ConfigurationManager.AppSettings["TOKEN_DOC"].ToString()));
+                        vTokenClass = JsonConvert.DeserializeObject<tokenClass>(vTokenCrypto.Decrypt(vToken, ConfigurationManager.AppSettings["TOKEN_DOC"].ToString()));
                         Session["DOCUMENTOS_ARCHIVO_ID"] = Request.QueryString["d"];
+
+                        //vTokenClass.usuario
 
                         Session["AUTHCLASS"] = vDatos;
                         Session["USUARIO"] = vDatos.Rows[0]["idEmpleado"].ToString();

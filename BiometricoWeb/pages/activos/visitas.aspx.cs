@@ -57,16 +57,23 @@ namespace BiometricoWeb.pages.activos
 
         protected void BtnGuardar_Click(object sender, EventArgs e){
             try{
+
+                String vQuery = "", vMensaje = "";
                 validar();
-                String vQuery = "[RSP_ActivosPE] 2" +
+                vQuery = "[RSP_ActivosPE] 2" +
                     "," + DDLArea.SelectedValue + 
                     ",'" + TxNombre.Text + 
                     "','" +  TxApellido.Text +
-                    "','" + TxIdentidad.Text + "'";
+                    "','" + TxIdentidad.Text + "'" +
+                    ",'" + TxDescripcion.Text + "'";
+                vMensaje = "Visita registrada con éxito";
+
                 int vInfo = vConexion.ejecutarSql(vQuery);
-                if (vInfo == 1)
-                    Mensaje("Visita registrada con éxito", WarningType.Success);
-                else
+                if (vInfo == 1) {
+                    cargarDatos();
+                    UPBusquedas.Update();
+                    Mensaje(vMensaje, WarningType.Success);
+                }else
                     Mensaje("Hubo un error al ingresar la visita, comuníquese con sistemas.", WarningType.Success);
 
                 limpiarFormulario();
@@ -85,7 +92,10 @@ namespace BiometricoWeb.pages.activos
             TxNombre.Text = string.Empty;
             TxApellido.Text = string.Empty;
             TxIdentidad.Text = string.Empty;
+            TxDescripcion.Text = string.Empty;
 
+            TxIdentidadSalida.Text = string.Empty;
+            LbNombreSalida.Text = string.Empty;
             UpdatePanel1.Update();
         }
 
@@ -150,8 +160,46 @@ namespace BiometricoWeb.pages.activos
                     GVBusqueda.DataSource = vDatos;
                     GVBusqueda.DataBind();
                 }
-                
-                UpdateDivBusquedas.Update();
+
+                UPBusquedas.Update();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void TxIdentidadSalida_TextChanged(object sender, EventArgs e){
+            try{
+                if (TxIdentidadSalida.Text != "" || TxIdentidadSalida.Text != string.Empty){
+                    String vQuery = "[RSP_ActivosPE] 5,'" + TxIdentidadSalida.Text + "'";
+                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                    if (vDatos.Rows.Count > 0)
+                        LbNombreSalida.Text = vDatos.Rows[0]["nombre"].ToString() + " " + vDatos.Rows[0]["apellidos"].ToString();
+                    else 
+                        TxMensaje.Text = "No tiene una salida pendiente!";
+                    
+                    UpdatePanel1.Update();
+                }
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnRegistrarSalida_Click(object sender, EventArgs e){
+            try{
+                if (TxIdentidadSalida.Text == "" || TxIdentidadSalida.Text == string.Empty)
+                    throw new Exception("Por favor ingrese la el número de identidad.");
+
+                String vQuery = "[RSP_ActivosPE] 4,'" + TxIdentidadSalida.Text + "'," + Session["USUARIO"].ToString();
+                int vInfo = vConexion.ejecutarSql(vQuery);
+                if (vInfo == 1) {
+                    cargarDatos();
+                    UPBusquedas.Update();
+                    Mensaje("Salida de Visita registrada con éxito", WarningType.Success);
+                }else
+                    Mensaje("Hubo un error al ingresar la visita, comuníquese con sistemas.", WarningType.Danger);
+
+                limpiarFormulario();
+                UpdatePanel1.Update();
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }

@@ -173,6 +173,7 @@
     <Content Include="pages\mantenimiento\tipoViaje.aspx" />
     <Content Include="pages\mantenimiento\transporte.aspx" />
     <Content Include="pages\firmantes.aspx" />
+    <Content Include="pages\marcajes.aspx" />
     <Content Include="pages\servicios\birthdayCalendar.aspx" />
     <Content Include="pages\buzonSugerencias.aspx" />
     <Content Include="pages\canceled.aspx" />
@@ -404,6 +405,13 @@
     </Compile>
     <Compile Include="pages\firmantes.aspx.designer.cs">
       <DependentUpon>firmantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\marcajes.aspx.cs">
+      <DependentUpon>marcajes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\marcajes.aspx.designer.cs">
+      <DependentUpon>marcajes.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\servicios\birthdayCalendar.aspx.cs">
       <DependentUpon>birthdayCalendar.aspx</DependentUpon>

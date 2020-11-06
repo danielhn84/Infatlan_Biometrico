@@ -25,6 +25,7 @@ namespace BiometricoWeb.clases
         {
             return vConnect;
         }
+
         public int GetMachineNumber()
         {
             return iMachineNumber;

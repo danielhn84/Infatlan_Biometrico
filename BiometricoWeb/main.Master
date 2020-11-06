@@ -326,6 +326,7 @@
                                         <div class="dropdown-menu" id="ui-basic2">
                                             <a class="nav-link" href="/pages/access.aspx">Accesos Grupos</a>
                                             <a class="nav-link" href="/pages/clockuser.aspx">Usuarios Biometrico</a>
+                                            <a class="nav-link" href="/pages/marcajes.aspx">Marcajes</a>
                                         </div>
                                     </li>
 

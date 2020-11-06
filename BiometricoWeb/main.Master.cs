@@ -73,16 +73,16 @@ namespace BiometricoWeb
             for (int i = 0; i < vDatos.Rows.Count; i++){
                 if (vDatos.Rows[i]["idAplicacion"].ToString() == "2"){
                     LIViaticos.Visible = true;
-                    if (vDatos.Rows[0]["idPerfil"].ToString().Equals("1")){
+                    if (vDatos.Rows[i]["idPerfil"].ToString().Equals("1")){
                         LIViatAprobacion.Visible = true;
-                    }else if (vDatos.Rows[0]["idPerfil"].ToString().Equals("2")){
+                    }else if (vDatos.Rows[i]["idPerfil"].ToString().Equals("2")){
                         LIViatAprobacion.Visible = true;
                         LIViatCotizacion.Visible = true;
-                    }else if (vDatos.Rows[0]["idPerfil"].ToString().Equals("3")){
+                    }else if (vDatos.Rows[i]["idPerfil"].ToString().Equals("3")){
                         LIViatAprobacion.Visible = true;
                         LIViatCotizacion.Visible = true;
                         LIViatMantenimiento.Visible = true;
-                    }else if (vDatos.Rows[0]["idPerfil"].ToString().Equals("4")){ 
+                    }else if (vDatos.Rows[i]["idPerfil"].ToString().Equals("4")){ 
                         LIViatMantenimiento.Visible = true;
                     }
                     break;
