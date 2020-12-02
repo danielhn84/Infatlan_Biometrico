@@ -99,6 +99,9 @@
     <Content Include="css\GridStyle.css" />
     <Content Include="css\jquery-ui.min.css" />
     <Content Include="css\pager.css" />
+    <Content Include="css\select2-bootstrap.css" />
+    <Content Include="css\select2.css" />
+    <Content Include="css\select2.min.css" />
     <Content Include="css\smart_wizard.css" />
     <Content Include="css\smart_wizard_theme_arrows.css" />
     <Content Include="css\smart_wizard_theme_circles.css" />
@@ -148,6 +151,8 @@
     <Content Include="js\loader.js" />
     <Content Include="js\moment.min.js" />
     <Content Include="js\off-canvas.js" />
+    <Content Include="js\select2.js" />
+    <Content Include="js\select2.min.js" />
     <Content Include="js\tabs.js" />
     <Content Include="js\template.js" />
     <Content Include="lib\tree_maker-min.css" />
@@ -157,11 +162,14 @@
     <Content Include="pages\access.aspx" />
     <Content Include="pages\activos\asignacion.aspx" />
     <Content Include="pages\activos\activosInternos.aspx" />
+    <Content Include="pages\activos\registroActivos.aspx" />
+    <Content Include="pages\activos\tipoEquipo.aspx" />
     <Content Include="pages\activos\visitas.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
     <Content Include="pages\documentacion\archivo.aspx" />
     <Content Include="pages\documentacion\crearDocumentos.aspx" />
+    <Content Include="pages\documentacion\docAreas.aspx" />
     <Content Include="pages\documentacion\docGrupos.aspx" />
     <Content Include="pages\documentacion\docReportes.aspx" />
     <Content Include="pages\documentacion\tipoDocumentos.aspx" />
@@ -301,6 +309,20 @@
     <Compile Include="pages\activos\activosInternos.aspx.designer.cs">
       <DependentUpon>activosInternos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pages\activos\registroActivos.aspx.cs">
+      <DependentUpon>registroActivos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\registroActivos.aspx.designer.cs">
+      <DependentUpon>registroActivos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\tipoEquipo.aspx.cs">
+      <DependentUpon>tipoEquipo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\tipoEquipo.aspx.designer.cs">
+      <DependentUpon>tipoEquipo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pages\activos\visitas.aspx.cs">
       <DependentUpon>visitas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -335,6 +357,13 @@
     </Compile>
     <Compile Include="pages\documentacion\crearDocumentos.aspx.designer.cs">
       <DependentUpon>crearDocumentos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\documentacion\docAreas.aspx.cs">
+      <DependentUpon>docAreas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\documentacion\docAreas.aspx.designer.cs">
+      <DependentUpon>docAreas.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\documentacion\docGrupos.aspx.cs">
       <DependentUpon>docGrupos.aspx</DependentUpon>

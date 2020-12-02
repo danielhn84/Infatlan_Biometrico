@@ -53,6 +53,18 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group row">
+                                        <label class="col-3">Ciudad:</label>
+                                        <div class="col-9">
+                                            <asp:DropDownList runat="server" CssClass="form-control" ID="DDLCiudad">
+                                                <asp:ListItem Text="Tegucigalpa" Value="0"></asp:ListItem>
+                                                <asp:ListItem Text="San Pedro Sula" Value="1"></asp:ListItem>
+                                                <asp:ListItem Text="Ceiba" Value="2"></asp:ListItem>
+                                            </asp:DropDownList>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group row">
                                         <label class="col-3">Fecha de Marcaje:</label>
                                         <div class="col-9">
                                             <asp:TextBox runat="server" ID="TxFecha" TextMode="DateTimeLocal" CssClass="form-control" />

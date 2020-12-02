@@ -39,7 +39,7 @@ namespace BiometricoWeb.pages.activos
                 vData = vConexion.obtenerDataTable(vQuery);
                 DDLTipoEquipo.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vData.Rows) {
-                    DDLTipoEquipo.Items.Add(new ListItem { Value = item["idDetalle"].ToString(), Text = item["descripcion"].ToString() });
+                    DDLTipoEquipo.Items.Add(new ListItem { Value = item["idTipoEquipo"].ToString(), Text = item["nombre"].ToString() });
                 }
             }catch (Exception ex) {
                 Mensaje(ex.Message, WarningType.Danger);

@@ -41,8 +41,8 @@
     <div runat="server" visible="true">   
         <nav>
             <div class="nav nav-pills " id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Visitas" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-plus" style=""> </i>Entrada</a>
-                <a class="nav-item nav-link" id="nav_salida" data-toggle="tab" href="#nav-Salida" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-door-open" style=""> </i>Salida</a>
+                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Visitas" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-login" style=""> </i>Entrada</a>
+                <a class="nav-item nav-link" id="nav_salida" data-toggle="tab" href="#nav-Salida" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-logout" style=""> </i>Salida</a>
                 <a class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-database" style=""> </i>Historial</a>
             </div>
         </nav>
@@ -208,11 +208,12 @@
                                             GridLines="None"
                                             PageSize="10" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
                                             <Columns>
-                                                <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
-                                                <asp:BoundField DataField="apellidos" HeaderText="Apellido" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="visitante" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="identidad" HeaderText="Identidad" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="descripcion" HeaderText="Descripcion" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="area" HeaderText="Destino" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="fechaCreacion" HeaderText="Fecha Entrada" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="fechaModificacion" HeaderText="Fecha Salida" ItemStyle-HorizontalAlign="Left"/>
                                             </Columns>
                                         </asp:GridView>
                                     </div>

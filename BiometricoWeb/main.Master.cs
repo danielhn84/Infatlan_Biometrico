@@ -116,6 +116,7 @@ namespace BiometricoWeb
                 for (int i = 0; i < vDatos.Rows.Count; i++){
                     if (vDatos.Rows[i]["idPerfil"].ToString() == "5")
                         LIDocumentosReportes.Visible = true;
+                        LIDocumentacionAjustes.Visible = true;
                     
                     break;
                 }
@@ -146,6 +147,7 @@ namespace BiometricoWeb
                 LIViatMantenimiento.Visible = true;
                 LITExReportes.Visible = true;
                 LIDocumentosReportes.Visible = true;
+                LIDocumentacionAjustes.Visible = true;
             }
         }
         

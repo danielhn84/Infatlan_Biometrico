@@ -133,6 +133,10 @@ namespace BiometricoWeb.clases
                     vXmlTW.WriteString(Convert.ToString(vDatos[14]));
                     vXmlTW.WriteEndElement();
 
+                    vXmlTW.WriteStartElement("idResponsable");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[15]));
+                    vXmlTW.WriteEndElement();
+
                     vXmlTW.WriteEndElement();
                     vXmlTW.WriteEndDocument();
 

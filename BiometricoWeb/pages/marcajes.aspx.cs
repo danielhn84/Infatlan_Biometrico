@@ -47,13 +47,20 @@ namespace BiometricoWeb.pages
         protected void BtnGuardar_Click(object sender, EventArgs e){
             try{
                 String vFecha = Convert.ToDateTime(TxFecha.Text).ToString("yyyy-MM-dd HH:mm:ss");
-                String vQuery = "[RSP_Marcajes] 2," + DDLEmpleados.SelectedValue + ",'" + vFecha + "'";
-                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-                if (vDatos.Rows.Count > 0){
+                String vCiudad = "";
+                if (DDLCiudad.SelectedValue == "0")
+                    vCiudad = "11";
+                else if (DDLCiudad.SelectedValue == "1")
+                    vCiudad = "21";
+                else
+                    vCiudad = "31";
+
+                String vQuery = "[RSP_Marcajes] 2," + DDLEmpleados.SelectedValue + ",'" + vFecha + "'," + vCiudad;
+                int vInfo = vConexion.ejecutarSql(vQuery);
+                if (vInfo == 1)
                     Mensaje("Marcaje registrado con éxito.", WarningType.Success);
-                }else { 
+                else 
                     Mensaje("Hubo problemas al registrar el maraje. Comuníquese con sistemas.", WarningType.Danger);
-                }
 
                 limpiarDatos();
             }catch (Exception ex){

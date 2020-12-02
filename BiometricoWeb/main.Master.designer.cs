@@ -411,13 +411,13 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDocumentosReportes;
 
         /// <summary>
-        /// Control LIDocumentosGrupos.
+        /// Control LIDocumentacionAjustes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDocumentosGrupos;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIDocumentacionAjustes;
 
         /// <summary>
         /// Control LIActivos.
@@ -429,40 +429,13 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIActivos;
 
         /// <summary>
-        /// Control LIActVisitas.
+        /// Control LIRegistro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIActVisitas;
-
-        /// <summary>
-        /// Control LIActInterno.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIActInterno;
-
-        /// <summary>
-        /// Control LIActSoporte.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIActSoporte;
-
-        /// <summary>
-        /// Control LIActDataCenter.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIActDataCenter;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIRegistro;
 
         /// <summary>
         /// Control LIAsignacion.

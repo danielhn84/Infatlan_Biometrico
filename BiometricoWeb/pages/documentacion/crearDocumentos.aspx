@@ -11,6 +11,7 @@
     </script>
     <link href="/css/GridStyle.css" rel="stylesheet" />
     <link href="/css/pager.css" rel="stylesheet" />
+    <link href="../../css/select2.css" rel="stylesheet" />
     <script type="text/javascript">
         function openModal() { $('#ModalCargar').modal('show'); }
         function openModalCorreos() { $('#ModalCorreos').modal('show'); }
@@ -68,11 +69,11 @@
                                                     <asp:BoundField DataField="Pendientes" HeaderText="Pendientes" />
                                                     <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnEditar" runat="server" title="Nuevo" style="background-color:#5cb85c" class="btn btn-success" CommandArgument='<%# Eval("idTipoDoc") %>' CommandName="NuevoDoc">
+                                                            <asp:LinkButton ID="BtnEditar" runat="server" title="Nuevo" style="background-color:#5cb85c" class="btn mr-2" CommandArgument='<%# Eval("idTipoDoc") %>' CommandName="NuevoDoc">
                                                                 <i class="mdi mdi-plus text-white" style="-webkit-text-stroke-width: 1px"></i>
                                                             </asp:LinkButton>
                                                             <asp:LinkButton ID="BtnEntrar" runat="server" title="Entrar" style="background-color:#5bc0de" class="btn" CommandArgument='<%# Eval("idTipoDoc") %>' CommandName="EntrarDoc">
-                                                                <i class="mdi mdi-arrow-right-bold text-white"></i>
+                                                                <i class="mdi mdi-arrow-right-bold-circle-outline text-white mr-2"></i>ENTRAR
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
@@ -99,7 +100,7 @@
     </div>
 
     <%--MODAL CARGA--%>
-    <div class="modal fade" id="ModalCargar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="ModalCargar" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -117,7 +118,7 @@
                             <div class="row">
                                 <div class="row col-12">
                                     <div class="row col-6">
-                                        <label class="col-4 col-form-label">Código</label>
+                                        <label class="col-4 col-form-label">Código <p style="color:tomato">*</p></label>
                                         <div class="col-8">
                                             <asp:TextBox runat="server" CssClass="form-control" ID="TxCodigo" />
                                         </div>
@@ -152,6 +153,30 @@
                                         <asp:LinkButton Text="Agregar" runat="server" ID="LBAgregarCorreos" OnClick="LBAgregarCorreos_Click"/>
                                     </div>
                                 </div>
+                                <div class="row col-12 mt-3" runat="server" id="DivGrupos" visible="false">   
+                                    <div class="row col-6">
+                                        <div class="col-4">Grupos</div>
+                                        <div class="col-8">
+                                            <asp:DropDownList runat="server" ID="DDLGrupos" CssClass="select2 form-control custom-select" style="width:100%"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div runat="server" id="DivAreas" visible="false" class="row col-12 mt-3">   
+                                    <div class="row col-6">   
+                                        <label class="col-4 col-form-label">Depto</label>
+                                        <div class="col-8">
+                                            <asp:DropDownList runat="server" ID="DDLDepto" AutoPostBack="true" CssClass="form-control" OnSelectedIndexChanged="DDLDepto_SelectedIndexChanged"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="row col-6">
+                                        <label class="col-4 col-form-label">Area</label>
+                                        <div class="col-8">
+                                            <asp:DropDownList runat="server" ID="DDLArea" CssClass="form-control"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row col-12 mt-3">
                                     <div class="row col-6">
                                         <label class="col-4">Envío de correo</label>
@@ -208,6 +233,20 @@
                                                 <input type="checkbox" runat="server" id="CBxConfidencial" class="custom-control-input">
                                                 <span class="custom-control-label"></span>
                                             </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-12">
+                                    <div class="row col-6 mt-3">
+                                        <label class="col-4">Referencia</label>
+                                        <div class="col-8">
+                                            <asp:DropDownList runat="server" ID="DDLReferencia" CssClass="select2 form-control custom-select" multiple="multiple" style="width: 100%"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="row col-6 mt-3">
+                                        <label class="col-4">Propietario</label>
+                                        <div class="col-8">
+                                            <asp:DropDownList runat="server" ID="DDLPropietario" CssClass="select2 form-control custom-select" style="width: 100%"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
@@ -318,6 +357,9 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+    <script src="../../js/select2.js"></script>
+    <link href="../../css/select2.css" rel="stylesheet" />
+
     <script src="/js/fstdropdown.js"></script>
     <script>
         function setDrop() {

@@ -40,7 +40,7 @@ namespace BiometricoWeb.pages.activos
 
                 DDLArea.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
-                    DDLArea.Items.Add(new ListItem { Value = item["idPuesto"].ToString(), Text = item["nombre"].ToString() });
+                    DDLArea.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["nombre"].ToString() });
                 }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
@@ -175,10 +175,11 @@ namespace BiometricoWeb.pages.activos
                     if (vDatos.Rows.Count > 0)
                         LbNombreSalida.Text = vDatos.Rows[0]["nombre"].ToString() + " " + vDatos.Rows[0]["apellidos"].ToString();
                     else 
-                        TxMensaje.Text = "No tiene una salida pendiente!";
-                    
-                    UpdatePanel1.Update();
-                }
+                        TxMensaje.Text = "La visita no fue registrada al entrar!";
+                }else
+                    TxMensaje.Text = "";
+                
+                UpdatePanel1.Update();
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
