@@ -87,7 +87,7 @@
                                                 <Columns>
                                                     <asp:BoundField DataField="idGrupo" HeaderText="No." ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
-                                                    <asp:BoundField DataField="empleado" HeaderText="Usuario" ItemStyle-HorizontalAlign="Left"/>
+                                                    <asp:BoundField DataField="empleado" HeaderText="Usuario Creación" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:BoundField DataField="fechaCreacion" HeaderText="Fecha" ItemStyle-HorizontalAlign="Left"/>
                                                     <asp:TemplateField HeaderStyle-Width="40px">
                                                         <ItemTemplate>

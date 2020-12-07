@@ -84,10 +84,9 @@ namespace BiometricoWeb.pages.documentacion
                 vQuery = "[RSP_Documentacion] 19";
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
-                    DDLReferencia.Items.Clear();
-                    //DDLReferencia.Items.Add(new ListItem { Value = "0", Text = "" });
+                    LBReferencia.Items.Clear();
                     foreach (DataRow item in vDatos.Rows){
-                        DDLReferencia.Items.Add(new ListItem { Value = item["idDocumento"].ToString(), Text = item["codigo"].ToString() + " - " + item["nombre"].ToString()});
+                        LBReferencia.Items.Add(new ListItem { Value = item["idDocumento"].ToString(), Text = item["codigo"].ToString() + " - " + item["nombre"].ToString()});
                     }
                 }
 
@@ -175,6 +174,7 @@ namespace BiometricoWeb.pages.documentacion
             try{
                 limpiarModal();
                 String vId = e.CommandArgument.ToString();
+                DivPropietario.Visible = vId == "1" ? false : true;
                 Session["DOCUMENTOS_TIPO_ID"] = vId;
                 if (e.CommandName == "NuevoDoc"){
                     DivEmpleados.Visible = DDLCategoria.SelectedValue == "2" ? true : false;
@@ -222,8 +222,8 @@ namespace BiometricoWeb.pages.documentacion
                 vExtension = Path.GetExtension(FUArchivo.FileName);
 
                 String archivoLog = string.Format("{0}_{1}", Convert.ToString(Session["usuario"]), DateTime.Now.ToString("yyyyMMddHHmmss"));
-                //String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS"].ToString() + LitTitulo.Text.ToLower();
-                String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS_LOCAL"].ToString() + LitTitulo.Text.ToLower();
+                String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS"].ToString() + LitTitulo.Text.ToLower();
+                //String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS_LOCAL"].ToString() + LitTitulo.Text.ToLower();
 
                 String vNombreArchivo = FUArchivo.FileName;
                 vDireccionCarga += "/" + archivoLog + "_" + vNombreArchivo;
@@ -257,12 +257,21 @@ namespace BiometricoWeb.pages.documentacion
                                     ",'" + vXML + "'";
                     int vInfo = vConexion.obtenerId(vQuery);
                     if (vInfo > 0){
-                        if (DDLReferencia.SelectedValue != "0"){
+                        DataTable vDataRef = new DataTable();
+                        vDataRef.Columns.Add("idDocumento");
+                        vDataRef.Columns.Add("nombre");
 
+                        for (int i = 0; i < LBReferencia.Items.Count; i++){
+                            if (LBReferencia.Items[i].Selected){
+                                vDataRef.Rows.Add(LBReferencia.Items[i].Value, LBReferencia.Items[i].Text);
+                            }
                         }
-
-
-
+                        if (vDataRef.Rows.Count > 0){
+                            for (int i = 0; i < vDataRef.Rows.Count; i++){
+                                vQuery = "[RSP_Documentacion] 25," + vDataRef.Rows[i]["idDocumento"].ToString() + ",NULL," + vInfo;
+                                vConexion.ejecutarSql(vQuery);
+                            }
+                        }
 
                         DataTable vDTConfidenciales = (DataTable)Session["DOCUMENTOS_CORREOS"];
                         if (vIdArchivo == "1")
@@ -375,7 +384,7 @@ namespace BiometricoWeb.pages.documentacion
             DDLCorreo.SelectedValue = "0";
             DDLRecordatorios.SelectedValue = "0";
             DDLGrupos.SelectedValue = "0";
-            DDLReferencia.SelectedIndex = -1;
+            LBReferencia.SelectedIndex = -1;
             DDLPropietario.SelectedValue = "0";
             DivMensaje.Visible = false;
             DivCorreos.Visible = false;
@@ -407,8 +416,10 @@ namespace BiometricoWeb.pages.documentacion
                     throw new Exception("Por favor ingrese la fecha que se enviará el correo.");
             }
 
-            if (DDLPropietario.Text == "0")
-                throw new Exception("Por favor seleccione un propietario.");
+            if (Session["DOCUMENTOS_TIPO_ID"].ToString() != "1"){
+                if (DDLPropietario.Text == "0")
+                    throw new Exception("Por favor seleccione un propietario.");
+            }
             if (!FUArchivo.HasFile)
                 throw new Exception("Por favor ingrese un documento.");
         }

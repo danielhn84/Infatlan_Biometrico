@@ -42,7 +42,7 @@
     <div runat="server" visible="true">
         <nav>
             <div class="nav nav-pills " id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Visitas" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-login" style=""></i>Entrada</a>
+                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Principal" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-login" style=""></i>Entrada</a>
                 <a class="nav-item nav-link" id="nav_salida" data-toggle="tab" href="#nav-Salida" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-logout" style=""></i>Salida</a>
                 <a class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-database" style=""></i>Historial</a>
             </div>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-Visitas" role="tabpanel" aria-labelledby="nav-cargar-tab">
+        <div class="tab-pane fade show active" id="nav-Principal" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
             <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -58,7 +58,13 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Búsqueda</h4>
-                                <div class="row"> 
+                                <div class="row">
+                                    <label class="col-2 col-form-label">Proceso</label>
+                                    <div class="col-7">
+                                        <asp:DropDownList ID="DDLProceso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DDLProceso_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="row mt-3"> 
                                     <label class="col-2 col-form-label">Serie del artículo</label>
                                     <div class="col-7">
                                         <asp:TextBox runat="server" ID="TxBusqueda" AutoPostBack="true" OnTextChanged="TxBusqueda_TextChanged" CssClass="form-control"></asp:TextBox>
@@ -78,79 +84,152 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
 
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+            <asp:UpdatePanel ID="UPPrincipal" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <div runat="server" id="DivEntradaVisita" visible="true">
-                        <div class="col-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body" runat="server" id="Div2" >
-                                    <h4 class="card-title">Datos de Entrada</h4>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="form-group row">
-                                                <label class="col-3">Proceso:</label>
-                                                <div class="col-9">
-                                                    <asp:DropDownList ID="DDLProceso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DDLProceso_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
+                    <div runat="server" visible="true" id="DivPI">
+                        <asp:UpdatePanel ID="UPPersonalInterno" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <div runat="server" id="DivInfoIN" visible="false">
+                                    <div class="col-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body" runat="server" id="DivBody">
+                                                <h4 class="card-title">Datos del Encargado</h4>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group row">
+                                                            <label class="col-3" style="text-align: right">Nombre:</label>
+                                                            <div class="col-9">
+                                                                <asp:Label runat="server" Text="" ID="LbNombre" Font-Bold="true"></asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row">
+                                                            <label class="col-3" style="text-align: right">ID Equipo:</label>
+                                                            <div class="col-5">
+                                                                <asp:Label runat="server" Text="" ID="LbIdEquipoEnt" Font-Bold="true"></asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row">
+                                                            <label class="col-3" style="text-align: right">Tipo:</label>
+                                                            <div class="col-9">
+                                                                <asp:Label runat="server" Text="" ID="LbTipo" Font-Bold="true"></asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="form-group row">
-                                                <label class="col-3">Nombre:</label>
-                                                <div class="col-9">
-                                                    <asp:TextBox runat="server" CssClass="form-control" ID="TxNombre" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group row">
-                                                <label class="col-3">Apellido:</label>
-                                                <div class="col-9">
-                                                    <asp:TextBox runat="server" ID="TxApellido" CssClass="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group row">
-                                                <label class="col-3">Area:</label>
-                                                <div class="col-9">
-                                                    <asp:DropDownList runat="server" CssClass="form-control" ID="DDLArea"></asp:DropDownList>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group row">
-                                                <label class="col-3">Identidad:</label>
-                                                <div class="col-9">
-                                                    <asp:TextBox runat="server" ID="TxIdentidad" CssClass="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group row">
-                                                <label class="col-3">Motivo:</label>
-                                                <div class="col-9">
-                                                    <asp:TextBox runat="server" ID="TxDescripcion" TextMode="MultiLine" Rows="3" CssClass="form-control" />
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="form-group row">
+                                                            <label class="col-3" style="text-align: right">Marca:</label>
+                                                            <div class="col-9">
+                                                                <asp:Label runat="server" Text="" ID="LbMarca" Font-Bold="true"></asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row">
+                                                            <label class="col-3" style="text-align: right">Serie:</label>
+                                                            <div class="col-9">
+                                                                <asp:Label runat="server" Text="" ID="LbSerieSalida" Font-Bold="true"></asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group row">
+                                                            <label class="col-3" style="text-align: right">No. Inv.</label>
+                                                            <div class="col-9">
+                                                                <asp:Label runat="server" Text="" ID="LbCodInventario" Font-Bold="true"></asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">REGISTRAR INFORMACION</h4>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <asp:Button ID="BtnGuardar" class="btn btn-success" runat="server" Text="Registrar" OnClick="BtnGuardar_Click" />
-                                        <asp:Button ID="BtnCancelar" class="btn btn-secondary" runat="server" Text="Cancelar" OnClick="BtnCancelar_Click" />
+                                <div runat="server" id="DivEquipoPersonal" visible="false">
+                                    <div class="col-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body" runat="server" id="Div6">
+                                                <h4 class="card-title">Equipo Personal</h4>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-3">Empleado:</label>
+                                                            <div class="col-9">
+                                                                <asp:DropDownList runat="server" ID="DDLEmpleado" CssClass="form-control"></asp:DropDownList>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-3">Serie:</label>
+                                                            <div class="col-9">
+                                                                <asp:TextBox runat="server" ID="TxSerie" CssClass="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-3">Categoría:</label>
+                                                            <div class="col-9">
+                                                                <asp:DropDownList runat="server" ID="DDLCategoria" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DDLCategoria_SelectedIndexChanged"></asp:DropDownList>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-3">Tipo de Equipo:</label>
+                                                            <div class="col-9">
+                                                                <asp:DropDownList runat="server" ID="DDLTipo" CssClass="form-control"></asp:DropDownList>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-3">Marca:</label>
+                                                            <div class="col-9">
+                                                                <asp:TextBox runat="server" ID="TxMarca" CssClass="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-3">Modelo:</label>
+                                                            <div class="col-9">
+                                                                <asp:TextBox runat="server" ID="TxModelo" CssClass="form-control" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+
+                                <div runat="server" id="DivRegistrarPIEntrada" visible="false">
+                                    <div class="col-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">REGISTRAR INFORMACION</h4>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <asp:Button ID="BtnSavePIEntrada" class="btn btn-success" runat="server" Text="Registrar" OnClick="BtnSavePIEntrada_Click" />
+                                                        <asp:Button ID="BtnCancelPIEntrada" class="btn btn-secondary" runat="server" Text="Cancelar" OnClick="BtnCancelPIEntrada_Click" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>

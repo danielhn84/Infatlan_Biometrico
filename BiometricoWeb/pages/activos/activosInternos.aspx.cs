@@ -85,13 +85,19 @@ namespace BiometricoWeb.pages.activos
                     DivInfoIN.Visible = false;
                     Session["ACTIVOS_PI_PERSONAL"] = vDatos.Rows.Count < 1 ? true : false;
                     if (vDatos.Rows.Count < 1){
-                        TxBusqueda.Focus();
+                        vQuery = "[RSP_ActivosPI] 15,'" + TxBusqueda.Text + "'";
+                        vDatos = vConexion.obtenerDataTable(vQuery);
                         DivResultado.Visible = true;
-                        LbMensaje.Text = "El equipo con serie " + TxBusqueda.Text +  " no está registrado! Si es equipo personal regístrelo.";
-                        DivEquipoPersonal.Visible = true;
-                        DivRegistrar.Visible = true;
-                        TxSerie.Text = TxBusqueda.Text;
-                        limpiarFormulario();
+                        if (vDatos.Rows.Count > 0){
+                            LbMensaje.Text = "El equipo no está asignado a un empleado!";
+                        }else{ 
+                            TxBusqueda.Focus();
+                            LbMensaje.Text = "El equipo con serie " + TxBusqueda.Text +  " no está registrado! Si es equipo personal regístrelo.";
+                            DivEquipoPersonal.Visible = true;
+                            DivRegistrar.Visible = true;
+                            TxSerie.Text = TxBusqueda.Text;
+                            limpiarFormulario();
+                        }
                     }else{
                         Session["ACTIVOS_ID"] = vDatos.Rows[0]["idEquipo"].ToString();
                         if (vDatos.Rows[0]["nombre"].ToString() == ""){

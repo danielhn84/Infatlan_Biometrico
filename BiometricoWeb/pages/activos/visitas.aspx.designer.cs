@@ -96,6 +96,15 @@ namespace BiometricoWeb.pages.activos
         protected global::System.Web.UI.WebControls.TextBox TxDescripcion;
 
         /// <summary>
+        /// Control DivEntrada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivEntrada;
+
+        /// <summary>
         /// Control BtnGuardar.
         /// </summary>
         /// <remarks>
@@ -159,6 +168,15 @@ namespace BiometricoWeb.pages.activos
         protected global::System.Web.UI.WebControls.Label TxMensaje;
 
         /// <summary>
+        /// Control DivDatosEntrada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivDatosEntrada;
+
+        /// <summary>
         /// Control LbNombreSalida.
         /// </summary>
         /// <remarks>
@@ -166,6 +184,24 @@ namespace BiometricoWeb.pages.activos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LbNombreSalida;
+
+        /// <summary>
+        /// Control LbFechaEntrada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbFechaEntrada;
+
+        /// <summary>
+        /// Control DivSalida.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivSalida;
 
         /// <summary>
         /// Control BtnRegistrarSalida.

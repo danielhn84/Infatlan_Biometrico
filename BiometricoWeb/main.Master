@@ -348,8 +348,8 @@
                             </a>
                             <div class="collapse" id="ui-basic5">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item" runat="server" visible="false" id="LISEC_Asignacion"><a class="nav-link" href="/pages/activos/asignacion.aspx">Asignación</a></li>
-                                    <li class="nav-item" runat="server" visible="false" id="LISEC_ActivosInternos"><a class="nav-link" href="/pages/activos/activosInternos.aspx">Internos</a></li>
+                                    <%--<li class="nav-item" runat="server" visible="false" id="LISEC_Asignacion"><a class="nav-link" href="/pages/activos/asignacion.aspx">Asignación</a></li>--%>
+                                    <%--<li class="nav-item" runat="server" visible="false" id="LISEC_ActivosInternos"><a class="nav-link" href="/pages/activos/activosInternos.aspx">Internos</a></li>--%>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Entradas"><a class="nav-link" href="/pages/security.aspx">Entradas</a></li>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Salidas"><a class="nav-link" href="/pages/salidas.aspx">Salidas</a></li>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Historico"><a class="nav-link" href="/pages/sec_historico.aspx">Historico</a></li>
@@ -374,7 +374,7 @@
                                             <span class="menu-title">Ajustes</span>
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic15">
-                                            <a class="nav-link" href="/pages/documentacion/docAreas.aspx">Áreas</a>
+                                            <%--<a class="nav-link" href="/pages/documentacion/docAreas.aspx">Áreas</a>--%>
                                             <a class="nav-link" href="/pages/documentacion/docGrupos.aspx">Grupos</a>
                                         </div>
                                     </li>
@@ -389,32 +389,53 @@
                                 <span class="menu-title">Activos</span>
                                 <i class="menu-arrow"></i>
                             </a>
-                            <div class="collapse" id="ui-basic14">
+                            <div class="show" id="ui-basic14">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="" runat="server" visible="true" id="LIRegistro" style="margin-left:-20%">
+                                    <li class="" runat="server" visible="false" id="LIRegistro" style="margin-left:-20%">
                                         <a class="nav-link" href="/pages/activos/registroActivos.aspx">
                                             <i class="mdi mdi-package-up menu-icon"></i>
                                             <span class="menu-title">Registrar</span>
                                         </a>
                                     </li>
-                                    <%--<li class="" runat="server" visible="true" id="LIActInterno" style="margin-left:-20%">
+                                    <li class="" runat="server" visible="true" id="LIVisitas" style="margin-left:-20%">
+                                        <a class="nav-link" href="/pages/activos/visitas.aspx">
+                                            <i class="mdi mdi-package-up menu-icon"></i>
+                                            <span class="menu-title">Visitas</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="" runat="server" visible="true" id="LIActInterno" style="margin-left:-20%">
                                         <a class="nav-link" href="/pages/activos/activosInternos.aspx">
                                             <i class="mdi mdi-laptop-windows menu-icon"></i>
                                             <span class="menu-title">Personal Interno</span>
                                         </a>
                                     </li>
-                                    <li class="" runat="server" visible="true" id="LIActSoporte" style="margin-left:-20%">
-                                        <a class="nav-link" href="/pages/activos/activosInternos.aspx">
+                                    
+                                    <li class="" id="LIActSoporte" runat="server" visible="true" style="margin-left:-20%; cursor:pointer;">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-headset menu-icon"></i>
                                             <span class="menu-title">Soporte Técnico</span>
                                         </a>
+                                        <div class="dropdown-menu" id="ui-basic42">
+                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Entradas2" href="/pages/security.aspx">Entradas</a>
+                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Salidas2" href="/pages/salidas.aspx">Salidas</a>
+                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Historico2" href="/pages/sec_historico.aspx">Historico</a>
+                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Aprobaciones2" href="/pages/sec_aprobaciones.aspx">Aprobaciones</a>
+                                        </div>
                                     </li>
-                                    <li class="" runat="server" visible="true" id="LIActDataCenter" style="margin-left:-20%">
-                                        <a class="nav-link" href="/pages/activos/activosInternos.aspx">
+                                    
+                                    <li class="" id="LI2" runat="server" visible="true" style="margin-left:-20%; cursor:pointer;">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-server menu-icon"></i>
                                             <span class="menu-title">Data Center</span>
                                         </a>
-                                    </li>--%>
+                                        <div class="dropdown-menu" id="ui-basic43">
+                                            <a class="nav-link" runat="server" visible="true" id="A1" href="/pages/activos/visitaDatacenter.aspx">Solicitud de Visita</a>
+                                            <a class="nav-link" runat="server" visible="true" id="A2" href="/pages/activos/visitaDatacenterPendienteJefe.aspx">Aprobaciones</a>
+                                            <a class="nav-link" runat="server" visible="true" id="A3" href="/pages/activos/visitaDatacenterPendienteResponsable.aspx">Aprobaciones</a>
+                                        </div>
+                                    </li>
+                                    
                                     <li class="" id="LIAsignacion" runat="server" visible="true" style="margin-left:-20%; cursor:pointer;">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-wrench menu-icon"></i>

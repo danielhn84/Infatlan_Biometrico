@@ -118,13 +118,13 @@
                             <div class="row">
                                 <div class="row col-12">
                                     <div class="row col-6">
-                                        <label class="col-4 col-form-label">Código <p style="color:tomato">*</p></label>
+                                        <label class="col-4 col-form-label">Código <b style="color:tomato">*</b></label>
                                         <div class="col-8">
                                             <asp:TextBox runat="server" CssClass="form-control" ID="TxCodigo" />
                                         </div>
                                     </div>
                                     <div class="row col-6">
-                                        <label class="col-4 col-form-label">Nombre</label>
+                                        <label class="col-4 col-form-label">Nombre <b style="color:tomato">*</b></label>
                                         <div class="col-8">
                                             <asp:TextBox runat="server" CssClass="form-control" ID="TxNombre" />
                                         </div>
@@ -132,13 +132,13 @@
                                 </div>
                                 <div class="row col-12 mt-3">
                                     <div class="row col-6">
-                                        <label class="col-4 col-form-label">Categoría</label>
+                                        <label class="col-4 col-form-label">Alcance <b style="color:tomato">*</b></label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLCategoria" AutoPostBack="true" CssClass="form-control" OnSelectedIndexChanged="DDLCategoria_SelectedIndexChanged"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row col-6">
-                                        <label class="col-4">Confirmación de lectura</label>
+                                        <label class="col-4 col-form-label">Lectura</label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLConfirmacion" CssClass="form-control">
                                                 <asp:ListItem Value="0" Text="No"></asp:ListItem>
@@ -179,7 +179,7 @@
 
                                 <div class="row col-12 mt-3">
                                     <div class="row col-6">
-                                        <label class="col-4">Envío de correo</label>
+                                        <label class="col-4 col-form-label">Enviar correo</label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLCorreo" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DDLCorreo_SelectedIndexChanged">
                                                 <asp:ListItem Value="0" Text="No"></asp:ListItem>
@@ -188,7 +188,7 @@
                                         </div>
                                     </div>
                                     <div class="row col-6">
-                                        <label class="col-4">Nivel Confidencial</label>
+                                        <label class="col-4">Nivel Confidencial <b style="color:tomato">*</b></label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLNivelConfidencialidad" CssClass="form-control"></asp:DropDownList>
                                         </div>
@@ -240,11 +240,12 @@
                                     <div class="row col-6 mt-3">
                                         <label class="col-4">Referencia</label>
                                         <div class="col-8">
-                                            <asp:DropDownList runat="server" ID="DDLReferencia" CssClass="select2 form-control custom-select" multiple="multiple" style="width: 100%"></asp:DropDownList>
+                                            <asp:ListBox runat="server" ID="LBReferencia" CssClass="select2 form-control custom-select" name="states[]" multiple="multiple" style="width: 100%" SelectionMode="Multiple"></asp:ListBox>
+                                            <%--<asp:DropDownList runat="server" ID="DDLReferencia" Visible="false" CssClass="select2 form-control custom-select" name="states[]" multiple="multiple" style="width: 100%"></asp:DropDownList>--%>
                                         </div>
                                     </div>
-                                    <div class="row col-6 mt-3">
-                                        <label class="col-4">Propietario</label>
+                                    <div runat="server" id="DivPropietario" class="row col-6 mt-3">
+                                        <label class="col-4">Propietario <b style="color:tomato">*</b></label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLPropietario" CssClass="select2 form-control custom-select" style="width: 100%"></asp:DropDownList>
                                         </div>
@@ -252,7 +253,7 @@
                                 </div>
                                 <div class="row col-12">
                                     <div class="row col-12 mt-3">
-                                        <label class="col-2 col-form-label">Archivo</label>
+                                        <label class="col-2 col-form-label">Archivo <b style="color:tomato">*</b></label>
                                         <div class="col-10">
                                             <asp:FileUpload runat="server" ID="FUArchivo" CssClass="form-control"></asp:FileUpload>
                                         </div>

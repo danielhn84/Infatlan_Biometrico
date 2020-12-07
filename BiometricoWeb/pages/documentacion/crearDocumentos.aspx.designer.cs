@@ -231,13 +231,22 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox CBxConfidencial;
 
         /// <summary>
-        /// Control DDLReferencia.
+        /// Control LBReferencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLReferencia;
+        protected global::System.Web.UI.WebControls.ListBox LBReferencia;
+
+        /// <summary>
+        /// Control DivPropietario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivPropietario;
 
         /// <summary>
         /// Control DDLPropietario.

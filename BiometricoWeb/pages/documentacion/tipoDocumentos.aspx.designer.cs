@@ -132,13 +132,13 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.WebControls.GridView GVBusqueda;
 
         /// <summary>
-        /// Control LitTitulo.
+        /// Control LiEditarDoc.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitTitulo;
+        protected global::System.Web.UI.WebControls.Literal LiEditarDoc;
 
         /// <summary>
         /// Control DDLVigencia.

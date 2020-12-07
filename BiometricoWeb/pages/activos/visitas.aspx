@@ -106,7 +106,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 grid-margin stretch-card">
+                    <div class="col-12 grid-margin stretch-card" runat="server" id="DivEntrada" visible="true">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">REGISTRAR INFORMACION</h4>
@@ -142,10 +142,18 @@
                                             </div>
                                         </div>
                                         <asp:Label runat="server" ID="TxMensaje" ForeColor="CornflowerBlue" CssClass="col-form-label" Text=""></asp:Label>
-                                        <div class="col-12">
-                                            <div class="form-group row">
-                                                <label class="col-3">Nombre:</label>
-                                                <b><asp:Label runat="server" ID="LbNombreSalida" CssClass="col-9 align-content-end"></asp:Label></b>
+                                        <div runat="server" visible="false" id="DivDatosEntrada">
+                                            <div class="col-12">
+                                                <div class="form-group row">
+                                                    <label class="col-3">Nombre:</label>
+                                                    <b><asp:Label runat="server" ID="LbNombreSalida" CssClass="col-9 align-content-end"></asp:Label></b>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group row">
+                                                    <label class="col-3">fecha de Entrada</label>
+                                                    <b><asp:Label runat="server" ID="LbFechaEntrada" CssClass="col-9 align-content-end"></asp:Label></b>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +162,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 grid-margin stretch-card">
+                    <div class="col-12 grid-margin stretch-card" runat="server" id="DivSalida" visible="false">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">REGISTRAR INFORMACION</h4>

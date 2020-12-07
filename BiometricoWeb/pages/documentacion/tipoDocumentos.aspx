@@ -56,7 +56,7 @@
                         <div class="card-body">
                             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                 <ContentTemplate>
-                                    <div class="col-sm-12 mb-2 row">
+                                    <div class="col-sm-12 mb-2 row" runat="server" visible="false">
                                         <div class="col-6 row">
                                             <label class="col-sm-2 col-form-label">Depto</label>
                                             <div class="col-10">
@@ -161,8 +161,8 @@
                 <div class="modal-header">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
-                            <h4 class="modal-title" id="ModalLabelDescarga">Editar Documento 
-                                <asp:Literal runat="server" ID="LitTitulo"></asp:Literal>
+                            <h4 class="modal-title" id="ModalLabelDescarga">
+                                <asp:Literal runat="server" ID="LiEditarDoc"></asp:Literal>
                             </h4>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -184,7 +184,7 @@
                                     <div class="row col-6">
                                         <label class="col-4 col-form-label">Nombre</label>
                                         <div class="col-8">
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="TxNombre" />
+                                            <asp:TextBox runat="server" ReadOnly="true" CssClass="form-control" ID="TxNombre" />
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +206,7 @@
                                     </div>
                                 </div>
                                 <div class="row col-12 mt-3">
-                                    <div class="row col-6">
+                                    <div runat="server" visible="false" class="row col-6">
                                         <label class="col-4">Envío de correo</label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLCorreo" CssClass="form-control">
@@ -292,7 +292,7 @@
                 <div class="modal-header">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
-                            <h4 class="modal-title">Referencias
+                            <h4 class="modal-title">
                                 <asp:Literal runat="server" ID="Literal1"></asp:Literal>
                             </h4>
                         </ContentTemplate>
@@ -318,7 +318,8 @@
                                                         AutoGenerateColumns="false">
                                                         <Columns>
                                                             <asp:BoundField DataField="idReferencia" HeaderText="Id" ItemStyle-HorizontalAlign="Left" />
-                                                            <asp:BoundField DataField="nombre" HeaderText="documento" ItemStyle-HorizontalAlign="Left" />
+                                                            <asp:BoundField DataField="codigo" HeaderText="Código" ItemStyle-HorizontalAlign="Left" />
+                                                            <asp:BoundField DataField="nombre" HeaderText="Documento" ItemStyle-HorizontalAlign="Left" />
                                                             <asp:TemplateField>
                                                                 <ItemTemplate>
                                                                     <asp:Button ID="BtnVer" runat="server" Text="Entrar" style="background-color:#5cb85c" class="btn text-white font-weight-bold" CommandArgument='<%# Eval("idReferencia") %>' CommandName="verDocumento" />

@@ -172,6 +172,8 @@ namespace BiometricoWeb.pages.activos
                 if (TxIdentidadSalida.Text != "" || TxIdentidadSalida.Text != string.Empty){
                     String vQuery = "[RSP_ActivosPE] 5,'" + TxIdentidadSalida.Text + "'";
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                    DivSalida.Visible = vDatos.Rows.Count > 0 ? true : false;
+                    DivDatosEntrada.Visible = vDatos.Rows.Count > 0 ? true : false;
                     if (vDatos.Rows.Count > 0)
                         LbNombreSalida.Text = vDatos.Rows[0]["nombre"].ToString() + " " + vDatos.Rows[0]["apellidos"].ToString();
                     else 

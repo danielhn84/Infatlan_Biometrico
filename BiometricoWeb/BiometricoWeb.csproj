@@ -164,6 +164,9 @@
     <Content Include="pages\activos\activosInternos.aspx" />
     <Content Include="pages\activos\registroActivos.aspx" />
     <Content Include="pages\activos\tipoEquipo.aspx" />
+    <Content Include="pages\activos\visitaDatacenter.aspx" />
+    <Content Include="pages\activos\visitaDatacenterPendienteJefe.aspx" />
+    <Content Include="pages\activos\visitaDatacenterPendienteResponsable.aspx" />
     <Content Include="pages\activos\visitas.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
@@ -322,6 +325,27 @@
     </Compile>
     <Compile Include="pages\activos\tipoEquipo.aspx.designer.cs">
       <DependentUpon>tipoEquipo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\visitaDatacenter.aspx.cs">
+      <DependentUpon>visitaDatacenter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\visitaDatacenter.aspx.designer.cs">
+      <DependentUpon>visitaDatacenter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\visitaDatacenterPendienteJefe.aspx.cs">
+      <DependentUpon>visitaDatacenterPendienteJefe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\visitaDatacenterPendienteJefe.aspx.designer.cs">
+      <DependentUpon>visitaDatacenterPendienteJefe.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\visitaDatacenterPendienteResponsable.aspx.cs">
+      <DependentUpon>visitaDatacenterPendienteResponsable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\visitaDatacenterPendienteResponsable.aspx.designer.cs">
+      <DependentUpon>visitaDatacenterPendienteResponsable.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\activos\visitas.aspx.cs">
       <DependentUpon>visitas.aspx</DependentUpon>
