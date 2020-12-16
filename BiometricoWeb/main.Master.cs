@@ -96,12 +96,9 @@ namespace BiometricoWeb
                     LISecurity.Visible = true;
                     if (vDatos.Rows[i]["idPerfil"].ToString() == "6"){
                         LISEC_Aprobaciones.Visible = true;
-                        LISEC_Aprobaciones2.Visible = true;
                     }else if (vDatos.Rows[i]["idPerfil"].ToString() == "7") {
                         LISEC_Entradas.Visible = true;
-                        LISEC_Entradas2.Visible = true;
                         LISEC_Salidas.Visible = true;
-                        LISEC_Salidas2.Visible = true;
                         
                         LIDashboard.Visible = false;
                         LIServicios.Visible = false;
@@ -117,11 +114,10 @@ namespace BiometricoWeb
         private void documentacion(DataTable vDatos) {
             try{
                 for (int i = 0; i < vDatos.Rows.Count; i++){
-                    if (vDatos.Rows[i]["idPerfil"].ToString() == "5"){
+                    if (vDatos.Rows[i]["idPerfil"].ToString() == "5") { 
                         LIDocumentosReportes.Visible = true;
                         LIDocumentacionAjustes.Visible = true;
                     }
-                    
                     break;
                 }
             }catch (Exception ex){
@@ -135,13 +131,9 @@ namespace BiometricoWeb
                 LIEmpleados.Visible = true;
                 LISecurity.Visible = true;
                 LISEC_Aprobaciones.Visible = true;
-                LISEC_Aprobaciones2.Visible = true;
                 LISEC_Entradas.Visible = true;
-                LISEC_Entradas2.Visible = true;
                 LISEC_Salidas.Visible = true;
-                LISEC_Salidas2.Visible = true;
                 LISEC_Historico.Visible = true;
-                LISEC_Historico2.Visible = true;
 
                 LITEx.Visible = true;
                 LITExJefatura.Visible = true;

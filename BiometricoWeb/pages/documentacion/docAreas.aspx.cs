@@ -13,5 +13,15 @@ namespace BiometricoWeb.pages.documentacion
         {
 
         }
+
+        protected void TxBuscar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
+        }
     }
 }

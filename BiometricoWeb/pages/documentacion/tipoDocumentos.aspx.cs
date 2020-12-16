@@ -67,16 +67,6 @@ namespace BiometricoWeb.pages.documentacion
                     }
                 }
 
-                vQuery = "[RSP_Documentacion] 2";
-                vDatos = vConexion.obtenerDataTable(vQuery);
-                if (vDatos.Rows.Count > 0){
-                    DDLCategoria.Items.Clear();
-                    DDLCategoria.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                    foreach (DataRow item in vDatos.Rows){
-                        DDLCategoria.Items.Add(new ListItem { Value = item["idCategoria"].ToString(), Text = item["nombre"].ToString() });
-                    }
-                }
-
                 vQuery = "[RSP_Documentacion] 14";
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
@@ -159,7 +149,6 @@ namespace BiometricoWeb.pages.documentacion
                 if (e.CommandName == "editarDoc"){
                     LiEditarDoc.Text = "Editar documento <b>" + vDatos.Rows[0]["codigo"].ToString() + "</b>";
                     TxNombre.Text = vDatos.Rows[0]["nombre"].ToString();
-                    DDLCategoria.SelectedValue = vDatos.Rows[0]["idCategoria"].ToString();
                     DDLConfirmacion.SelectedValue = Convert.ToBoolean(vDatos.Rows[0]["flagLectura"]) ? "1" : "0";
                     DDLNivelConfidencialidad.SelectedValue = vDatos.Rows[0]["nivelConfidencialidad"].ToString() != "" ? vDatos.Rows[0]["nivelConfidencialidad"].ToString() : "0";
                     DDLEstado.SelectedValue = vDatos.Rows[0]["estado"].ToString() == "1" ? "1" : "0";
@@ -198,7 +187,7 @@ namespace BiometricoWeb.pages.documentacion
                 xml vDatos = new xml();
                 Object[] vDatosMaestro = new object[16];
                 vDatosMaestro[0] = Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
-                vDatosMaestro[1] = DDLCategoria.SelectedValue;
+                vDatosMaestro[1] = "";
                 vDatosMaestro[2] = TxNombre.Text;
                 vDatosMaestro[3] = "";
                 vDatosMaestro[4] = "";

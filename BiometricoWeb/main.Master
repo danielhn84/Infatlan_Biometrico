@@ -348,8 +348,6 @@
                             </a>
                             <div class="collapse" id="ui-basic5">
                                 <ul class="nav flex-column sub-menu">
-                                    <%--<li class="nav-item" runat="server" visible="false" id="LISEC_Asignacion"><a class="nav-link" href="/pages/activos/asignacion.aspx">Asignación</a></li>--%>
-                                    <%--<li class="nav-item" runat="server" visible="false" id="LISEC_ActivosInternos"><a class="nav-link" href="/pages/activos/activosInternos.aspx">Internos</a></li>--%>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Entradas"><a class="nav-link" href="/pages/security.aspx">Entradas</a></li>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Salidas"><a class="nav-link" href="/pages/salidas.aspx">Salidas</a></li>
                                     <li class="nav-item" runat="server" visible="false" id="LISEC_Historico"><a class="nav-link" href="/pages/sec_historico.aspx">Historico</a></li>
@@ -407,7 +405,7 @@
                                     <li class="" runat="server" visible="true" id="LIActInterno" style="margin-left:-20%">
                                         <a class="nav-link" href="/pages/activos/activosInternos.aspx">
                                             <i class="mdi mdi-laptop-windows menu-icon"></i>
-                                            <span class="menu-title">Personal Interno</span>
+                                            <span class="menu-title">Registrar</span>
                                         </a>
                                     </li>
                                     

@@ -164,16 +164,13 @@
 
                                 <div runat="server" id="DivAreas" visible="false" class="row col-12 mt-3">   
                                     <div class="row col-6">   
-                                        <label class="col-4 col-form-label">Depto</label>
+                                        <label class="col-4 col-form-label">Areas</label>
                                         <div class="col-8">
-                                            <asp:DropDownList runat="server" ID="DDLDepto" AutoPostBack="true" CssClass="form-control" OnSelectedIndexChanged="DDLDepto_SelectedIndexChanged"></asp:DropDownList>
+                                            <asp:DropDownList runat="server" ID="DDLArea" AutoPostBack="true" OnSelectedIndexChanged="DDLArea_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
                                         </div>
                                     </div>
-                                    <div class="row col-6">
-                                        <label class="col-4 col-form-label">Area</label>
-                                        <div class="col-8">
-                                            <asp:DropDownList runat="server" ID="DDLArea" CssClass="form-control"></asp:DropDownList>
-                                        </div>
+                                    <div class="row col-6" runat="server" id="DivIntegrantesArea" visible="false">   
+                                        <asp:LinkButton Text="Ver integrantes" runat="server" ID="LBIntegrantesArea" CssClass="col-form-label" OnClick="LBIntegrantesArea_Click"/>
                                     </div>
                                 </div>
 
@@ -289,7 +286,7 @@
             <div class="modal-content">
                 <div class="modal-header table-dark">
                     <h4 class="modal-title" id="ModalLabelModificacionTipo">
-                        <asp:Label CssClass=" text-white" ID="Label1" runat="server" Text="Agregar correos"></asp:Label>
+                        <asp:Label CssClass=" text-white" ID="Label1" runat="server" Text="Integrantes"></asp:Label>
                     </h4>
                 </div>
                 <div class="modal-body">

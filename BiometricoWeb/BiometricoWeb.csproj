@@ -163,6 +163,9 @@
     <Content Include="pages\activos\asignacion.aspx" />
     <Content Include="pages\activos\activosInternos.aspx" />
     <Content Include="pages\activos\registroActivos.aspx" />
+    <Content Include="pages\activos\soporte.aspx" />
+    <Content Include="pages\activos\soporteHistorico.aspx" />
+    <Content Include="pages\activos\soporteAprobaciones.aspx" />
     <Content Include="pages\activos\tipoEquipo.aspx" />
     <Content Include="pages\activos\visitaDatacenter.aspx" />
     <Content Include="pages\activos\visitaDatacenterPendienteJefe.aspx" />
@@ -318,6 +321,27 @@
     </Compile>
     <Compile Include="pages\activos\registroActivos.aspx.designer.cs">
       <DependentUpon>registroActivos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\soporte.aspx.cs">
+      <DependentUpon>soporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\soporte.aspx.designer.cs">
+      <DependentUpon>soporte.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\soporteHistorico.aspx.cs">
+      <DependentUpon>soporteHistorico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\soporteHistorico.aspx.designer.cs">
+      <DependentUpon>soporteHistorico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\soporteAprobaciones.aspx.cs">
+      <DependentUpon>soporteAprobaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\soporteAprobaciones.aspx.designer.cs">
+      <DependentUpon>soporteAprobaciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\activos\tipoEquipo.aspx.cs">
       <DependentUpon>tipoEquipo.aspx</DependentUpon>

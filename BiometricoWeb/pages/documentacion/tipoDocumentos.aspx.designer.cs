@@ -159,15 +159,6 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.WebControls.TextBox TxNombre;
 
         /// <summary>
-        /// Control DDLCategoria.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLCategoria;
-
-        /// <summary>
         /// Control DDLConfirmacion.
         /// </summary>
         /// <remarks>
@@ -175,15 +166,6 @@ namespace BiometricoWeb.pages.documentacion
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLConfirmacion;
-
-        /// <summary>
-        /// Control DDLCorreo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLCorreo;
 
         /// <summary>
         /// Control DDLNivelConfidencialidad.

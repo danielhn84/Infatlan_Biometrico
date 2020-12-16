@@ -96,6 +96,12 @@ namespace BiometricoWeb.pages.activos
 
             TxIdentidadSalida.Text = string.Empty;
             LbNombreSalida.Text = string.Empty;
+            LbFechaEntrada.Text = string.Empty;
+            LbMotivo.Text = string.Empty;
+            DivSalida.Visible = false;
+            DivDatosEntrada.Visible = false;
+            TxMensaje.Text = string.Empty;
+            TxMensaje.Visible = false;
             UpdatePanel1.Update();
         }
 
@@ -169,14 +175,18 @@ namespace BiometricoWeb.pages.activos
 
         protected void TxIdentidadSalida_TextChanged(object sender, EventArgs e){
             try{
+                DivSalida.Visible = false;
+                DivDatosEntrada.Visible = false;
                 if (TxIdentidadSalida.Text != "" || TxIdentidadSalida.Text != string.Empty){
                     String vQuery = "[RSP_ActivosPE] 5,'" + TxIdentidadSalida.Text + "'";
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                     DivSalida.Visible = vDatos.Rows.Count > 0 ? true : false;
                     DivDatosEntrada.Visible = vDatos.Rows.Count > 0 ? true : false;
-                    if (vDatos.Rows.Count > 0)
+                    if (vDatos.Rows.Count > 0) { 
                         LbNombreSalida.Text = vDatos.Rows[0]["nombre"].ToString() + " " + vDatos.Rows[0]["apellidos"].ToString();
-                    else 
+                        LbFechaEntrada.Text = vDatos.Rows[0]["fechaCreacion"].ToString();
+                        LbMotivo.Text = vDatos.Rows[0]["descripcion"].ToString();
+                    }else 
                         TxMensaje.Text = "La visita no fue registrada al entrar!";
                 }else
                     TxMensaje.Text = "";
@@ -203,6 +213,19 @@ namespace BiometricoWeb.pages.activos
 
                 limpiarFormulario();
                 UpdatePanel1.Update();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void DDLProceso_SelectedIndexChanged(object sender, EventArgs e){
+            try{
+                if (DDLProceso.SelectedValue == "1")
+                    Response.Redirect("/pages/activos/activosInternos.aspx");
+                if (DDLProceso.SelectedValue == "3")
+                    Response.Redirect("/pages/activos/visitaDatacenter.aspx");
+                if (DDLProceso.SelectedValue == "4")
+                    Response.Redirect("/pages/security.aspx");
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
