@@ -51,6 +51,34 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-Visitas" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
+
+                        <%--Búsqueda--%>
+            <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Búsqueda</h4>
+                                <div class="row mb-2"> 
+                                    <label class="col-2 col-form-label">Proceso</label>
+                                    <div class="col-7">
+                                        <asp:DropDownList runat="server" ID="DDLProceso" CssClass="form-control" OnSelectedIndexChanged="DDLProceso_SelectedIndexChanged" AutoPostBack="true">
+                                            <asp:ListItem Value="1" Text="Personal Interno"></asp:ListItem>
+                                            <asp:ListItem Value="2" Text="Visitas" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Value="3" Text="Data Center"></asp:ListItem>
+                                            <asp:ListItem Value="4" Text="Soporte Técnico"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+
+
+
             <%--Resultado--%> 
             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -142,11 +170,17 @@
                                             </div>
                                         </div>
                                         <asp:Label runat="server" ID="TxMensaje" ForeColor="CornflowerBlue" CssClass="col-form-label" Text=""></asp:Label>
-                                        <div runat="server" visible="false" id="DivDatosEntrada">
+                                        <div runat="server" visible="false" id="DivDatosEntrada" class="row col-12">
                                             <div class="col-12">
                                                 <div class="form-group row">
                                                     <label class="col-3">Nombre:</label>
                                                     <b><asp:Label runat="server" ID="LbNombreSalida" CssClass="col-9 align-content-end"></asp:Label></b>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group row">
+                                                    <label class="col-3">Motivo de visita</label>
+                                                    <b><asp:Label runat="server" ID="LbMotivo" CssClass="col-9 align-content-end"></asp:Label></b>
                                                 </div>
                                             </div>
                                             <div class="col-12">

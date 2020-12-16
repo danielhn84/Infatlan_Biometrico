@@ -57,14 +57,13 @@ namespace BiometricoWeb.pages.activos
 
                 vQuery = "[RSP_ActivosPI] 12";
                 vDatos = vConexion.obtenerDataTable(vQuery);
+                DDLCategoria.Items.Clear();
                 if (vDatos.Rows.Count > 0){
-                    DDLCategoria.Items.Clear();
                     DDLCategoria.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                     foreach (DataRow item in vDatos.Rows){
                         DDLCategoria.Items.Add(new ListItem { Value = item["idCategoria"].ToString(), Text = item["nombre"].ToString() });
                     }
                 }
-
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -76,20 +75,24 @@ namespace BiometricoWeb.pages.activos
         
         protected void TxBusqueda_TextChanged(object sender, EventArgs e){
             try{
+                DivResultado.Visible = false;
+                DivEquipoPersonal.Visible = false;
+                DivRegistrar.Visible = false;
+                DivInfoIN.Visible = false;
+
                 if (TxBusqueda.Text != "" || TxBusqueda.Text != string.Empty){
                     String vQuery = "[RSP_ActivosPI] 5,'" + TxBusqueda.Text + "'";
                     DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-                    DivResultado.Visible = false;
-                    DivEquipoPersonal.Visible = false;
-                    DivRegistrar.Visible = false;
-                    DivInfoIN.Visible = false;
                     Session["ACTIVOS_PI_PERSONAL"] = vDatos.Rows.Count < 1 ? true : false;
                     if (vDatos.Rows.Count < 1){
                         vQuery = "[RSP_ActivosPI] 15,'" + TxBusqueda.Text + "'";
                         vDatos = vConexion.obtenerDataTable(vQuery);
                         DivResultado.Visible = true;
                         if (vDatos.Rows.Count > 0){
-                            LbMensaje.Text = "El equipo no está asignado a un empleado!";
+                            if (vDatos.Rows[0]["idEstado"].ToString() == "1")
+                                LbMensaje.Text = "El equipo no tiene permiso de salir.";
+                            if (vDatos.Rows[0]["idEstado"].ToString() == "0")
+                                LbMensaje.Text = "El equipo no ha sido asignado a un empleado.";
                         }else{ 
                             TxBusqueda.Focus();
                             LbMensaje.Text = "El equipo con serie " + TxBusqueda.Text +  " no está registrado! Si es equipo personal regístrelo.";
@@ -361,6 +364,19 @@ namespace BiometricoWeb.pages.activos
             UpdatePanel7.Update();
             UpdatePanel4.Update();
             TxBuscarSalida.Focus();
+        }
+
+        protected void DDLProceso_SelectedIndexChanged(object sender, EventArgs e){
+            try{
+                if (DDLProceso.SelectedValue == "2")
+                    Response.Redirect("/pages/activos/visitas.aspx");
+                if (DDLProceso.SelectedValue == "3")
+                    Response.Redirect("/pages/activos/visitaDatacenter.aspx");
+                if (DDLProceso.SelectedValue == "4")
+                    Response.Redirect("/pages/activos/soporte.aspx");
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
     }
 }

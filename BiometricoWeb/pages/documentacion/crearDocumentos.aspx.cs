@@ -113,10 +113,10 @@ namespace BiometricoWeb.pages.documentacion
                 vQuery = "[RSP_Documentacion] 16";
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
-                    DDLDepto.Items.Clear();
-                    DDLDepto.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    DDLArea.Items.Clear();
+                    DDLArea.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                     foreach (DataRow item in vDatos.Rows){
-                        DDLDepto.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["nombre"].ToString() });
+                        DDLArea.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["nombre"].ToString() });
                     }
                 }
             }catch (Exception ex){
@@ -222,8 +222,8 @@ namespace BiometricoWeb.pages.documentacion
                 vExtension = Path.GetExtension(FUArchivo.FileName);
 
                 String archivoLog = string.Format("{0}_{1}", Convert.ToString(Session["usuario"]), DateTime.Now.ToString("yyyyMMddHHmmss"));
-                String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS"].ToString() + LitTitulo.Text.ToLower();
-                //String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS_LOCAL"].ToString() + LitTitulo.Text.ToLower();
+                //String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS"].ToString() + LitTitulo.Text.ToLower();
+                String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_DOCS_LOCAL"].ToString() + LitTitulo.Text.ToLower();
 
                 String vNombreArchivo = FUArchivo.FileName;
                 vDireccionCarga += "/" + archivoLog + "_" + vNombreArchivo;
@@ -249,7 +249,7 @@ namespace BiometricoWeb.pages.documentacion
                     vDatosMaestro[12] = Session["USUARIO"].ToString();
                     vDatosMaestro[13] = CBxConfidencial.Checked;
                     vDatosMaestro[14] = DDLNivelConfidencialidad.SelectedValue;
-                    vDatosMaestro[15] = DDLPropietario.SelectedValue != "0" ? DDLPropietario.SelectedValue : "NULL";
+                    vDatosMaestro[15] = DDLPropietario.SelectedValue != "0" ? DDLPropietario.SelectedValue : "0";
                     String vXML = vDatos.ObtenerXMLDocumentos(vDatosMaestro);
                     vXML = vXML.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
                 
@@ -306,7 +306,7 @@ namespace BiometricoWeb.pages.documentacion
                                     vConexion.ejecutarSql(vQuery);
                                 }
                             }
-                        }else if (DDLCategoria.SelectedValue == "2"){
+                        }else if (DDLCategoria.SelectedValue == "2" || DDLCategoria.SelectedValue == "4"){
                             for (int i = 0; i < vDTConfidenciales.Rows.Count; i++){
                                 String vTokenString = "";
                                 if (DDLCorreo.SelectedValue == "1") { 
@@ -392,6 +392,9 @@ namespace BiometricoWeb.pages.documentacion
             DDLEstado.SelectedValue = "1";
             TxCodigo.Text = string.Empty;
             DDLNivelConfidencialidad.SelectedValue = "0";
+            DDLArea.SelectedValue = "0";
+            CBxConfidencial.Checked = false;
+            DivIntegrantesArea.Visible = false;
         }
 
         private void validarDatos() {
@@ -420,6 +423,12 @@ namespace BiometricoWeb.pages.documentacion
                 if (DDLPropietario.Text == "0")
                     throw new Exception("Por favor seleccione un propietario.");
             }
+
+            if (DDLCategoria.SelectedValue == "4"){
+                if (DDLArea.SelectedValue == "0")
+                    throw new Exception("Por favor seleccione el área de alcance.");
+            }
+
             if (!FUArchivo.HasFile)
                 throw new Exception("Por favor ingrese un documento.");
         }
@@ -432,12 +441,14 @@ namespace BiometricoWeb.pages.documentacion
                 if (DDLCategoria.SelectedValue == "1") {
                     Session["DOCUMENTOS_CORREOS"] = null;
                     DDLGrupos.SelectedValue = "0";
-                    DDLDepto.SelectedValue = "0";
                     DDLArea.SelectedValue = "0";
                 }else if (DDLCategoria.SelectedValue == "2") {
                     DDLGrupos.SelectedValue = "0";
-                    DDLDepto.SelectedValue = "0";
                     DDLArea.SelectedValue = "0";
+                }else if (DDLCategoria.SelectedValue == "4") {
+                    DDLArea.SelectedValue = "0";
+                    DDLGrupos.SelectedValue = "0";
+                    DivIntegrantesArea.Visible = false;
                 }
 
             }catch (Exception ex){
@@ -545,16 +556,23 @@ namespace BiometricoWeb.pages.documentacion
             }
         }
 
-        protected void DDLDepto_SelectedIndexChanged(object sender, EventArgs e){
+        protected void DDLArea_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                String vQuery = "[RSP_Documentacion] 17," + DDLDepto.SelectedValue;
+                DivIntegrantesArea.Visible = DDLArea.SelectedValue != "0" ? true : false;
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void LBIntegrantesArea_Click(object sender, EventArgs e){
+            try{
+                String vQuery = "[RSP_Documentacion] 17," + DDLArea.SelectedValue;
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-                DDLArea.Items.Clear();
                 if (vDatos.Rows.Count > 0){
-                    DDLArea.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                    foreach (DataRow item in vDatos.Rows){
-                        DDLArea.Items.Add(new ListItem { Value = item["idSubDepartamento"].ToString(), Text = item["nombre"].ToString() });
-                    }
+                    GvCorreos.DataSource = vDatos;
+                    GvCorreos.DataBind();
+                    Session["DOCUMENTOS_CORREOS"] = vDatos;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalCorreos();", true);
                 }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);

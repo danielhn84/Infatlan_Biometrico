@@ -208,7 +208,7 @@
                                                             </asp:TemplateField>
                                                             <asp:BoundField DataField="idEmpleado" HeaderText="No." />
                                                             <asp:BoundField DataField="nombre" HeaderText="Nombre" />
-                                                            <asp:BoundField DataField="area" HeaderText="Area" />
+                                                            <asp:BoundField DataField="nombreArea" HeaderText="Area" />
                                                             <asp:BoundField DataField="ciudad" HeaderText="Ciudad" Visible="false" />
                                                             <asp:BoundField DataField="identidad" HeaderText="Identidad" Visible="false" />
                                                             <asp:BoundField DataField="telefono" HeaderText="Telefono" Visible="false" />

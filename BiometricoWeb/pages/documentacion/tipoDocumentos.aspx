@@ -137,7 +137,7 @@
                                                     <asp:TemplateField Visible="false">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="BtnEditar" runat="server" title="Editar" style="background-color:#f0ad4e" class="btn" CommandArgument='<%# Eval("idDocumento") %>' CommandName="editarDoc">
-                                                                <i class="mdi mdi-pencil text-white"></i>
+                                                                <i class="mdi mdi-cogs text-white"></i>
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
@@ -190,26 +190,9 @@
                                 </div>
                                 <div class="row col-12 mt-3">
                                     <div class="row col-6">
-                                        <label class="col-4 col-form-label">Categoría</label>
-                                        <div class="col-8">
-                                            <asp:DropDownList runat="server" ID="DDLCategoria" CssClass="form-control"></asp:DropDownList>
-                                        </div>
-                                    </div>
-                                    <div class="row col-6">
                                         <label class="col-4">Confirmación de lectura</label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLConfirmacion" CssClass="form-control">
-                                                <asp:ListItem Value="0" Text="No"></asp:ListItem>
-                                                <asp:ListItem Value="1" Text="Si"></asp:ListItem>
-                                            </asp:DropDownList>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row col-12 mt-3">
-                                    <div runat="server" visible="false" class="row col-6">
-                                        <label class="col-4">Envío de correo</label>
-                                        <div class="col-8">
-                                            <asp:DropDownList runat="server" ID="DDLCorreo" CssClass="form-control">
                                                 <asp:ListItem Value="0" Text="No"></asp:ListItem>
                                                 <asp:ListItem Value="1" Text="Si"></asp:ListItem>
                                             </asp:DropDownList>

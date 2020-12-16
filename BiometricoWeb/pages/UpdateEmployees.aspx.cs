@@ -37,7 +37,7 @@ namespace BiometricoWeb.pages
         void CargarEmpleados(){
             try{
                 DataTable vDatos = new DataTable();
-                vDatos = vConexion.obtenerDataTable("RSP_ObtenerEmpleados 1");
+                vDatos = vConexion.obtenerDataTable("RSP_ObtenerEmpleados 6");
 
                 GVBusqueda.DataSource = vDatos;
                 GVBusqueda.DataBind();

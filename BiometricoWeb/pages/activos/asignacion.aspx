@@ -70,8 +70,8 @@
                                     <label class="col-3">Autorizado</label>
                                     <div class="col-12">
                                         <asp:DropDownList runat="server" ID="DDLAutorizado" CssClass="form-control">
-                                            <asp:ListItem Text="Si" Value ="1"></asp:ListItem>
-                                            <asp:ListItem Text="No" Value ="0"></asp:ListItem>
+                                            <asp:ListItem Text="Si" Value ="2"></asp:ListItem>
+                                            <asp:ListItem Text="No" Value ="1"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                 </div>
