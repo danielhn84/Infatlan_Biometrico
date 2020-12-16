@@ -50,7 +50,8 @@ namespace BiometricoWeb.clases
                 DataTable vDatosPerfil = vConexion.obtenerDataTable(vQuery);
                 
                 for (int i = 0; i < vDatosPerfil.Rows.Count; i++){
-                    if (vDatosPerfil.Rows[i]["idPerfil"].ToString() == "6" || vDatosPerfil.Rows[i]["idPerfil"].ToString() == "7" || vDatosLogin.Rows[0]["tipoEmpleado"].ToString() == "1"){
+                    if (vDatosPerfil.Rows[i]["idPerfil"].ToString() == "6" || vDatosPerfil.Rows[i]["idPerfil"].ToString() == "7" || vDatosLogin.Rows[0]["tipoEmpleado"].ToString() == "1" || vDatosPerfil.Rows[i]["idPerfil"].ToString() == "15")
+                    {
                         vFlag = true;
                         break;
                     }
