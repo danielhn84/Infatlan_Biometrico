@@ -96,7 +96,7 @@
                                             </asp:TemplateField>
 
                                             <asp:BoundField DataField="idSolicitud" HeaderText="Solicitud" />
-                                            <asp:BoundField DataField="fechaInicio" HeaderText="Fecha Inicio" />
+                                            <asp:BoundField DataField="fechaInicio" HeaderText="Fecha Inicio" ItemStyle-HorizontalAlign="Left" />
                                             <asp:BoundField DataField="fechaFin" HeaderText="Fecha Fin" />
                                             <asp:BoundField DataField="acceso" HeaderText="Acceso" />
                                             <asp:BoundField DataField="peticion" HeaderText="Petición" />

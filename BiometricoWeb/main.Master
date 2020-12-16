@@ -433,11 +433,9 @@
                                             <a class="nav-link" runat="server" visible="true" id="A1" href="/pages/activos/visitaDatacenter.aspx">Solicitud de Visita</a>
                                             <a class="nav-link" runat="server" visible="true" id="A2" href="/pages/activos/visitaDatacenterPendienteJefe.aspx">Aprobaciones</a>
                                             <a class="nav-link" runat="server" visible="true" id="A3" href="/pages/activos/visitaDatacenterPendienteResponsable.aspx">Aprobaciones</a>
-                                            <a class="nav-link" runat="server" visible="true" id="A4" href="/pages/activos/registroVisitaSeguridad.aspx">Seguridad</a>
                                         </div>
                                     </li>
-            
-                                 
+                                    
                                     <li class="" id="LIAsignacion" runat="server" visible="true" style="margin-left:-20%; cursor:pointer;">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-wrench menu-icon"></i>
