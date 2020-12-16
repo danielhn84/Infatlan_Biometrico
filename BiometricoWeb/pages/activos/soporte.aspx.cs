@@ -347,7 +347,7 @@ namespace BiometricoWeb.pages.activos
                             DivBodySalida.Visible = true;
                             LbMensajeSalida.Text = "";
                             LbMensajeSalida.Visible = false;
-                            UpdatePanel1.Update();
+                            UpdatePanel7.Update();
                         }else{
                             TxInventarioSalida.Text = string.Empty;
                             DDLArticuloSalida.SelectedIndex = -1;
@@ -356,12 +356,12 @@ namespace BiometricoWeb.pages.activos
                             DivBodySalida.Visible = false;
                             LbMensajeSalida.Visible = true;
                             LbMensajeSalida.Text = LbAprobacion.Text == "Aprobado!" ? "Cree un nuevo registro." : string.Empty ;
-                            UpdatePanel1.Update();
+                            UpdatePanel7.Update();
                         }
                         TxNombreSalida.Focus();
                         TxSerieSalida.Text = TxBusquedaSalida.Text;
                     }
-                    UpdatePanel2.Update();
+                    UpdatePanel8.Update();
 
                 }else
                     limpiarFormulario();
@@ -392,10 +392,10 @@ namespace BiometricoWeb.pages.activos
             TxObservacionesSalida.Text = string.Empty;
             //DDLAutorizado.SelectedIndex = -1;
 
-            UpdatePanel3.Update();
-            UpdatePanel1.Update();
-            UpdatePanel2.Update();
             UpdatePanel6.Update();
+            UpdatePanel7.Update();
+            UpdatePanel8.Update();
+            UpdatePanel10.Update();
         }
 
         protected void BtnGuardarSalida_Click(object sender, EventArgs e){
