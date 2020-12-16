@@ -77,7 +77,6 @@ namespace BiometricoWeb.pages.activos
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 Session["ACTIVO_DC_SOLI_DATOS_RESPONSABLE"] = vDatos;
 
-
                 vQuery = "RSP_ActivosDC 3,'" + vCopia + "'";
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 Session["ACTIVO_DC_SOLI_DATOS_COPIA"] = vDatos;
