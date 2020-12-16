@@ -508,7 +508,7 @@ namespace BiometricoWeb.pages.activos
                 if (DDLProceso.SelectedValue == "2")
                     Response.Redirect("/pages/activos/visitas.aspx");
                 if (DDLProceso.SelectedValue == "3")
-                    Response.Redirect("/pages/activos/visitaDatacenter.aspx");
+                    Response.Redirect("/pages/activos/registroVisitaSeguridad.aspx");
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }

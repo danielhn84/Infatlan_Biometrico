@@ -34,7 +34,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h2>Registro de Visitas</h2>
+                        <h2>Data Center</h2>
                         <p class="mb-md-0">Recursos Humanos</p>
                     </div>
                 </div>
@@ -62,18 +62,21 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Solicitudes Autorizadas</h4>
-
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Buscar</label>
-                                    <div class="col-sm-9">
-                                        <asp:UpdatePanel ID="UpdatePanel5" runat="server">
-                                            <ContentTemplate>
-                                                <asp:TextBox ID="TxSolicitud" runat="server" placeholder="Busqueda por Solicitud o Responsable- Presione afuera para proceder" class="form-control" AutoPostBack="true"></asp:TextBox>
-                                            </ContentTemplate>
-                                        </asp:UpdatePanel>
-
-                                    </div>
+                            <div class="row mb-2"> 
+                                <label class="col-2 col-form-label">Proceso</label>
+                                <div class="col-7">
+                                    <asp:DropDownList runat="server" ID="DDLProceso" CssClass="form-control" OnSelectedIndexChanged="DDLProceso_SelectedIndexChanged" AutoPostBack="true">
+                                        <asp:ListItem Value="1" Text="Personal Interno"></asp:ListItem>
+                                        <asp:ListItem Value="2" Text="Visitas"></asp:ListItem>
+                                        <asp:ListItem Value="3" Text="Data Center" Selected="True"></asp:ListItem>
+                                        <asp:ListItem Value="4" Text="Soporte Técnico"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="row"> 
+                                <label class="col-2 col-form-label">Buscar</label>
+                                <div class="col-7">
+                                    <asp:TextBox ID="TxSolicitud" runat="server" placeholder="Busqueda por Solicitud o Responsable- Presione afuera para proceder" class="form-control" AutoPostBack="true"></asp:TextBox>
                                 </div>
                             </div>
                         </div>

@@ -403,18 +403,20 @@
                                         </a>
                                     </li>
                                     
-                                    <li class="" id="LIActSoporte" runat="server" visible="false" style="margin-left:-20%; cursor:pointer;">
+                                    <li class="" id="LIActSoporte" runat="server" visible="true" style="margin-left:-20%; cursor:pointer;">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-headset menu-icon"></i>
                                             <span class="menu-title">Soporte Técnico</span>
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic42">
-                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Entradas2" href="/pages/security.aspx">Entradas</a>
-                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Salidas2" href="/pages/salidas.aspx">Salidas</a>
+                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Historico2" href="/pages/sec_historico.aspx">Historico</a>
+                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Aprobaciones2" href="/pages/sec_aprobaciones.aspx">Aprobaciones</a>
+                                            <%--<a class="nav-link" runat="server" visible="true" id="LISEC_Entradas2" href="/pages/security.aspx">Entradas</a>
+                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Salidas2" href="/pages/salidas.aspx">Salidas</a>--%>
                                         </div>
                                     </li>
                                     
-                                    <li class="" id="LI2" runat="server" visible="false" style="margin-left:-20%; cursor:pointer;">
+                                    <li class="" id="LI2" runat="server" visible="true" style="margin-left:-20%; cursor:pointer;">
                                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <i class="mdi mdi-server menu-icon"></i>
                                             <span class="menu-title">Data Center</span>
@@ -432,8 +434,6 @@
                                             <span class="menu-title">Ajustes</span>
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic14b">
-                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Historico2" href="/pages/sec_historico.aspx">Historico</a>
-                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Aprobaciones2" href="/pages/sec_aprobaciones.aspx">Aprobaciones</a>
                                             <a class="nav-link" href="/pages/activos/asignacion.aspx">Asignaciones</a>
                                             <a class="nav-link" href="/pages/activos/tipoEquipo.aspx">Tipo de Equipo</a>
                                         </div>

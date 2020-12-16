@@ -42,13 +42,13 @@ namespace BiometricoWeb.pages.activos
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
 
         /// <summary>
-        /// Control UpdatePanel5.
+        /// Control DDLProceso.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel5;
+        protected global::System.Web.UI.WebControls.DropDownList DDLProceso;
 
         /// <summary>
         /// Control TxSolicitud.

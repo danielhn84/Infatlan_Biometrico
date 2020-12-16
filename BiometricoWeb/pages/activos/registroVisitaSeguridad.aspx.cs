@@ -58,5 +58,18 @@ namespace BiometricoWeb.pages.activos
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
+
+        protected void DDLProceso_SelectedIndexChanged(object sender, EventArgs e){
+            try{
+                if (DDLProceso.SelectedValue == "1")
+                    Response.Redirect("/pages/activos/activosInternos.aspx");
+                if (DDLProceso.SelectedValue == "2")
+                    Response.Redirect("/pages/activos/visitas.aspx");
+                if (DDLProceso.SelectedValue == "4")
+                    Response.Redirect("/pages/activos/soporte.aspx");
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
     }
 }

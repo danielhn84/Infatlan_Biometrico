@@ -52,7 +52,7 @@
         <div class="tab-pane fade show active" id="nav-Visitas" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
 
-                        <%--Búsqueda--%>
+            <%--Búsqueda--%>
             <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <div class="col-12 grid-margin stretch-card">

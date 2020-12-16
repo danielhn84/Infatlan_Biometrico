@@ -223,7 +223,7 @@ namespace BiometricoWeb.pages.activos
                 if (DDLProceso.SelectedValue == "1")
                     Response.Redirect("/pages/activos/activosInternos.aspx");
                 if (DDLProceso.SelectedValue == "3")
-                    Response.Redirect("/pages/activos/visitaDatacenter.aspx");
+                    Response.Redirect("/pages/activos/registroVisitaSeguridad.aspx");
                 if (DDLProceso.SelectedValue == "4")
                     Response.Redirect("/pages/security.aspx");
             }catch (Exception ex){

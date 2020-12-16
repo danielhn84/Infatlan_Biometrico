@@ -438,22 +438,22 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIActSoporte;
 
         /// <summary>
-        /// Control LISEC_Entradas2.
+        /// Control LISEC_Historico2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LISEC_Entradas2;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor LISEC_Historico2;
 
         /// <summary>
-        /// Control LISEC_Salidas2.
+        /// Control LISEC_Aprobaciones2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LISEC_Salidas2;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor LISEC_Aprobaciones2;
 
         /// <summary>
         /// Control LI2.
@@ -499,24 +499,6 @@ namespace BiometricoWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIAsignacion;
-
-        /// <summary>
-        /// Control LISEC_Historico2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LISEC_Historico2;
-
-        /// <summary>
-        /// Control LISEC_Aprobaciones2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor LISEC_Aprobaciones2;
 
         /// <summary>
         /// Control LIBuzon.
