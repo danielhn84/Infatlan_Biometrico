@@ -16,6 +16,8 @@ namespace BiometricoWeb.pages.documentacion
     {
         db vConexion = new db();
         protected void Page_Load(object sender, EventArgs e){
+
+
             String vToken = Request.QueryString["id"];
             if (vToken != null){
                 try{
@@ -32,6 +34,7 @@ namespace BiometricoWeb.pages.documentacion
                         Session["AUTHCLASS"] = vDatos;
                         Session["USUARIO"] = vDatos.Rows[0]["idEmpleado"].ToString();
                         Session["AUTH"] = true;
+                        Session["CODIGOSAP"] = vDatos.Rows[0]["codigoSAP"].ToString();
                         vQuery = "[RSP_Documentacion] 13,'" + vToken + "'";
                         vConexion.ejecutarSql(vQuery);
                         Response.Redirect("archivo.aspx", false);
@@ -109,6 +112,8 @@ namespace BiometricoWeb.pages.documentacion
                     vDoc = "la Política";
                 else if(vDatos.Rows[0]["idTipoDoc"].ToString() == "5")
                     vDoc = "el Proceso";
+                else if(vDatos.Rows[0]["idTipoDoc"].ToString() == "6")
+                    vDoc = "el Documento Externo";
 
 
                 LbMensaje.Text = "Declaro que he leído, entendido y doy por enterado(a) " + vDoc + " <b>" + LbTitulo.Text + "</b>,  <br><br>" +
