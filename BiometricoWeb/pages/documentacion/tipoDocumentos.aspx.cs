@@ -16,6 +16,7 @@ namespace BiometricoWeb.pages.documentacion
         db vConexion = new db();
         protected void Page_Load(object sender, EventArgs e){
             try{
+                select2();
                 if (!Page.IsPostBack){
                     if (Convert.ToBoolean(Session["AUTH"])){
                         if (Session["DOCUMENTOS_TIPO_ID"] == null)
@@ -72,6 +73,16 @@ namespace BiometricoWeb.pages.documentacion
                     DDLNivelConfidencialidad.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                     foreach (DataRow item in vDatos.Rows){
                         DDLNivelConfidencialidad.Items.Add(new ListItem { Value = item["idConfidencialidad"].ToString(), Text = item["nombre"].ToString()});
+                    }
+                }
+
+                vQuery = "[RSP_Documentacion] 6";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                if (vDatos.Rows.Count > 0){
+                    DDLEmpleados.Items.Clear();
+                    DDLEmpleados.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    foreach (DataRow item in vDatos.Rows){
+                        DDLEmpleados.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString()  });
                     }
                 }
             }catch (Exception ex){
@@ -332,6 +343,98 @@ namespace BiometricoWeb.pages.documentacion
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
+        }
+
+        private void select2() {
+            String vScript = @"
+                    $(function test() {
+                        $('.select2').select2();
+                        $('.ajax').select2({
+                            ajax: {
+                                url: 'https://api.github.com/search/repositories',
+                                dataType: 'json',
+                                delay: 250,
+                                data: function (params) {
+                                    return {
+                                        q: params.term, // search term
+                                        page: params.page
+                                    };
+                                },
+                                processResults: function (data, params) {
+                                    params.page = params.page || 1;
+                                    return {
+                                        results: data.items,
+                                        pagination: {
+                                            more: (params.page * 30) < data.total_count
+                                        }
+                                    };
+                                },
+                                cache: true
+                            },
+                            escapeMarkup: function (markup) {
+                                return markup;
+                            },
+                            minimumInputLength: 1,
+                        });
+                    });
+                    ";
+
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "select2", vScript, true);
+
+        }
+
+        protected void LBAccesos_Click(object sender, EventArgs e){
+            try{
+                String vQuery = "[RSP_Documentacion] 29," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                if (vDatos.Rows.Count > 0){
+                    GvAccesos.DataSource = vDatos;
+                    Session["DOCUMENTOS_ACCESOS"] = vDatos;
+                    GvAccesos.DataBind();
+                }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalAcceso();", true);
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnAddAcceso_Click(object sender, EventArgs e){
+
+        }
+
+        protected void GvAccesos_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            try{
+                GvAccesos.PageIndex = e.NewPageIndex;
+                GvAccesos.DataSource = (DataTable)Session["DOCUMENTOS_ACCESOS"];
+                GvAccesos.DataBind();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void GvAccesos_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                DataTable vDatos = (DataTable)Session["DOCUMENTOS_ACCESOS"];
+                if (e.CommandName == "BorrarAcceso"){
+                    String vID = e.CommandArgument.ToString();
+                    if (Session["DOCUMENTOS_CORREOS"] != null){
+                        DataRow[] result = vDatos.Select("idEmpleado = '" + vID + "'");
+                        foreach (DataRow row in result){
+                            if (row["idEmpleado"].ToString().Contains(vID))
+                                vDatos.Rows.Remove(row);
+                        }
+                    }
+                }
+                GvAccesos.DataSource = vDatos;
+                GvAccesos.DataBind();
+                Session["DOCUMENTOS_ACCESOS"] = vDatos;
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnActualizarAccesos_Click(object sender, EventArgs e){
+
         }
     }
 }
