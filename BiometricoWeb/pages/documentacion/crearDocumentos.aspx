@@ -106,7 +106,7 @@
                 <div class="modal-header">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
-                            <h4 class="modal-title" id="ModalLabelDescarga">Agregar documento de 
+                            <h4 class="modal-title" id="ModalLabelDescarga">Crear Documento de
                                 <asp:Literal runat="server" ID="LitTitulo"></asp:Literal>
                             </h4>
                         </ContentTemplate>
@@ -120,7 +120,7 @@
                                     <div class="row col-6">
                                         <label class="col-4 col-form-label">Código <b style="color:tomato">*</b></label>
                                         <div class="col-8">
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="TxCodigo" />
+                                            <asp:TextBox runat="server" ReadOnly="true" CssClass="form-control" ID="TxCodigo" />
                                         </div>
                                     </div>
                                     <div class="row col-6">
@@ -166,11 +166,12 @@
                                     <div class="row col-6">   
                                         <label class="col-4 col-form-label">Areas</label>
                                         <div class="col-8">
-                                            <asp:DropDownList runat="server" ID="DDLArea" AutoPostBack="true" OnSelectedIndexChanged="DDLArea_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
+                                            <asp:ListBox runat="server" CssClass="select2 form-control custom-select" ID="LBxAreas" OnSelectedIndexChanged="LBxAreas_SelectedIndexChanged" AutoPostBack="true" SelectionMode="Multiple"></asp:ListBox>
+                                            <%--<asp:DropDownList runat="server" ID="DDLArea" AutoPostBack="true" OnSelectedIndexChanged="DDLArea_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>--%>
                                         </div>
                                     </div>
                                     <div class="row col-6" runat="server" id="DivIntegrantesArea" visible="false">   
-                                        <asp:LinkButton Text="Ver integrantes" runat="server" ID="LBIntegrantesArea" CssClass="col-form-label" OnClick="LBIntegrantesArea_Click"/>
+                                        <asp:LinkButton Text="Ver integrantes" runat="server" ID="LBIntegrantesArea" CssClass="col-form-label ml-2" OnClick="LBIntegrantesArea_Click"/>
                                     </div>
                                 </div>
 
@@ -238,7 +239,6 @@
                                         <label class="col-4">Referencia</label>
                                         <div class="col-8">
                                             <asp:ListBox runat="server" ID="LBReferencia" CssClass="select2 form-control custom-select" name="states[]" multiple="multiple" style="width: 100%" SelectionMode="Multiple"></asp:ListBox>
-                                            <%--<asp:DropDownList runat="server" ID="DDLReferencia" Visible="false" CssClass="select2 form-control custom-select" name="states[]" multiple="multiple" style="width: 100%"></asp:DropDownList>--%>
                                         </div>
                                     </div>
                                     <div runat="server" id="DivPropietario" class="row col-6 mt-3">
@@ -248,6 +248,34 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="row col-12" runat="server" id="DivExternos" visible="false">
+                                    <div class="row col-6 mt-3">
+                                        <label class="col-4 col-form-label">Proveedor <b style="color:tomato">*</b></label>
+                                        <div class="col-8">
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="TxProveedorEx" />
+                                        </div>
+                                    </div>
+                                    <div class="row col-6 mt-3">
+                                        <label class="col-4 col-form-label">Contacto <b style="color:tomato">*</b></label>
+                                        <div class="col-8">
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="TxContactoEx" />
+                                        </div>
+                                    </div>
+                                    <div class="row col-6 mt-3">
+                                        <label class="col-4">Correo de Contacto <b style="color:tomato">*</b></label>
+                                        <div class="col-8">
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="TxCorreoEx" />
+                                        </div>
+                                    </div>
+                                    <div class="row col-6 mt-3">
+                                        <label class="col-4">Fecha Recepción <b style="color:tomato">*</b></label>
+                                        <div class="col-8">
+                                            <asp:TextBox runat="server" TextMode="Date" CssClass="form-control" ID="TxFechaEx" />
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="row col-12">
                                     <div class="row col-12 mt-3">
                                         <label class="col-2 col-form-label">Archivo <b style="color:tomato">*</b></label>

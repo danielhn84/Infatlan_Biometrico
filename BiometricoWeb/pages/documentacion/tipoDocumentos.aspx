@@ -11,10 +11,12 @@
     </script>
     <link href="/css/GridStyle.css" rel="stylesheet" />
     <link href="/css/pager.css" rel="stylesheet" />
+    <link href="../../css/select2.css" rel="stylesheet" />
     <script type="text/javascript">
         function openModal() { $('#ModalEditarDoc').modal('show'); }
         function openModalRef() { $('#ModalReferencias').modal('show'); }
         function closeModal() { $('#ModalEditarDoc').modal('hide'); }
+        function openModalAcceso() { $('#ModalAccesos').modal('show'); }
     </script>
     <style>
         .hiddencol { display: none; }
@@ -131,7 +133,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField>
                                                         <ItemTemplate>
-                                                            <asp:Button ID="BtnVer" runat="server" Text="Entrar" style="background-color:#5cb85c" class="btn text-white font-weight-bold" CommandArgument='<%# Eval("idDocumento") %>' CommandName="verDocumento" />
+                                                            <asp:Button ID="BtnVer" runat="server" Text="Entrar" class="btn btn-success font-weight-bold" CommandArgument='<%# Eval("idDocumento") %>' CommandName="verDocumento" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField Visible="false">
@@ -248,6 +250,15 @@
                                     </div>
                                 </div>
 
+                                <div class="row col-12">
+                                    <div class="row col-6 mt-3">
+                                        <div class="col-4"></div>
+                                        <asp:LinkButton Text="Ver Accesos" runat="server" ID="LBAccesos" OnClick="LBAccesos_Click" />
+
+                                    </div>
+                                </div>
+
+
                                 <div class="col-12 mt-3" runat="server" id="DivMensaje" visible="false" style="display: flex; background-color:tomato; justify-content:center">
                                     <asp:Label runat="server" CssClass="col-form-label text-white" ID="LbAdvertencia"></asp:Label>
                                 </div>
@@ -326,6 +337,79 @@
             </div>
         </div>
     </div>
+
+    <%--MODAL ACCESOS--%>
+    <div class="modal fade" id="ModalAccesos" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header table-dark">
+                    <h4 class="modal-title" id="ModalLabelModificacionTipo">
+                        <asp:Label CssClass=" text-white" ID="Label1" runat="server" Text="Accesos"></asp:Label>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <div class="row">
+                                <div class="row col-12">
+                                    <div class="col-3" style="margin-left: 2%">
+                                        <label>Empleado</label>
+                                    </div>
+                                    <div class="col-6">
+                                        <asp:DropDownList runat="server" ID="DDLEmpleados" AutoPostBack="true" CssClass="select2 form-control custom-select" style="width: 100%"></asp:DropDownList>
+                                    </div>
+                                    <asp:LinkButton ID="BtnAddAcceso" runat="server" title="Agregar" style="background-color:#5cb85c; padding:7px" OnClick="BtnAddAcceso_Click" class="btn">
+                                        <i class="mdi mdi-plus text-white"></i>
+                                    </asp:LinkButton>
+                                </div>
+                        
+                                <div class="row col-12 mt-3">
+                                    <div class="table-responsive">
+                                        <asp:GridView ID="GvAccesos" runat="server"
+                                            CssClass="mydatagrid"
+                                            PagerStyle-CssClass="pgr"
+                                            HeaderStyle-CssClass="header"
+                                            RowStyle-CssClass="rows"
+                                            AutoGenerateColumns="false"
+                                            AllowPaging="true"
+                                            GridLines="None" OnPageIndexChanging="GvAccesos_PageIndexChanging"
+                                            PageSize="5" OnRowCommand="GvAccesos_RowCommand">
+                                            <Columns>
+                                                <asp:BoundField DataField="idEmpleado" Visible="false" />
+                                                <asp:BoundField DataField="nombre" HeaderText="Nombre" />
+                                                <asp:BoundField DataField="emailEmpresa" HeaderText="correo" />
+                                                <asp:TemplateField>
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="BtnEliminar" runat="server" title="Nuevo" Style="background-color: #d9534f" class="btn" CommandArgument='<%# Eval("idEmpleado") %>' CommandName="BorrarAcceso">
+                                                                <i class="mdi mdi-delete text-white"></i>
+                                                        </asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+
+                                <div class="col-12" runat="server" id="DivMensajeAcceso" visible="false" style="display: flex; background-color: tomato; justify-content: center">
+                                    <asp:Label runat="server" CssClass="col-form-label text-white" ID="LbMensajeAcceso"></asp:Label>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <asp:Button ID="BtnActualizarAccesos" runat="server" Text="Aceptar" class="btn btn-success" OnClick="BtnActualizarAccesos_Click"/>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+        <script src="../../js/select2.js"></script>
+        <link href="../../css/select2.css" rel="stylesheet" />
 </asp:Content>

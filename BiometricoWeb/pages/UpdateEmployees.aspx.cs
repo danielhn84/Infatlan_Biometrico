@@ -156,35 +156,27 @@ namespace BiometricoWeb.pages
         }
 
         protected void TxBuscarEmpleado_TextChanged(object sender, EventArgs e){
-            try
-            {
+            try{
                 CargarEmpleados();
-
                 String vBusqueda = TxBuscarEmpleado.Text;
                 DataTable vDatos = (DataTable)Session["DATAEMPLEADOS"];
 
-                if (vBusqueda.Equals(""))
-                {
+                if (vBusqueda.Equals("")){
                     GVBusqueda.DataSource = vDatos;
                     GVBusqueda.DataBind();
                     UpdateGridView.Update();
-                }
-                else
-                {
+                }else{
                     EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
                         .Where(r => r.Field<String>("nombre").Contains(vBusqueda.ToUpper()));
 
                     Boolean isNumeric = int.TryParse(vBusqueda, out int n);
 
-                    if (isNumeric)
-                    {
-                        if (filtered.Count() == 0)
-                        {
+                    if (isNumeric){
+                        if (filtered.Count() == 0){
                             filtered = vDatos.AsEnumerable().Where(r =>
                                 Convert.ToInt32(r["idEmpleado"]) == Convert.ToInt32(vBusqueda));
                         }
                     }
-
 
                     DataTable vDatosFiltrados = new DataTable();
                     vDatosFiltrados.Columns.Add("idEmpleado");
@@ -194,8 +186,8 @@ namespace BiometricoWeb.pages
                     vDatosFiltrados.Columns.Add("identidad");
                     vDatosFiltrados.Columns.Add("telefono");
                     vDatosFiltrados.Columns.Add("estado");
-                    foreach (DataRow item in filtered)
-                    {
+                    vDatosFiltrados.Columns.Add("nombreArea");
+                    foreach (DataRow item in filtered){
                         vDatosFiltrados.Rows.Add(
                             item["idEmpleado"].ToString(),
                             item["nombre"].ToString(),
@@ -203,7 +195,8 @@ namespace BiometricoWeb.pages
                             item["ciudad"].ToString(),
                             item["identidad"].ToString(),
                             item["telefono"].ToString(),
-                            item["estado"].ToString()
+                            item["estado"].ToString(),
+                            item["nombreArea"].ToString()
                             );
                     }
 
@@ -212,8 +205,6 @@ namespace BiometricoWeb.pages
                     Session["DATAEMPLEADOS"] = vDatosFiltrados;
                     UpdateGridView.Update();
                 }
-
-
             }catch (Exception Ex) { 
                 Mensaje(Ex.Message, WarningType.Danger); 
             }

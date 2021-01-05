@@ -150,13 +150,13 @@ namespace BiometricoWeb.pages.documentacion
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAreas;
 
         /// <summary>
-        /// Control DDLArea.
+        /// Control LBxAreas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLArea;
+        protected global::System.Web.UI.WebControls.ListBox LBxAreas;
 
         /// <summary>
         /// Control DivIntegrantesArea.
@@ -265,6 +265,51 @@ namespace BiometricoWeb.pages.documentacion
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLPropietario;
+
+        /// <summary>
+        /// Control DivExternos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivExternos;
+
+        /// <summary>
+        /// Control TxProveedorEx.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxProveedorEx;
+
+        /// <summary>
+        /// Control TxContactoEx.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxContactoEx;
+
+        /// <summary>
+        /// Control TxCorreoEx.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxCorreoEx;
+
+        /// <summary>
+        /// Control TxFechaEx.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxFechaEx;
 
         /// <summary>
         /// Control FUArchivo.

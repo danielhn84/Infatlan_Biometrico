@@ -14,16 +14,15 @@ namespace BiometricoWeb.pages.documentacion
     public partial class tipoDocumentos : System.Web.UI.Page
     {
         db vConexion = new db();
-        String vId = "";
         protected void Page_Load(object sender, EventArgs e){
             try{
+                select2();
                 if (!Page.IsPostBack){
                     if (Convert.ToBoolean(Session["AUTH"])){
                         if (Session["DOCUMENTOS_TIPO_ID"] == null)
                             Response.Redirect("crearDocumentos.aspx");
                         
                         string vIdTipo = Session["DOCUMENTOS_TIPO_ID"].ToString();
-                        vId = vIdTipo;
                         if (vIdTipo == "1")
                             TxTitulo.Text = "Boletines";
                         else if(vIdTipo == "2")
@@ -76,6 +75,16 @@ namespace BiometricoWeb.pages.documentacion
                         DDLNivelConfidencialidad.Items.Add(new ListItem { Value = item["idConfidencialidad"].ToString(), Text = item["nombre"].ToString()});
                     }
                 }
+
+                vQuery = "[RSP_Documentacion] 6";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                if (vDatos.Rows.Count > 0){
+                    DDLEmpleados.Items.Clear();
+                    DDLEmpleados.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    foreach (DataRow item in vDatos.Rows){
+                        DDLEmpleados.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString()  });
+                    }
+                }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -94,7 +103,7 @@ namespace BiometricoWeb.pages.documentacion
                       GVBusqueda.Columns[10].Visible = true;
                     }
                 }
-                
+
                 int vCuenta = 0;
                 foreach (GridViewRow row in GVBusqueda.Rows){
                     if (row.Cells[4].Text.Equals("2")){
@@ -117,12 +126,32 @@ namespace BiometricoWeb.pages.documentacion
                     }
 
                     vQuery = "[RSP_Documentacion] 24," + vDatos.Rows[vCuenta]["idDocumento"].ToString();
-                    DataTable vDataRef = vConexion.obtenerDataTable(vQuery);
-                    if (vDataRef.Rows.Count < 1){
+                    DataTable vData = vConexion.obtenerDataTable(vQuery);
+                    if (vData.Rows.Count < 1){
                         LinkButton button = row.FindControl("BtnReferencias") as LinkButton;
                         button.CssClass = "btn btn default";
                         button.Style.Value = "background-color:#8b8b8c";
                         button.Enabled = false;
+                    }
+
+                    vQuery = "[RSP_Documentacion] 5," + vDatos.Rows[vCuenta]["idDocumento"].ToString();
+                    vData = vConexion.obtenerDataTable(vQuery);
+                    if (vData.Rows.Count > 0){
+                        if (Session["DOCUMENTOS_TIPO_ID"].ToString() != "1"){
+                            if (vData.Rows[0]["idResponsable"].ToString() != Session["USUARIO"].ToString() && vData.Rows[0]["usuarioCreacion"].ToString() != Session["USUARIO"].ToString()){
+                                LinkButton button = row.FindControl("BtnEditar") as LinkButton;
+                                button.CssClass = "btn";
+                                button.Style.Value = "background-color:#8b8b8c";
+                                button.Enabled = false;
+                            }
+                        }else{ 
+                            if (vData.Rows[0]["usuarioCreacion"].ToString() != Session["USUARIO"].ToString()){
+                                LinkButton button = row.FindControl("BtnEditar") as LinkButton;
+                                button.CssClass = "btn";
+                                button.Style.Value = "background-color:#8b8b8c";
+                                button.Enabled = false;
+                            }
+                        }
                     }
                     vCuenta++;
                 }
@@ -132,7 +161,58 @@ namespace BiometricoWeb.pages.documentacion
         }
 
         protected void TxBuscar_TextChanged(object sender, EventArgs e){
+            try{
+                cargarDatos(Session["DOCUMENTOS_TIPO_ID"].ToString());
+                String vBusqueda = TxBuscar.Text;
+                DataTable vDatos = (DataTable)Session["DOCUMENTOS"];
 
+                if (vBusqueda.Equals("")){
+                    GVBusqueda.DataSource = vDatos;
+                    GVBusqueda.DataBind();
+                    mostrarOcultar(vDatos);
+                }else{
+                    EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
+                        .Where(r => r.Field<String>("nombre").Contains(vBusqueda));
+
+                    Boolean isNumeric = int.TryParse(vBusqueda, out int n);
+
+                    if (isNumeric){
+                        if (filtered.Count() == 0){
+                            filtered = vDatos.AsEnumerable().Where(r =>
+                                Convert.ToInt32(r["idDocumento"]) == Convert.ToInt32(vBusqueda));
+                        }
+                    }
+
+                    DataTable vDatosFiltrados = new DataTable();
+                    vDatosFiltrados.Columns.Add("idDocumento");
+                    vDatosFiltrados.Columns.Add("codigo");
+                    vDatosFiltrados.Columns.Add("nombre");
+                    vDatosFiltrados.Columns.Add("nivelConfidencialidad");
+                    vDatosFiltrados.Columns.Add("activo");
+                    vDatosFiltrados.Columns.Add("firma");
+                    vDatosFiltrados.Columns.Add("fechaRegistro");
+                    vDatosFiltrados.Columns.Add("descripcion");
+                    foreach (DataRow item in filtered){
+                        vDatosFiltrados.Rows.Add(
+                            item["idDocumento"].ToString(),
+                            item["codigo"].ToString(),
+                            item["nombre"].ToString(),
+                            item["nivelConfidencialidad"].ToString(),
+                            item["activo"].ToString(),
+                            item["firma"].ToString(),
+                            item["fechaRegistro"].ToString(),
+                            item["descripcion"].ToString()
+                            );
+                    }
+
+                    GVBusqueda.DataSource = vDatosFiltrados;
+                    GVBusqueda.DataBind();
+                    mostrarOcultar(vDatosFiltrados);
+                    Session["DOCUMENTOS"] = vDatosFiltrados;
+                }
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
 
         protected void GVBusqueda_RowCommand(object sender, GridViewCommandEventArgs e){
@@ -177,6 +257,7 @@ namespace BiometricoWeb.pages.documentacion
                 GVBusqueda.PageIndex = e.NewPageIndex;
                 GVBusqueda.DataSource = (DataTable)Session["DOCUMENTOS"];
                 GVBusqueda.DataBind();
+                mostrarOcultar((DataTable)Session["DOCUMENTOS"]);
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -185,7 +266,7 @@ namespace BiometricoWeb.pages.documentacion
         protected void BtnEditarDoc_Click(object sender, EventArgs e){
             try{
                 xml vDatos = new xml();
-                Object[] vDatosMaestro = new object[16];
+                Object[] vDatosMaestro = new object[20];
                 vDatosMaestro[0] = Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
                 vDatosMaestro[1] = "";
                 vDatosMaestro[2] = TxNombre.Text;
@@ -202,6 +283,10 @@ namespace BiometricoWeb.pages.documentacion
                 vDatosMaestro[13] = CBxConfidencial.Checked;
                 vDatosMaestro[14] = DDLNivelConfidencialidad.SelectedValue;
                 vDatosMaestro[15] = "";
+                vDatosMaestro[16] = "";
+                vDatosMaestro[17] = "";
+                vDatosMaestro[18] = "";
+                vDatosMaestro[19] = "";
                 String vXML = vDatos.ObtenerXMLDocumentos(vDatosMaestro);
                 vXML = vXML.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
                 
@@ -258,6 +343,98 @@ namespace BiometricoWeb.pages.documentacion
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
+        }
+
+        private void select2() {
+            String vScript = @"
+                    $(function test() {
+                        $('.select2').select2();
+                        $('.ajax').select2({
+                            ajax: {
+                                url: 'https://api.github.com/search/repositories',
+                                dataType: 'json',
+                                delay: 250,
+                                data: function (params) {
+                                    return {
+                                        q: params.term, // search term
+                                        page: params.page
+                                    };
+                                },
+                                processResults: function (data, params) {
+                                    params.page = params.page || 1;
+                                    return {
+                                        results: data.items,
+                                        pagination: {
+                                            more: (params.page * 30) < data.total_count
+                                        }
+                                    };
+                                },
+                                cache: true
+                            },
+                            escapeMarkup: function (markup) {
+                                return markup;
+                            },
+                            minimumInputLength: 1,
+                        });
+                    });
+                    ";
+
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "select2", vScript, true);
+
+        }
+
+        protected void LBAccesos_Click(object sender, EventArgs e){
+            try{
+                String vQuery = "[RSP_Documentacion] 29," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                if (vDatos.Rows.Count > 0){
+                    GvAccesos.DataSource = vDatos;
+                    Session["DOCUMENTOS_ACCESOS"] = vDatos;
+                    GvAccesos.DataBind();
+                }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalAcceso();", true);
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnAddAcceso_Click(object sender, EventArgs e){
+
+        }
+
+        protected void GvAccesos_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            try{
+                GvAccesos.PageIndex = e.NewPageIndex;
+                GvAccesos.DataSource = (DataTable)Session["DOCUMENTOS_ACCESOS"];
+                GvAccesos.DataBind();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void GvAccesos_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                DataTable vDatos = (DataTable)Session["DOCUMENTOS_ACCESOS"];
+                if (e.CommandName == "BorrarAcceso"){
+                    String vID = e.CommandArgument.ToString();
+                    if (Session["DOCUMENTOS_CORREOS"] != null){
+                        DataRow[] result = vDatos.Select("idEmpleado = '" + vID + "'");
+                        foreach (DataRow row in result){
+                            if (row["idEmpleado"].ToString().Contains(vID))
+                                vDatos.Rows.Remove(row);
+                        }
+                    }
+                }
+                GvAccesos.DataSource = vDatos;
+                GvAccesos.DataBind();
+                Session["DOCUMENTOS_ACCESOS"] = vDatos;
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnActualizarAccesos_Click(object sender, EventArgs e){
+
         }
     }
 }
