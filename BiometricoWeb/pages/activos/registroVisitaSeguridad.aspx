@@ -55,84 +55,144 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav_Programada" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
-    <asp:UpdatePanel ID="UpdateDivAutorizadas" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
-            <div class="row" id="Div1" runat="server">
-                <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Solicitudes Autorizadas</h4>
-                            <div class="row mb-2"> 
-                                <label class="col-2 col-form-label">Proceso</label>
-                                <div class="col-7">
-                                    <asp:DropDownList runat="server" ID="DDLProceso" CssClass="form-control" OnSelectedIndexChanged="DDLProceso_SelectedIndexChanged" AutoPostBack="true">
-                                        <asp:ListItem Value="1" Text="Personal Interno"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="Visitas"></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="Data Center" Selected="True"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="Soporte Técnico"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="row"> 
-                                <label class="col-2 col-form-label">Buscar</label>
-                                <div class="col-7">
-                                    <asp:TextBox ID="TxSolicitud" runat="server" placeholder="Busqueda por Solicitud o Responsable- Presione afuera para proceder" class="form-control" AutoPostBack="true"></asp:TextBox>
+            <asp:UpdatePanel ID="UpdateDivAutorizadas" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="row" id="Div1" runat="server">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Solicitudes Autorizadas</h4>
+                                    <div class="row mb-2">
+                                        <label class="col-2 col-form-label">Proceso</label>
+                                        <div class="col-7">
+                                            <asp:DropDownList runat="server" ID="DDLProceso" CssClass="form-control" OnSelectedIndexChanged="DDLProceso_SelectedIndexChanged" AutoPostBack="true">
+                                                <asp:ListItem Value="1" Text="Personal Interno"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="Visitas"></asp:ListItem>
+                                                <asp:ListItem Value="3" Text="Data Center" Selected="True"></asp:ListItem>
+                                                <asp:ListItem Value="4" Text="Soporte Técnico"></asp:ListItem>
+                                            </asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-2 col-form-label">Buscar</label>
+                                        <div class="col-7">
+                                            <asp:TextBox ID="TxSolicitud" runat="server" placeholder="Busqueda por Solicitud o Responsable- Presione afuera para proceder" class="form-control" AutoPostBack="true"></asp:TextBox>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-                      <div class="row">
-                <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="table-responsive">
-                                    <asp:GridView ID="GVBusquedas" runat="server"
-                                        CssClass="mydatagrid"
-                                        PagerStyle-CssClass="pgr"
-                                        HeaderStyle-CssClass="header"
-                                        RowStyle-CssClass="rows"
-                                        AutoGenerateColumns="false" 
-                                        AllowPaging="true"  
-                                        GridLines="None" 
-                                        PageSize="10">
-                                        <Columns>
-                                            <asp:TemplateField HeaderText="Select" HeaderStyle-Width="50px">
-                                                <HeaderTemplate>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="BtnAprobar" runat="server" Text="Aprobar" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="Aprobar">
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                            <asp:GridView ID="GVBusquedas" runat="server"
+                                                CssClass="mydatagrid"
+                                                PagerStyle-CssClass="pgr"
+                                                HeaderStyle-CssClass="header"
+                                                RowStyle-CssClass="rows"
+                                                AutoGenerateColumns="false"
+                                                AllowPaging="true"
+                                                GridLines="None"
+                                                PageSize="10">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="Select" HeaderStyle-Width="50px">
+                                                        <HeaderTemplate>
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="BtnAprobar" runat="server" Text="Aprobar" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="AutorizarEntrada">
                                                                       <i class="mdi mdi-ballot text-primary" ></i>
-                                                    </asp:LinkButton>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
+                                                            </asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
-                                            <asp:BoundField DataField="idSolicitud" HeaderText="Solicitud" />
-                                            <asp:BoundField DataField="fechaInicio" HeaderText="Fecha Inicio"  />
-                                            <asp:BoundField DataField="fechaFin" HeaderText="Fecha Fin" />
-                                            <asp:BoundField DataField="acceso" HeaderText="Acceso" />
-                                            <asp:BoundField DataField="peticion" HeaderText="Petición" />
-                                            <asp:BoundField DataField="trabajo" HeaderText="Trabajo" />
-                                            <asp:BoundField DataField="motivo" HeaderText="Motivo" />
-                                            <asp:BoundField DataField="nombre" HeaderText="Responsable" />
-                                           <%-- <asp:BoundField DataField="detalleTrabajo" HeaderText="Estado" ItemStyle-HorizontalAlign="Justify" />
+                                                    <asp:BoundField DataField="idSolicitud" HeaderText="Solicitud" />
+                                                    <asp:BoundField DataField="fechaInicio" HeaderText="Fecha Inicio" />
+                                                    <asp:BoundField DataField="fechaFin" HeaderText="Fecha Fin" />
+                                                    <asp:BoundField DataField="acceso" HeaderText="Acceso" />
+                                                    <asp:BoundField DataField="peticion" HeaderText="Petición" />
+                                                    <asp:BoundField DataField="trabajo" HeaderText="Trabajo" />
+                                                    <asp:BoundField DataField="motivo" HeaderText="Motivo" />
+                                                    <asp:BoundField DataField="nombre" HeaderText="Responsable" />
+                                                    <%-- <asp:BoundField DataField="detalleTrabajo" HeaderText="Estado" ItemStyle-HorizontalAlign="Justify" />
                                             <asp:BoundField DataField="descripcionEstado" />--%>
-
-                                        </Columns>
-                                    </asp:GridView>
-
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="EnviarSolicitudModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 600px; top: 320px; left: 50%; transform: translate(-50%, -50%);">
+                <div class="modal-header">
+                    <asp:UpdatePanel ID="UpdatePanel16" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <h4 class="modal-title">
+                                <asp:Label ID="lbTitulo" runat="server" Text="" Style="margin-left: auto; margin-right: auto"></asp:Label></h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <asp:UpdatePanel ID="UpdatePanel17" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="row p-t-20">
+                                <div class="col-6">
+                                    <label class="control-label">Fecha Inicio:</label></label>
+                                        <asp:TextBox ID="TxFechaInicioModal" AutoPostBack="true" runat="server" TextMode="DateTimeLocal" ReadOnly="true" class="form-control"></asp:TextBox>
+                                </div>
+                                <div class="col-6">
+                                    <label class="control-label">Fecha Fin:</label></label>    
+                                     <asp:TextBox ID="TxFechaFinModal" AutoPostBack="true" runat="server" TextMode="DateTimeLocal" ReadOnly="true" class="form-control"></asp:TextBox>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row p-t-20">
+                                <div class="col-12">
+                                    <label class="control-label">Tarea:</label></label>
+                                    <asp:TextBox ID="TxTareaModal" AutoPostBack="true" runat="server" TextMode="MultiLine" Rows="2" ReadOnly="true" class="form-control"></asp:TextBox>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row p-t-20">
+                                <div class="col-12">
+                                    <label class="control-label">Motivo:</label></label>
+                                    <asp:TextBox ID="TxMotivoModal" AutoPostBack="true" runat="server" TextMode="MultiLine" Rows="3" ReadOnly="true" class="form-control"></asp:TextBox>
+                                </div>
+                            </div>
+
+
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel18" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <button type="BtnCerrarSoli" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="BtnEnviarSoli" runat="server" Text="Enviar" class="btn btn-success" />
+                        </ContentTemplate>
+
+                    </asp:UpdatePanel>
                 </div>
             </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-
         </div>
     </div>
 
