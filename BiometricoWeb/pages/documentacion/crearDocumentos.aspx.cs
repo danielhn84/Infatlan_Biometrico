@@ -471,6 +471,8 @@ namespace BiometricoWeb.pages.documentacion
                 DivEmpleados.Visible = DDLCategoria.SelectedValue == "2" ? true : false;
                 DivGrupos.Visible = DDLCategoria.SelectedValue == "3" ? true : false;
                 DivAreas.Visible = DDLCategoria.SelectedValue == "4" ? true : false;
+                GvCorreos.DataSource = null;
+                GvCorreos.DataBind();
                 if (DDLCategoria.SelectedValue == "1") {
                     Session["DOCUMENTOS_CORREOS"] = null;
                     DDLGrupos.SelectedValue = "0";

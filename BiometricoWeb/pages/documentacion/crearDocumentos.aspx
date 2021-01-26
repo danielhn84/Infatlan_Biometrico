@@ -11,7 +11,7 @@
     </script>
     <link href="/css/GridStyle.css" rel="stylesheet" />
     <link href="/css/pager.css" rel="stylesheet" />
-    <link href="../../css/select2.css" rel="stylesheet" />
+    <link href="/css/select2.css" rel="stylesheet" />
     <script type="text/javascript">
         function openModal() { $('#ModalCargar').modal('show'); }
         function openModalCorreos() { $('#ModalCorreos').modal('show'); }
@@ -236,13 +236,13 @@
                                 </div>
                                 <div class="row col-12">
                                     <div class="row col-6 mt-3">
-                                        <label class="col-4">Referencia</label>
+                                        <label class="col-4 col-form-label">Referencia</label>
                                         <div class="col-8">
                                             <asp:ListBox runat="server" ID="LBReferencia" CssClass="select2 form-control custom-select" name="states[]" multiple="multiple" style="width: 100%" SelectionMode="Multiple"></asp:ListBox>
                                         </div>
                                     </div>
                                     <div runat="server" id="DivPropietario" class="row col-6 mt-3">
-                                        <label class="col-4">Propietario <b style="color:tomato">*</b></label>
+                                        <label class="col-4 col-form-label">Propietario <b style="color:tomato">*</b></label>
                                         <div class="col-8">
                                             <asp:DropDownList runat="server" ID="DDLPropietario" CssClass="select2 form-control custom-select" style="width: 100%"></asp:DropDownList>
                                         </div>
@@ -321,14 +321,14 @@
                     <div class="row">
                         <div class="row col-12">
                             <div class="col-3" style="margin-left: 2%">
-                                <label>Empleado</label>
+                                <label class="col-form-label">Empleado</label>
                             </div>
                             <div class="col-6">
-                                <asp:DropDownList runat="server" ID="DDLEmpleados" CssClass="fstdropdown-select form-control"></asp:DropDownList>
+                                <asp:DropDownList runat="server" ID="DDLEmpleados" CssClass="select2 form-control custom-select" style="width:100%"></asp:DropDownList>
                             </div>
                             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                 <ContentTemplate>
-                                    <asp:LinkButton ID="BtnAgregarCorreo" runat="server" title="Agregar" class="btn btn-success" OnClick="BtnAgregarCorreo_Click">
+                                    <asp:LinkButton ID="BtnAgregarCorreo" runat="server" style="padding:12px;" title="Agregar" class="btn btn-success ml-2" OnClick="BtnAgregarCorreo_Click">
                                         <i class="mdi mdi-plus text-white"></i>
                                     </asp:LinkButton>
                                 </ContentTemplate>
@@ -383,8 +383,8 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <script src="../../js/select2.js"></script>
-    <link href="../../css/select2.css" rel="stylesheet" />
+    <script src="/js/select2.js"></script>
+    <link href="/css/select2.css" rel="stylesheet" />
 
     <script src="/js/fstdropdown.js"></script>
     <script>

@@ -94,7 +94,7 @@ namespace BiometricoWeb.pages
 
                 DDLModArea.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
-                    DDLModArea.Items.Add(new ListItem { Value = item["nombre"].ToString(), Text = item["nombre"].ToString() });
+                    DDLModArea.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["nombre"].ToString() });
                 }
             }catch (Exception Ex) { 
                 Mensaje(Ex.Message, WarningType.Danger); 
@@ -129,7 +129,7 @@ namespace BiometricoWeb.pages
                         TxModEmailEmpresa.Text = item["emailEmpresa"].ToString();
                         TxModEmailPersonal.Text = item["emailPersonal"].ToString();
                         DDLModCiudad.SelectedIndex = CargarInformacionDDL(DDLModCiudad, item["ciudad"].ToString());
-                        DDLModArea.SelectedIndex = CargarInformacionDDL(DDLModArea, item["area"].ToString());
+                        DDLModArea.SelectedValue = item["area"].ToString();
                         DDLEstado.SelectedIndex = CargarInformacionDDL(DDLEstado, item["estado"].ToString());
                         DDLModTurnos.SelectedIndex = CargarInformacionDDL(DDLModTurnos, item["idTurno"].ToString());
                         DDLModPuestos.SelectedIndex = CargarInformacionDDL(DDLModPuestos, item["idPuesto"].ToString());
@@ -237,7 +237,7 @@ namespace BiometricoWeb.pages
             try{
                 String vQuery = "RSP_IngresarEmpleados 2," + LbModNoEmpleado.Text + "," +
                     "'" + TxModNombre.Text + "'," +
-                    "'" + DDLModArea.SelectedItem.Text + "'," +
+                    DDLModArea.SelectedValue + "," +
                     "'" + DDLModCiudad.SelectedValue + "'," +
                     "'" + null + "'," +
                     "'" + TxModIdentidad.Text + "'," +

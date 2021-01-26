@@ -165,6 +165,7 @@
     <Content Include="pages\activos\activosInternos.aspx" />
     <Content Include="pages\activos\registroActivos.aspx" />
     <Content Include="pages\activos\registroVisitaSeguridad.aspx" />
+    <Content Include="pages\activos\responsableActivos.aspx" />
     <Content Include="pages\activos\soporte.aspx" />
     <Content Include="pages\activos\soporteHistorico.aspx" />
     <Content Include="pages\activos\soporteAprobaciones.aspx" />
@@ -330,6 +331,13 @@
     </Compile>
     <Compile Include="pages\activos\registroVisitaSeguridad.aspx.designer.cs">
       <DependentUpon>registroVisitaSeguridad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\responsableActivos.aspx.cs">
+      <DependentUpon>responsableActivos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\responsableActivos.aspx.designer.cs">
+      <DependentUpon>responsableActivos.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\activos\soporte.aspx.cs">
       <DependentUpon>soporte.aspx</DependentUpon>

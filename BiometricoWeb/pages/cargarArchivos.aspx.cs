@@ -198,6 +198,7 @@ namespace BiometricoWeb.pages
 
             try{
                 String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER"].ToString();
+                //String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_LOCAL"].ToString();
                 if (FUPermisos.HasFile){
                     String vNombreArchivo = FUPermisos.FileName;
                     vDireccionCarga += "/" + archivoLog + "_" + vNombreArchivo;

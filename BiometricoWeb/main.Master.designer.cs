@@ -429,6 +429,15 @@ namespace BiometricoWeb
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIActInterno;
 
         /// <summary>
+        /// Control LIIngresarActivos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIIngresarActivos;
+
+        /// <summary>
         /// Control LIActSoporte.
         /// </summary>
         /// <remarks>

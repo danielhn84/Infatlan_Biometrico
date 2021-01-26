@@ -253,7 +253,7 @@
                                 <div class="row col-12">
                                     <div class="row col-6 mt-3">
                                         <div class="col-4"></div>
-                                        <asp:LinkButton Text="Ver Accesos" runat="server" ID="LBAccesos" OnClick="LBAccesos_Click" />
+                                        <asp:LinkButton Text="Ver Integrantes" runat="server" ID="LBAccesos" OnClick="LBAccesos_Click" />
 
                                     </div>
                                 </div>
@@ -344,7 +344,7 @@
             <div class="modal-content">
                 <div class="modal-header table-dark">
                     <h4 class="modal-title" id="ModalLabelModificacionTipo">
-                        <asp:Label CssClass=" text-white" ID="Label1" runat="server" Text="Accesos"></asp:Label>
+                        <asp:Label CssClass=" text-white" ID="Label1" runat="server" Text="Integrantes"></asp:Label>
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -410,6 +410,6 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-        <script src="../../js/select2.js"></script>
-        <link href="../../css/select2.css" rel="stylesheet" />
+        <script src="/js/select2.js"></script>
+        <link href="/css/select2.css" rel="stylesheet" />
 </asp:Content>
