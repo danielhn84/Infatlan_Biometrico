@@ -186,7 +186,7 @@
                     <asp:UpdatePanel ID="UpdateUsuarioBotones" runat="server">
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="BtnAutorizarPermiso" runat="server" Text="Ok" class="btn btn-success" OnClick="BtnAutorizarPermiso_Click" />
+                            <asp:Button ID="BtnAutorizarPermiso" runat="server" Text="Autorizar" class="btn btn-success" OnClick="BtnAutorizarPermiso_Click" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
@@ -249,7 +249,7 @@
                     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="BtnFinalizarPermiso" runat="server" Text="Ok" class="btn btn-success" OnClick="BtnFinalizarPermiso_Click" />
+                            <asp:Button ID="BtnFinalizarPermiso" runat="server" Text="Finalizar" class="btn btn-success" OnClick="BtnFinalizarPermiso_Click" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>

@@ -102,15 +102,107 @@ namespace BiometricoWeb.pages.activos
 
         protected void DDLCategorias_SelectedIndexChanged(object sender, EventArgs e){
             try{
-                String vQuery = "[RSP_ActivosGenerales] 2";
+                limpiarData();
+
+                DivGenerales.Visible = DDLCategorias.SelectedValue != "2" && DDLCategorias.SelectedValue != "6" && DDLCategorias.SelectedValue != "0" ? true : false;
+                DivSoftware.Visible = DDLCategorias.SelectedValue == "2" ? true : false;
+                DivRegistrar.Visible = DDLCategorias.SelectedValue != "0" ? true : false;
+
+                String vQuery = "[RSP_ActivosGenerales] 3," + DDLCategorias.SelectedValue;
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                DDLTipo.Items.Clear();
+                DDLTipoSW.Items.Clear();
                 if (vDatos.Rows.Count > 0){
-                    DDLCategorias.Items.Clear();
-                    DDLCategorias.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    DDLTipo.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    DDLTipoSW.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                     foreach (DataRow item in vDatos.Rows){
-                        DDLCategorias.Items.Add(new ListItem { Value = item["idCategoria"].ToString(), Text = item["nombre"].ToString() });
+                        DDLTipo.Items.Add(new ListItem { Value = item["idCategoria"].ToString(), Text = item["nombre"].ToString() });
+                        DDLTipoSW.Items.Add(new ListItem { Value = item["idCategoria"].ToString(), Text = item["nombre"].ToString() });
                     }
                 }
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void TxGuardar_Click(object sender, EventArgs e){
+            try{
+                validaciones();
+                LtMensaje.Text = "Creación de Equipo de " + DDLCategorias.SelectedItem.Text;
+                Lb1.Text = DDLTipo.SelectedItem.Text;
+                Lb2.Text = TxSerie.Text;
+                Lb3.Text = TxInventario.Text;
+                Lb4.Text = DDLResponsable.SelectedItem.Text;
+                
+                Lb5.Text = DDLTipoSW.SelectedItem.Text;
+                Lb6.Text = TxNombreSW.Text;
+                Lb7.Text = TxLicenciaSW.Text;
+                Lb8.Text = TxUsuariosSW.Text;
+                Lb9.Text = TxVersionSW.Text;
+                Lb10.Text = TxLenguajeSW.Text;
+                Lb11.Text = TxProveedorSW.Text;
+
+                DivInfoSoftware.Visible = DDLCategorias.SelectedValue == "2" ? true : false;
+                DivInfoEquipo.Visible = DDLCategorias.SelectedValue != "2" ? true : false;
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        private void validaciones() {
+            if (DDLCategorias.SelectedValue != "2" && DDLCategorias.SelectedValue != "6" && DDLCategorias.SelectedValue != "0") {
+                if (DDLTipo.SelectedValue == "0" || DDLTipo.SelectedIndex == -1)
+                    throw new Exception("Por favor seleccione el tipo de equipo.");
+                if (TxSerie.Text == "" || TxSerie.Text == string.Empty)
+                    throw new Exception("Por favor ingrese el número de serie");
+                if (TxInventario.Text == "" || TxInventario.Text == string.Empty)
+                    throw new Exception("Por favor ingrese el número de inventario.");
+                if (DDLResponsable.SelectedValue == "0" || DDLResponsable.SelectedIndex == -1)
+                    throw new Exception("Por favor seleccione el responsable.");
+            }
+            
+            if (DDLCategorias.SelectedValue == "2") {
+                if (DDLTipoSW.SelectedValue == "0" || DDLTipoSW.SelectedIndex == -1)
+                    throw new Exception("Por favor seleccione el tipo de Software.");
+                if (TxNombreSW.Text == "" || TxNombreSW.Text == string.Empty)
+                    throw new Exception("Por favor ingrese el nombre del Software.");
+                if (TxProveedorSW.Text == "" || TxProveedorSW.Text == string.Empty)
+                    throw new Exception("Por favor ingrese el proveedor.");
+                if (TxLicenciaSW.Text == "" || TxLicenciaSW.Text == string.Empty)
+                    throw new Exception("Por favor ingrese la licencia del Software.");
+                if (TxUsuariosSW.Text == "" || TxUsuariosSW.Text == string.Empty)
+                    throw new Exception("Por favor agregue la cantidad de usuarios.");
+                if (TxVersionSW.Text == "" || TxVersionSW.Text == string.Empty)
+                    throw new Exception("Por favor agregue la versión del Software.");
+            }
+
+        }
+
+        private void limpiarData() {
+            DDLTipo.SelectedIndex = -1;
+            TxSerie.Text = string.Empty;
+            TxInventario.Text = string.Empty;
+            DDLResponsable.SelectedIndex = -1;
+
+            DDLTipoSW.SelectedIndex = -1;
+            TxNombreSW.Text = string.Empty;
+            TxLicenciaSW.Text = string.Empty;
+            TxUsuariosSW.Text = string.Empty;
+            TxVersionSW.Text = string.Empty;
+            TxLenguajeSW.Text = string.Empty;
+            TxProveedorSW.Text = string.Empty;
+        }
+
+        protected void BtnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void BtnGuardarInfo_Click(object sender, EventArgs e){
+            try{
+                String vQuery = "";
+                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }

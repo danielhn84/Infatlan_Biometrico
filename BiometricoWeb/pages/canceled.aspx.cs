@@ -93,7 +93,7 @@ namespace BiometricoWeb.pages
                     }
                 }
 
-                Session["DATOSAUTORIZAR"] = vDatos;
+                Session["DATOSAUTORIZAR_CANCELADOS"] = vDatos;
                 //UpdateDivBusquedas.Update();
             }catch (Exception Ex) { 
                 Mensaje(Ex.Message, WarningType.Danger); 
@@ -109,7 +109,7 @@ namespace BiometricoWeb.pages
                 CargarAutorizaciones();
 
                 String vBusqueda = TxBuscarEmpleado.Text;
-                DataTable vDatos = (DataTable)Session["DATOSAUTORIZAR"];
+                DataTable vDatos = (DataTable)Session["DATOSAUTORIZAR_CANCELADOS"];
 
                 if (vBusqueda.Equals("")){
                     GVBusqueda.DataSource = vDatos;
@@ -147,7 +147,7 @@ namespace BiometricoWeb.pages
 
                     GVBusqueda.DataSource = vDatosFiltrados;
                     GVBusqueda.DataBind();
-                    Session["DATOSAUTORIZAR"] = vDatosFiltrados;
+                    Session["DATOSAUTORIZAR_CANCELADOS"] = vDatosFiltrados;
                     UpdateGridView.Update();
                 }
 
@@ -159,7 +159,7 @@ namespace BiometricoWeb.pages
         protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
             try{
                 GVBusqueda.PageIndex = e.NewPageIndex;
-                GVBusqueda.DataSource = (DataTable)Session["DATOSAUTORIZAR"];
+                GVBusqueda.DataSource = (DataTable)Session["DATOSAUTORIZAR_CANCELADOS"];
                 GVBusqueda.DataBind();
 
                 foreach (GridViewRow row in GVBusqueda.Rows){

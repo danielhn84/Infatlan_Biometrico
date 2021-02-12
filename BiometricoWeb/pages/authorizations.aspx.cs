@@ -79,7 +79,6 @@ namespace BiometricoWeb.pages
                 }
 
                 Session["DATOSAUTORIZAR"] = vDatos;
-                UpdateDivBusquedas.Update();
             }catch (Exception Ex) { 
                 Mensaje(Ex.Message, WarningType.Danger); 
             }

@@ -581,10 +581,11 @@ namespace BiometricoWeb.pages
                             }
                         }
 
+                        enviarCorreo(vId);
                         Mensaje(vMensaje, WarningType.Success);
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
                     }else
-                        Mensaje("Solicitud no fue eliminada, comuníquese con sistemas.", WarningType.Danger);
+                        Mensaje("Solicitud no fue aprobada, comuníquese con sistemas.", WarningType.Danger);
                 }else{
                     String vId = Session["CONSTANCIA_ELIMINAR"].ToString();
                     String vQuery = "[RSP_Constancias] 10," + vId + ",4";
@@ -819,6 +820,17 @@ namespace BiometricoWeb.pages
                 default:
                     return "application/octet-stream";
             }
+        }
+
+        private void enviarCorreo(String vId) {
+            SmtpService vService = new SmtpService();
+            String vQuery = "[RSP_Constancias] 17,'" + vId + "'";
+            DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQuery);
+            vService.EnviarMensaje(vDatosEmpleado.Rows[0]["emailEmpresa"].ToString(),
+                typeBody.Constancias,
+                vDatosEmpleado.Rows[0]["nombre"].ToString(),
+                "La solicitud de su constancia " + vDatosEmpleado.Rows[0]["Tipo"].ToString() + " fue aprobada. <br>Por favor pase a retirarla en la subgerencia de RRHH."
+                );
         }
     }
 }

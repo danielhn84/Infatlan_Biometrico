@@ -51,17 +51,33 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-Principal" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
-            <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+            <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                 <ContentTemplate>
                     <div class="col-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Datos Generales</h4>
+                                <h4 class="card-title">Categoria</h4>
                                 <div class="row col-12">
                                     <div class="row col-6">
                                         <label class="col-3 col-form-label">Categoría</label>
                                         <div class="col-9">
                                             <asp:DropDownList ID="DDLCategorias" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DDLCategorias_SelectedIndexChanged" CssClass="form-control"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 grid-margin stretch-card" runat="server" id="DivGenerales" visible="false">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Datos Generales</h4>
+                                <div class="row col-12">
+                                    <div class="row col-6"> 
+                                        <label class="col-3 col-form-label">Tipo</label>
+                                        <div class="col-9">
+                                            <asp:DropDownList ID="DDLTipo" runat="server" CssClass="select2 form-control custom-select"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row col-6"> 
@@ -91,79 +107,168 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
 
-            <asp:UpdatePanel ID="UPPrincipal" runat="server" UpdateMode="Conditional">
+            <asp:UpdatePanel ID="UPSoftware" runat="server">
                 <ContentTemplate>
-                    <div runat="server" visible="true" id="DivPI">
-                        <asp:UpdatePanel ID="UPPersonalInterno" runat="server" UpdateMode="Conditional">
-                            <ContentTemplate>
-                                <div runat="server" id="DivInfoIN" visible="false">
-                                    <div class="col-12 grid-margin stretch-card">
-                                        <div class="card">
-                                            <div class="card-body" runat="server" id="DivBody">
-                                                <h4 class="card-title">Datos del Encargado</h4>
-                                                <div class="row">
-                                                    <div class="col-4">
-                                                        <div class="form-group row">
-                                                            <label class="col-3" style="text-align: right">Nombre:</label>
-                                                            <div class="col-9">
-                                                                <asp:Label runat="server" Text="" ID="LbNombre" Font-Bold="true"></asp:Label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <div class="form-group row">
-                                                            <label class="col-3" style="text-align: right">ID Equipo:</label>
-                                                            <div class="col-5">
-                                                                <asp:Label runat="server" Text="" ID="LbIdEquipoEnt" Font-Bold="true"></asp:Label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <div class="form-group row">
-                                                            <label class="col-3" style="text-align: right">Tipo:</label>
-                                                            <div class="col-9">
-                                                                <asp:Label runat="server" Text="" ID="LbTipo" Font-Bold="true"></asp:Label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-4">
-                                                        <div class="form-group row">
-                                                            <label class="col-3" style="text-align: right">Marca:</label>
-                                                            <div class="col-9">
-                                                                <asp:Label runat="server" Text="" ID="LbMarca" Font-Bold="true"></asp:Label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <div class="form-group row">
-                                                            <label class="col-3" style="text-align: right">Serie:</label>
-                                                            <div class="col-9">
-                                                                <asp:Label runat="server" Text="" ID="LbSerieSalida" Font-Bold="true"></asp:Label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <div class="form-group row">
-                                                            <label class="col-3" style="text-align: right">No. Inv.</label>
-                                                            <div class="col-9">
-                                                                <asp:Label runat="server" Text="" ID="LbCodInventario" Font-Bold="true"></asp:Label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                    <div class="col-12 grid-margin stretch-card" runat="server" id="DivSoftware" visible="false">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Datos Generales</h4>
+                                <div class="row col-12">
+                                    <div class="row col-6"> 
+                                        <label class="col-3 col-form-label">Tipo</label>
+                                        <div class="col-9">
+                                            <asp:DropDownList ID="DDLTipoSW" runat="server" CssClass="select2 form-control custom-select"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="row col-6"> 
+                                        <label class="col-3 col-form-label">Nombre</label>
+                                        <div class="col-9">
+                                            <asp:TextBox runat="server" ID="TxNombreSW" CssClass="form-control"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
-                            </ContentTemplate>
-                        </asp:UpdatePanel>
-
+                                <div class="row col-12 mt-3">
+                                    <div class="row col-6">
+                                        <label class="col-3 col-form-label">Proveedor</label>
+                                        <div class="col-9">
+                                            <asp:TextBox runat="server" ID="TxProveedorSW" CssClass="form-control"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <div class="row col-6">
+                                        <label class="col-3 col-form-label">Licencia</label>
+                                        <div class="col-9">
+                                            <asp:TextBox runat="server" ID="TxLicenciaSW" CssClass="form-control"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-12 mt-3">
+                                    <div class="row col-6"> 
+                                        <label class="col-3 col-form-label">Usuarios</label>
+                                        <div class="col-9">
+                                            <asp:TextBox runat="server" ID="TxUsuariosSW" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <div class="row col-6">
+                                        <label class="col-3 col-form-label">Version</label>
+                                        <div class="col-9">
+                                            <asp:TextBox runat="server" ID="TxVersionSW" CssClass="form-control"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-12 mt-3">
+                                    <div class="row col-6"> 
+                                        <label class="col-3 col-form-label">Lenguaje</label>
+                                        <div class="col-9">
+                                            <asp:TextBox runat="server" ID="TxLenguajeSW" CssClass="form-control"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
+
+            <asp:UpdatePanel runat="server" ID="UPRegistrar">
+                <ContentTemplate>
+                    <div class="col-12 grid-margin stretch-card" runat="server" id="DivRegistrar" visible="false">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Registrar</h4>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <asp:Button ID="BtnCancelar" class="btn btn-secondary" runat="server" Text="Cancelar" OnClick="BtnCancelar_Click" />
+                                        <asp:Button Text="Guardar" runat="server" CssClass="btn btn-success" ID="TxGuardar" OnClick="TxGuardar_Click"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+    </div>
+
+    <%--MODAL GUARDAR--%>
+    <div class="modal fade" id="ModalConfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <asp:UpdatePanel runat="server" ID="UPCambio">
+                        <ContentTemplate>
+                            <h4 class="modal-title" id="ModalLabe">
+                                <asp:Literal ID="LtMensaje" Text="Titulo" runat="server"/>
+                            </h4>
+                            <small>Seguro que desea guadar este registro?</small>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <asp:UpdatePanel runat="server" ID="UPBody">
+                    <ContentTemplate>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="row col-12" runat="server" id="DivInfoEquipo" visible="false">
+                                    <div class="col-12">
+                                        <label class="col-3">Tipo:</label>
+                                        <asp:Label class="col-9" ID="Lb1" Text="" runat="server" Font-Bold="true" />
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="col-3">Serie:</label>
+                                        <asp:Label class="col-9" ID="Lb2" Text="" runat="server" Font-Bold="true"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="col-3">Inventario:</label>
+                                        <asp:Label class="col-9" ID="Lb3" Text="" runat="server" Font-Bold="true"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="col-3">Responsable:</label>
+                                        <asp:Label class="col-9" ID="Lb4" Text="" runat="server" Font-Bold="true"/>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12" runat="server" id="DivInfoSoftware" visible="false">
+                                    <div class="col-12">
+                                        <label class="col-3">Tipo:</label>
+                                        <asp:Label class="col-9" ID="Lb5" Text="" runat="server" Font-Bold="true" />
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="col-3">Nombre:</label>
+                                        <asp:Label class="col-9" ID="Lb6" Text="" runat="server" Font-Bold="true"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="col-3">Proveedor:</label>
+                                        <asp:Label class="col-9" ID="Lb11" Text="" runat="server" Font-Bold="true"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="col-3">Licencia:</label>
+                                        <asp:Label class="col-9" ID="Lb7" Text="" runat="server" Font-Bold="true"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="col-3">Usuarios:</label>
+                                        <asp:Label class="col-9" ID="Lb8" Text="" runat="server" Font-Bold="true"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="col-3">Versión:</label>
+                                        <asp:Label class="col-9" ID="Lb9" Text="" runat="server" Font-Bold="true"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="col-3">Lenguaje:</label>
+                                        <asp:Label class="col-9" ID="Lb10" Text="" runat="server" Font-Bold="true"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel14" runat="server">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="BtnGuardarInfo" runat="server" Text="Guardar" class="btn btn-success" OnClick="BtnGuardarInfo_Click"/>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
         </div>
     </div>
 </asp:Content>

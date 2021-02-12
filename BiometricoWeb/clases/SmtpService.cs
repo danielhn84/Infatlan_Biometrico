@@ -24,7 +24,8 @@ namespace BiometricoWeb.clases
         TiempoExtraordinario,
         Reporte,
         Viaticos,
-        Documentos
+        Documentos,
+        Constancias
     }
 
     public class SmtpService : Page{
@@ -163,6 +164,14 @@ namespace BiometricoWeb.clases
                             ), Server.MapPath("/images/logo.png")));
                         break;
                     case typeBody.Documentos:
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyBuzon(
+                            Usuario,
+                            Nombre,
+                            vMessage,
+                            ""
+                            ), Server.MapPath("/images/logo.png")));
+                        break;
+                    case typeBody.Constancias:
                         mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyBuzon(
                             Usuario,
                             Nombre,

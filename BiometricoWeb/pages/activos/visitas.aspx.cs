@@ -13,6 +13,7 @@ namespace BiometricoWeb.pages.activos
     {
         db vConexion = new db();
         protected void Page_Load(object sender, EventArgs e){
+
             if (!Page.IsPostBack){
                 if (Convert.ToBoolean(Session["AUTH"])){
                     generales vGenerales = new generales();

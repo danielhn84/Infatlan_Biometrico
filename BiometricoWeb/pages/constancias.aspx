@@ -101,7 +101,7 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group row">
-                                                    <label class="col-1 col-form-label">Destino (detalle)</label>
+                                                    <label class="col-1">Destino (detalle)</label>
                                                     <div class="col-5">
                                                         <asp:TextBox runat="server" ID="TxDest1" PlaceHolder="Deudor1" CssClass="form-control"></asp:TextBox>
                                                         <asp:TextBox Visible="false" runat="server" TextMode="MultiLine" Rows="6" PlaceHolder="Favor detallar los montos y el nombre de sus deudores." ID="TxDestino" CssClass="form-control"></asp:TextBox>
@@ -116,7 +116,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12" runat="server" id="Line2" style="margin-top:-3%" visible="false">
+                                            <div class="col-12" runat="server" id="Line2" visible="false">
                                                 <div class="form-group row">
                                                     <div class="col-1"></div>
                                                     <div class="col-5">
@@ -165,16 +165,16 @@
                                         <div class="row" runat="server" visible="false" id="DivAval">
                                             <div class="col-6">
                                                 <div class="form-group row">
-                                                    <label class="col-2">Nombre del Aval</label>
-                                                    <div class="col-10">
+                                                    <label class="col-3 col-form-label">Nombre del Aval</label>
+                                                    <div class="col-9">
                                                         <asp:TextBox runat="server" ID="TxAval" CssClass="form-control"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group row">
-                                                    <label class="col-3 col-form-label">Parentezco</label>
-                                                    <div class="col-9">
+                                                    <label class="col-2 col-form-label">Parentezco</label>
+                                                    <div class="col-10">
                                                         <textbox id="asd" Text="Hola"></textbox>
                                                         <asp:DropDownList runat="server" ID="DDLParentezco" CssClass="form-control">
                                                             <asp:ListItem Value="0" Selected="True" Text="Seleccione.." />
@@ -324,15 +324,15 @@
                                         <div class="row" runat="server" visible="false" id="DivEmbajada">
                                             <div class="col-6">
                                                 <div class="form-group row">
-                                                    <label class="col-2">Nombre Embajada</label>
-                                                    <div class="col-10">
+                                                    <label class="col-3 col-form-label">Nombre Embajada</label>
+                                                    <div class="col-9">
                                                         <asp:TextBox runat="server" ID="TxEmbajada" CssClass="form-control"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group row">
-                                                    <label class="col-2">Fecha de la Cita</label>
+                                                    <label class="col-2">Fecha de Cita</label>
                                                     <div class="col-10">
                                                         <asp:TextBox runat="server" ID="TxFechaCita" TextMode="Date" CssClass="form-control"></asp:TextBox>
                                                     </div>
