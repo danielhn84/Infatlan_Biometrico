@@ -63,13 +63,33 @@ namespace BiometricoWeb.pages.tiempoExtraordinario
             try
             {
                 DataTable vDatos = new DataTable();
-                String vQuery = "RSP_TiempoExtraordinarioGenerales 32,'" + Convert.ToString(Session["USUARIO"]) + "'";
-                vDatos = vConexion.obtenerDataTable(vQuery);
+                String vQuery = "RSP_TiempoExtraordinarioGenerales 61," + Session["USUARIO"].ToString();
+                DataTable vDatosPerfil = vConexion.obtenerDataTable(vQuery);
 
-                GVBusquedaPendientesSubgerente.DataSource = vDatos;
-                GVBusquedaPendientesSubgerente.DataBind();
-                UpdateDivBusquedasSubgerente.Update();
-                Session["STESOLICITUDESPENDIENTESSUBGERENTE"] = vDatos;
+                if (vDatosPerfil.Rows[0]["idPerfil"].ToString().Equals("10"))
+                {
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 60";
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+
+                    GVBusquedaPendientesSubgerente.DataSource = vDatos;
+                    GVBusquedaPendientesSubgerente.DataBind();
+                    UpdateDivBusquedasSubgerente.Update();
+                    Session["STESOLICITUDESPENDIENTESSUBGERENTE"] = vDatos;
+                }
+                else
+                {
+                    vQuery = "RSP_TiempoExtraordinarioGenerales 32,'" + Convert.ToString(Session["USUARIO"]) + "'";
+                    vDatos = vConexion.obtenerDataTable(vQuery);
+
+                    GVBusquedaPendientesSubgerente.DataSource = vDatos;
+                    GVBusquedaPendientesSubgerente.DataBind();
+                    UpdateDivBusquedasSubgerente.Update();
+                    Session["STESOLICITUDESPENDIENTESSUBGERENTE"] = vDatos;
+                }
+
+
+                
+
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }

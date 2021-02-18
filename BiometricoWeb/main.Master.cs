@@ -21,7 +21,7 @@ namespace BiometricoWeb
                 String vError = "";
                 try{
                     DataTable vDatos = (DataTable)Session["AUTHCLASS"];
-                    String vQuery = "RSP_Perfiles 1," + Session["USUARIO"].ToString();
+                    String vQuery = "RSP_Perfiles 61," + Session["USUARIO"].ToString();
                     DataTable vDatosPerfil = vConexion.obtenerDataTable(vQuery);
                     LitUsuario.Text = ((DataRow)vDatos.Rows[0])["nombre"].ToString();
 
