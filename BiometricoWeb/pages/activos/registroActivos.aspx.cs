@@ -80,14 +80,28 @@ namespace BiometricoWeb.pages.activos
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     DDLResponsable.Items.Clear();
+                    DDLResponsableSW.Items.Clear();
+                    DDLModResponsable.Items.Clear();
                     DDLResponsable.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    DDLResponsableSW.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    DDLModResponsable.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                     foreach (DataRow item in vDatos.Rows){
                         DDLResponsable.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
+                        DDLResponsableSW.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
+                        DDLModResponsable.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
                     }
                 }
 
-            }
-            catch (Exception ex){
+                vQuery = "[RPS_ActivosTI] 2";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                if (vDatos.Rows.Count > 0){
+                    GvActivos.DataSource = vDatos;
+                    GvActivos.DataBind();
+                    Session["ACTIVOS_TI"] = vDatos;
+                }
+
+
+            }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
         }
@@ -116,10 +130,12 @@ namespace BiometricoWeb.pages.activos
                     DDLTipo.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                     DDLTipoSW.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                     foreach (DataRow item in vDatos.Rows){
-                        DDLTipo.Items.Add(new ListItem { Value = item["idCategoria"].ToString(), Text = item["nombre"].ToString() });
-                        DDLTipoSW.Items.Add(new ListItem { Value = item["idCategoria"].ToString(), Text = item["nombre"].ToString() });
+                        DDLTipo.Items.Add(new ListItem { Value = item["idTipoEquipo"].ToString(), Text = item["nombre"].ToString() });
+                        DDLTipoSW.Items.Add(new ListItem { Value = item["idTipoEquipo"].ToString(), Text = item["nombre"].ToString() });
                     }
                 }
+                DDLTipo.DataBind();
+                DDLTipoSW.DataBind();
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -156,8 +172,6 @@ namespace BiometricoWeb.pages.activos
                     throw new Exception("Por favor seleccione el tipo de equipo.");
                 if (TxSerie.Text == "" || TxSerie.Text == string.Empty)
                     throw new Exception("Por favor ingrese el número de serie");
-                if (TxInventario.Text == "" || TxInventario.Text == string.Empty)
-                    throw new Exception("Por favor ingrese el número de inventario.");
                 if (DDLResponsable.SelectedValue == "0" || DDLResponsable.SelectedIndex == -1)
                     throw new Exception("Por favor seleccione el responsable.");
             }
@@ -201,8 +215,96 @@ namespace BiometricoWeb.pages.activos
 
         protected void BtnGuardarInfo_Click(object sender, EventArgs e){
             try{
-                String vQuery = "";
-                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                xml vDatosXML = new xml();
+
+                Object[] vDatosMaestro = new object[22];
+                vDatosMaestro[0] = DDLCategorias.SelectedValue;
+                vDatosMaestro[1] = DDLCategorias.SelectedValue != "2" ? DDLTipo.SelectedValue : DDLTipoSW.SelectedValue;
+                vDatosMaestro[2] = DDLCategorias.SelectedValue != "2" ? DDLResponsable.SelectedValue : DDLResponsableSW.SelectedValue;
+                vDatosMaestro[3] = DDLCategorias.SelectedValue != "2" ? TxSerie.Text : "";
+                vDatosMaestro[4] = DDLCategorias.SelectedValue != "2" ? TxInventario.Text : "";
+                vDatosMaestro[5] = DDLCategorias.SelectedValue != "2" ? "" : TxNombreSW.Text;
+                vDatosMaestro[6] = DDLCategorias.SelectedValue != "2" ? "" : TxProveedorSW.Text;
+                vDatosMaestro[7] = DDLCategorias.SelectedValue != "2" ? "" : TxLicenciaSW.Text;
+                vDatosMaestro[8] = DDLCategorias.SelectedValue != "2" ? "" : TxUsuariosSW.Text;
+                vDatosMaestro[9] = DDLCategorias.SelectedValue != "2" ? "" : TxVersionSW.Text;
+                vDatosMaestro[10] = DDLCategorias.SelectedValue != "2" ? "" : TxLenguajeSW.Text;
+                vDatosMaestro[11] = 0;
+                vDatosMaestro[12] = 1;
+                vDatosMaestro[13] = Session["USUARIO"].ToString();
+                for (int i = 14; i < 22; i++){
+                    vDatosMaestro[i] = "";
+                }
+
+                String vXML = vDatosXML.ObtenerXMLActivos(vDatosMaestro);
+                vXML = vXML.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
+
+                String vQuery = "[RPS_ActivosTI] 1,0,'" + vXML + "'";
+                int vInfo = vConexion.obtenerId(vQuery);
+                if (vInfo > 0){
+                    Mensaje("Registro ingresado con éxito", WarningType.Success);
+                    limpiarData();
+                    DivGenerales.Visible = false;
+                    DivSoftware.Visible = false;
+                }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeModal();", true);
+                cargarDatos();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void GvActivos_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                limpiarModal();
+                String vId = e.CommandArgument.ToString();
+                if (e.CommandName == "EditarActivo"){
+                    TxIdModal.Text = vId;
+                    String vQuery = "[RPS_ActivosTI] 6," + vId;
+                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                    if (vDatos.Rows.Count > 0){
+                        TxModInventario.Text = vDatos.Rows[0]["inventario"].ToString();
+                        TxModSerie.Text = vDatos.Rows[0]["serie"].ToString();
+                        DDLModResponsable.SelectedValue = vDatos.Rows[0]["responsable"].ToString();
+                    }
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "editarModal();", true);
+                }
+            }
+            catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        void limpiarModal() {
+            TxModInventario.Text = string.Empty;
+            TxModSerie.Text = string.Empty;
+            DDLModResponsable.SelectedValue = "0";
+        }
+
+        protected void GvActivos_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            try{
+                GvActivos.PageIndex = e.NewPageIndex;
+                GvActivos.DataSource = (DataTable)Session["ACTIVOS_TI"];
+                GvActivos.DataBind();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void BtnEditar_Click(object sender, EventArgs e)
+        {
+            try{
+                String vQuery = "[RPS_ActivosTI] 7," + TxIdModal.Text + 
+                    ",''" +
+                    ",'" + TxModInventario.Text + "'" +
+                    ",'" + TxModSerie.Text + "'" +
+                    "," + DDLModResponsable.SelectedValue ;
+                int vInfo = vConexion.ejecutarSql(vQuery);
+                if (vInfo == 1){
+                    Mensaje("Activo actualizado con éxito", WarningType.Success);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeEditar();", true);
+                    cargarDatos();
+                }
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }

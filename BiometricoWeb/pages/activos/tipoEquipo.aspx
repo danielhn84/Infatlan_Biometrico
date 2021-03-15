@@ -78,6 +78,7 @@
                                         <asp:BoundField DataField="idTipoEquipo" HeaderText="No." ItemStyle-HorizontalAlign="Left"/>
                                         <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
                                         <asp:BoundField DataField="categoria" HeaderText="Categoria" ItemStyle-HorizontalAlign="Left"/>
+                                        <asp:BoundField DataField="equipoAsignable" HeaderText="Asignable" ItemStyle-HorizontalAlign="Left"/>
                                         <asp:BoundField DataField="fechaCreacion" HeaderText="Creado" ItemStyle-HorizontalAlign="Left"/>
                                     </Columns>
                                 </asp:GridView>
@@ -122,6 +123,16 @@
                                 <div class="col-12">
                                     <label class="col-12 col-form-label">Nombre</label>
                                     <asp:TextBox ID="TxNombre" class="form-control" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="col-12 col-form-label">Asignar</label>
+                                    <asp:DropDownList runat="server" CssClass="form-control" ID="DDLAsignar">
+                                        <asp:ListItem Value="1" Text="Si" />
+                                        <asp:ListItem Value="0" Text="No" />
+                                    </asp:DropDownList>
                                 </div>
                             </div>
                         </ContentTemplate>

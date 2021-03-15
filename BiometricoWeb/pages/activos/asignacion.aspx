@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="asignacion.aspx.cs" Inherits="BiometricoWeb.pages.activos.asignacion" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="/css/fstdropdown.css" rel="stylesheet" />
+
+
     <script type="text/javascript">
         var updateProgress = null;
 
@@ -12,8 +13,10 @@
     </script>
     <script type="text/javascript">
         function openModal() { $('#ModalConfirmar').modal('show'); }
+        //function openModals() { $('#M').modal('show'); }
         function closeModal() { $('#ModalConfirmar').modal('hide'); }
     </script>
+    <link href="/css/select2.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
@@ -36,7 +39,7 @@
             </div>
         </div>
     </div>
-    <asp:UpdatePanel ID="UPDatosAsignación" runat="server">
+    <asp:UpdatePanel ID="UPDatosAsignación" runat="server" UpdateMode="Always" >
         <ContentTemplate>
             <div class="row" id="DivBusqueda" runat="server">
                 <div class="col-12 grid-margin stretch-card">
@@ -45,29 +48,28 @@
                             <h4 class="card-title">Datos Generales</h4>
                             <div class="col-12 row">
                                 <div class="form-group col-6">
-                                    <label class="col-3">Empleados</label>
+                                    <label class="col-12">Tipo de Equipo</label>
                                     <div class="col-12">
-                                        <asp:DropDownList runat="server" ID="DDLEmpleado" CssClass="fstdropdown-select form-control"></asp:DropDownList>
+                                        <asp:DropDownList runat="server" ID="DDLTipoEquipo" AutoPostBack="true" CssClass="select2 form-control custom-select" OnSelectedIndexChanged="DDLTipoEquipo_SelectedIndexChanged"></asp:DropDownList>
                                     </div>
                                 </div>
-                            
                                 <div class="form-group col-6">
-                                    <label class="col-3">Tipo de Equipo</label>
+                                    <label class="col-12">Equipo</label>
                                     <div class="col-12">
-                                        <asp:DropDownList runat="server" ID="DDLTipoEquipo" AutoPostBack="true" CssClass="form-control" OnSelectedIndexChanged="DDLTipoEquipo_SelectedIndexChanged"></asp:DropDownList>
+                                        <asp:DropDownList runat="server" ID="DDLEquipo" CssClass="select2 form-control custom-select"></asp:DropDownList>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 row">
                                 <div class="form-group col-6">
-                                    <label class="col-3">Equipo</label>
+                                    <label class="col-12">Empleado</label>
                                     <div class="col-12">
-                                        <asp:DropDownList runat="server" ID="DDLEquipo" CssClass="fstdropdown-select form-control"></asp:DropDownList>
+                                        <asp:DropDownList runat="server" ID="DDLEmpleado" CssClass="select2 form-control custom-select"></asp:DropDownList>
                                     </div>
                                 </div>
                             
                                 <div class="form-group col-6">
-                                    <label class="col-3">Autorizado</label>
+                                    <label class="col-12">Autorizado para Salir</label>
                                     <div class="col-12">
                                         <asp:DropDownList runat="server" ID="DDLAutorizado" CssClass="form-control">
                                             <asp:ListItem Text="Si" Value ="2"></asp:ListItem>
@@ -127,40 +129,39 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <script src="/js/fstdropdown.js"></script>
-    <script>
-        function setDrop() {
-            if (!document.getElementById('third').classList.contains("fstdropdown-select"))
-                document.getElementById('third').className = 'fstdropdown-select';
-            setFstDropdown();
-        }
-        setFstDropdown();
-        function removeDrop() {
-            if (document.getElementById('third').classList.contains("fstdropdown-select")) {
-                document.getElementById('third').classList.remove('fstdropdown-select');
-                document.getElementById("third").fstdropdown.dd.remove();
-            }
-        }
-        function addOptions(add) {
-            var select = document.getElementById("fourth");
-            for (var i = 0; i < add; i++) {
-                var opt = document.createElement("option");
-                var o = Array.from(document.getElementById("fourth").querySelectorAll("option")).slice(-1)[0];
-                var last = o == undefined ? 1 : Number(o.value) + 1;
-                opt.text = opt.value = last;
-                select.add(opt);
-            }
-        }
-        function removeOptions(remove) {
-            for (var i = 0; i < remove; i++) {
-                var last = Array.from(document.getElementById("fourth").querySelectorAll("option")).slice(-1)[0];
-                if (last == undefined)
-                    break;
-                Array.from(document.getElementById("fourth").querySelectorAll("option")).slice(-1)[0].remove();
-            }
-        }
-        function updateDrop() {
-            document.getElementById("fourth").fstdropdown.rebind();
-        }
+    <script src="/js/select2.js"></script>
+    <link href="/css/select2.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function test() {
+            $('.select2').select2();
+            $('.ajax').select2({
+                ajax: {
+                    url: 'https://api.github.com/search/repositories',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: data.items,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                minimumInputLength: 1,
+            });
+        });
     </script>
+
 </asp:Content>

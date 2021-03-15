@@ -146,7 +146,7 @@ namespace BiometricoWeb.pages
                     if (!DDLCrearRelojes.SelectedValue.Equals("0")){
                         String vErrorSuccess = "";
                         biometricos vRelojes = new biometricos(DDLCrearRelojes.SelectedValue);
-                        Int32 vRelojReturn = vRelojes.CrearUsuarioBiometrico(TxCrearNoEmpleado.Text, TxCrearNombre.Text, Convert.ToInt32(DDLCrearRole.SelectedValue), ref vErrorSuccess);
+                        Int32 vRelojReturn = vRelojes.CrearUsuarioBiometrico(TxCrearNoEmpleado.Text, TxCrearNombre.Text, Convert.ToInt32(DDLCrearRole.SelectedValue), ref vErrorSuccess, TxTarjeta.Text);
 
                         if (vRelojReturn == 1){
                             Mensaje("Usuario ingresado con exito", WarningType.Success);

@@ -62,8 +62,8 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group row">
-                                            <label class="col-form-label col-2">Serie</label>
-                                            <div class="col-9">
+                                            <label class="col-form-label col-3">Serie</label>
+                                            <div class="col-8">
                                                 <asp:TextBox runat="server" ID="TxSerie" CssClass="form-control"></asp:TextBox>
                                             </div>
                                         </div>
@@ -87,7 +87,7 @@
                                         <div class="form-group row">
                                             <label class="col-form-label col-3">Observaciones</label>
                                             <div class="col-8">
-                                                <asp:TextBox runat="server" ID="TxObservaciones" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
+                                                <asp:TextBox runat="server" ID="TxObservaciones" TextMode="MultiLine" Rows="3" CssClass="form-control"></asp:TextBox>
                                             </div>
                                         </div>
                                     </div>

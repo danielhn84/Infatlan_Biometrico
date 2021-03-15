@@ -163,5 +163,114 @@ namespace BiometricoWeb.clases
             }
             return vResultado;
         }
+
+        public String ObtenerXMLActivos(Object[] vDatos){
+            String vResultado = "";
+            try{
+                using (StringWriter sw = new StringWriter()){
+                    XmlTextWriter vXmlTW = new XmlTextWriter(sw);
+                    vXmlTW.Formatting = Formatting.None;
+
+                    vXmlTW.WriteStartDocument();
+                    vXmlTW.WriteStartElement("DATOS");
+
+                    vXmlTW.WriteStartElement("idCategoria");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[0]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("tipoEquipo");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[1]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("responsable");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[2]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("serie");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[3]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("inventario");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[4]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("nombreSW");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[5]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("proveedorSW");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[6]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("licenciaSW");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[7]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("usuariosSW");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[8]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("versionSW");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[9]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("lenguajeSW");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[10]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("aprobacion");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[11]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("estado");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[12]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("usuarioCreacion");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[13]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("marca");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[14]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("modelo");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[15]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("memoria");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[16]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("disco");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[17]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("procesador");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[18]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("ubicacion");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[19]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("kva");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[20]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteStartElement("watts");
+                    vXmlTW.WriteString(Convert.ToString(vDatos[21]));
+                    vXmlTW.WriteEndElement();
+
+                    vXmlTW.WriteEndElement();
+                    vXmlTW.WriteEndDocument();
+
+                    vResultado = sw.ToString();
+                }
+            }catch{
+                throw;
+            }
+            return vResultado;
+        }
     }
 }

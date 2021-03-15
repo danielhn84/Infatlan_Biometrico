@@ -29,7 +29,7 @@ namespace BiometricoWeb.pages.activos
 
         private void cargarDatos(){
             try{
-                String vQuery = "[ActivosGenerales] 1";
+                String vQuery = "[RSP_ActivosGenerales] 4";
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
 
                 if (vDatos.Rows.Count > 0){
@@ -38,7 +38,7 @@ namespace BiometricoWeb.pages.activos
                     GVBusqueda.DataBind();
                 }
 
-                vQuery = "[ActivosGenerales] 2";
+                vQuery = "[RSP_ActivosGenerales] 5";
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 if (vDatos.Rows.Count > 0){
                     DDLCategorias.Items.Clear();
@@ -62,7 +62,13 @@ namespace BiometricoWeb.pages.activos
         }
 
         protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
-
+            try{
+                GVBusqueda.PageIndex = e.NewPageIndex;
+                GVBusqueda.DataSource = (DataTable)Session["ACTIVOS_TIPOEQUIPO"];
+                GVBusqueda.DataBind();
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
 
         protected void BtnCrear_Click(object sender, EventArgs e){
@@ -79,6 +85,7 @@ namespace BiometricoWeb.pages.activos
             DDLCategorias.SelectedValue = "0";
             TxNombre.Text = string.Empty;
             DivMensaje.Visible = false;
+            DDLAsignar.SelectedValue = "0";
         }
 
         protected void BtnAceptar_Click(object sender, EventArgs e){
@@ -88,10 +95,12 @@ namespace BiometricoWeb.pages.activos
                 if (TxNombre.Text == "" || TxNombre.Text == string.Empty)
                     throw new Exception("Por favor ingrese el nombre.");
 
-                String vQuery = "[ActivosGenerales] 3" +
+                String vQuery = "[RSP_ActivosGenerales] 6" +
                     "," + DDLCategorias.SelectedValue +
+                    ",''" +
                     ",'" + TxNombre.Text + "'" +
-                    ",'" + Session["USUARIO"].ToString() + "'";
+                    ",'" + Session["USUARIO"].ToString() + "'" +
+                    "," + DDLAsignar.SelectedValue;
                 int vInfo = vConexion.ejecutarSql(vQuery);
                 if (vInfo == 1)
                     Mensaje("Registro creado con éxito.", WarningType.Success);

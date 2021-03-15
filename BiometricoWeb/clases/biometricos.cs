@@ -31,7 +31,7 @@ namespace BiometricoWeb.clases
             return iMachineNumber;
         }
 
-        public int CrearUsuarioBiometrico(String UserID, String Nombre, int Privilegio, ref String vErrorSuccess)
+        public int CrearUsuarioBiometrico(String UserID, String Nombre, int Privilegio, ref String vErrorSuccess, String vTarjeta)
         {
             DataTable vDatos = vConexion.obtenerDataTable("RSP_ObtenerRelojes 2," + vDuo);
             foreach (DataRow item in vDatos.Rows)
@@ -61,7 +61,7 @@ namespace BiometricoWeb.clases
                 int idwErrorCode = 0;
                 string sdwEnrollNumber = UserID.Trim();
                 string sName = Nombre.Trim();
-                string sCardnumber = "";
+                string sCardnumber = vTarjeta;
                 string sPassword = "";
 
                 bool bEnabled = true;

@@ -42,15 +42,6 @@ namespace BiometricoWeb.pages.activos
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivBusqueda;
 
         /// <summary>
-        /// Control DDLEmpleado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DDLEmpleado;
-
-        /// <summary>
         /// Control DDLTipoEquipo.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,15 @@ namespace BiometricoWeb.pages.activos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLEquipo;
+
+        /// <summary>
+        /// Control DDLEmpleado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DDLEmpleado;
 
         /// <summary>
         /// Control DDLAutorizado.

@@ -928,17 +928,17 @@ namespace BiometricoWeb.pages.activos
                 if (vEstado == "1")
                 {
                     //vPara = Session["ACTIVO_DC_EMAIL_JEFE_RESPONSABLE"].ToString();
-                    vPara = "acamador@bancatlan.hn";
+                    vPara = "wpadilla@bancatlan.hn";
                 }
                 else
                 {
                     if (rbAcceso.SelectedValue == "1" || rbAcceso.SelectedValue == "2")
                     {
-                        vPara = "acamador@bancatlan.hn";
+                        vPara = "wpadilla@bancatlan.hn";
                     }
                     else
                     {
-                        vPara = "acamador@bancatlan.hn";
+                        vPara = "wpadilla@bancatlan.hn";
                     }
                 }
 

@@ -38,6 +38,7 @@ namespace BiometricoWeb.pages
 
             try{
                 //String vDireccionCarga = @"C:\Carga\";
+                //String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER_LOCAL"].ToString();
 
                 String vDireccionCarga = ConfigurationManager.AppSettings["RUTA_SERVER"].ToString();
                 if (FUCompensatorio.HasFile){

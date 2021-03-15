@@ -409,8 +409,8 @@
                                             <span class="menu-title">Activos TI</span>
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic16">
-                                            <a class="nav-link" href="/pages/activos/registroActivos.aspx">Ingresar Activos</a>
-                                            <a class="nav-link" href="/pages/activos/responsableActivos.aspx">Responsable</a>
+                                            <a class="nav-link" href="/pages/activos/registroActivos.aspx">Crear Activos</a>
+                                            <a class="nav-link" href="/pages/activos/responsableActivos.aspx">Mis Activos</a>
                                         </div>
                                     </li>
 
@@ -420,7 +420,7 @@
                                             <span class="menu-title">Soporte Técnico</span>
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic42">
-                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Historico2" href="/pages/activos/soporte/soporteHistorico.aspx">Historico</a>
+                                            <a class="nav-link" runat="server" visible="true" id="LISEC_Historico2" href="/pages/activos/soporteHistorico.aspx">Historico</a>
                                             <a class="nav-link" runat="server" visible="true" id="LISEC_Aprobaciones2" href="/pages/activos/soporteAprobaciones.aspx">Aprobaciones</a>
                                         </div>
                                     </li>
@@ -432,8 +432,8 @@
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic43">
                                             <a class="nav-link" runat="server" visible="true" id="A1" href="/pages/activos/visitaDatacenter.aspx">Solicitud de Visita</a>
-                                            <a class="nav-link" runat="server" visible="true" id="A2" href="/pages/activos/visitaDatacenterPendienteJefe.aspx">Aprobaciones</a>
-                                            <a class="nav-link" runat="server" visible="true" id="A3" href="/pages/activos/visitaDatacenterPendienteResponsable.aspx">Aprobaciones</a>
+                                            <a class="nav-link" runat="server" visible="true" id="A2" href="/pages/activos/visitaDatacenterPendienteJefe.aspx">Aprobaciones Jefe</a>
+                                            <a class="nav-link" runat="server" visible="true" id="A3" href="/pages/activos/visitaDatacenterPendienteResponsable.aspx">Aprobaciones Responsable</a>
                                         </div>
                                     </li>
                                     

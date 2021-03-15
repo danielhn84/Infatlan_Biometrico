@@ -69,6 +69,24 @@ namespace BiometricoWeb.pages.activos
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div2;
 
         /// <summary>
+        /// Control TxIdentidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxIdentidad;
+
+        /// <summary>
+        /// Control TxEquipo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TxEquipo;
+
+        /// <summary>
         /// Control TxNombre.
         /// </summary>
         /// <remarks>
@@ -94,15 +112,6 @@ namespace BiometricoWeb.pages.activos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLArea;
-
-        /// <summary>
-        /// Control TxIdentidad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxIdentidad;
 
         /// <summary>
         /// Control TxDescripcion.
@@ -186,6 +195,24 @@ namespace BiometricoWeb.pages.activos
         protected global::System.Web.UI.WebControls.Label TxMensaje;
 
         /// <summary>
+        /// Control Div1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+
+        /// <summary>
+        /// Control Div3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div3;
+
+        /// <summary>
         /// Control DivDatosEntrada.
         /// </summary>
         /// <remarks>
@@ -220,6 +247,15 @@ namespace BiometricoWeb.pages.activos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LbFechaEntrada;
+
+        /// <summary>
+        /// Control LbEquipo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbEquipo;
 
         /// <summary>
         /// Control DivSalida.

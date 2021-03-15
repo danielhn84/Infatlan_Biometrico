@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="activosInternos.aspx.cs" Inherits="BiometricoWeb.pages.activos.activosInternos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="/css/select2.css" rel="stylesheet" />
     <script type="text/javascript">
         var updateProgress = null;
 
@@ -90,7 +91,7 @@
 
             <%--Resultado AP--%> 
             <div runat="server" id="Div1" visible="true">
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <div runat="server" id="DivInfoIN" visible="false">
                             <div class="col-12 grid-margin stretch-card">
@@ -165,7 +166,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-3">Empleado:</label>
                                                     <div class="col-9">
-                                                        <asp:DropDownList runat="server" ID="DDLEmpleado" CssClass="form-control"></asp:DropDownList>
+                                                        <asp:DropDownList runat="server" ID="DDLEmpleado" CssClass="select2 form-control custom-select"></asp:DropDownList>
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,22 +175,6 @@
                                                     <label class="col-3">Serie:</label>
                                                     <div class="col-9">
                                                         <asp:TextBox runat="server" ID="TxSerie" CssClass="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group row">
-                                                    <label class="col-3">Categoría:</label>
-                                                    <div class="col-9">
-                                                        <asp:DropDownList runat="server" ID="DDLCategoria" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DDLCategoria_SelectedIndexChanged"></asp:DropDownList>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group row">
-                                                    <label class="col-3">Tipo de Equipo:</label>
-                                                    <div class="col-9">
-                                                        <asp:DropDownList runat="server" ID="DDLTipo" CssClass="form-control"></asp:DropDownList>
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,18 +217,6 @@
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-            </div>
-
-            <div runat="server" id="Div2" visible="false">
-
-            </div>
-
-            <div runat="server" id="Div3" visible="false">
-
-            </div>
-
-            <div runat="server" id="Div4" visible="false">
-
             </div>
         </div>
 
@@ -413,7 +386,7 @@
                                                 <asp:BoundField DataField="nombre" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="tipoEquipo" HeaderText="Equipo" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="serie" HeaderText="Serie" ItemStyle-HorizontalAlign="Left"/>
-                                                <asp:BoundField DataField="CodInventario" HeaderText="No. Inventario" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="inventario" HeaderText="No. Inventario" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="modelo" HeaderText="Modelo" ItemStyle-HorizontalAlign="Left"/>
                                             </Columns>
                                         </asp:GridView>
@@ -465,11 +438,11 @@
                                             PageSize="10" OnPageIndexChanging="GvHistorico_PageIndexChanging">
                                             <Columns>
                                                 <asp:BoundField DataField="idEquipo" HeaderText="No." Visible="false" ItemStyle-HorizontalAlign="Left" />
-                                                <asp:BoundField DataField="CodInventario" HeaderText="Inventario" Visible="false" ItemStyle-HorizontalAlign="Left" />
+                                                <asp:BoundField DataField="inventario" HeaderText="Inventario" Visible="false" ItemStyle-HorizontalAlign="Left" />
                                                 <asp:BoundField DataField="empleado" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="tipoEquipo" HeaderText="Tipo" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="serie" HeaderText="Serie" ItemStyle-HorizontalAlign="Left"/>
-                                                <asp:BoundField DataField="CodInventario" HeaderText="No. Inventario" ItemStyle-HorizontalAlign="Left"/>
+                                                <asp:BoundField DataField="inventario" HeaderText="No. Inventario" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="marca" HeaderText="Marca" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="accion" HeaderText="Accion" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="fechaRegistro" HeaderText="Fecha" ItemStyle-HorizontalAlign="Left"/>
@@ -486,4 +459,6 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+    <script src="/js/select2.js"></script>
+    <link href="/css/select2.css" rel="stylesheet" />
 </asp:Content>

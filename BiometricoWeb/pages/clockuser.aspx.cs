@@ -60,13 +60,14 @@ namespace BiometricoWeb.pages
                     throw new Exception("Por favor ingrese un codigo de empleado");
                 if (TxCrearNombre.Text.Equals(""))
                     throw new Exception("Por favor ingrese el nombre del empleado");
-
+                if (TxCardNumber.Text.Equals(""))
+                    throw new Exception("Por favor ingrese el numero de tarjeta");
                 if (DDLCrearRelojes.SelectedValue.Equals("0"))
                     throw new Exception("Seleccione un Biometrico para la insercion.");
 
                 String vErrorSuccess = "";
                 biometricos vRelojes = new biometricos(DDLCrearRelojes.SelectedValue);
-                Int32 vRelojReturn = vRelojes.CrearUsuarioBiometrico(TxCrearNoEmpleado.Text, TxCrearNombre.Text, Convert.ToInt32(DDLCrearRole.SelectedValue), ref vErrorSuccess);
+                Int32 vRelojReturn = vRelojes.CrearUsuarioBiometrico(TxCrearNoEmpleado.Text, TxCrearNombre.Text, Convert.ToInt32(DDLCrearRole.SelectedValue), ref vErrorSuccess, TxCardNumber.Text);
 
                 if (vRelojReturn == 1)
                 {
@@ -97,6 +98,7 @@ namespace BiometricoWeb.pages
             TxCrearNombre.Text = "";
             DDLCrearRelojes.SelectedIndex = -1;
             DDLCrearRole.SelectedIndex = -1;
+            TxCardNumber.Text = "";
         }
     }
 }

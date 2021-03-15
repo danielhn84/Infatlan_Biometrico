@@ -2,6 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/css/GridStyle.css" rel="stylesheet" />
+    <link href="/css/pager.css" rel="stylesheet" />
+
     <link href="/css/select2.css" rel="stylesheet" />
 
     <script type="text/javascript">
@@ -16,6 +18,8 @@
     <script type="text/javascript">
         function openModal() { $('#ModalConfirmar').modal('show'); }
         function closeModal() { $('#ModalConfirmar').modal('hide'); }
+        function editarModal() { $('#ModalEditar').modal('show'); }
+        function closeEditar() { $('#ModalEditar').modal('hide'); }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -43,13 +47,14 @@
     <div runat="server" visible="true">
         <nav>
             <div class="nav nav-pills " id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Principal" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-login" style=""></i>Registrar</a>
+                <a class="nav-item nav-link active" id="nav_Principal" data-toggle="tab" href="#nav-Principal" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-login" style=""></i>Registrar</a>
+                <a class="nav-item nav-link" id="Registros" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-file" style=""></i>Registros</a>
             </div>
         </nav>
     </div>
 
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-Principal" role="tabpanel" aria-labelledby="nav-cargar-tab">
+        <div class="tab-pane fade show active" id="nav-Principal" role="tabpanel" aria-labelledby="nav_crear">
             <br />
             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                 <ContentTemplate>
@@ -77,7 +82,7 @@
                                     <div class="row col-6"> 
                                         <label class="col-3 col-form-label">Tipo</label>
                                         <div class="col-9">
-                                            <asp:DropDownList ID="DDLTipo" runat="server" CssClass="select2 form-control custom-select"></asp:DropDownList>
+                                            <asp:DropDownList ID="DDLTipo" runat="server" CssClass="select2 form-control custom-select" Width="100%"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row col-6"> 
@@ -97,7 +102,7 @@
                                     <div class="row col-6"> 
                                         <label class="col-3 col-form-label">Responsable</label>
                                         <div class="col-9">
-                                            <asp:DropDownList ID="DDLResponsable" runat="server" CssClass="select2 form-control custom-select"></asp:DropDownList>
+                                            <asp:DropDownList ID="DDLResponsable" runat="server" CssClass="select2 form-control custom-select" Width="100%"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
@@ -162,6 +167,12 @@
                                             <asp:TextBox runat="server" ID="TxLenguajeSW" CssClass="form-control"></asp:TextBox>
                                         </div>
                                     </div>
+                                    <div class="row col-6"> 
+                                        <label class="col-3 col-form-label">Responsable</label>
+                                        <div class="col-9">
+                                            <asp:DropDownList ID="DDLResponsableSW" runat="server" CssClass="select2 form-control custom-select"></asp:DropDownList>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -179,6 +190,52 @@
                                     <div class="col-12">
                                         <asp:Button ID="BtnCancelar" class="btn btn-secondary" runat="server" Text="Cancelar" OnClick="BtnCancelar_Click" />
                                         <asp:Button Text="Guardar" runat="server" CssClass="btn btn-success" ID="TxGuardar" OnClick="TxGuardar_Click"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+        <div class="tab-pane fade" id="nav-Registros" role="tabpanel" aria-labelledby="nav_registros">
+            <br />
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <div class="row">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Tipos de documentos</h4>
+                                    <p>Ordenados por fecha de creación</p>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                            <asp:GridView ID="GvActivos" runat="server"
+                                                CssClass="mydatagrid"
+                                                PagerStyle-CssClass="pgr"
+                                                HeaderStyle-CssClass="header"
+                                                RowStyle-CssClass="rows"
+                                                AutoGenerateColumns="false"
+                                                AllowPaging="true"
+                                                GridLines="None" OnRowCommand="GvActivos_RowCommand"
+                                                PageSize="10" OnPageIndexChanging="GvActivos_PageIndexChanging"> 
+                                                <Columns>
+                                                    <asp:BoundField DataField="idActivo" HeaderText="ID" />
+                                                    <asp:BoundField DataField="NombreEmpleado" HeaderText="Responsable" />
+                                                    <asp:BoundField DataField="inventario" HeaderText="Inventario" />
+                                                    <asp:BoundField DataField="serie" HeaderText="Serie" />
+                                                    <asp:BoundField DataField="Categoria" HeaderText="Categoria" />
+                                                    <asp:BoundField DataField="Tipo" HeaderText="Tipo" />
+                                                    <asp:TemplateField HeaderText="Seleccione" HeaderStyle-Width="">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="BtnVer" runat="server" title="Actualizar inventario, serie y responsable" style="background-color:#f0ad4e" class="btn" CommandArgument='<%# Eval("idActivo") %>' CommandName="EditarActivo">
+                                                                Editar
+                                                            </asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -265,6 +322,53 @@
                         <ContentTemplate>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <asp:Button ID="BtnGuardarInfo" runat="server" Text="Guardar" class="btn btn-success" OnClick="BtnGuardarInfo_Click"/>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%--MODAL EDITAR--%>
+    <div class="modal fade" id="ModalEditar" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <asp:UpdatePanel runat="server" ID="UpdatePanel2">
+                        <ContentTemplate>
+                            <h4 class="modal-title" id="ModalLabel">Editar Artículo 
+                                <asp:Literal ID="TxIdModal" Text="" runat="server"/>
+                            </h4>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <asp:UpdatePanel runat="server" ID="UpdatePanel4">
+                    <ContentTemplate>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="row col-12">
+                                    <div class="col-12">
+                                        <label class="col-12">Numero de Serie:</label>
+                                        <asp:TextBox runat="server" ID="TxModSerie" ReadOnly="true" CssClass="form-control"/>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <label class="col-12">Codigo de Inventario:</label>
+                                        <asp:TextBox runat="server" ID="TxModInventario" CssClass="form-control"/>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <label class="col-12">Responsable:</label>
+                                        <asp:DropDownList runat="server" ID="DDLModResponsable" CssClass="select2 form-control custom-select" Width="100%"></asp:DropDownList>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                <div class="modal-footer">
+                    <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                        <ContentTemplate>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="BtnEditar" runat="server" Text="Guardar" class="btn btn-success" OnClick="BtnEditar_Click"/>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>

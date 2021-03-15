@@ -39,6 +39,7 @@ namespace BiometricoWeb.pages.activos
                 vQuery = "[RSP_ActivosPE] 3";
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
+                DDLArea.Items.Clear();
                 DDLArea.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 foreach (DataRow item in vDatos.Rows){
                     DDLArea.Items.Add(new ListItem { Value = item["idDepartamento"].ToString(), Text = item["nombre"].ToString() });
@@ -64,9 +65,11 @@ namespace BiometricoWeb.pages.activos
                 vQuery = "[RSP_ActivosPE] 2" +
                     "," + DDLArea.SelectedValue + 
                     ",'" + TxNombre.Text + 
-                    "','" +  TxApellido.Text +
+                    "','" + TxApellido.Text +
                     "','" + TxIdentidad.Text + "'" +
-                    ",'" + TxDescripcion.Text + "'";
+                    ",'" + TxDescripcion.Text + "'" +
+                    "," + Session["USUARIO"].ToString() +
+                    ",'" + TxEquipo.Text + "'";
                 vMensaje = "Visita registrada con éxito";
 
                 int vInfo = vConexion.ejecutarSql(vQuery);
@@ -94,10 +97,12 @@ namespace BiometricoWeb.pages.activos
             TxApellido.Text = string.Empty;
             TxIdentidad.Text = string.Empty;
             TxDescripcion.Text = string.Empty;
+            TxEquipo.Text = string.Empty;
 
             TxIdentidadSalida.Text = string.Empty;
             LbNombreSalida.Text = string.Empty;
             LbFechaEntrada.Text = string.Empty;
+            LbEquipo.Text = string.Empty;
             LbMotivo.Text = string.Empty;
             DivSalida.Visible = false;
             DivDatosEntrada.Visible = false;
@@ -121,7 +126,9 @@ namespace BiometricoWeb.pages.activos
 
         protected void GVBusqueda_PageIndexChanging(object sender, GridViewPageEventArgs e){
             try{
-
+                GVBusqueda.PageIndex = e.NewPageIndex;
+                GVBusqueda.DataSource = (DataTable)Session["ACTIVOS_PE_VISITAS"];
+                GVBusqueda.DataBind();
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
@@ -186,6 +193,7 @@ namespace BiometricoWeb.pages.activos
                     if (vDatos.Rows.Count > 0) { 
                         LbNombreSalida.Text = vDatos.Rows[0]["nombre"].ToString() + " " + vDatos.Rows[0]["apellidos"].ToString();
                         LbFechaEntrada.Text = vDatos.Rows[0]["fechaCreacion"].ToString();
+                        LbEquipo.Text = vDatos.Rows[0]["equipo"].ToString();
                         LbMotivo.Text = vDatos.Rows[0]["descripcion"].ToString();
                     }else 
                         TxMensaje.Text = "La visita no fue registrada al entrar!";
@@ -228,6 +236,26 @@ namespace BiometricoWeb.pages.activos
                 if (DDLProceso.SelectedValue == "4")
                     Response.Redirect("/pages/security.aspx");
             }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void TxIdentidad_TextChanged(object sender, EventArgs e){
+            try{
+                if (TxIdentidad.Text != "" || TxIdentidad.Text == string.Empty){
+                    TxNombre.Text = string.Empty;
+                    TxApellido.Text = string.Empty;
+                    TxEquipo.Text = string.Empty;
+                    String vQuery = "[RSP_ActivosPE] 6,'" + TxIdentidad.Text + "'";
+                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                    if (vDatos.Rows.Count > 0){
+                        TxNombre.Text = vDatos.Rows[0]["nombre"].ToString();
+                        TxApellido.Text = vDatos.Rows[0]["apellidos"].ToString();
+                        TxEquipo.Text = vDatos.Rows[0]["equipo"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
         }

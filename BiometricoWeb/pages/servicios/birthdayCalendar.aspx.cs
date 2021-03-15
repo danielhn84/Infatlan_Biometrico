@@ -20,12 +20,13 @@ namespace BiometricoWeb.pages.servicios
 
             }
         }
+
         protected void ddlMes_SelectedIndexChanged(object sender, EventArgs e)
         {
             cardCumpleaños.Visible = true;
             limpiar();
             DateTimeFormatInfo dtfi = DateTimeFormatInfo.CurrentInfo;
-            int year = 2020;
+            int year = DateTime.Now.Year;
             int mes1 = Convert.ToInt32(ddlMes.SelectedValue);
             string vmesNombre = dtfi.MonthNames[mes1];
             int vmesEvaluar = mes1 + 1;
@@ -1999,6 +2000,7 @@ namespace BiometricoWeb.pages.servicios
                 }
             }
         } 
+        
         void limpiar()
         {
             Img1.Src = ""; Img2.Src = ""; Img3.Src = ""; Img4.Src = ""; Img5.Src = ""; Img6.Src = ""; Img7.Src = "";
