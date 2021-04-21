@@ -84,6 +84,7 @@ namespace BiometricoWeb.pages.documentacion
            DDLReporte.SelectedIndex = -1;
            UpdatePanel2.Update();
         }
+
         protected void BtnConfirmar_Click(object sender, EventArgs e){
             try{
                 if (DDLReporte.SelectedValue.Equals("1"))

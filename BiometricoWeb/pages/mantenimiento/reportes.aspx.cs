@@ -10,6 +10,7 @@ using System.Net;
 using System.IO;
 using System.Data.Sql;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace BiometricoWeb.pages.mantenimiento
 {
@@ -28,10 +29,12 @@ namespace BiometricoWeb.pages.mantenimiento
                 }
             }
         }
+
         public void Mensaje(string vMensaje, WarningType type)
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
+        
         void cargarData()
         {
           if (HttpContext.Current.Session["CARGAR_DATA_REPORTES"] == null)
@@ -69,6 +72,7 @@ namespace BiometricoWeb.pages.mantenimiento
              Session["CARGAR_DATA_REPORTES"] = "1";
           }
         }
+        
         protected void btnReporteDeptos_Click(object sender, EventArgs e)
         {
             if (DDLReporteDepto.SelectedValue == "0")
@@ -141,8 +145,11 @@ namespace BiometricoWeb.pages.mantenimiento
                 String vError = String.Empty;
                 try
                 {
+                    String vPass = ConfigurationManager.AppSettings["ReportingPass"];
+                    String vUser = ConfigurationManager.AppSettings["ReportingUser"];
+
                     ReportExecutionService.ReportExecutionService vRSE = new ReportExecutionService.ReportExecutionService();
-                    vRSE.Credentials = new NetworkCredential("report_user", "kEbn2HUzd$Fs2T", "adbancat.hn");
+                    vRSE.Credentials = new NetworkCredential(vUser, vPass, "adbancat.hn");
                     vRSE.Url = "http://10.128.0.52/reportserver/reportexecution2005.asmx";
 
 

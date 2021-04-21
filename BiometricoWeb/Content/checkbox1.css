@@ -1,0 +1,212 @@
+﻿.fancy-checkbox {
+    position: relative;
+    display: block;
+    padding: 0 0 0 20px;
+    margin: 0;
+    cursor: pointer;
+    /* Make text & control un-selectable, otherwise it will
+       sometimes get selected if the user repeatedly clicks quickly */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+    .fancy-checkbox input {
+        display: none;
+    }
+
+    .fancy-checkbox label {
+        cursor: pointer;
+        padding-left: 0;
+    }
+
+    .fancy-checkbox input[type="checkbox"] + label:before {
+        position: absolute;
+        top: 1px;
+        left: 0;
+        font-family: FontAwesome;
+        content: "\f096";
+        font-size: 20px;
+        line-height: 1;
+        color: #aaa;
+    }
+
+    .fancy-checkbox input[type="checkbox"]:checked + label:before {
+        content: "\f14a";
+        color: #4285f4;
+    }
+
+
+.fancy-checkbox-toggle {
+    position: relative;
+    display: block;
+    padding: 0 0 0 29px;
+    margin: 0;
+    cursor: pointer;
+    /* Make text & control un-selectable, otherwise it will
+       sometimes get selected if the user repeatedly clicks quickly */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+    .fancy-checkbox-toggle input {
+        display: none;
+    }
+
+    .fancy-checkbox-toggle label {
+        cursor: pointer;
+        padding-left: 0;
+    }
+
+    .fancy-checkbox-toggle input[type="checkbox"] + label:before {
+        position: absolute;
+        top: -1px;
+        left: 0;
+        font-family: FontAwesome;
+        content: "\f204";
+        font-size: 22px;
+        line-height: 1;
+        color: #aaa;
+    }
+
+    .fancy-checkbox-toggle input[type="checkbox"]:checked + label:before {
+        content: "\f205";
+        color: #4285f4;
+    }
+
+/* ASP.Net CheckBox Control - Rendered in a SPAN */
+span.fancy-checkbox {
+    position: relative;
+    display: block;
+    padding: 0 0 0 20px;
+    cursor: pointer;
+    /* Make text & control un-selectable, otherwise it will
+       sometimes get selected if the user repeatedly clicks quickly */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* ASP.Net CheckBoxList - Rendered in a TABLE */
+table.fancy-checkbox td {
+    position: relative;
+    padding-left: 20px;
+    /* Make text & control un-selectable, otherwise it will
+       sometimes get selected if the user repeatedly clicks quickly */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.fancy-checkbox input {
+    display: none;
+}
+
+.fancy-checkbox label {
+    cursor: pointer;
+    padding-left: 0;
+}
+
+.fancy-checkbox input[type="checkbox"] + label:before {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    font-family: FontAwesome;
+    content: "\f096";
+    font-size: 20px;
+    line-height: 1;
+    color: #aaa;
+}
+
+.fancy-checkbox input[type="checkbox"]:checked + label:before {
+    content: "\f14a";
+    color: #4285f4;
+    font-size: 18px; /* Shrink checked icon slightly to match unchecked */
+}
+
+.fancy-checkbox input[type="checkbox"]:disabled + label:before {
+    color: #ccccdd;
+}
+
+.fancy-checkbox.aspNetDisabled label,
+.fancy-checkbox .aspNetDisabled label {
+    cursor: not-allowed;
+}
+
+
+span.fancy-checkbox-toggle {
+    position: relative;
+    display: block;
+    padding: 0 0 0 29px;
+    cursor: pointer;
+    /* Make text & control un-selectable, otherwise it will
+       sometimes get selected if the user repeatedly clicks quickly */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* ASP.Net CheckBoxList - Rendered in a TABLE */
+table.fancy-checkbox-toggle td {
+    position: relative;
+    padding-left: 29px;
+    /* Make text & control un-selectable, otherwise it will
+       sometimes get selected if the user repeatedly clicks quickly */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.fancy-checkbox-toggle input {
+    display: none;
+}
+
+.fancy-checkbox-toggle label {
+    cursor: pointer;
+    padding-left: 0;
+    font-weight: normal;
+}
+
+.fancy-checkbox-toggle input[type="checkbox"] + label:before {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    font-family: FontAwesome;
+    content: "\f204";
+    font-size: 22px;
+    line-height: 1;
+    color: #aaa;
+}
+
+.fancy-checkbox-toggle input[type="checkbox"]:checked + label:before {
+    content: "\f205";
+    color: #4285f4;
+}
+
+.fancy-checkbox-toggle input[type="checkbox"]:disabled + label:before {
+    color: #ccccdd;
+}
+
+.fancy-checkbox-toggle.aspNetDisabled label,
+.fancy-checkbox-toggle .aspNetDisabled label {
+    cursor: not-allowed;
+}

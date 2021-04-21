@@ -19,42 +19,34 @@ namespace BiometricoWeb.pages.activos
 {
     public partial class registroVisitaSeguridad : System.Web.UI.Page
     {
-        db vConexion;
+        db vConexion = new db();
+        protected void Page_Load(object sender, EventArgs e){
+            if (!IsPostBack){
+                if (Convert.ToBoolean(Session["AUTH"])){
+                    CargarSolicitudesAutorizadas();
+                }
+            }
+        }
+
         public void Mensaje(string vMensaje, WarningType type)
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            vConexion = new db();
-
-            if (!IsPostBack)
-            {
-                CargarSolicitudesAutorizadas();
-
-            }
-        }
-
-        void CargarSolicitudesAutorizadas()
-        {
-            try
-            {
+        void CargarSolicitudesAutorizadas(){
+            try{
                 DataTable vDatos = new DataTable();
                 String vQuery = "RSP_ActivosDC 24" ;
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
-                if (vDatos.Rows.Count > 0)
-                {
+                if (vDatos.Rows.Count > 0){
                     GVBusquedas.DataSource = vDatos;
                     GVBusquedas.DataBind();
                     UpdateDivAutorizadas.Update();
                     Session["ACTIVO_DC_SOLICITUDES_AUTORIZADAS"] = vDatos;
                 }
 
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
@@ -67,6 +59,32 @@ namespace BiometricoWeb.pages.activos
                     Response.Redirect("/pages/activos/visitas.aspx");
                 if (DDLProceso.SelectedValue == "4")
                     Response.Redirect("/pages/activos/soporte.aspx");
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void TxSolicitud_TextChanged(object sender, EventArgs e){
+            try{
+                if (TxSolicitud.Text != "" || TxSolicitud.Text != string.Empty){
+                    String vQuery = "RSP_ActivosDC 24," + TxSolicitud.Text;
+                    DataTable vDatos = vConexion.obtenerDataTable(vQuery);
+                    GVBusquedas.DataSource = vDatos;
+                    GVBusquedas.DataBind();
+                    Session["ACTIVOS_DC_ENTRADA"] = vDatos;
+                        
+                    if (vDatos.Rows.Count < 1)
+                        throw new Exception("La solicitud no esta aprobada o no existe.");
+                }else
+                    throw new Exception("Por favor ingrese el número de solicitud.");
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
+        }
+
+        protected void GVBusquedas_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                Response.Redirect("visitaDCPersonal.aspx?id=" + TxSolicitud.Text);
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }

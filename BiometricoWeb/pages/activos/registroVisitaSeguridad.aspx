@@ -76,7 +76,7 @@
                                     <div class="row">
                                         <label class="col-2 col-form-label">Buscar</label>
                                         <div class="col-7">
-                                            <asp:TextBox ID="TxSolicitud" runat="server" placeholder="Busqueda por Solicitud o Responsable- Presione afuera para proceder" class="form-control" AutoPostBack="true"></asp:TextBox>
+                                            <asp:TextBox ID="TxSolicitud" runat="server" placeholder="Busqueda por Solicitud" class="form-control" AutoPostBack="true" OnTextChanged="TxSolicitud_TextChanged"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
@@ -97,29 +97,20 @@
                                                 RowStyle-CssClass="rows"
                                                 AutoGenerateColumns="false"
                                                 AllowPaging="true"
-                                                GridLines="None"
+                                                GridLines="None" OnRowCommand="GVBusquedas_RowCommand"
                                                 PageSize="10">
                                                 <Columns>
-                                                    <asp:TemplateField HeaderText="Select" HeaderStyle-Width="50px">
-                                                        <HeaderTemplate>
-                                                        </HeaderTemplate>
-                                                        <ItemTemplate>
-                                                            <asp:LinkButton ID="BtnAprobar" runat="server" Text="Aprobar" class="btn btn-inverse-success mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="AutorizarEntrada">
-                                                                      <i class="mdi mdi-ballot text-primary" ></i>
-                                                            </asp:LinkButton>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-
-                                                    <asp:BoundField DataField="idSolicitud" HeaderText="Solicitud" />
+                                                    <asp:BoundField DataField="idSolicitud" HeaderText="Id" />
                                                     <asp:BoundField DataField="fechaInicio" HeaderText="Fecha Inicio" />
                                                     <asp:BoundField DataField="fechaFin" HeaderText="Fecha Fin" />
-                                                    <asp:BoundField DataField="acceso" HeaderText="Acceso" />
-                                                    <asp:BoundField DataField="peticion" HeaderText="Petición" />
-                                                    <asp:BoundField DataField="trabajo" HeaderText="Trabajo" />
+                                                    <asp:BoundField DataField="accesoNombre" HeaderText="Acceso" />
                                                     <asp:BoundField DataField="motivo" HeaderText="Motivo" />
                                                     <asp:BoundField DataField="nombre" HeaderText="Responsable" />
-                                                    <%-- <asp:BoundField DataField="detalleTrabajo" HeaderText="Estado" ItemStyle-HorizontalAlign="Justify" />
-                                            <asp:BoundField DataField="descripcionEstado" />--%>
+                                                    <asp:TemplateField HeaderStyle-Width="50px">
+                                                        <ItemTemplate>
+                                                            <asp:Button ID="BtnAprobar" runat="server" Text="Entrar" class="btn btn-inverse-primary  mr-2" CommandArgument='<%# Eval("idSolicitud") %>' CommandName="AutorizarEntrada" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                 </Columns>
                                             </asp:GridView>
                                         </div>

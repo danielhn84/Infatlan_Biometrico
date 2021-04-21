@@ -88,6 +88,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\checkbox1.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="css\alert.css" />
     <Content Include="css\animate.min.css" />
     <Content Include="css\breadcrumb.css" />
@@ -109,6 +112,7 @@
     <Content Include="css\smart_wizard_theme_dots.css" />
     <Content Include="css\style.css" />
     <Content Include="default.aspx" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\auth\lockscreen-bg.jpg" />
     <Content Include="images\auth\login-bg2.jpg" />
@@ -173,6 +177,7 @@
     <Content Include="pages\activos\visitaDatacenter.aspx" />
     <Content Include="pages\activos\visitaDatacenterPendienteJefe.aspx" />
     <Content Include="pages\activos\visitaDatacenterPendienteResponsable.aspx" />
+    <Content Include="pages\activos\visitaDCPersonal.aspx" />
     <Content Include="pages\activos\visitas.aspx" />
     <Content Include="pages\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
@@ -387,6 +392,13 @@
     </Compile>
     <Compile Include="pages\activos\visitaDatacenterPendienteResponsable.aspx.designer.cs">
       <DependentUpon>visitaDatacenterPendienteResponsable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\visitaDCPersonal.aspx.cs">
+      <DependentUpon>visitaDCPersonal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\visitaDCPersonal.aspx.designer.cs">
+      <DependentUpon>visitaDCPersonal.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\activos\visitas.aspx.cs">
       <DependentUpon>visitas.aspx</DependentUpon>
@@ -895,6 +907,11 @@
     <Content Include="images\faces\.DS_Store" />
     <Content Include="js\.DS_Store" />
     <Content Include="main.Master" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="packages.config" />
     <Content Include="vendors\.DS_Store" />
     <Content Include="vendors\mdi\fonts\materialdesignicons-webfont.eot" />

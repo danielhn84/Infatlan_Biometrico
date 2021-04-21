@@ -431,7 +431,7 @@
                                             <span class="menu-title">Data Center</span>
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic43">
-                                            <a class="nav-link" runat="server" visible="true" id="A1" href="/pages/activos/visitaDatacenter.aspx">Solicitud de Visita</a>
+                                            <a class="nav-link" runat="server" visible="true" id="A1" href="/pages/activos/visitaDatacenter.aspx">Solicitud</a>
                                             <a class="nav-link" runat="server" visible="true" id="A2" href="/pages/activos/visitaDatacenterPendienteJefe.aspx">Aprobaciones Jefe</a>
                                             <a class="nav-link" runat="server" visible="true" id="A3" href="/pages/activos/visitaDatacenterPendienteResponsable.aspx">Aprobaciones Responsable</a>
                                         </div>

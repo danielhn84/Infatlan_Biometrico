@@ -19,67 +19,50 @@ namespace BiometricoWeb.pages.activos
 {
     public partial class visitaDatacenterPendienteJefe : System.Web.UI.Page
     {
-        db vConexion;
-        public void Mensaje(string vMensaje, WarningType type)
-        {
-            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
-        }
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            vConexion = new db();
-
-            if (!IsPostBack)
-            {
+        db vConexion = new db();
+        protected void Page_Load(object sender, EventArgs e){
+            if (!IsPostBack){
                 CargarSolicitudesPendientesAprobar();
-
             }
         }
-        void CargarSolicitudesPendientesAprobar()
-        {
-            try
-            {
+        
+        public void Mensaje(string vMensaje, WarningType type){
+            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
+        }
+        
+        void CargarSolicitudesPendientesAprobar(){
+            try{
                 DataTable vDatos = new DataTable();
                 String vQuery = "RSP_ActivosDC 13,'" + Convert.ToString(Session["USUARIO"]) + "'";
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
-                if (vDatos.Rows.Count > 0)
-                {
+                if (vDatos.Rows.Count > 0){
                     GVBusquedaPendientesJefe.DataSource = vDatos;
                     GVBusquedaPendientesJefe.DataBind();
                     UpdateDivBusquedasJefes.Update();
                     Session["ACTIVO_DC_PENDIENTES_JEFES"] = vDatos;
                 }
-
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
 
-        protected void TxSolicitud_TextChanged(object sender, EventArgs e)
-        {
+        protected void TxSolicitud_TextChanged(object sender, EventArgs e){
             CargarSolicitudesPendientesAprobar();
             String vBusqueda = TxSolicitud.Text;
             DataTable vDatos = (DataTable)Session["ACTIVO_DC_PENDIENTES_JEFES"];
 
-            if (vBusqueda.Equals(""))
-            {
+            if (vBusqueda.Equals("")){
                 GVBusquedaPendientesJefe.DataSource = vDatos;
                 GVBusquedaPendientesJefe.DataBind();
                 UpdateDivBusquedasJefes.Update();
-            }
-            else
-            {
+            }else{
                 EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
                     .Where(r => r.Field<String>("nombre").Contains(vBusqueda.ToUpper()));
 
                 Boolean isNumeric = int.TryParse(vBusqueda, out int n);
-
-                if (isNumeric)
-                {
-                    if (filtered.Count() == 0)
-                    {
+                if (isNumeric){
+                    if (filtered.Count() == 0){
                         filtered = vDatos.AsEnumerable().Where(r =>
                             Convert.ToInt32(r["idSolicitud"]) == Convert.ToInt32(vBusqueda));
                     }
@@ -96,8 +79,7 @@ namespace BiometricoWeb.pages.activos
                 vDatosFiltrados.Columns.Add("nombre");
 
 
-                foreach (DataRow item in filtered)
-                {
+                foreach (DataRow item in filtered){
                     vDatosFiltrados.Rows.Add(
                         item["idSolicitud"].ToString(),
                         item["fechaInicio"].ToString(),
@@ -116,29 +98,26 @@ namespace BiometricoWeb.pages.activos
             }
         }
 
-        protected void GVBusquedaPendientesJefe_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            try
-            {
+        protected void GVBusquedaPendientesJefe_PageIndexChanging(object sender, GridViewPageEventArgs e){
+            try{
                 GVBusquedaPendientesJefe.PageIndex = e.NewPageIndex;
                 GVBusquedaPendientesJefe.DataSource = (DataTable)Session["ACTIVO_DC_PENDIENTES_JEFES"];
                 GVBusquedaPendientesJefe.DataBind();
                 UpdateDivBusquedasJefes.Update();
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void GVBusquedaPendientesJefe_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
+        protected void GVBusquedaPendientesJefe_RowCommand(object sender, GridViewCommandEventArgs e){
             string vIdSolicitud = e.CommandArgument.ToString();
-            if (e.CommandName == "Aprobar")
-            {
+            if (e.CommandName == "Aprobar"){
                 DataTable vDatos = new DataTable();
+                
                 //DATOS GENERALES
                 string vQuery = "RSP_ActivosDC 14," + vIdSolicitud;
                 vDatos = vConexion.obtenerDataTable(vQuery);
                 Session["ACTIVO_DC_SOLI_DATOS_GENERALES"] = vDatos;
-
 
                 string vResponsable = vDatos.Rows[0]["responsable"].ToString();
                 string vCopia = vDatos.Rows[0]["copia"].ToString();
@@ -167,11 +146,7 @@ namespace BiometricoWeb.pages.activos
 
 
                 Response.Redirect("/pages/activos/visitaDatacenter.aspx?ex=1");
-
-
             }
         }
-
-
     }
 }

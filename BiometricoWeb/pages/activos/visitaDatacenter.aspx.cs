@@ -17,75 +17,62 @@ namespace BiometricoWeb.pages.activos
     public partial class visitaDatacenter : System.Web.UI.Page
     {
         db vConexion = new db();
+        protected void Page_Load(object sender, EventArgs e){
+            String vEx = Request.QueryString["ex"];
+            if (!IsPostBack){
+                if (Convert.ToBoolean(Session["AUTH"])) { 
+                    CargarSolicitudesIngresadas();
+                    if (string.IsNullOrEmpty(vEx)){
+                        CargarInformacionGeneral();
+                        Session["ACTIVO_DC_ID_ESTADO"] = "1";
+                    }else if (vEx.Equals("1")){
+                        camposDeshabilitados();
+                        cargarDataVista();
+                        divPersonalExterno.Visible = false;
+                        divPersonalInterno.Visible = false;
+                        DivCrearSolicitud.Visible = false;
+                        DivAprobarSolicitudJefe.Visible = true;
+                    
+                    }else if (vEx.Equals("2")){
+                        camposDeshabilitados();
+                        cargarDataVista();
+                        divPersonalExterno.Visible = false;
+                        divPersonalInterno.Visible = false;
+                        DivCrearSolicitud.Visible = false;
+                        DivAprobarSolicitudJefe.Visible = false;
+                        DivAprobacionGestor.Visible = true;
+                    }
+                }else
+                    Response.Redirect("/login.aspx");
+            }
+        }
+        
         public void Mensaje(string vMensaje, WarningType type)
         {
             ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "text", "infatlan.showNotification('top','center','" + vMensaje + "','" + type.ToString().ToLower() + "')", true);
         }
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            String vEx = Request.QueryString["ex"];
-            if (!IsPostBack)
-            {
-                CargarSolicitudesIngresadas();
-                //Session["ACTIVO_DC_ID_ESTADO"] = "1";
-
-                if (string.IsNullOrEmpty(vEx))
-                {
-                    CargarInformacionGeneral();
-                    Session["ACTIVO_DC_ID_ESTADO"] = "1";
-                    
-                }
-                else if (vEx.Equals("1"))
-                {
-                    //CargarInformacionGeneral();
-                    camposDeshabilitados();
-                    cargarDataVista();
-                    divPersonalExterno.Visible = false;
-                    divPersonalInterno.Visible = false;
-                    DivCrearSolicitud.Visible = false;
-                    DivAprobarSolicitudJefe.Visible = true;
-                    
-                }
-                else if (vEx.Equals("2"))
-                {
-                    //CargarInformacionGeneral();
-                    camposDeshabilitados();
-                    cargarDataVista();
-                    divPersonalExterno.Visible = false;
-                    divPersonalInterno.Visible = false;
-                    DivCrearSolicitud.Visible = false;
-                    DivAprobarSolicitudJefe.Visible = false;
-                    DivAprobacionGestor.Visible = true;
-                }
-
-            }
-        }
-        void CargarInformacionGeneral()
-        {
-            try
-            {
+        
+        void CargarInformacionGeneral(){
+            try{
                 String vQuery = "RSP_ActivosDC 1,'" + Convert.ToString(Session["USUARIO"]) + "'";
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
 
-                TxResponsable.Text = vDatos.Rows[0]["nombre"].ToString();
-                TxIdentidadResponsable.Text = vDatos.Rows[0]["identidad"].ToString();
-                TxSubgerencia.Text = vDatos.Rows[0]["area"].ToString();
-                TxJefe.Text = vDatos.Rows[0]["jefeNombre"].ToString();
-                Session["ACTIVO_DC_EMAIL_RESPONSABLE"] = vDatos.Rows[0]["emailEmpresa"].ToString();
-                Session["ACTIVO_DC_EMAIL_JEFE_RESPONSABLE"] = vDatos.Rows[0]["jefecorreo"].ToString();
-                Session["ACTIVO_DC_CODIGO_JEFE"] = vDatos.Rows[0]["idJefe"].ToString();
-                //TxFechaSolicitud.Text= DateTime.Today.ToString("dd/MM/yyyy");
+                LbResponsable.Text = vDatos.Rows[0]["nombre"].ToString();
+                LbIdentidadResponsable.Text = vDatos.Rows[0]["identidad"].ToString();
+                LbSubgerencia.Text = vDatos.Rows[0]["departamento"].ToString();
+                LbJefe.Text = vDatos.Rows[0]["jefeNombre"].ToString();
+                LbCorreo.Text = vDatos.Rows[0]["emailEmpresa"].ToString();
+                LbIdJefe.Text = vDatos.Rows[0]["idJefe"].ToString();
+
+                vQuery = "RSP_ActivosDC 2,'" + vDatos.Rows[0]["area"].ToString() + "'";
+                DataTable vDatosCopia = vConexion.obtenerDataTable(vQuery);
 
                 DdlNombreCopia.Items.Clear();
                 DdlSupervisar.Items.Clear();
-                vQuery = "RSP_ActivosDC 2,'" + TxSubgerencia.Text + "'";
-                DataTable vDatosCopia = vConexion.obtenerDataTable(vQuery);
                 DdlNombreCopia.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
                 DdlSupervisar.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                if (vDatosCopia.Rows.Count > 0)
-                {
-                    foreach (DataRow item in vDatosCopia.Rows)
-                    {
+                if (vDatosCopia.Rows.Count > 0){
+                    foreach (DataRow item in vDatosCopia.Rows){
                         DdlNombreCopia.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
                         DdlSupervisar.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
                     }
@@ -94,73 +81,23 @@ namespace BiometricoWeb.pages.activos
                 vQuery = "RSP_ActivosDC 4";
                 DataTable vDatosEmpresas = vConexion.obtenerDataTable(vQuery);
                 DdlEmpresaVisita.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                if (vDatosEmpresas.Rows.Count > 0)
-                {
-                    foreach (DataRow item in vDatosEmpresas.Rows)
-                    {
+                if (vDatosEmpresas.Rows.Count > 0){
+                    foreach (DataRow item in vDatosEmpresas.Rows){
                         DdlEmpresaVisita.Items.Add(new ListItem { Value = item["idEmpresa"].ToString(), Text = item["empresa"].ToString() });
                     }
                 }
-
-                vQuery = "RSP_ActivosDC 5";
-                DataTable vDatosEquipo = vConexion.obtenerDataTable(vQuery);
-                DdlEquipo.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                if (vDatosEquipo.Rows.Count > 0)
-                {
-                    foreach (DataRow item in vDatosEquipo.Rows)
-                    {
-                        DdlEquipo.Items.Add(new ListItem { Value = item["idDetalle"].ToString(), Text = item["descripcion"].ToString() });
-                    }
-                }
-
 
                 ddlPersonalInterno.Items.Clear();
                 vQuery = "RSP_ActivosDC 6";
                 DataTable vDatosInterno = vConexion.obtenerDataTable(vQuery);
                 ddlPersonalInterno.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
-                if (vDatosInterno.Rows.Count > 0)
-                {
-                    foreach (DataRow item in vDatosInterno.Rows)
-                    {
+                if (vDatosInterno.Rows.Count > 0){
+                    foreach (DataRow item in vDatosInterno.Rows){
                         ddlPersonalInterno.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
                     }
                 }
-
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }
-        protected void DdlNombreCopia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                String vQuery = "RSP_ActivosDC 3,'" + DdlNombreCopia.SelectedValue + "'";
-                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-                TxIdentidadCopia.Text = vDatos.Rows[0]["identidad"].ToString();
-                Session["ACTIVO_DC_EMAIL_COPIA"] = vDatos.Rows[0]["emailEmpresa"].ToString();
-
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }
-        void calculoHoras()
-        {
-            if (TxInicio.Text != "" && TxFin.Text != "")
-            {
-                String vFI = TxInicio.Text != "" ? TxInicio.Text : "1999-01-01 00:00:00";
-                String vFF = TxFin.Text != "" ? TxFin.Text : "1999-01-01 00:00:00";
-
-                DateTime vdesde = Convert.ToDateTime(vFI);
-                DateTime vhasta = Convert.ToDateTime(vFF);
-
-                String vFormato = "dd/MM/yyyy"; //"DD/MM/YYYY HH:mm:ss"            
-
-                String vIni = Convert.ToDateTime(vdesde).ToString(vFormato);
-                String vFin = Convert.ToDateTime(vhasta).ToString(vFormato);
-
-                TimeSpan difFechas = Convert.ToDateTime(vFin) - Convert.ToDateTime(vIni);
-                int dias = difFechas.Days;
-
-                if (dias!=0 && dias!=1)
-                    throw new Exception("Deberá ingresar la solicitud de forma diaria.");
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
         }
 
@@ -184,54 +121,37 @@ namespace BiometricoWeb.pages.activos
             if (RbPermisoCelular.SelectedValue.Equals(""))
                 throw new Exception("Favor seleccione si tendra permiso de portar el celular.");
         }
-        void agregarRowDatagrid()
-        {
+        
+        void agregarRowDatagrid(){
             validarAgregarDatagrid();
             DataTable vData = new DataTable();
-            DataTable vDatos = (DataTable)Session["ACTIVO_DC_PERSONAL_EXTERNO"];
+            if (Session["ACTIVO_DC_PERSONAL_EXTERNO"] == null){
+                vData.Columns.Add("id");
+                vData.Columns.Add("nombre");
+                vData.Columns.Add("identidad");
+                vData.Columns.Add("empresa");
+                vData.Columns.Add("ingresoEquipo");
+                vData.Columns.Add("permisoCel");
+                vData.Columns.Add("permisoCel_tabla");
+                vData.Columns.Add("ingresoEquipo_tabla");
+                vData.Columns.Add("empresa_tabla");
+            }else
+                vData = (DataTable)Session["ACTIVO_DC_PERSONAL_EXTERNO"];
 
-            vData.Columns.Add("nombre");
-            vData.Columns.Add("identidad");
-            vData.Columns.Add("empresa");
-            vData.Columns.Add("ingresoEquipo");
-            vData.Columns.Add("permisoCel");
-            vData.Columns.Add("permisoCel_tabla");
-            vData.Columns.Add("ingresoEquipo_tabla");
-            vData.Columns.Add("empresa_tabla");
-
-            if (vDatos == null)
-                vDatos = vData.Clone();
-            if (vDatos != null)
-            {
-                if (vDatos.Rows.Count < 1)
-                {
-                    vDatos.Rows.Add(TxNombreVisita.Text, TxIdentidadVisita.Text, DdlEmpresaVisita.SelectedItem, RbIngresoEquipoVisita.SelectedItem, RbPermisoCelular.SelectedItem, RbPermisoCelular.SelectedValue, RbIngresoEquipoVisita.SelectedValue, DdlEmpresaVisita.SelectedValue);
-
-                }
-                else
-                {
-                    Boolean vRegistered = false;
-                    //for (int i = 0; i < vDatos.Rows.Count; i++)
-                    //{
-                    //    if (vNombreMaterialMatriz == vDatos.Rows[i]["nombre"].ToString())
-                    //    {
-                    //        //vDatos.Rows[i]["cantidad"] = Convert.ToDecimal(vDatos.Rows[i]["cantidad"].ToString()) + Convert.ToDecimal(TxCantidad.Text);
-
-                    //        lbCantidad.Text = "El material seleccionado: " + vNombreMaterialMatriz + " ya esta agregado en la lista, favor verificar";
-                    //        DivAlertaCantidad.Visible = true;
-                    //        UpCantidadMaxima.Update();
-
-                    //        vRegistered = true;
-                    //    }
-                    //}
-
-                    if (!vRegistered)
-                        vDatos.Rows.Add(TxNombreVisita.Text, TxIdentidadVisita.Text, DdlEmpresaVisita.SelectedItem, RbIngresoEquipoVisita.SelectedItem, RbPermisoCelular.SelectedItem, RbPermisoCelular.SelectedValue, RbIngresoEquipoVisita.SelectedValue, DdlEmpresaVisita.SelectedValue);
-                }
+            Boolean vFlagInsert = false;
+            for (int i = 0; i < vData.Rows.Count; i++){
+                if (vData.Rows[i]["identidad"].ToString().Equals(TxIdentidadVisita.Text))
+                    vFlagInsert = true;
             }
-            GvVisitas.DataSource = vDatos;
+
+            if (!vFlagInsert) {
+                vData.Rows.Add(vData.Rows.Count + 1, TxNombreVisita.Text, TxIdentidadVisita.Text, DdlEmpresaVisita.SelectedItem, RbIngresoEquipoVisita.SelectedItem, RbPermisoCelular.SelectedItem, RbPermisoCelular.SelectedValue, RbIngresoEquipoVisita.SelectedValue, DdlEmpresaVisita.SelectedValue);
+            }else
+                throw new Exception("Esta identidad ya ha sido agregada.");
+
+            GvVisitas.DataSource = vData;
             GvVisitas.DataBind();
-            Session["ACTIVO_DC_PERSONAL_EXTERNO"] = vDatos;
+            Session["ACTIVO_DC_PERSONAL_EXTERNO"] = vData;
             UPVisitas.Update();
 
             TxNombreVisita.Text = String.Empty;
@@ -241,291 +161,120 @@ namespace BiometricoWeb.pages.activos
             RbPermisoCelular.SelectedIndex = -1;
             UpdatePanel15.Update();
         }
-        protected void TxInicio_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-             calculoHoras();
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }
-        protected void TxFin_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
+        
+        protected void TxInicio_TextChanged(object sender, EventArgs e){
+            try{
                 calculoHoras();
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-        protected void BtnAgregar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (RbIngresoEquipoVisita.SelectedValue == "1")
-                {
-                    if (HttpContext.Current.Session["ACTIVO_DC_EQUIPO_REGISTRADO"] != null)
-                    {
-                        string vIdentidad = TxIdentidadVisita.Text;
-                        DataTable vDatos = (DataTable)Session["ACTIVO_DC_EQUIPO_REGISTRADO"];
-                        EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
-                               .Where(r => r.Field<String>("identidad").Contains(vIdentidad));
+        
+        protected void TxFin_TextChanged(object sender, EventArgs e){
+            try{
+                calculoHoras();
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
+            }
+        }
+        
+        void calculoHoras(){
+            if (TxInicio.Text != "" && TxFin.Text != ""){
+                //String vFormato = "dd/MM/yyyy"; //"DD/MM/YYYY HH:mm:ss"
+                String vIni = Convert.ToDateTime(TxInicio.Text).ToString("dd/MM/yyyy");
+                String vFin = Convert.ToDateTime(TxFin.Text).ToString("dd/MM/yyyy");
 
-                        DataTable vDatosFiltrados = new DataTable();
-                        vDatosFiltrados.Columns.Add("identidad");
-                        vDatosFiltrados.Columns.Add("id");
-                        vDatosFiltrados.Columns.Add("equipo");
-                        vDatosFiltrados.Columns.Add("serie");
-                        vDatosFiltrados.Columns.Add("inventario");
+                TimeSpan difFechas = Convert.ToDateTime(vFin) - Convert.ToDateTime(vIni);
+                int dias = difFechas.Days;
 
-                        foreach (DataRow item in filtered)
-                        {
-                            vDatosFiltrados.Rows.Add(
-                                item["identidad"].ToString(),
-                                item["id"].ToString(),
-                                item["equipo"].ToString(),
-                                item["serie"].ToString(),
-                                item["inventario"].ToString()
-                                );
+                if (DDLExtendido.SelectedValue == "0"){
+                    if (dias != 0 && dias != 1) {
+                        TxFin.Text = "";
+                        throw new Exception("Deberá ingresar la solicitud de forma diaria.");
+                    }
+                }
+            }
+        }
+
+        protected void BtnAgregar_Click(object sender, EventArgs e){
+            try{
+                 agregarRowDatagrid();
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
+            }
+        }
+        
+        protected void GvVisitas_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                DataTable vDatos = new DataTable();
+                if (e.CommandName == "eliminar"){
+                    string vIdEmpleado = e.CommandArgument.ToString();
+                    if (Session["ACTIVO_DC_PERSONAL_EXTERNO"] != null){
+                        vDatos = (DataTable)Session["ACTIVO_DC_PERSONAL_EXTERNO"];
+
+                        DataRow[] result = vDatos.Select("id = '" + vIdEmpleado + "'");
+                        foreach (DataRow row in result){
+                            if (row["id"].ToString().Contains(vIdEmpleado))
+                                vDatos.Rows.Remove(row);
                         }
-                        GvEquipo.DataSource = vDatosFiltrados;
-                        GvEquipo.DataBind();
-                        UPVisitas.Update();
-                        UpdatePanel4.Update();                      
                     }
-                 
-                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "abrirModalRegistroEquipo();", true);
-                }
-                else { agregarRowDatagrid(); }
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }
 
-        //protected void RbIngresoEquipo_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (RbIngresoEquipo.SelectedValue=="1")
-        //        {
-        //            Session["ACTIVO_DC_EQUIPO_REGISTRADO"] = null;
-        //            UpdatePanel7.Update();
-        //            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "abrirModalRegistroEquipo();", true);
-        //        }
-        //        else
-        //        {
-        //            Session["ACTIVO_DC_EQUIPO_REGISTRADO"] = null;
-        //            UpdatePanel7.Update();
-        //        }
-        //    }
-        //    catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
+                    for (int i = 0; i < vDatos.Rows.Count; i++){
+                        vDatos.Rows[i]["id"] = i + 1;
+                    }
 
-
-        //}
-
-
-        protected void BtnAgregarEquipo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DataTable vData = new DataTable();
-                DataTable vDatos = (DataTable)Session["ACTIVO_DC_EQUIPO_REGISTRADO"];
-                vData.Columns.Add("id");
-                vData.Columns.Add("equipo");
-                vData.Columns.Add("serie");
-                vData.Columns.Add("inventario");
-                vData.Columns.Add("identidad");
-                vData.Columns.Add("equipo_tabla");
-
-                if (vDatos == null )
-                    vDatos = vData.Clone();
-
-                if (vDatos != null)
-                {
+                    GvVisitas.DataSource = vDatos;
+                    GvVisitas.DataBind();
                     if (vDatos.Rows.Count < 1)
-                    {
-                        vDatos.Rows.Add("1", DdlEquipo.SelectedItem, TxSerie.Text, TxInventario.Text, TxIdentidadVisita.Text, DdlEquipo.SelectedValue);
-                        //vDatosGenerales.Rows.Add("1", DdlEquipo.SelectedItem, TxSerie.Text, TxInventario.Text, TxIdentidadVisita.Text);
-                    }
+                        Session["ACTIVO_DC_PERSONAL_EXTERNO"] = null;
                     else
-                    {
-                        Boolean vRegistered = false;
-                        //for (int i = 0; i < vDatos.Rows.Count; i++)
-                        //{
-                        //    if (vNombreMaterialMatriz == vDatos.Rows[i]["nombre"].ToString())
-                        //    {
-                        //        //vDatos.Rows[i]["cantidad"] = Convert.ToDecimal(vDatos.Rows[i]["cantidad"].ToString()) + Convert.ToDecimal(TxCantidad.Text);
-
-                        //        lbCantidad.Text = "El material seleccionado: " + vNombreMaterialMatriz + " ya esta agregado en la lista, favor verificar";
-                        //        DivAlertaCantidad.Visible = true;
-                        //        UpCantidadMaxima.Update();
-
-                        //        vRegistered = true;
-                        //    }
-                        //}
-
-                        if (!vRegistered)
-                            vDatos.Rows.Add((vDatos.Rows.Count)+1, DdlEquipo.SelectedItem, TxSerie.Text, TxInventario.Text, TxIdentidadVisita.Text, DdlEquipo.SelectedValue);
-
-                        TxSerie.Text = String.Empty;
-                        TxInventario.Text = String.Empty;
-                        DdlEquipo.SelectedIndex = -1;
-                        UpdatePanel7.Update();
-
-
-                    }
+                        Session["ACTIVO_DC_PERSONAL_EXTERNO"] = vDatos;
                 }
-
-                GvEquipo.DataSource = vDatos;
-                GvEquipo.DataBind();
-                Session["ACTIVO_DC_EQUIPO_REGISTRADO"] = vDatos;
-                //Session["ACTIVO_DC_EQUIPO_REGISTRADO_GLOBAL"] = vDatosGenerales;
-                UPVisitas.Update();
-                UpdatePanel4.Update();
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        //protected void BtnModificarEquipo_Click(object sender, EventArgs e)
-        //{
-        //    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "abrirModalRegistroEquipo();", true);
-        //}
-
-        protected void BtnAceptarEquipo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "cerrarModalRegistroEquipo();", true);
-                agregarRowDatagrid();
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }
-
-        protected void BtnCancelarEquipo_Click(object sender, EventArgs e)
-        {
-            try
-            {                
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "cerrarModalRegistroEquipo();", true);
-                Session["ACTIVO_DC_EQUIPO_REGISTRADO"] = null;
-                GvEquipo.DataSource = null;
-                GvEquipo.DataBind();
-                UpdatePanel4.Update();
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }
-        protected void GvVisitas_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            try
-            {
-                if (e.CommandName == "informacion")
-                {
-                    string vIdentidad = e.CommandArgument.ToString();
-                    DataTable vDatos = (DataTable)Session["ACTIVO_DC_EQUIPO_REGISTRADO"];
-                    EnumerableRowCollection<DataRow> filtered = vDatos.AsEnumerable()
-                           .Where(r => r.Field<String>("identidad").Contains(vIdentidad));
-
-                    DataTable vDatosFiltrados = new DataTable();
-                    vDatosFiltrados.Columns.Add("identidad");
-                    vDatosFiltrados.Columns.Add("id");
-                    vDatosFiltrados.Columns.Add("equipo");
-                    vDatosFiltrados.Columns.Add("serie");
-                    vDatosFiltrados.Columns.Add("inventario");
-
-                    foreach (DataRow item in filtered)
-                    {
-                        vDatosFiltrados.Rows.Add(
-                            item["identidad"].ToString(),
-                            item["id"].ToString(),
-                            item["equipo"].ToString(),
-                            item["serie"].ToString(),
-                            item["inventario"].ToString()
-                            );
-                    }
-                    GvMasInfo.DataSource = vDatosFiltrados;
-                    GvMasInfo.DataBind();
-                    UpdatePanel5.Update();
-                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "abrirModalMasInfo();", true);
-                }
-                else if (e.CommandName == "eliminar")
-                {
-                    //GridViewRow oItem = (GridViewRow)((LinkButton)e.CommandSource).NamingContainer;
-                    //int RowIndex = oItem.RowIndex;
-                    //GvVisitas.DeleteRow(RowIndex);
-                    //GvVisitas.DataBind();
-                  
-                }
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }
-
-        protected void GvVisitas_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
+        protected void GvVisitas_PageIndexChanging(object sender, GridViewPageEventArgs e){
 
         }
 
-        protected void GvVisitas_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-
-        }
-
-        protected void ddlPersonalInterno_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void ddlPersonalInterno_SelectedIndexChanged(object sender, EventArgs e){
+            try{
                 String vQuery = "RSP_ActivosDC 3,'" + ddlPersonalInterno.SelectedValue + "'";
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 txtIdentidadInterno.Text = vDatos.Rows[0]["identidad"].ToString();
                 TxCorreoInterno.Text = vDatos.Rows[0]["emailEmpresa"].ToString();
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-      
-        protected void lbAddPersonalInterno_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void lbAddPersonalInterno_Click(object sender, EventArgs e){
+            try{
                 DataTable vData = new DataTable();
-                DataTable vDatos = (DataTable)Session["ACTIVO_DC_PERSONAL_INTERNO"];
-                vData.Columns.Add("codigoEmpleado");
-                vData.Columns.Add("nombreEmpleado");
-                vData.Columns.Add("identidadInterno");
-                vData.Columns.Add("correoInterno");
+                if (Session["ACTIVO_DC_PERSONAL_INTERNO"] == null){
+                    vData.Columns.Add("codigoEmpleado");
+                    vData.Columns.Add("nombreEmpleado");
+                    vData.Columns.Add("identidadInterno");
+                    vData.Columns.Add("correoInterno");
+                }else
+                    vData = (DataTable)Session["ACTIVO_DC_PERSONAL_INTERNO"];
 
-                if (vDatos == null)
-                    vDatos = vData.Clone();
-
-                if (vDatos != null)
-                {
-                    if (vDatos.Rows.Count < 1)
-                    {
-                        vDatos.Rows.Add( ddlPersonalInterno.SelectedValue, ddlPersonalInterno.SelectedItem, txtIdentidadInterno.Text, TxCorreoInterno.Text);
-                    }
-                    else
-                    {
-                        Boolean vRegistered = false;
-                        //for (int i = 0; i < vDatos.Rows.Count; i++)
-                        //{
-                        //    if (vNombreMaterialMatriz == vDatos.Rows[i]["nombre"].ToString())
-                        //    {
-                        //        //vDatos.Rows[i]["cantidad"] = Convert.ToDecimal(vDatos.Rows[i]["cantidad"].ToString()) + Convert.ToDecimal(TxCantidad.Text);
-
-                        //        lbCantidad.Text = "El material seleccionado: " + vNombreMaterialMatriz + " ya esta agregado en la lista, favor verificar";
-                        //        DivAlertaCantidad.Visible = true;
-                        //        UpCantidadMaxima.Update();
-
-                        //        vRegistered = true;
-                        //    }
-                        //}
-
-                        if (!vRegistered)
-                            vDatos.Rows.Add(ddlPersonalInterno.SelectedValue, ddlPersonalInterno.SelectedItem, txtIdentidadInterno.Text, TxCorreoInterno.Text);
-
-
-                    }
+                Boolean vFlagInsert = false;
+                for (int i = 0; i < vData.Rows.Count; i++){
+                    if (vData.Rows[i]["codigoEmpleado"].ToString().Equals(ddlPersonalInterno.SelectedValue))
+                        vFlagInsert = true;
                 }
 
-                GvPersonalInterno.DataSource = vDatos;
+                if (!vFlagInsert) {
+                    vData.Rows.Add(ddlPersonalInterno.SelectedValue, ddlPersonalInterno.SelectedItem, txtIdentidadInterno.Text, TxCorreoInterno.Text);
+                }else
+                    throw new Exception("Este usuario ya ha sido agregado.");
+
+                GvPersonalInterno.DataSource = vData;
                 GvPersonalInterno.DataBind();
-                Session["ACTIVO_DC_PERSONAL_INTERNO"] = vDatos;
+                Session["ACTIVO_DC_PERSONAL_INTERNO"] = vData;
                 txtIdentidadInterno.Text = string.Empty;
                 TxCorreoInterno.Text = string.Empty;
                 ddlPersonalInterno.SelectedIndex = -1;
@@ -533,187 +282,122 @@ namespace BiometricoWeb.pages.activos
             }
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
-        protected void DdlSupervisar_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                String vQuery = "RSP_ActivosDC 3,'" + DdlSupervisar.SelectedValue + "'";
-                DataTable vDatos = vConexion.obtenerDataTable(vQuery);
-                TxIdentidadSupervisar.Text = vDatos.Rows[0]["identidad"].ToString();
-                Session["ACTIVO_DC_EMAIL_SUPERVISOR"] = vDatos.Rows[0]["emailEmpresa"].ToString();
-
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }
-        protected void BtnCrearSolicitud_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        
+        protected void BtnCrearSolicitud_Click(object sender, EventArgs e){
+            try{
                 TxFechaInicioModal.Text = TxInicio.Text;
                 TxFechaFinModal.Text = TxFin.Text;
                 TxTareaModal.Text = txTrabajo.Text;
                 TxMotivoModal.Text = TxMotivo.Text;
-                lbTitulo.Text = "Crear solicitud, visita al: "+ rbAcceso.SelectedItem;
+                lbTitulo.Text = "Crear solicitud, visita al: "+ DDLAcceso.SelectedItem;
                 UpdatePanel17.Update();
                 UpdatePanel16.Update();
 
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "openEnviarSolicitudModal();", true);
-
-
-
-
-
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void TxPermisoExtendido_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                Session["ACTIVO_DC_ID_ESTADO"] = "2";
-            }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-        }
-
-
-
-        void camposDeshabilitados()
-        {
-            TxResponsable.ReadOnly = true;
-            TxIdentidadResponsable.ReadOnly = true;
-            TxSubgerencia.ReadOnly = true;
-            TxJefe.ReadOnly = true;
+        void camposDeshabilitados(){
             DdlNombreCopia.Enabled = false;
             DdlNombreCopia.CssClass = "form-control";
-            TxIdentidadCopia.ReadOnly = true;
 
             DdlSupervisar.Enabled = false;
             DdlSupervisar.CssClass = "form-control";
 
-            TxIdentidadSupervisar.ReadOnly = true;
             DivPermisoExtendido.Visible = false;
-
             TxInicio.ReadOnly = true;
             TxFin.ReadOnly = true;
-            rbAcceso.Enabled = false;
-            rbTipoTarea.Enabled = false;
-            chInterno.Enabled = false;
-            chExterno.Enabled = false;
+            DDLAcceso.Enabled = false;
+            CbxInterno.Enabled = false;
+            CbxExterno.Enabled = false;
 
             txPeticion.ReadOnly = true;
             txTrabajo.ReadOnly = true;
             TxMotivo.ReadOnly = true;
             txTareasRealizar.ReadOnly = true;
-
         }
 
-
-        void cargarDataVista()
-        {
-            try
-            {          
+        void cargarDataVista(){
+            try{          
                 string vQuery = "RSP_ActivosDC 6" ;
                 DataTable vDatosCopiaVista = vConexion.obtenerDataTable(vQuery);
-                if (vDatosCopiaVista.Rows.Count > 0)
-                {
-                    foreach (DataRow item in vDatosCopiaVista.Rows)
-                    {
+                if (vDatosCopiaVista.Rows.Count > 0){
+                    foreach (DataRow item in vDatosCopiaVista.Rows){
                         DdlNombreCopia.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
                         DdlSupervisar.Items.Add(new ListItem { Value = item["idEmpleado"].ToString(), Text = item["nombre"].ToString() });
                     }
                 }
 
-                DataTable vDatosGenerales = new DataTable();
-                vDatosGenerales = (DataTable)Session["ACTIVO_DC_SOLI_DATOS_GENERALES"];
+                DataTable vDatos = new DataTable();
+                vDatos = (DataTable)Session["ACTIVO_DC_SOLI_DATOS_GENERALES"];
                 string vFormato = "yyyy-MM-ddTHH:mm";
 
-                string vIdSolicitud = vDatosGenerales.Rows[0]["idSolicitud"].ToString();
+                string vIdSolicitud = vDatos.Rows[0]["idSolicitud"].ToString();
                 Session["ACTIVO_DC_ID_SOLICITUD"] = vIdSolicitud;
 
-                string vFechaInicio = vDatosGenerales.Rows[0]["fechaInicio"].ToString();
+                string vFechaInicio = vDatos.Rows[0]["fechaInicio"].ToString();
                 string vFechaInicioConvertida = Convert.ToDateTime(vFechaInicio).ToString(vFormato);
                 TxInicio.Text = vFechaInicioConvertida;
 
-                string vFechaFin = vDatosGenerales.Rows[0]["fechaFin"].ToString();
+                string vFechaFin = vDatos.Rows[0]["fechaFin"].ToString();
                 string vFechaFinConvertida = Convert.ToDateTime(vFechaFin).ToString(vFormato);
                 TxFin.Text= vFechaFinConvertida;
                  
-                rbAcceso.SelectedValue = vDatosGenerales.Rows[0]["acceso"].ToString();
-                rbTipoTarea.SelectedValue = vDatosGenerales.Rows[0]["trabajo"].ToString();
-                string vExterno= vDatosGenerales.Rows[0]["personalExterno"].ToString();
-                string vInterno = vDatosGenerales.Rows[0]["personalInterno"].ToString();
-                chInterno.SelectedValue = vInterno;
-                chExterno.SelectedValue  = vExterno;
-                txPeticion.Text = vDatosGenerales.Rows[0]["peticion"].ToString();
-                txTrabajo.Text = vDatosGenerales.Rows[0]["trabajo"].ToString();
-                TxMotivo.Text = vDatosGenerales.Rows[0]["motivo"].ToString();
-                txTareasRealizar.Text = vDatosGenerales.Rows[0]["tareasRealizar"].ToString();
+                DDLAcceso.SelectedValue = vDatos.Rows[0]["acceso"].ToString();
+                CbxInterno.Checked  = vDatos.Rows[0]["personalInterno"].ToString() == "1" ? true : false;
+                CbxExterno.Checked  = vDatos.Rows[0]["personalExterno"].ToString() == "1" ? true : false;
+                txPeticion.Text = vDatos.Rows[0]["peticion"].ToString();
+                txTrabajo.Text = vDatos.Rows[0]["trabajo"].ToString();
+                TxMotivo.Text = vDatos.Rows[0]["motivo"].ToString();
+                txTareasRealizar.Text = vDatos.Rows[0]["tareasRealizar"].ToString();
 
                 DataTable vDatosResponsable = new DataTable();
                 vDatosResponsable = (DataTable)Session["ACTIVO_DC_SOLI_DATOS_RESPONSABLE"];
-                TxResponsable.Text = vDatosResponsable.Rows[0]["nombre"].ToString();
-                TxIdentidadResponsable.Text = vDatosResponsable.Rows[0]["identidad"].ToString();
-                TxSubgerencia.Text = vDatosResponsable.Rows[0]["area"].ToString();
-                TxJefe.Text = vDatosResponsable.Rows[0]["jefeNombre"].ToString();
+                LbResponsable.Text = vDatosResponsable.Rows[0]["nombre"].ToString();
+                LbIdentidadResponsable.Text = vDatosResponsable.Rows[0]["identidad"].ToString();
+                LbSubgerencia.Text = vDatosResponsable.Rows[0]["departamento"].ToString();
+                LbJefe.Text = vDatosResponsable.Rows[0]["jefeNombre"].ToString();
 
                 DataTable vDatosCopia = new DataTable();
                 vDatosCopia = (DataTable)Session["ACTIVO_DC_SOLI_DATOS_COPIA"];
                 DdlNombreCopia.SelectedValue = vDatosCopia.Rows[0]["idEmpleado"].ToString();
-                TxIdentidadCopia.Text = vDatosCopia.Rows[0]["identidad"].ToString();
 
                 DataTable vDatosSupervisor = new DataTable();
                 vDatosSupervisor = (DataTable)Session["ACTIVO_DC_SOLI_DATOS_SUPERVISOR"];
                 DdlSupervisar.SelectedValue = vDatosSupervisor.Rows[0]["idEmpleado"].ToString();
-                TxIdentidadSupervisar.Text = vDatosSupervisor.Rows[0]["identidad"].ToString();
 
-
-
-                chInterno.SelectedValue = vInterno;
-                chExterno.SelectedValue = vExterno;
-
-                if (chInterno.SelectedValue=="1")
-                {
+                if (CbxInterno.Checked){
                     DivGvInterLectura.Visible = true;
                     DivGvInternoNoLectura.Visible = false;
                     DataTable vDatosPersonalInterno = new DataTable();
                     vDatosPersonalInterno = (DataTable)Session["ACTIVO_DC_SOLI_PERSONAL_INTERNO"];
                     GvInternoLectura.DataSource = vDatosPersonalInterno;
                     GvInternoLectura.DataBind();
-                }
-                else
-                {
+                }else{
                     DivGvInterLectura.Visible = false;
                 }
 
-
-
-                if (chExterno.SelectedValue == "2")
-                {
+                if (CbxExterno.Checked){
                     DivGvExternoLectura.Visible = true;
                     DataTable vDatosPersonalExterno = new DataTable();
                     vDatosPersonalExterno = (DataTable)Session["ACTIVO_DC_SOLI_PERSONAL_EXTERNO"];
                     GvExternoLectura.DataSource = vDatosPersonalExterno;
                     GvExternoLectura.DataBind();
                     UpdatePanel9.Update();
-                }
-                else
-                {
+                }else
                     DivGvExternoLectura.Visible = false;
-                }
-
-
+                
                 DivParticipantesVista.Visible = true;              
                 UpdatePanel20.Update();
 
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
-
         }
 
-
-        void validarAprobacionJefe()
-        {
+        void validarAprobacionJefe(){
             if (DdlAccionJefe.SelectedValue == "0")
                 throw new Exception("Falta que seleccione acción a realizar");
 
@@ -721,15 +405,13 @@ namespace BiometricoWeb.pages.activos
                 throw new Exception("Falta que ingrese el motivo de cancelacion de la solicitud");
         }
 
-        void limpiarAprobacionJefe()
-        {
+        void limpiarAprobacionJefe(){
             DdlAccionJefe.SelectedIndex = -1;
             TxMotivoJefe.Text = string.Empty;               
         }
-        protected void BtnAprobar_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        
+        protected void BtnAprobar_Click(object sender, EventArgs e){
+            try{
                 validarAprobacionJefe();
                 TituloAprobacionJefe.Text = "Solicitud número " + Session["ACTIVO_DC_ID_SOLICITUD"].ToString();
 
@@ -739,7 +421,7 @@ namespace BiometricoWeb.pages.activos
                 DateTime desde = Convert.ToDateTime(vFI);
                 DateTime hasta = Convert.ToDateTime(vFF);
 
-                LbAprobarJefe.Text = "Buen dia <b> " + TxJefe .Text+ "</b><br /><br />" +
+                LbAprobarJefe.Text = "Buen dia <b> " + LbJefe .Text+ "</b><br /><br />" +
                      "Fechas inicio solicitud <b>" + desde.ToString("yyyy-MM-dd HH:mm") + "</b> al <b>" + hasta.ToString("yyyy-MM-dd HH:mm") + "</b> <br />" +
                      "Trabajo a realizar: <b>" + txTrabajo.Text + "</b><br /><br />";
                 LbAprobarJefePregunta.Text = "<b>¿Está seguro que desea " + Session["ACTIVO_DC_ESTADO_JEFE"].ToString() + "<b> ,en el rango de fechas y horas detalladas?</b>";
@@ -748,41 +430,32 @@ namespace BiometricoWeb.pages.activos
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openAprobarJefeModal();", true);
                 limpiarAprobacionJefe();
 
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void DdlAccionJefe_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        protected void DdlAccionJefe_SelectedIndexChanged(object sender, EventArgs e){
             if (DdlAccionJefe.SelectedValue == "1") {
                 TxMotivoJefe.Visible = false;
-
-                if (rbAcceso.SelectedValue=="1" || rbAcceso.SelectedValue == "2")
-                {
-                    Session["ACTIVO_DC_ESTADO_JEFE"] = "Aprobar la solicitud; Nota:Se actualizará al estado Pendiente Aprobar Responsable DataCenter";
+                if (DDLAcceso.SelectedValue=="1" || DDLAcceso.SelectedValue == "2"){
+                    Session["ACTIVO_DC_ESTADO_JEFE"] = "Aprobar la solicitud; <br>Nota:Se actualizará al estado Pendiente Aprobar Responsable DataCenter";
                     Session["ACTIVO_DC_ESTADO_JEFE_ID"] = "3";
                     Session["ACTIVO_DC_ID_EMPLEADO_RESPONSABLE"] = "315";
-                }
-                else
-                {
-                    Session["ACTIVO_DC_ESTADO_JEFE"] = "Aprobar la solicitud;Nota:Se actualizará al estado Pendiente Aprobar Responsable Cableado";
+                }else{
+                    Session["ACTIVO_DC_ESTADO_JEFE"] = "Aprobar la solicitud; <br>Nota:Se actualizará al estado Pendiente Aprobar Responsable Cableado";
                     Session["ACTIVO_DC_ESTADO_JEFE_ID"] = "2";
                     Session["ACTIVO_DC_ID_EMPLEADO_RESPONSABLE"] = "3790";
                 }
-            }
-            else
-            {
+            }else{
                 TxMotivoJefe.Visible = true;
                 Session["ACTIVO_DC_ESTADO_JEFE"] = "Cancelar la solicitud";
                 Session["ACTIVO_DC_ESTADO_JEFE_ID"] = "5";
             }
-               
         }
 
-        protected void BtnAprobarJefeModal_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnAprobarJefeModal_Click(object sender, EventArgs e){
+            try{
                 String vQuery = "RSP_ActivosDC 17,'" + Session["ACTIVO_DC_ID_SOLICITUD"].ToString() + "','"+ DdlAccionJefe.SelectedValue+"','"+ TxMotivoJefe.Text+"','"+ Session["ACTIVO_DC_ID_EMPLEADO_RESPONSABLE"].ToString()+"','"+ Session["ACTIVO_DC_ESTADO_JEFE_ID"].ToString()+"'";
                 Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeAprobarJefeModal();", true);
@@ -808,193 +481,117 @@ namespace BiometricoWeb.pages.activos
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-
-        
-        protected void chInterno_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           if (chInterno.SelectedValue == "1")
-            {
-                tabInterno.Visible = true;
-                DivParticipantes.Visible = true;
-                UpdatePanel1.Update();
-            }
-            else
-            {
-                tabInterno.Visible = false;
-                DivParticipantes.Visible = true;
-                UpdatePanel1.Update();
-            }       
-        }
-
-        protected void chExterno_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (chExterno.SelectedValue == "2")
-            {   tabExterno.Visible = true;
-                DivParticipantes.Visible = true;
-                UpdatePanel1.Update();               
-            }
-            else
-            {
-                tabExterno.Visible = false;
-                DivParticipantes.Visible = true;
-                UpdatePanel1.Update();
-            }
-        }
-
-        protected void BtnEnviarSoli_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnEnviarSoli_Click(object sender, EventArgs e){
+            try{
                 String vFormato = "dd/MM/yyyy HH:mm"; //"dd/MM/yyyy HH:mm:ss"
                 string vFechaInicio = Convert.ToDateTime(TxInicio.Text).ToString(vFormato);
                 string vFechaFin = Convert.ToDateTime(TxFin.Text).ToString(vFormato);
-                string vInterno = "";
-                if (chInterno.Items[0].Selected)
-                     vInterno = "1";
-                else
-                    vInterno = "0";
-
-                string vExterno = "";
-                if (chExterno.Items[0].Selected)
-                    vExterno = "2";
-                else
-                    vExterno = "0";
-
-                String vQuery = "RSP_ActivosDC 7,'"
-                               + Session["USUARIO"].ToString()
-                               + "','" + DdlNombreCopia.SelectedValue
-                               + "','" + DdlSupervisar.SelectedValue
-                               + "','" + vFechaInicio
-                               + "','" + vFechaFin
-                               + "','" + rbAcceso.SelectedValue
-                               + "','" + rbTipoTarea.SelectedValue
-                               + "','" + vExterno
-                               + "','" + vInterno
-                               + "','" + txPeticion.Text
-                               + "','" + txTrabajo.Text
-                               + "','" + TxMotivo.Text
-                               + "','" + txTareasRealizar.Text
-                               + "','" + Session["ACTIVO_DC_ID_ESTADO"].ToString() + "','" + Session["ACTIVO_DC_CODIGO_JEFE"].ToString() + "'";
+                
+                string vInterno = CbxInterno.Checked ? "1" : "0";
+                string vExterno = CbxExterno.Checked ? "1" : "0";
+                String vQuery = "RSP_ActivosDC 7" +
+                    ",'" + Session["USUARIO"].ToString() + "'" +
+                    ",'" + DdlNombreCopia.SelectedValue + "'" +
+                    ",'" + DdlSupervisar.SelectedValue + "'" +
+                    ",'" + vFechaInicio + "'" +
+                    ",'" + vFechaFin + "'" +
+                    ",'" + DDLAcceso.SelectedValue + "'" +
+                    ",'1'" +
+                    ",'" + vExterno + "'" +
+                    ",'" + vInterno + "'" +
+                    ",'" + txPeticion.Text + "'" +
+                    ",'" + txTrabajo.Text + "'" +
+                    ",'" + TxMotivo.Text + "'" + 
+                    ",'" + txTareasRealizar.Text + "'" +
+                    ",'" + Session["ACTIVO_DC_ID_ESTADO"].ToString() + "'" + 
+                    ",'" + LbIdJefe.Text + "'";
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 string vidSolicitud = vDatos.Rows[0]["idSolicitud"].ToString();
 
-
                 string vCorreosInternos = "";
-                DataTable vDatosPI = (DataTable)Session["ACTIVO_DC_PERSONAL_INTERNO"];
-                if (vDatosPI != null)
-                {
-                    for (int num = 0; num < vDatosPI.Rows.Count; num++)
-                    {
-                        string vCodigoEmpleado = vDatosPI.Rows[num]["codigoEmpleado"].ToString();
+                vDatos = (DataTable)Session["ACTIVO_DC_PERSONAL_INTERNO"];
+                if (vDatos != null){
+                    for (int num = 0; num < vDatos.Rows.Count; num++){
+                        string vCodigoEmpleado = vDatos.Rows[num]["codigoEmpleado"].ToString();
                         vQuery = "RSP_ActivosDC 8,'" + vidSolicitud + "','" + vCodigoEmpleado + "'";
                         Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
-                        vCorreosInternos = vCorreosInternos + ";"+ vDatosPI.Rows[num]["correoInterno"].ToString();
+                        vCorreosInternos = vCorreosInternos + ";"+ vDatos.Rows[num]["correoInterno"].ToString();
                     }
                 }
 
 
-                DataTable vDatosPE = (DataTable)Session["ACTIVO_DC_PERSONAL_EXTERNO"];
-                if (vDatosPE != null)
-                {
-                    for (int num = 0; num < vDatosPE.Rows.Count; num++)
-                    {
-                        string vNombre = vDatosPE.Rows[num]["nombre"].ToString();
-                        string vIdentidad = vDatosPE.Rows[num]["identidad"].ToString();
-                        string vEmpresa = vDatosPE.Rows[num]["empresa_tabla"].ToString();
-                        string vIngresoEquipo = vDatosPE.Rows[num]["ingresoEquipo_tabla"].ToString();
-                        string vPermisoCelular = vDatosPE.Rows[num]["permisoCel_tabla"].ToString();
+                vDatos = (DataTable)Session["ACTIVO_DC_PERSONAL_EXTERNO"];
+                if (vDatos != null){
+                    for (int num = 0; num < vDatos.Rows.Count; num++){
+                        string vNombre = vDatos.Rows[num]["nombre"].ToString();
+                        string vIdentidad = vDatos.Rows[num]["identidad"].ToString();
+                        string vEmpresa = vDatos.Rows[num]["empresa_tabla"].ToString();
+                        string vIngresoEquipo = vDatos.Rows[num]["ingresoEquipo_tabla"].ToString();
+                        string vPermisoCelular = vDatos.Rows[num]["permisoCel_tabla"].ToString();
                         vQuery = "RSP_ActivosDC 9,'" + vidSolicitud + "','" + vNombre + "','" + vIdentidad + "','" + vEmpresa + "','" + vPermisoCelular + "','" + vIngresoEquipo + "'";
                         Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
                     }
                 }
 
-                DataTable vDatosPEActivos = (DataTable)Session["ACTIVO_DC_EQUIPO_REGISTRADO"];
-                if (vDatosPEActivos != null)
-                {
-                    for (int num = 0; num < vDatosPEActivos.Rows.Count; num++)
-                    {
-                        string vIdentidad = vDatosPEActivos.Rows[num]["identidad"].ToString();
-                        string vEquipo = vDatosPEActivos.Rows[num]["equipo_tabla"].ToString();
-                        string vSerie = vDatosPEActivos.Rows[num]["serie"].ToString();
-                        string vInventario = vDatosPEActivos.Rows[num]["inventario"].ToString();
-                        vQuery = "RSP_ActivosDC 10,'" + vidSolicitud + "','" + vIdentidad + "','" + vEquipo + "','" + vSerie + "','" + vInventario + "'";
-                        Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
-                    }
-                }
-
                 string vEstado = Session["ACTIVO_DC_ID_ESTADO"].ToString();
-                string vCopia = "";
+               
                 string vPara = "";
-                if (vEstado == "1")
-                {
-                    //vPara = Session["ACTIVO_DC_EMAIL_JEFE_RESPONSABLE"].ToString();
+                if (vEstado == "1"){
                     vPara = "wpadilla@bancatlan.hn";
-                }
-                else
-                {
-                    if (rbAcceso.SelectedValue == "1" || rbAcceso.SelectedValue == "2")
-                    {
+                }else{
+                    if (DDLAcceso.SelectedValue == "1" || DDLAcceso.SelectedValue == "2")
                         vPara = "wpadilla@bancatlan.hn";
-                    }
                     else
-                    {
                         vPara = "wpadilla@bancatlan.hn";
-                    }
                 }
 
+                vQuery = "RSP_ActivosDC 3,'" + DdlNombreCopia.SelectedValue + "'";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                String vCopiaMail = vDatos.Rows[0]["emailEmpresa"].ToString();
+                vQuery = "RSP_ActivosDC 3,'" + DdlSupervisar.SelectedValue + "'";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                String vSupervisorMail = vDatos.Rows[0]["emailEmpresa"].ToString();
 
+                String vCopia = LbCorreo.Text + ";" + vCopiaMail + ";" + vSupervisorMail + vCorreosInternos;
+                vQuery = "RSP_ActivosDC 11" +
+                    ",'" + vPara + "'" +
+                    ",'" + vCopia + "'" +
+                    ",'Aprobación Solicitud Acceso Data Center'" +
+                    ",'Favor con la respectiva aprobación'" +
+                    ",'0'" +
+                    ",'" + vidSolicitud + "'";
                 
-                vCopia = vCopia + Session["ACTIVO_DC_EMAIL_RESPONSABLE"].ToString() + ";" + Session["ACTIVO_DC_EMAIL_COPIA"].ToString() + ";" + Session["ACTIVO_DC_EMAIL_SUPERVISOR"].ToString()+";"+ vCorreosInternos; ;
-
-                vQuery = "RSP_ActivosDC 11,'"
-                + vPara
-                + "','" + vCopia
-                + "','" + "Aprobación Solicitud Acceso Data Center"
-                + "','" + "Favor con la respectiva aprobación"
-                + "','" + "0"
-                + "','" + vidSolicitud
-                + "'";
-                //vDatos = vConexion.obtenerDataTable(vQuery);
                 Int32 vInfo = vConexion.ejecutarSql(vQuery);
-
                 if (vInfo == 1)
-                {
                     Mensaje("Solicitud enviada con éxito.", WarningType.Success);
-                               
-                }
                 else
-                {
                     Mensaje("No se pudo enviar la solicitud, favor contactarse con el administrador del sistema", WarningType.Danger);
-                }
-
+                
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "closeEnviarSolicitudModal();", true);
                 limpiarSolicitud();
                 CargarInformacionGeneral();
                 UpdatePanel2.Update();
 
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-
-        private void limpiarSolicitud()
-        {
+        private void limpiarSolicitud(){
             DivParticipantes.Visible = false;
-            TxResponsable.Text = String.Empty;
-            TxIdentidadResponsable.Text = String.Empty;
-            TxSubgerencia.Text = String.Empty;
-            TxJefe.Text = String.Empty;
+            LbResponsable.Text = String.Empty;
+            LbIdentidadResponsable.Text = String.Empty;
+            LbSubgerencia.Text = String.Empty;
+            LbJefe.Text = String.Empty;
             DdlNombreCopia.SelectedIndex = -1;
-            TxIdentidadCopia.Text = String.Empty;
             DdlSupervisar.SelectedIndex = -1;
-            TxIdentidadSupervisar.Text = String.Empty;
-            TxPermisoExtendido.Text = String.Empty;
+
+            DDLExtendido.SelectedValue = "0";
             TxInicio.Text = String.Empty;
             TxFin.Text = String.Empty;
-            rbAcceso.SelectedIndex = -1;
-            rbTipoTarea.SelectedIndex = -1;
-            chInterno.Items[0].Selected = false;
-            chExterno.Items[0].Selected = false;
+            DDLAcceso.SelectedIndex = -1;
+            CbxInterno.Checked = false;
+            CbxExterno.Checked = false;
 
             txPeticion.Text = String.Empty;
             txTrabajo.Text = String.Empty;
@@ -1006,9 +603,6 @@ namespace BiometricoWeb.pages.activos
 
             GvVisitas.DataSource = null;
             GvVisitas.DataBind();
-            
-
-            //Session.Clear();
 
             UpdatePanel2.Update();
             UpdatePanel1.Update();
@@ -1028,26 +622,19 @@ namespace BiometricoWeb.pages.activos
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-
-        void CargarSolicitudesIngresadas()
-        {
-            try
-            {
+        void CargarSolicitudesIngresadas(){
+            try{
                 DataTable vDatos = new DataTable();
                 String vQuery = "RSP_ActivosDC 19,'" + Convert.ToString(Session["USUARIO"]) + "'";
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
-                if (vDatos.Rows.Count > 0)
-                {
+                if (vDatos.Rows.Count > 0){
                     GVSolicitudes.DataSource = vDatos;
                     GVSolicitudes.DataBind();
                     UpBusquedaSolicitudes.Update();
                     Session["ACTIVO_DC_SOLICITUDES_INGRESADAS"] = vDatos;
                 }
-
-            }
-            catch (Exception Ex)
-            {
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }
@@ -1162,8 +749,7 @@ namespace BiometricoWeb.pages.activos
 
         }
 
-        void validarAprobacionGestor()
-        {
+        void validarAprobacionGestor(){
             if (DdlAccionGestor.SelectedValue == "0")
                 throw new Exception("Falta que seleccione acción a realizar");
 
@@ -1171,49 +757,37 @@ namespace BiometricoWeb.pages.activos
                 throw new Exception("Falta que ingrese el motivo de cancelacion de la solicitud");
         }
 
-        void limpiarAprobacionGestor()
-        {
+        void limpiarAprobacionGestor(){
             DdlAccionGestor.SelectedIndex = -1;
             TxtMotivoGestor.Text = string.Empty;
         }
 
-        protected void DdlAccionGestor_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (DdlAccionGestor.SelectedValue == "1")
-            {
+        protected void DdlAccionGestor_SelectedIndexChanged(object sender, EventArgs e){
+            if (DdlAccionGestor.SelectedValue == "1"){
                 TxtMotivoGestor.Visible = false;
-                if (rbAcceso.SelectedValue == "1" || rbAcceso.SelectedValue == "2")
-                {
+                if (DDLAcceso.SelectedValue == "1" || DDLAcceso.SelectedValue == "2"){
                     Session["ACTIVO_DC_ESTADO_GESTOR"] = "Aprobar la solicitud; Nota:Se autorizará la visita personal de Segurida realizará la respectiva verificación del equipo.";
                     Session["ACTIVO_DC_ESTADO_GESTOR_ID"] = "4";
-                }
-                else
-                {
+                }else{
                     Session["ACTIVO_DC_ESTADO_GESTOR"] = "Aprobar la solicitud; Nota:Se autorizará la visita personal de Segurida realizará la respectiva verificación del equipo.";
                     Session["ACTIVO_DC_ESTADO_GESTOR_ID"] = "8";
                 }
-            }
-            else
-            {
+            }else{
                 TxtMotivoGestor.Visible = true;
-                if (rbAcceso.SelectedValue == "1" || rbAcceso.SelectedValue == "2")
-                {
+                if (DDLAcceso.SelectedValue == "1" || DDLAcceso.SelectedValue == "2"){
                     Session["ACTIVO_DC_ESTADO_GESTOR"] = "Cancelar la solicitud";
                     Session["ACTIVO_DC_ESTADO_GESTOR_ID"] = "6";
                 }
-                if (rbAcceso.SelectedValue == "1" || rbAcceso.SelectedValue == "2")
-                {
+                
+                if (DDLAcceso.SelectedValue == "1" || DDLAcceso.SelectedValue == "2"){
                     Session["ACTIVO_DC_ESTADO_GESTOR"] = "Cancelar la solicitud";
                     Session["ACTIVO_DC_ESTADO_GESTOR_ID"] = "7";
                 }
-
             }
         }
 
-        protected void BtnEnviarGestor_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        protected void BtnEnviarGestor_Click(object sender, EventArgs e){
+            try{
                 String vQuery = "RSP_ActivosDC 22,'" + Session["ACTIVO_DC_ID_SOLICITUD"].ToString() + "','" + Session["ACTIVO_DC_ESTADO_GESTOR_ID"].ToString() + "','" + TxtMotivoGestor.Text+"'";
                 Int32 vRespuesta = vConexion.ejecutarSql(vQuery);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeAprobarGestorModal();", true);
@@ -1234,17 +808,76 @@ namespace BiometricoWeb.pages.activos
                 + "'";
                 Int32 vInfo = vConexion.ejecutarSql(vQuery);
                 Response.Redirect("/pages/activos/visitaDatacenterPendienteResponsable.aspx?ex=2");
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
             }
-            catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
-        protected void BtnCancelar_Click1(object sender, EventArgs e)
-        {
+        protected void BtnCancelar_Click1(object sender, EventArgs e){
 
+        }
+
+        protected void DDLExtendido_SelectedIndexChanged(object sender, EventArgs e){
+            try{
+                TxInicio.Text = "";
+                TxFin.Text = "";
+            }catch (Exception Ex) { 
+                Mensaje(Ex.Message, WarningType.Danger); 
+            }
+        }
+
+        protected void CbxExterno_CheckedChanged(object sender, EventArgs e){
+            if (CbxExterno.Checked){   
+                tabExterno.Visible = true;
+                DivParticipantes.Visible = true;               
+            }else{
+                Session["ACTIVO_DC_SOLI_PERSONAL_EXTERNO"] = null;
+                tabExterno.Visible = false;
+                if (!CbxInterno.Checked)
+                    DivParticipantes.Visible = false;
+            }
+            UpdatePanel1.Update();
+        }
+
+        protected void CbxInterno_CheckedChanged(object sender, EventArgs e){
+            if (CbxInterno.Checked){
+                tabInterno.Visible = true;
+                DivParticipantes.Visible = true;
+            }else{
+                Session["ACTIVO_DC_SOLI_PERSONAL_INTERNO"] = null;
+                tabInterno.Visible = false;
+                if (!CbxExterno.Checked){
+                    DivParticipantes.Visible = false;
+                }
+            }
+            UpdatePanel1.Update();
+        }
+
+        protected void GvPersonalInterno_RowCommand(object sender, GridViewCommandEventArgs e){
+            try{
+                DataTable vDatos = new DataTable();
+                if (e.CommandName == "eliminar"){
+                    string vIdEmpleado = e.CommandArgument.ToString();
+                    if (Session["ACTIVO_DC_PERSONAL_INTERNO"] != null){
+                        vDatos = (DataTable)Session["ACTIVO_DC_PERSONAL_INTERNO"];
+
+                        DataRow[] result = vDatos.Select("codigoEmpleado = '" + vIdEmpleado + "'");
+                        foreach (DataRow row in result){
+                            if (row["codigoEmpleado"].ToString().Contains(vIdEmpleado))
+                                vDatos.Rows.Remove(row);
+                        }
+                    }
+
+                    GvPersonalInterno.DataSource = vDatos;
+                    GvPersonalInterno.DataBind();
+                    if (vDatos.Rows.Count < 1)
+                        Session["ACTIVO_DC_PERSONAL_INTERNO"] = null;
+                    else
+                        Session["ACTIVO_DC_PERSONAL_INTERNO"] = vDatos;
+                }
+            }catch (Exception ex){
+                Mensaje(ex.Message, WarningType.Danger);
+            }
         }
     }
-
-
-    
-
 }

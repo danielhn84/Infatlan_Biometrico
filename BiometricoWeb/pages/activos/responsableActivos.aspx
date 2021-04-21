@@ -346,7 +346,7 @@
                         <div class="form-group col-12">
                             <label class="col-12">Empleado</label>
                             <div class="col-12">
-                                <asp:DropDownList runat="server" AutoPostBack="true" ID="DDLEmpleado" CssClass="select2 form-control custom-select" Width="100%"></asp:DropDownList>
+                                <asp:DropDownList runat="server" ID="DDLEmpleado" CssClass="select2 form-control custom-select" Width="100%"></asp:DropDownList>
                             </div>
                         </div>
 

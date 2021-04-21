@@ -34,16 +34,13 @@ namespace BiometricoWeb.pages.activos
             }
         }
 
-        void CargarSolicitudesPendientesAprobar()
-        {
-            try
-            {
+        void CargarSolicitudesPendientesAprobar(){
+            try{
                 DataTable vDatos = new DataTable();
                 String vQuery = "RSP_ActivosDC 18,'" + Convert.ToString(Session["USUARIO"]) + "'";
                 vDatos = vConexion.obtenerDataTable(vQuery);
 
-                if (vDatos.Rows.Count > 0)
-                {
+                if (vDatos.Rows.Count > 0){
                     GVBusquedaPendientesResponsables.DataSource = vDatos;
                     GVBusquedaPendientesResponsables.DataBind();
                     UpdateDivBusquedasResponsables.Update();
@@ -60,8 +57,7 @@ namespace BiometricoWeb.pages.activos
         protected void GVBusquedaPendientesResponsables_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string vIdSolicitud = e.CommandArgument.ToString();
-            if (e.CommandName == "Aprobar")
-            {
+            if (e.CommandName == "Aprobar"){
                 DataTable vDatos = new DataTable();
                 //DATOS GENERALES
                 string vQuery = "RSP_ActivosDC 14," + vIdSolicitud;
