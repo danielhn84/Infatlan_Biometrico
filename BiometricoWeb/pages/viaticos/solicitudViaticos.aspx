@@ -6,6 +6,7 @@
         function openModal2() { $('#modalViaticosA').modal('show'); }
         function openModal3() { $('#modalCotizar').modal('show'); }
         function openModal4() { $('#modalCancelar').modal('show'); }
+        function openModalTransporte() { $('#modalTransporte').modal('show'); }
     </script>
     <!--PARA CERRAR MODAL-->
     <script type="text/javascript">
@@ -13,6 +14,7 @@
         function closeModal2() { $('#modalViaticosA').modal('hide'); }
         function closeModal3() { $('#modalCotizar').modal('hide'); }
         function closeModal4() { $('#modalCancelar').modal('hide'); }
+        function closeModalTransporte() { $('#modalTransporte').modal('hide'); }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -325,7 +327,7 @@
                                 <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Desayuno </th>
                                 <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Almuerzo</th>
                                 <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Cena</th>    
-                                <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border">Depresiación</th>                              
+                                <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border">Depreciación</th>                              
                                 <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Transporte </th>
                                 <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Emergencia</th>
                                 <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Peaje</th>    
@@ -453,6 +455,7 @@
                                         <asp:Button ID="BtnDevolverCotizacion" OnClick="BtnDevolverCotizacion_Click" Visible="false" CssClass="btn btn-success mr-2" runat="server" Text="Devolver Cotización" />
                                         <asp:Button ID="BtnCancelar" OnClick="BtnCancelar_Click" Visible="false" class="btn btn-danger mr-2" runat="server" Text="Devolver solicitud" />
                                         <asp:Button ID="BtnCancelarSolicitud" OnClick="BtnCancelarSolicitud_Click" Visible="false" class="btn btn-warning mr-2" runat="server" Text="Cancelar solicitud" />
+                                        <asp:Button ID="BtnPrueba" OnClick="BtnPrueba_Click" Visible="false" class="btn btn-warning mr-2" runat="server" Text="PRUEBA" />
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
@@ -575,7 +578,7 @@
                         <ContentTemplate>
                             <div class="modal-footer col-12">
                                <div class="row col-3">
-                                    <asp:Button runat="server" ID="btnModalCotizar" OnClick="btnModalCotizar_Click" CssClass="btn btn-success mr-3" Text="Devolver Cotizacion" />
+                                    <asp:Button runat="server" ID="btnModalCotizar" OnClick="btnModalCotizar_Click" CssClass="btn btn-success mr-3" Text="Devolver" />
                                </div>
                                 <div class="row col-3">
                                     <asp:Button runat="server" ID="btnModalCerrarCotiza" OnClick="btnModalCerrarCotiza_Click"  CssClass="btn btn-danger mr-3" Text="Cancelar" />
@@ -617,6 +620,38 @@
             <!--/.modal-dialog -->
         </div>
         <!-- /MODAL CANCELAR-->
+     <!--MODAL CONFIRMAR TRANSPORTE-->
+        <div class="modal bs-example-modal-lg" id="modalTransporte" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel4">Uso de Vehículo Personal</h4>
+                    </div><br />
+                   <div class="row col-12">
+                       <asp:Label Text="&nbsp&nbspEl uso de vehículo propio queda a cuenta y riesgo del colaborador." runat="server" />
+                       <asp:Label Text="&nbsp&nbspCualquier tipo de daño INFATLAN no se hará cargo." runat="server" /><br /><br />
+                       <asp:Label Text="&nbsp&nbspAl aceptar esta condición confirma que está deacuerdo con lo &nbsp&nbspmencionado, caso contrario no se le permitirá utilizar vehículo &nbsp&nbsppersonal." runat="server" />
+                   </div><br />
+                    <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+                        <ContentTemplate>
+                            
+                            <div class="modal-footer col-12">
+                               <div class="row col-3">
+                                    <asp:Button runat="server" ID="BtnConfirmarTransporte" OnClick="BtnConfirmarTransporte_Click" CssClass="btn btn-success mr-3" Text="Aceptar" />
+                               </div>
+                                <div class="row col-3">
+                                    <asp:Button runat="server" ID="BtnRechazarTransporte" OnClick="BtnRechazarTransporte_Click"  CssClass="btn btn-danger mr-3" Text="Rechazar" />
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!--/.modal-dialog -->
+        </div>
+        <!-- /MODAL CONFIRMAR TRANSPORTE-->
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

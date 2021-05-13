@@ -139,7 +139,7 @@
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Favor subir foto de su boucher de pago.</h4>
+                    <h4 class="card-title">Favor subir foto de su voucher de pago.</h4>
                     <asp:FileUpload ID="FURecibo" runat="server" onchange="img1(this);" />
                      <br />
                     <br />

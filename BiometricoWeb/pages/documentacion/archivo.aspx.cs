@@ -144,8 +144,11 @@ namespace BiometricoWeb.pages.documentacion
                         ",'" + Session["USUARIO"].ToString() + "'" +
                         ",null," + Session["DOCUMENTOS_ARCHIVO_ID"].ToString();
                     int vInfo = vConexion.ejecutarSql(vQuery);
-                    if (vInfo == 1)
+                    if (vInfo == 1) { 
                         Mensaje("Respuesta enviada con éxito!", WarningType.Success);
+                        BtnLeido.Enabled = false;
+                        BtnLeido.CssClass = "btn btn-dark";
+                    }
                 }else
                     Mensaje("Ya se ha registrado su confirmación de lectura.", WarningType.Warning);
 

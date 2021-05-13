@@ -564,6 +564,24 @@ namespace BiometricoWeb.pages.viaticos
         protected global::System.Web.UI.WebControls.HiddenField HFVerRecibo;
 
         /// <summary>
+        /// Control UpdatePanel9.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel9;
+
+        /// <summary>
+        /// Control HFValidarRecibos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HFValidarRecibos;
+
+        /// <summary>
         /// Control UpdatePanel3.
         /// </summary>
         /// <remarks>

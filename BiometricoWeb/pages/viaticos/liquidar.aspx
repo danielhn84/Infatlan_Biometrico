@@ -29,6 +29,22 @@
                 //SI EXISTE ARCHIVO              
             }
         }
+        //IMAGEN2
+        function img2(input) {
+
+            if (input.files && input.files[0]) {
+                //PRIMERA IMAGEN
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var ruta2 = e.target.result;
+                    document.getElementById('<%=HFValidarRecibos.ClientID%>').src = ruta2;
+                    document.getElementById('<%=HFValidarRecibos.ClientID%>').value = 'si';
+                }
+                reader.readAsDataURL(input.files[0]);
+                //PRIMERA IMAGEN              
+            }
+        }
+        //IMAGEN2
         </script>
     <!--PARA LLAMAR ARCHIVO-->
 
@@ -185,7 +201,7 @@
 
                                 <div class="row col-12" style="margin-left: 10px; margin-left: 10px;">
                                     <asp:Label Text="Agregue archivo PDF con todas las facturas disponibles." runat="server" ID="LBComArchivo" class="col-12"/>
-                                    <asp:FileUpload runat="server" accept=".pdf" ID="FULiquidacion" AllowMultiple="false" ClientIDMode="AutoID" CssClass="col-5" />                                  
+                                    <asp:FileUpload runat="server" accept=".pdf" ID="FULiquidacion" AllowMultiple="false" ClientIDMode="AutoID" CssClass="col-5" onchange="img2(this);"/>                                  
                                 </div>
                                 <br />
                                   <%--SELECCIONA LOS MONTOS--%>
@@ -213,7 +229,7 @@
                                 <td><div style="text-align:center;"><asp:CheckBox ID="CBFactura" OnCheckedChanged="CBFactura_CheckedChanged" Checked="true" AutoPostBack="true" runat="server"  /></div></td>
                                 <td><asp:TextBox AutoPostBack="true" ID="txtFechaFactura" OnTextChanged="txtFechaFactura_TextChanged" placeholder="1900-12-31" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox></td>
                                 <td><asp:TextBox ID="txtcantidad" runat="server" CssClass="form-control" TextMode="Number" AutoPostBack="true"></asp:TextBox></td>
-                                <td><asp:TextBox ID="txtNoFactura" runat="server" CssClass="form-control" TextMode="Number" AutoPostBack="true"></asp:TextBox></td>
+                                <td><asp:TextBox ID="txtNoFactura" MaxLength="4" runat="server" CssClass="form-control" TextMode="Number" AutoPostBack="true"></asp:TextBox></td>
                                 <td> <asp:LinkButton runat="server" ID="btnAceptarF" OnClick="btnAceptarF_Click" Text="" CssClass="btn btn-success  ti-check-box mr-2"> <i class="mdi mdi-thumb-up" ></i></asp:LinkButton></td>
                             </tr>                              
                            
@@ -275,7 +291,7 @@
                             <tr>
                                 <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border">Monto a liquidar <asp:Label Text=" L. " ID="LBMonedaMontoSolicitado" runat="server" /><asp:Label Text="0" ID="LBMontoSolicitado" runat="server" /></th>                              
                                 <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Emergencia <asp:Label Text=" L. " ID="LBMonedaEmergencia" runat="server" /><asp:Label Text="0" ID="LBEmemergencia" runat="server" /></th>
-                                <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Depresiación <asp:Label Text=" L. " ID="LBMonedaDepreciacion" runat="server" /><asp:Label Text="0" ID="LBDepreciacion" runat="server" /></th>
+                                <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Depreciación <asp:Label Text=" L. " ID="LBMonedaDepreciacion" runat="server" /><asp:Label Text="0" ID="LBDepreciacion" runat="server" /></th>
                                 <th scope="col" style="background-color:#5D6D7E;color:#D5DBDB;" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">Monto Real <asp:Label Text=" L. " ID="LBMonedaMontoReal" runat="server" /><asp:Label Text="0" ID="LBMontoReal" runat="server" /></th>                             
 
                             </tr>
@@ -388,6 +404,11 @@
                                 <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <asp:HiddenField ID="HFVerRecibo" runat="server" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                                <asp:UpdatePanel ID="UpdatePanel9" runat="server">
+                                    <ContentTemplate>
+                                        <asp:HiddenField ID="HFValidarRecibos" runat="server" />
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
             </div>      

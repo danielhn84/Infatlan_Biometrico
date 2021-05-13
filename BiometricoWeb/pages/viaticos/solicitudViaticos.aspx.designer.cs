@@ -636,6 +636,15 @@ namespace BiometricoWeb.pages.viaticos
         protected global::System.Web.UI.WebControls.Button BtnCancelarSolicitud;
 
         /// <summary>
+        /// Control BtnPrueba.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnPrueba;
+
+        /// <summary>
         /// Control UpdateDivBusquedas.
         /// </summary>
         /// <remarks>
@@ -769,5 +778,32 @@ namespace BiometricoWeb.pages.viaticos
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnModalECerrar;
+
+        /// <summary>
+        /// Control UpdatePanel7.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel7;
+
+        /// <summary>
+        /// Control BtnConfirmarTransporte.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnConfirmarTransporte;
+
+        /// <summary>
+        /// Control BtnRechazarTransporte.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnRechazarTransporte;
     }
 }
