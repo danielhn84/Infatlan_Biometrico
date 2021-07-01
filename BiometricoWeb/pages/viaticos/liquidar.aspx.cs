@@ -38,6 +38,7 @@ namespace BiometricoWeb.pages.viaticos
                             llenarFormCompleto();
                             HFVerRecibo.Value = "si";
                             BtnCancelar.Visible = false;
+                            HFValidarRecibos.Value = "si";
                             bloquarFactura();
                             break;
                         case "2":
@@ -113,14 +114,7 @@ namespace BiometricoWeb.pages.viaticos
             TxFechaRegreso.Text = vFechaFin.ToString();
             Decimal vLiquidarM = 0;
 
-            //Session["VIATICOS_LIQ_TOTAL"] = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"];
            
-            //Session["VIATICOS_LIQ_COSTODEPRE"] = Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Contains(".") ? Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_COSTODEPRE"];
-            
-            //Session["VIATICOS_LIQ_TOTAL"] = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"];
-            //Session["VIATICOS_LIQ_COSTODEPRE"] = Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Contains(".") ? Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_COSTODEPRE"];
-            //Decimal vLiqTotal = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]).ToString().Contains(",") ? Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(',', '.')) : Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]);
-            //Decimal VDepMonto = Convert.ToDecimal(Session["VIATICOS_LIQ_COSTODEPRE"]).ToString().Contains(",")? Convert.ToDecimal(Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Replace(',', '.')) : Convert.ToDecimal(Session["VIATICOS_LIQ_COSTODEPRE"]);
             Decimal vLiqTotal = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]);
             Decimal VDepMonto = Convert.ToDecimal(Session["VIATICOS_LIQ_COSTODEPRE"]);
 
@@ -129,13 +123,11 @@ namespace BiometricoWeb.pages.viaticos
             else
                 vLiquidarM = vLiqTotal - VDepMonto;
 
-            //Session["VIATICOS_LIQ_TOTAL"]=Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(",") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(",", ".") : Session["VIATICOS_LIQ_TOTAL"].ToString();
-            LBMontoSolicitado.Text = Session["VIATICOS_LIQ_TOTAL"].ToString();
-            //LBMontoSolicitado.Text = vLiquidarM.ToString().Contains(",")? vLiquidarM.ToString().Replace(",","."): vLiquidarM.ToString();
-            //VDepMonto=Convert.ToDecimal(Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Replace('.', ','));
-            LBEmemergencia.Text = Convert.ToString(Session["VIATICOS_COSTOEMERGENCIA"]);
-            LBDepreciacion.Text = VDepMonto.ToString();
-            //LBDepreciacion.Text = VDepMonto.ToString().Contains(",")? VDepMonto.ToString().Replace(",","."): VDepMonto.ToString();
+           
+            LBMontoSolicitado.Text = string.Format("{0:N2}", Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]));
+
+            LBEmemergencia.Text = string.Format("{0:N2}", Convert.ToDecimal(Session["VIATICOS_COSTOEMERGENCIA"])); 
+            LBDepreciacion.Text = string.Format("{0:N2}", VDepMonto);
 
             String vQuery2 = "VIATICOS_ObtenerGeneralesViaticos 3, '" + Session["VIATICOS_CODIGO"].ToString() + "'";
             DataTable vDatos2 = vConexion.obtenerDataTable(vQuery2);
@@ -143,7 +135,7 @@ namespace BiometricoWeb.pages.viaticos
             {
                 txtFechaInicioReal.Text = Convert.ToDateTime(item["fechaInicio"].ToString()).ToString(vFormato);
                 txtFechaRegresaReal.Text = Convert.ToDateTime(item["fechaFin"].ToString()).ToString(vFormato);
-                LBMontoReal.Text = item["total"].ToString();
+                LBMontoReal.Text = string.Format("{0:N2}", Convert.ToDecimal(item["total"].ToString())); 
                 Session["LIQ_HOSPEDAJE"] = item["costoHospedaje"].ToString();
                 Session["LIQ_DESAYUNO"] = item["costoDesayuno"].ToString();
                 Session["LIQ_ALMUERZO"] = item["costoAlmuerzo"].ToString();
@@ -152,15 +144,7 @@ namespace BiometricoWeb.pages.viaticos
                 Session["LIQ_PEAJE"] = item["costoPeaje"].ToString();
                 Session["LIQ_CIRCULACION"] = item["costoCirculacion"].ToString();
             }
-            //LBMontoReal.Text = LBMontoReal.Text.Contains(",") ? LBMontoReal.Text.Replace(',', '.') : LBMontoReal.Text;
-            //LB1.Text = Convert.ToDecimal(Session["LIQ_CIRCULACION"]).ToString().Contains(",")? Convert.ToDecimal(Session["LIQ_CIRCULACION"]).ToString().Replace(',', '.'): Convert.ToDecimal(Session["LIQ_CIRCULACION"]).ToString();
-            //LB2.Text = Convert.ToDecimal(Session["LIQ_HOSPEDAJE"]).ToString().Contains(",")? Convert.ToDecimal(Session["LIQ_HOSPEDAJE"]).ToString().Replace(',', '.'): Convert.ToDecimal(Session["LIQ_HOSPEDAJE"]).ToString();
-            //LB3.Text = Convert.ToDecimal(Session["LIQ_DESAYUNO"]).ToString().Contains(",")? Convert.ToDecimal(Session["LIQ_DESAYUNO"]).ToString().Replace(',', '.'): Convert.ToDecimal(Session["LIQ_DESAYUNO"]).ToString();
-            //LB4.Text = Convert.ToDecimal(Session["LIQ_ALMUERZO"]).ToString().Contains(",")? Convert.ToDecimal(Session["LIQ_ALMUERZO"]).ToString().Replace(',', '.'): Convert.ToDecimal(Session["LIQ_ALMUERZO"]).ToString();
-            //LB5.Text = Convert.ToDecimal(Session["LIQ_CENA"]).ToString().Contains(",")? Convert.ToDecimal(Session["LIQ_CENA"]).ToString().Replace(',', '.'): Convert.ToDecimal(Session["LIQ_CENA"]).ToString();
-            //LB6.Text = Convert.ToDecimal(Session["LIQ_TRANSPORTE"]).ToString().Contains(",")? Convert.ToDecimal(Session["LIQ_TRANSPORTE"]).ToString().Replace(',', '.'): Convert.ToDecimal(Session["LIQ_TRANSPORTE"]).ToString();
-            //LB7.Text = Convert.ToDecimal(Session["LIQ_PEAJE"]).ToString().Contains(",")? Convert.ToDecimal(Session["LIQ_PEAJE"]).ToString().Replace(',', '.'): Convert.ToDecimal(Session["LIQ_PEAJE"]).ToString();
-
+          
             //LBMontoReal.Text = LBMontoReal.Text;
             LB1.Text = Convert.ToDecimal(Session["LIQ_CIRCULACION"]).ToString();
             LB2.Text = Convert.ToDecimal(Session["LIQ_HOSPEDAJE"]).ToString();
@@ -172,10 +156,7 @@ namespace BiometricoWeb.pages.viaticos
 
             if (Convert.ToString(Session["VIATICOS_LIQ_IDTIPOVIAJE"]) == "1")
             {
-                //Session["VIATICOS_LIQ_TOTAL"] = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"];
-                //Session["VIATICOS_COSTODEPRE"] = Session["VIATICOS_COSTODEPRE"].ToString().Contains(".") ? Session["VIATICOS_COSTODEPRE"].ToString().Replace(".", ",") : Session["VIATICOS_COSTODEPRE"];
-                //LBMontoReal.Text = LBMontoReal.Text.Contains(".") ? LBMontoReal.Text.Replace(".", ",") : LBMontoReal.Text;
-
+              
                 Decimal vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]);
                 Decimal vDepreciacion = Convert.ToDecimal(Session["VIATICOS_COSTODEPRE"]);
                 Decimal vTotalReal = Convert.ToDecimal(LBMontoReal.Text);
@@ -187,11 +168,9 @@ namespace BiometricoWeb.pages.viaticos
                     vResTotal =vTotalLiquidar;
 
                     Decimal vResTotalRecibir = vTotalReal - vTotalLiquidar;
-                //String vResTotalF = vResTotal.ToString().Contains(",") ? vResTotal.ToString().Replace(",", ".") : vResTotal.ToString();
-                //String vResTotalRecibirF = vResTotalRecibir.ToString().Contains(",") ? vResTotalRecibir.ToString().Replace(",", ".") : vResTotalRecibir.ToString();
-
-                String vResTotalF = vResTotal.ToString();
-                String vResTotalRecibirF = vResTotalRecibir.ToString();
+               
+                String vResTotalF = string.Format("{0:N2}", vResTotal);
+                String vResTotalRecibirF = string.Format("{0:N2}", vResTotalRecibir);
 
 
                 if (vTotalReal <= vTotalLiquidar)
@@ -256,7 +235,7 @@ namespace BiometricoWeb.pages.viaticos
                 }
 
                 if(Convert.ToString(Session["LIQ_ESTADO2"])=="2")
-                    txtAlerta.Text = "Viajes internacional liquidable por ser cancelado, " + Session["VIATICOS_LIQ_EMPLEADO"] + " devolverá $ "+ Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]) + " a Infatlan.";
+                    txtAlerta.Text = "Viajes internacional liquidable por ser cancelado, " + Session["VIATICOS_LIQ_EMPLEADO"] + " devolverá $ "+ string.Format("{0:c}", Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"])) + " a Infatlan.";
                 else
                      txtAlerta.Text = "Viajes internacionales no son liquidables, " + Session["VIATICOS_LIQ_EMPLEADO"] +" devolverá 0 $ a Infatlan.";
             }
@@ -276,7 +255,7 @@ namespace BiometricoWeb.pages.viaticos
                 //Session["VIATICOS_LIQ_TOTAL"] = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"];
                 //Session["VIATICOS_LIQ_COSTODEPRE"] = Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Contains(".") ? Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_COSTODEPRE"];
 
-                decimal vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"].ToString());
+                decimal vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]);
                 decimal vDepreciacion = Convert.ToDecimal(Session["VIATICOS_LIQ_COSTODEPRE"]);
                 decimal vResTotal = vTotalLiquidar - vDepreciacion;
                 //String vResTotalF = vResTotal.ToString().Contains(",") ? vResTotal.ToString().Replace(",", ".") : vResTotal.ToString();
@@ -284,7 +263,7 @@ namespace BiometricoWeb.pages.viaticos
 
                 //Session["VIATICOS_LIQ_TOTAL"] = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]) - vDepreciacion;
                 //LBMontoReal.Text = vDepreciacion.ToString();
-                txtAlerta.Text = "Viajes nacionales son liquidables, " + Session["VIATICOS_LIQ_EMPLEADO"] + " devolverá L. " + vResTotalF.ToString() + " a Infatlan.";
+                txtAlerta.Text = "Viajes nacionales son liquidables, " + Session["VIATICOS_LIQ_EMPLEADO"] + " devolverá L. " + string.Format("{0:N2}", vResTotal)  + " a Infatlan.";
             }
            
 
@@ -316,7 +295,8 @@ namespace BiometricoWeb.pages.viaticos
             //LBDepreciacion.Text = CostoDepreciacion.ToString();
 
             //LBMontoSolicitado.Text = Session["VIATICOS_LIQ_TOTAL"].ToString();
-            LBMontoSolicitado.Text = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ","): Session["VIATICOS_LIQ_TOTAL"].ToString();
+            LBMontoSolicitado.Text = string.Format("{0:N2}", Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"])).ToString();
+            //LBMontoSolicitado.Text = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ","): Session["VIATICOS_LIQ_TOTAL"].ToString();
             LBDepreciacion.Text = Convert.ToString(Session["VIATICOS_LIQ_COSTODEPRE"]);
         }
 
@@ -334,15 +314,12 @@ namespace BiometricoWeb.pages.viaticos
                     {
                         if (row["Hora"].ToString().Contains(vHora))
                         {
-                            //Double vMontoExistente = Convert.ToDouble(LBMontoReal.Text.Replace('.', ','));
-                            //Double vMontoRestar = Convert.ToDouble(row["Monto"].ToString().Replace('.', ','));
-                            //Double vResult = vMontoExistente - vMontoRestar;
 
-                            Double vMontoExistente = Convert.ToDouble(LBMontoReal.Text);
-                            Double vMontoRestar = Convert.ToDouble(row["Monto"].ToString());
-                            Double vResult = vMontoExistente - vMontoRestar;
+                            Decimal vMontoExistente = Convert.ToDecimal(LBMontoReal.Text);
+                            Decimal vMontoRestar = Convert.ToDecimal(row["Monto"].ToString());
+                            Decimal vResult = vMontoExistente - vMontoRestar;
 
-                            LBMontoReal.Text = vResult.ToString();
+                            LBMontoReal.Text = string.Format("{0:N2}", vResult);
 
                             //LBMontoReal.Text = vResult.ToString().Contains(",")? vResult.ToString().Replace(",","."): vResult.ToString();
                             if (row["IDTipoFactura"].ToString() == "1")
@@ -360,14 +337,7 @@ namespace BiometricoWeb.pages.viaticos
                             if (row["IDTipoFactura"].ToString() == "7")
                                 Session["LIQ_CIRCULACION"] = Convert.ToDecimal(Session["LIQ_CIRCULACION"]) - Convert.ToDecimal(vMontoRestar);
 
-                            //LB1.Text = Session["LIQ_CIRCULACION"].ToString().Contains(",")? Session["LIQ_CIRCULACION"].ToString().Replace(',', '.'): Session["LIQ_CIRCULACION"].ToString();
-                            //LB2.Text = Session["LIQ_HOSPEDAJE"].ToString().Contains(",")? Session["LIQ_HOSPEDAJE"].ToString().Replace(',', '.'): Session["LIQ_HOSPEDAJE"].ToString();
-                            //LB3.Text = Session["LIQ_DESAYUNO"].ToString().Contains(",")?  Session["LIQ_DESAYUNO"].ToString().Replace(',', '.'): Session["LIQ_DESAYUNO"].ToString();
-                            //LB4.Text = Session["LIQ_ALMUERZO"].ToString().Contains(",")? Session["LIQ_ALMUERZO"].ToString().Replace(',', '.'): Session["LIQ_ALMUERZO"].ToString();
-                            //LB5.Text = Session["LIQ_CENA"].ToString().Contains(",")? Session["LIQ_CENA"].ToString().Replace(',', '.'): Session["LIQ_CENA"].ToString();
-                            //LB6.Text = Session["LIQ_TRANSPORTE"].ToString().Contains(",")? Session["LIQ_TRANSPORTE"].ToString().Replace(',', '.'): Session["LIQ_TRANSPORTE"].ToString();
-                            //LB7.Text = Session["LIQ_PEAJE"].ToString().Contains(",")? Session["LIQ_PEAJE"].ToString().Replace(',', '.'): Session["LIQ_PEAJE"].ToString();
-
+                          
                             LB1.Text = Session["LIQ_CIRCULACION"].ToString();
                             LB2.Text = Session["LIQ_HOSPEDAJE"].ToString();
                             LB3.Text = Session["LIQ_DESAYUNO"].ToString();
@@ -379,26 +349,17 @@ namespace BiometricoWeb.pages.viaticos
 
                             if (Convert.ToString(Session["VIATICOS_LIQ_IDTIPOVIAJE"]) == "1")
                             {
-                                //Session["VIATICOS_LIQ_TOTAL"] = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"];
-                                //Session["VIATICOS_LIQ_COSTODEPRE"] = Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Contains(".") ? Session["VIATICOS_LIQ_COSTODEPRE"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_COSTODEPRE"];
-
+                               
                                 decimal vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]);
                                 decimal vDepreciacion = Convert.ToDecimal(Session["VIATICOS_COSTODEPRE"]);
-                                Decimal vTotalReal = Convert.ToDecimal(LBMontoReal.Text.Replace('.', ','));
+                                Decimal vTotalReal = Convert.ToDecimal(LBMontoReal.Text);
                                 Decimal vResTotal = vTotalLiquidar - vTotalReal;
                                 Decimal vResTotalRecibir = vTotalReal - vTotalLiquidar;
 
-                                String vResTotalF = vResTotal.ToString();
-                                String vResTotalRecibirF = vResTotalRecibir.ToString();
+                                String vResTotalF = string.Format("{0:N2}", vResTotal);
+                                String vResTotalRecibirF = string.Format("{0:N2}", vResTotalRecibir);
 
-                                //String vResTotalF = vResTotal.ToString().Contains(",") ? vResTotal.ToString().Replace(",", ".") : vResTotal.ToString();
-                                //String vResTotalRecibirF = vResTotalRecibir.ToString().Contains(",") ? vResTotalRecibir.ToString().Replace(",", ".") : vResTotalRecibir.ToString();
-
-                                //Decimal vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"].ToString().Replace('.', ',')) - Convert.ToDecimal(Session["VIATICOS_COSTODEPRE"].ToString().Replace('.', ','));
-                                //Decimal vDepreciacion = Convert.ToDecimal(Session["VIATICOS_LIQ_COSTODEPRE"]);
-                                //Decimal vTotalReal = Convert.ToDecimal(LBMontoReal.Text.Replace('.', ','));
-                                //Decimal vResTotal = vTotalLiquidar - vTotalReal;
-                                //Decimal vResTotalRecibir = vTotalReal - vTotalLiquidar;
+                              
                                 if (vTotalReal<= vTotalLiquidar)
                                    txtAlerta.Text = "Viajes nacionales son liquidables, " + Session["VIATICOS_LIQ_EMPLEADO"] + " devolverá L. " + vResTotalF.ToString() + " a Infatlan.";
                                 if (vTotalReal > vTotalLiquidar)
@@ -455,56 +416,35 @@ namespace BiometricoWeb.pages.viaticos
         }
         void sumarCostosViaticos()
         {
+            Decimal vMonto = Convert.ToDecimal(txtcantidad.Text.Contains(".") ? Convert.ToDecimal(txtcantidad.Text.Replace(".", ",")) : Convert.ToDecimal(txtcantidad.Text));
             if (DDLTipoFactura.SelectedValue == "1")
-            {
-                //Session["LIQ_HOSPEDAJE"] = Session["LIQ_HOSPEDAJE"].ToString().Contains(".") ? Session["LIQ_HOSPEDAJE"].ToString().Replace('.', ',') : Session["LIQ_HOSPEDAJE"].ToString();
-                //Session["LIQ_HOSPEDAJE"] = Convert.ToDecimal(Session["LIQ_HOSPEDAJE"].ToString().Replace(".",",")) +Convert.ToDecimal(txtcantidad.Text.Replace(".", ","));               
-                Session["LIQ_HOSPEDAJE"] = Convert.ToDecimal(Session["LIQ_HOSPEDAJE"].ToString()) + Convert.ToDecimal(txtcantidad.Text);
+            {               
+                Session["LIQ_HOSPEDAJE"] = Convert.ToDecimal(Session["LIQ_HOSPEDAJE"].ToString()) + vMonto;
             }
             if (DDLTipoFactura.SelectedValue == "3")
-            {
-                //Session["LIQ_DESAYUNO"] = Session["LIQ_DESAYUNO"].ToString().Contains(".") ? Session["LIQ_DESAYUNO"].ToString().Replace('.', ',') : Session["LIQ_DESAYUNO"].ToString();
-                //Session["LIQ_DESAYUNO"] = Convert.ToDecimal(Session["LIQ_DESAYUNO"].ToString().Replace('.', ',')) + Convert.ToDecimal(txtcantidad.Text.Replace('.', ','));
-                Session["LIQ_DESAYUNO"] = Convert.ToDecimal(Session["LIQ_DESAYUNO"].ToString()) + Convert.ToDecimal(txtcantidad.Text);
+            {               
+                Session["LIQ_DESAYUNO"] = Convert.ToDecimal(Session["LIQ_DESAYUNO"].ToString()) + vMonto;
             }
             if (DDLTipoFactura.SelectedValue == "4")
-            {
-                //Session["LIQ_ALMUERZO"] = Session["LIQ_ALMUERZO"].ToString().Contains(".") ? Session["LIQ_ALMUERZO"].ToString().Replace('.', ',') : Session["LIQ_ALMUERZO"].ToString();
-                //Session["LIQ_ALMUERZO"] = Convert.ToDecimal(Session["LIQ_ALMUERZO"].ToString().Replace('.', ',')) + Convert.ToDecimal(txtcantidad.Text.Replace('.', ','));
-                Session["LIQ_ALMUERZO"] = Convert.ToDecimal(Session["LIQ_ALMUERZO"].ToString()) + Convert.ToDecimal(txtcantidad.Text);
+            {              
+                Session["LIQ_ALMUERZO"] = Convert.ToDecimal(Session["LIQ_ALMUERZO"].ToString()) + vMonto;
             }
             if (DDLTipoFactura.SelectedValue == "5")
-            {
-                //Session["LIQ_CENA"] = Session["LIQ_CENA"].ToString().Contains(".") ? Session["LIQ_CENA"].ToString().Replace('.', ',') : Session["LIQ_CENA"].ToString();
-                //Session["LIQ_CENA"] = Convert.ToDecimal(Session["LIQ_CENA"].ToString().Replace('.', ',')) + Convert.ToDecimal(txtcantidad.Text.Replace('.', ','));
-                Session["LIQ_CENA"] = Convert.ToDecimal(Session["LIQ_CENA"].ToString()) + Convert.ToDecimal(txtcantidad.Text);
+            {               
+                Session["LIQ_CENA"] = Convert.ToDecimal(Session["LIQ_CENA"].ToString()) + vMonto;
             }
             if (DDLTipoFactura.SelectedValue == "2")
-            {
-                //Session["LIQ_TRANSPORTE"] = Session["LIQ_TRANSPORTE"].ToString().Contains(".") ? Session["LIQ_TRANSPORTE"].ToString().Replace('.', ',') : Session["LIQ_TRANSPORTE"].ToString();
-                //Session["LIQ_TRANSPORTE"] = Convert.ToDecimal(Session["LIQ_TRANSPORTE"].ToString().Replace('.', ',')) + Convert.ToDecimal(txtcantidad.Text.Replace('.', ','));
-                Session["LIQ_TRANSPORTE"] = Convert.ToDecimal(Session["LIQ_TRANSPORTE"].ToString()) + Convert.ToDecimal(txtcantidad.Text);
+            {              
+                Session["LIQ_TRANSPORTE"] = Convert.ToDecimal(Session["LIQ_TRANSPORTE"].ToString()) + vMonto;
             }
             if (DDLTipoFactura.SelectedValue == "6")
-            {
-                //Session["LIQ_PEAJE"] = Session["LIQ_PEAJE"].ToString().Contains(".") ? Session["LIQ_PEAJE"].ToString().Replace('.', ',') : Session["LIQ_PEAJE"].ToString();
-                //Session["LIQ_PEAJE"] = Convert.ToDecimal(Session["LIQ_PEAJE"].ToString().Replace('.', ',')) + Convert.ToDecimal(txtcantidad.Text.Replace('.', ','));
-                Session["LIQ_PEAJE"] = Convert.ToDecimal(Session["LIQ_PEAJE"].ToString()) + Convert.ToDecimal(txtcantidad.Text);
+            {              
+                Session["LIQ_PEAJE"] = Convert.ToDecimal(Session["LIQ_PEAJE"].ToString()) + vMonto;
             }
             if (DDLTipoFactura.SelectedValue == "7")
-            {
-                //Session["LIQ_CIRCULACION"] = Session["LIQ_CIRCULACION"].ToString().Contains(".") ? Session["LIQ_CIRCULACION"].ToString().Replace('.', ',') : Session["LIQ_CIRCULACION"].ToString();
-                //Session["LIQ_CIRCULACION"] = Convert.ToDecimal(Session["LIQ_CIRCULACION"].ToString().Replace('.', ',')) + Convert.ToDecimal(txtcantidad.Text.Replace('.', ','));
-                Session["LIQ_CIRCULACION"] = Convert.ToDecimal(Session["LIQ_CIRCULACION"].ToString()) + Convert.ToDecimal(txtcantidad.Text);
-            }
-
-            //LB1.Text =  Session["LIQ_CIRCULACION"].ToString().Contains(",") ? Session["LIQ_CIRCULACION"].ToString().Replace(',', '.') : Session["LIQ_CIRCULACION"].ToString();
-            //LB2.Text =  Session["LIQ_HOSPEDAJE"].ToString().Contains(",") ? Session["LIQ_HOSPEDAJE"].ToString().Replace(',', '.') : Session["LIQ_HOSPEDAJE"].ToString();
-            //LB3.Text =  Session["LIQ_DESAYUNO"].ToString().Contains(",") ? Session["LIQ_DESAYUNO"].ToString().Replace(',', '.') : Session["LIQ_DESAYUNO"].ToString();
-            //LB4.Text =  Session["LIQ_ALMUERZO"].ToString().Contains(",") ? Session["LIQ_ALMUERZO"].ToString().Replace(',', '.') : Session["LIQ_ALMUERZO"].ToString();
-            //LB5.Text =  Session["LIQ_CENA"].ToString().Contains(",") ? Session["LIQ_CENA"].ToString().Replace(',', '.') : Session["LIQ_CENA"].ToString();
-            //LB6.Text =  Session["LIQ_TRANSPORTE"].ToString().Contains(",") ? Session["LIQ_TRANSPORTE"].ToString().Replace(',', '.') : Session["LIQ_TRANSPORTE"].ToString();
-            //LB7.Text =  Session["LIQ_PEAJE"].ToString().Contains(",") ? Session["LIQ_PEAJE"].ToString().Replace(',', '.') : Session["LIQ_PEAJE"].ToString();
+            {               
+                Session["LIQ_CIRCULACION"] = Convert.ToDecimal(Session["LIQ_CIRCULACION"].ToString()) + vMonto;
+            }           
 
             LB1.Text = Session["LIQ_CIRCULACION"].ToString();
             LB2.Text = Session["LIQ_HOSPEDAJE"].ToString();
@@ -532,11 +472,11 @@ namespace BiometricoWeb.pages.viaticos
                 String vIdTipoFactura = DDLTipoFactura.SelectedValue;
                 String vTipoFactura = DDLTipoFactura.SelectedItem.Text;
                 DateTime vFecha = Convert.ToDateTime(txtFechaFactura.Text);
-                Decimal vMonto = Convert.ToDecimal(txtcantidad.Text.Contains(".")? txtcantidad.Text.Replace(".",","): txtcantidad.Text);
+                Decimal vMonto = Convert.ToDecimal(txtcantidad.Text);
                 //Decimal vMonto = Convert.ToDecimal(txtcantidad.Text.Replace('.', ','));
                 string vNumFactura = txtNoFactura.Text;
                 string vHora= DateTime.Now.ToString("hh:mm:ss");
-                Double vMontoReal = 0;
+                Decimal vMontoReal = 0;
 
                 vData.Columns.Add("idViaticos");
                 vData.Columns.Add("Factura");
@@ -554,11 +494,9 @@ namespace BiometricoWeb.pages.viaticos
                 {
                     if (vDatos.Rows.Count < 1)
                     {
-                        vDatos.Rows.Add(vIdViaticos, vFacturado, vIdTipoFactura, vTipoFactura, vFecha, vMonto, vNumFactura, vHora);
-                        //vMontoReal = Convert.ToDouble(LBMontoReal.Text.Replace('.',',')) + Convert.ToDouble(txtcantidad.Text.Replace('.', ','));
-                        vMontoReal = Convert.ToDouble(LBMontoReal.Text.Contains(".")? LBMontoReal.Text.Replace(".",","): LBMontoReal.Text) + Convert.ToDouble(txtcantidad.Text.Contains(".")? txtcantidad.Text.Replace(".",","): txtcantidad.Text);
-                        //LBMontoReal.Text = vMontoReal.ToString().Contains(",")? vMontoReal.ToString().Replace(",","."): vMontoReal.ToString();
-                        LBMontoReal.Text = vMontoReal.ToString();
+                        vDatos.Rows.Add(vIdViaticos, vFacturado, vIdTipoFactura, vTipoFactura, vFecha, string.Format("{0:N2}", vMonto), vNumFactura, vHora);
+                        vMontoReal = Convert.ToDecimal(LBMontoReal.Text) + vMonto;
+                        LBMontoReal.Text = string.Format("{0:N2}", vMontoReal);
                         sumarCostosViaticos();
                     }
                     else
@@ -581,40 +519,23 @@ namespace BiometricoWeb.pages.viaticos
                         }
 
                         if (!vRegistered)
-                        vDatos.Rows.Add(vIdViaticos, vFacturado, vIdTipoFactura, vTipoFactura, vFecha, vMonto, vNumFactura,vHora);
-                        //vMontoReal = Convert.ToDouble(LBMontoReal.Text.Replace('.', ',')) + Convert.ToDouble(txtcantidad.Text.Replace('.', ','));
-                        //LBMontoReal.Text = vMontoReal.ToString().Contains(",") ? vMontoReal.ToString().Replace(",", ".") : vMontoReal.ToString();
-                        vMontoReal = Convert.ToDouble(LBMontoReal.Text.Contains(".") ? LBMontoReal.Text.Replace(".", ",") : LBMontoReal.Text) + Convert.ToDouble(txtcantidad.Text.Contains(".") ? txtcantidad.Text.Replace(".", ",") : txtcantidad.Text);
-                        LBMontoReal.Text = vMontoReal.ToString();
+                        vDatos.Rows.Add(vIdViaticos, vFacturado, vIdTipoFactura, vTipoFactura, vFecha, string.Format("{0:N2}", vMonto), vNumFactura,vHora);
+                        vMontoReal = Convert.ToDecimal(LBMontoReal.Text) + vMonto;
+                        LBMontoReal.Text = string.Format("{0:N2}", vMontoReal);
                         txtNoFactura.Enabled = true;
                         sumarCostosViaticos();
                     }
                     if (Convert.ToString(Session["VIATICOS_LIQ_IDTIPOVIAJE"]) == "1")
                     {
-                        //Session["VIATICOS_LIQ_TOTAL"] = Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"];
-                        //Session["VIATICOS_COSTODEPRE"] = Session["VIATICOS_COSTODEPRE"].ToString().Contains(".") ? Session["VIATICOS_COSTODEPRE"].ToString().Replace(".", ",") : Session["VIATICOS_COSTODEPRE"];
-
-                        decimal vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".")? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".",","): Session["VIATICOS_LIQ_TOTAL"].ToString());
+                      
+                        decimal vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]);
                         decimal vDepreciacion = Convert.ToDecimal(Session["VIATICOS_COSTODEPRE"]);
-                        //decimal vResTotal = vTotalLiquidar - vDepreciacion;
 
-
-
-                        //Decimal vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"].ToString().Replace('.', ',')) - Convert.ToDecimal(Session["VIATICOS_COSTODEPRE"].ToString().Replace('.', ','));
-                        //Decimal vDepreciacion = Convert.ToDecimal(Session["VIATICOS_COSTODEPRE"]);
-
-
-                        //Decimal vTotalReal = Convert.ToDecimal(LBMontoReal.Text.Replace('.', ','));
-                        //Decimal vResTotal = vTotalLiquidar  - vTotalReal;
-                        //Decimal vResTotalRecibir = vTotalReal - vTotalLiquidar ;
-                        //String vResTotalF = vResTotal.ToString().Contains(",") ? vResTotal.ToString().Replace(",", ".") : vResTotal.ToString();
-                        //String vResTotalRecibirF = vResTotalRecibir.ToString().Contains(",") ? vResTotalRecibir.ToString().Replace(",", ".") : vResTotalRecibir.ToString();
-
-                        Decimal vTotalReal = Convert.ToDecimal(LBMontoReal.Text.Contains(".")? LBMontoReal.Text.Replace(".",","): LBMontoReal.Text);
+                        Decimal vTotalReal = Convert.ToDecimal(LBMontoReal.Text);
                         Decimal vResTotal = vTotalLiquidar - vTotalReal;
                         Decimal vResTotalRecibir = vTotalReal - vTotalLiquidar;
-                        String vResTotalF = vResTotal.ToString();
-                        String vResTotalRecibirF = vResTotalRecibir.ToString();
+                        String vResTotalF = string.Format("{0:N2}", vResTotal);
+                        String vResTotalRecibirF = string.Format("{0:N2}", vResTotalRecibir);
 
                         if (vTotalReal <= vTotalLiquidar)
                             txtAlerta.Text = "Viajes nacionales son liquidables, " + Session["VIATICOS_LIQ_EMPLEADO"] + " devolverá L. " + vResTotalF.ToString() + " a Infatlan.";
@@ -664,7 +585,7 @@ namespace BiometricoWeb.pages.viaticos
         {
             if(GVLiquidaciones.Rows.Count==0)
                 Mensaje("Debe ingresar facturas a la liquidación", WarningType.Warning);
-            else if(HFValidarRecibos.Value != "si")
+            else if (HFValidarRecibos.Value != "si")
                 Mensaje("Debe agregar facturas en archivo formato PDF", WarningType.Warning);
             else
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "openModal();", true);
@@ -735,6 +656,8 @@ namespace BiometricoWeb.pages.viaticos
             string vCategoria = "";
             Decimal vTotalSolicitud=0;
             Decimal vTotalLiquidar=0;
+            string vSubGerenciaA = "";
+            string vCategoriaA = "";
 
             String vQuery = "VIATICOS_Solicitud 9,'" + Session["VIATICOS_CODIGO"].ToString() + "'";
             DataTable vDatos = vConexion.obtenerDataTable(vQuery);
@@ -757,6 +680,14 @@ namespace BiometricoWeb.pages.viaticos
                 vTotalSolicitud = Convert.ToDecimal(item["TotalSolicitud"].ToString());
             }
 
+            String vQueryA = "VIATICOS_Solicitud 12,'" + vAprueba + "'";
+            DataTable vDatosA = vConexion.obtenerDataTable(vQueryA);
+            foreach (DataRow item in vDatosA.Rows)
+            {
+                vSubGerenciaA = item["SubGerencia"].ToString();
+                vCategoriaA = item["Categoria"].ToString();
+            }
+
             //OBTENER CORREOS DE PARTICIPANTES
             string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
             DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
@@ -767,7 +698,7 @@ namespace BiometricoWeb.pages.viaticos
             DataTable vDatosUsuario = (DataTable)Session["AUTHCLASS"];
             //OBTENER CORREOS DE PARTICIPANTES
 
-            if ((vCategoria=="2" && vAprueba != "389") || (vCategoria == "1" && vAprueba != "389"))
+            if ((vCategoria=="2" && vAprueba != "389") || (vCategoria == "1" && vAprueba != "389") || ((vCategoriaA=="2" || vCategoriaA=="1") && vAprueba != "389"))
             {
                 String vNewEstado = "9";
                 string vQueryNE = "VIATICOS_ObtenerGeneralesViaticos 8, '" + Session["VIATICOS_CODIGO"].ToString() + "','" + vNewEstado + "'";
@@ -829,7 +760,7 @@ namespace BiometricoWeb.pages.viaticos
                 }
 
             }
-            if (vCategoria != "2" && vCategoria != "1" && vAprueba != "389" && vAprueba != "3627" && vEstado!="10")
+            if (vCategoria != "2" && vCategoria != "1" && vAprueba != "389" && vAprueba != "3627" && vEstado!="10" && vCategoriaA != "2" && vCategoriaA != "1")
             {
                 String vNewEstado = "10";
                 string vQueryNE = "VIATICOS_ObtenerGeneralesViaticos 8, '" + Session["VIATICOS_CODIGO"].ToString() + "','" + vNewEstado + "'";
@@ -945,7 +876,7 @@ namespace BiometricoWeb.pages.viaticos
                                             typeBody.Viaticos,
                                             item["Nombre"].ToString(),
                                             "/pages/viaticos/buscarRecibo.aspx",
-                                            "Se ha aprobado solicitud de liquidación de viáticos, favor subir el boucher de pago.<br>¡RECORDATORIO! Tiene 3 días habiles para subir boucher como evidencia de pago por liquidación, si no cumple, se aplicaran las politícas vigentes y se le deducirá de su quincena el valor a pagar."
+                                            "Se ha aprobado solicitud de liquidación de viáticos, favor subir el voucher de pago.<br>¡RECORDATORIO! Tiene 3 días habiles para subir voucher como evidencia de pago por liquidación, si no cumple, se aplicaran las politícas vigentes y se le deducirá de su quincena el valor a pagar.<br>Recuerde que por motivos de auditoría debe devolver todas las facturas originales a SubGerencia Administrativa que envió en su liquidación."
                                             );
                                     }
                                 }
@@ -1026,7 +957,7 @@ namespace BiometricoWeb.pages.viaticos
                                         typeBody.Viaticos,
                                         item["Nombre"].ToString(),
                                         "/pages/viaticos/buscarRecibo.aspx",
-                                        "Se ha aprobado solicitud de liquidación de viáticos, favor subir el boucher de pago.<br>¡RECORDATORIO! Tiene 3 días habiles para subir boucher como evidencia de pago por liquidación, si no cumple, se aplicaran las politícas vigentes y se le deducirá de su quincena el valor a pagar."
+                                        "Se ha aprobado solicitud de liquidación de viáticos, favor subir el voucher de pago.<br>¡RECORDATORIO! Tiene 3 días habiles para subir voucher como evidencia de pago por liquidación, si no cumple, se aplicaran las politícas vigentes y se le deducirá de su quincena el valor a pagar."
                                         );
                                 }
                             }
@@ -1109,7 +1040,7 @@ namespace BiometricoWeb.pages.viaticos
                                         typeBody.Viaticos,
                                         item["Nombre"].ToString(),
                                         "/pages/viaticos/buscarRecibo.aspx",
-                                        "Se ha aprobado solicitud de liquidación de viáticos, favor subir el boucher de pago.<br>¡RECORDATORIO! Tiene 3 días habiles para subir boucher como evidencia de pago por liquidación, si no cumple, se aplicaran las politícas vigentes y se le deducirá de su quincena el valor a pagar."
+                                        "Se ha aprobado solicitud de liquidación de viáticos, favor subir el voucher de pago.<br>¡RECORDATORIO! Tiene 3 días habiles para subir voucher como evidencia de pago por liquidación, si no cumple, se aplicaran las politícas vigentes y se le deducirá de su quincena el valor a pagar."
                                         );
                                 }
                             }
@@ -1150,16 +1081,9 @@ namespace BiometricoWeb.pages.viaticos
             String vfechaI = Convert.ToDateTime(txtFechaInicioReal.Text).ToString(vFormato);
             string vfechaF = Convert.ToDateTime(txtFechaRegresaReal.Text).ToString(vFormato);
 
-            //DateTime vfechaI = Convert.ToDateTime(txtFechaInicioReal.Text);
-            //DateTime vfechaF = Convert.ToDateTime(txtFechaRegresaReal.Text);
-
-            //Decimal vsubTotal = Convert.ToDecimal(LBMontoReal.Text.Replace('.', ','));
-            //String vSubTotalL = vsubTotal.ToString();
-            //String vTotal = LBMontoReal.Text.Replace('.', ',');
-
             Decimal vsubTotal = Convert.ToDecimal(LBMontoReal.Text);
             String vSubTotalL = vsubTotal.ToString();
-            String vTotal = LBMontoReal.Text;
+            Decimal vTotal = Convert.ToDecimal(LBMontoReal.Text);
 
             if (tipo == "1")
             {
@@ -1220,23 +1144,13 @@ namespace BiometricoWeb.pages.viaticos
             }
             else if (tipo == "2")
             {
-                String vHospedaje = Session["LIQ_HOSPEDAJE"].ToString();
-                String vDesayuno = Session["LIQ_DESAYUNO"].ToString();
-                String vAlmuerzo = Session["LIQ_ALMUERZO"].ToString();
-                String vCena = Session["LIQ_CENA"].ToString();
-                String vTransporte = Session["LIQ_TRANSPORTE"].ToString();
-                String vPeaje = Session["LIQ_PEAJE"].ToString();
-                String vCirculacion = Session["LIQ_CIRCULACION"].ToString();
-
-                //vHospedaje = vHospedaje.Replace(',', '.');
-                //vDesayuno = vDesayuno.Replace(',', '.');
-                //vAlmuerzo = vAlmuerzo.Replace(',', '.');
-                //vCena = vCena.Replace(',', '.');
-                //vTransporte = vTransporte.Replace(',', '.');
-                //vPeaje = vPeaje.Replace(',', '.');
-                //vCirculacion = vCirculacion.Replace(',', '.');
-                //vSubTotalL = vSubTotalL.ToString().Replace(',', '.');
-                //vTotal= vTotal.Replace(',', '.');
+                Decimal vHospedaje = Convert.ToDecimal(Session["LIQ_HOSPEDAJE"]);
+                Decimal vDesayuno = Convert.ToDecimal(Session["LIQ_DESAYUNO"]);
+                Decimal vAlmuerzo = Convert.ToDecimal(Session["LIQ_ALMUERZO"]);
+                Decimal vCena = Convert.ToDecimal(Session["LIQ_CENA"]);
+                Decimal vTransporte = Convert.ToDecimal(Session["LIQ_TRANSPORTE"]);
+                Decimal vPeaje = Convert.ToDecimal(Session["LIQ_PEAJE"]);
+                Decimal vCirculacion = Convert.ToDecimal(Session["LIQ_CIRCULACION"]);
 
                 //CAMBIAR ESTADO A SOLICITADO
                 string vQuery4 = "VIATICOS_Liquidaciones 3, '" + Session["VIATICOS_CODIGO"].ToString() + "', '" + Session["USUARIO"].ToString() + "'";
@@ -1269,7 +1183,7 @@ namespace BiometricoWeb.pages.viaticos
 
                     //vMonto = vMonto.Replace(',', '.');
                     string vQuery2 = "VIATICOS_Liquidaciones 2, '" + vIdViaticos + "','" + vFacturado + "','" + vTipoFactura + "'," +
-                        "'" + vFecha + "'," + vMonto + ",'" + vNumFactura + "','" + vHora + "'";
+                        "'" + vFecha + "','" + Convert.ToDecimal(vMonto) + "','" + vNumFactura + "','" + vHora + "'";
                     vConexion.ejecutarSql(vQuery2);
                 }
 
@@ -1277,11 +1191,11 @@ namespace BiometricoWeb.pages.viaticos
                 int vEstado = 1;
 
                 string vQuery5 = "VIATICOS_Liquidaciones 4, '" + Session["VIATICOS_CODIGO"].ToString() + "','" + vEstado + "','" + vfechaI + "'," +
-                                "'" + vfechaF + "'," + vHospedaje + "," +
-                                "" + vDesayuno + "," + vAlmuerzo + "," +
-                                "" + vCena + ", " + vTransporte + "," +
-                                "" + vPeaje + "," + vCirculacion + "," +
-                                "" + vSubTotalL + "," + vTotal + ", " +
+                                "'" + vfechaF + "','" + vHospedaje + "'," +
+                                "'" + vDesayuno + "','" + vAlmuerzo + "'," +
+                                "'" + vCena + "', '" + vTransporte + "'," +
+                                "'" + vPeaje + "','" + vCirculacion + "'," +
+                                "'" + vSubTotalL + "','" + vTotal + "', " +
                                 "'" + Session["USUARIO"].ToString() + "'";
                 Int32 vInfo = vConexion.ejecutarSql(vQuery5);               
                 //DataTable vDatosSiguiente = vConexion.obtenerDataTable(vQuery3);
@@ -1296,33 +1210,24 @@ namespace BiometricoWeb.pages.viaticos
             }
             else
             {
-                String vHospedaje = Session["LIQ_HOSPEDAJE"].ToString();
-                String vDesayuno = Session["LIQ_DESAYUNO"].ToString();
-                String vAlmuerzo = Session["LIQ_ALMUERZO"].ToString();
-                String vCena = Session["LIQ_CENA"].ToString();
-                String vTransporte = Session["LIQ_TRANSPORTE"].ToString();
-                String vPeaje = Session["LIQ_PEAJE"].ToString();
-                String vCirculacion = Session["LIQ_CIRCULACION"].ToString();
 
-                //vHospedaje = vHospedaje.Replace(',', '.');
-                //vDesayuno = vDesayuno.Replace(',', '.');
-                //vAlmuerzo = vAlmuerzo.Replace(',', '.');
-                //vCena = vCena.Replace(',', '.');
-                //vTransporte = vTransporte.Replace(',', '.');
-                //vPeaje = vPeaje.Replace(',', '.');
-                //vCirculacion = vCirculacion.Replace(',', '.');
-                //vSubTotalL=vSubTotalL.Replace(',', '.');
-                //vTotal= vTotal.Replace(',', '.');
+                Decimal vHospedaje =  Convert.ToDecimal(Session["LIQ_HOSPEDAJE"]);
+                Decimal vDesayuno = Convert.ToDecimal(Session["LIQ_DESAYUNO"]);
+                Decimal vAlmuerzo =  Convert.ToDecimal(Session["LIQ_ALMUERZO"]);
+                Decimal vCena =  Convert.ToDecimal(Session["LIQ_CENA"]);
+                Decimal vTransporte = Convert.ToDecimal(Session["LIQ_TRANSPORTE"]);
+                Decimal vPeaje = Convert.ToDecimal(Session["LIQ_PEAJE"]);
+                Decimal vCirculacion =  Convert.ToDecimal(Session["LIQ_CIRCULACION"]);
 
                 int vEstado = 1;
                 string vQueryLiqui = "VIATICOS_Liquidaciones 1, '" + Session["VIATICOS_LIQ_CODIGO"].ToString() + "','" + vEstado + "','" + vfechaI + "'," +
-                                "'" + vfechaF + "'," + vHospedaje + "," +
-                                "" + vDesayuno + "," + vAlmuerzo + "," +
-                                "" + vCena + ", " + vTransporte + "," +
-                                "" + vPeaje + "," + vCirculacion + "," +
-                                "" + vSubTotalL + "," + vTotal + ", " +                              
+                                "'" + vfechaF + "','" + vHospedaje + "'," +
+                                "'" + vDesayuno + "','" + vAlmuerzo + "'," +
+                                "'" + vCena + "', '" + vTransporte + "'," +
+                                "'" + vPeaje + "','" + vCirculacion + "'," +
+                                "'" + vSubTotalL + "','" + vTotal + "', " +
                 "'" + vArchivo + "','" + Session["USUARIO"].ToString() + "'";
-                Int32 vInfo = vConexion.ejecutarSql(vQueryLiqui);
+                vConexion.ejecutarSql(vQueryLiqui);
 
                 String vFormato2 = "yyyy-MM-dd HH:mm:ss"; //"dd/MM/yyyy HH:mm:ss"
                 //String vFormato2 = "dd/MM/yyyy HH:mm:ss"; //LOCAL
@@ -1339,7 +1244,7 @@ namespace BiometricoWeb.pages.viaticos
 
                     //vMonto = vMonto.Replace(',', '.');
                     string vQuery2 = "VIATICOS_Liquidaciones 2, '" + vIdViaticos + "','" + vFacturado + "','" + vTipoFactura + "'," +
-                        "'" + vFecha + "'," + vMonto + ",'" + vNumFactura + "','" + vHora + "'";
+                        "'" + vFecha + "','" + Convert.ToDecimal(vMonto) + "','" + vNumFactura + "','" + vHora + "'";
                     vConexion.ejecutarSql(vQuery2);
                 }
 
@@ -1534,15 +1439,15 @@ namespace BiometricoWeb.pages.viaticos
             string vQuery3 = "VIATICOS_ObtenerGeneralesViaticos 4, '" + Session["VIATICOS_CODIGO"].ToString() + "','"+ Session["USUARIO"].ToString() + "', '"+txtComentarioLiq.Text+"'";
             Int32 vInfo= vConexion.ejecutarSql(vQuery3);
             //DataTable vDatosSiguiente = vConexion.obtenerDataTable(vQuery);
-            if (vInfo == 1)
+            if (vInfo >= 1)
             {
 
                 //OBTENER CORREOS DE PARTICIPANTES
-                string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_LIQ_CODIGO"];
+                string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
                 DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
-                string vQueryJefe = "VIATICOS_ObtenerGenerales 53," + Session["VIATICOS_LIQ_CODIGO"];
+                string vQueryJefe = "VIATICOS_ObtenerGenerales 53," + Session["VIATICOS_CODIGO"];
                 DataTable vDatosJefe = vConexion.obtenerDataTable(vQueryJefe);
-                string vQuerySG = "VIATICOS_ObtenerGenerales 54," + Session["VIATICOS_LIQ_CODIGO"];
+                string vQuerySG = "VIATICOS_ObtenerGenerales 54," + Session["VIATICOS_CODIGO"];
                 DataTable vDatosSubGerencte = vConexion.obtenerDataTable(vQuerySG);
                 DataTable vDatosUsuario = (DataTable)Session["AUTHCLASS"];
                 //OBTENER CORREOS DE PARTICIPANTES
@@ -1670,7 +1575,7 @@ namespace BiometricoWeb.pages.viaticos
 
                     vMonto = vMonto.Replace(',', '.');
                     string vQuery2 = "VIATICOS_Liquidaciones 2, '" + vIdViaticos + "','" + vFacturado + "','" + vTipoFactura + "'," +
-                        "'" + vFecha + "'," + vMonto + ",'" + vNumFactura + "','" + vHora + "'";
+                        "'" + vFecha + "','" + Convert.ToDecimal(vMonto) + "','" + vNumFactura + "','" + vHora + "'";
                     vConexion.ejecutarSql(vQuery2);
                 }
 

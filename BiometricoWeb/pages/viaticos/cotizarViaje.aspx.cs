@@ -59,7 +59,7 @@ namespace BiometricoWeb.pages.viaticos
             foreach (DataRow item in vDatos3.Rows)
             {
                 txtCompañia.Text= item["empresa"].ToString();
-                txtcosto.Text= item["costo"].ToString();
+                txtcosto.Text= string.Format("{0:N2}", Convert.ToDecimal(item["costo"].ToString())); 
                 txtcomentario.Text = item["comentario"].ToString();
             }
 
@@ -79,46 +79,54 @@ namespace BiometricoWeb.pages.viaticos
         protected void btnModalEnviar_Click(object sender, EventArgs e)
         {
             //string vEmpleado = Convert.ToString(Session["VIATICOS_IDEMPLEADO"]);
-            string vQuery = "VIATICOS_Solicitud 5, '" + Session["VIATICOS_CODIGO"].ToString() + "','" + txtCompañia.Text + "','" + txtcosto.Text + "','" + txtcomentario.Text + "', '"+ Session["USUARIO"].ToString() + "','" + Session["VIATICOS_IDEMPLEADO"] + "'";
+            string vQuery = "VIATICOS_Solicitud 5, '" + Session["VIATICOS_CODIGO"].ToString() + "','" + txtCompañia.Text + "','" + Convert.ToDecimal(txtcosto.Text) + "','" + txtcomentario.Text + "', '"+ Session["USUARIO"].ToString() + "','" + Session["VIATICOS_IDEMPLEADO"] + "'";
             Int32 vInfo = vConexion.ejecutarSql(vQuery);
             DataTable vDatosSiguiente = vConexion.obtenerDataTable(vQuery);
             if (vInfo == 1)
             {
-                //SmtpService vService = new SmtpService();
-                //string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
-                //DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
+                SmtpService vService = new SmtpService();
+                string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
+                DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
 
-                //Boolean vFlagEnvioSupervisor = false;
-                //DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
-                //if (vDatosJefatura.Rows.Count > 0)
-                //{
-                //    foreach (DataRow item in vDatosJefatura.Rows)
-                //    {
-                //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                //        {
-                //            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
-                //                typeBody.Cotizar,
-                //                item["nombre"].ToString(),
-                //                vDatosEmpleado.Rows[0]["Nombre"].ToString()
-                //                );
-                //            vFlagEnvioSupervisor = true;
-                //        }
-                //    }
-                //}
+                Boolean vFlagEnvioSupervisor = false;
+                DataTable vDatosJefatura = (DataTable)Session["AUTHCLASS"];
 
-                //if (vFlagEnvioSupervisor)
-                //{
-                //    foreach (DataRow item in vDatosSiguiente.Rows)
-                //    {
-                //        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
-                //            vService.EnviarMensaje(item["Email"].ToString(),
-                //                typeBody.Jefe,
-                //               item["Nombre"].ToString(),
-                //              vDatosEmpleado.Rows[0]["Nombre"].ToString()
+                //ENVIAR A SOLICITANTE
+                if (vDatosEmpleado.Rows.Count > 0)
+                {
+                    foreach (DataRow item in vDatosEmpleado.Rows)
+                    {
+                        if (!item["Email"].ToString().Trim().Equals(""))
+                        {
+                            vService.EnviarMensaje(item["Email"].ToString(),
+                                typeBody.Viaticos,
+                                item["Nombre"].ToString(),
+                                "/pages/viaticos/liquidaciones.aspx",
+                                "Se ha cotizado viaje."
+                                );
+                        }
+                    }
+                }
+                //ENVIAR A JEFE APRUEBA
+                if (vDatosJefatura.Rows.Count > 0)
+                {
+                    foreach (DataRow item in vDatosJefatura.Rows)
+                    {
+                        if (!item["emailEmpresa"].ToString().Trim().Equals(""))
+                        {
+                            vService.EnviarMensaje(item["emailEmpresa"].ToString(),
+                                typeBody.Viaticos,
+                                item["nombre"].ToString(),
+                                "/pages/viaticos/aprobarViaticos.aspx",
+                                "Se ha cotizado viaje."
+                                );
+                        }
+                    }
+                }
 
-                //            );
-                //    }
-                //}
+
+
+             
             }
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "closeModal();", true);
             Response.Redirect("cotizacion.aspx");

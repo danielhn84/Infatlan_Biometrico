@@ -38,6 +38,7 @@ namespace BiometricoWeb.pages.viaticos
             Session["VIATICOS_LIQ_SAP"] = null;
             Session["VIATICOS_LIQ_PUESTO"] = null;
             Session["VIATICOS_LIQ_IDTIPOVIAJE"] = null;
+            Session["VIATICOS_CODIGO"] = null;
         }
         void limpiarForm()
         {
@@ -54,6 +55,7 @@ namespace BiometricoWeb.pages.viaticos
             Session["IMG_RECIBO"] = null;
             Session["COMENTARIO_RECIBO"] = null;
             Session["VIATICOS_COSTODEPRE"] = null;
+            Session["VIATICOS_CODIGO"] = null;
         }
         void cargarData()
         {
@@ -91,7 +93,8 @@ namespace BiometricoWeb.pages.viaticos
                     foreach (DataRow item in vDatos.Rows)
                     {
 
-                        Session["VIATICOS_LIQ_CODIGO"] = codViaticos;                                              
+                        Session["VIATICOS_LIQ_CODIGO"] = codViaticos;
+                        Session["VIATICOS_CODIGO"] = codViaticos;
                         Session["VIATICOS_LIQ_TOTAL"] = item["Total"].ToString();
                         Session["VIATICOS_LIQ_TIPOVIAJE"] = item["TipoViaje"].ToString();
                         Session["VIATICOS_LIQ_EMPLEADO"] = item["Empleado"].ToString();
@@ -129,6 +132,7 @@ namespace BiometricoWeb.pages.viaticos
                     {
 
                         Session["VIATICOS_LIQ_CODIGO"] = codViaticos;
+                        Session["VIATICOS_CODIGO"] = codViaticos;
                         Session["VIATICOS_LIQ_TOTAL"] = item["Total"].ToString();
                         Session["VIATICOS_LIQ_TIPOVIAJE"] = item["TipoViaje"].ToString();
                         Session["VIATICOS_LIQ_EMPLEADO"] = item["Empleado"].ToString();

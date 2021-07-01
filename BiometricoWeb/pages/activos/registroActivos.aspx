@@ -106,6 +106,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row col-12 mt-3">
+                                    <div class="row col-6"> 
+                                        <label class="col-3 col-form-label">Empresa</label>
+                                        <div class="col-9">
+                                            <asp:DropDownList ID="DDLEmpresa" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -122,7 +130,7 @@
                                     <div class="row col-6"> 
                                         <label class="col-3 col-form-label">Tipo</label>
                                         <div class="col-9">
-                                            <asp:DropDownList ID="DDLTipoSW" runat="server" CssClass="select2 form-control custom-select"></asp:DropDownList>
+                                            <asp:DropDownList ID="DDLTipoSW" runat="server" CssClass="select2 form-control custom-select" Width="100%"></asp:DropDownList>
                                         </div>
                                     </div>
                                     <div class="row col-6"> 
@@ -170,7 +178,15 @@
                                     <div class="row col-6"> 
                                         <label class="col-3 col-form-label">Responsable</label>
                                         <div class="col-9">
-                                            <asp:DropDownList ID="DDLResponsableSW" runat="server" CssClass="select2 form-control custom-select"></asp:DropDownList>
+                                            <asp:DropDownList ID="DDLResponsableSW" runat="server" CssClass="select2 form-control custom-select" Width="100%"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-12 mt-3">
+                                    <div class="row col-6"> 
+                                        <label class="col-3 col-form-label">Empresa</label>
+                                        <div class="col-9">
+                                            <asp:DropDownList ID="DDLEmpresaSW" runat="server" CssClass="form-control"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>

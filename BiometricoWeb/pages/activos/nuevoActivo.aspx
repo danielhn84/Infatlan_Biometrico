@@ -1,6 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="visitas.aspx.cs" Inherits="BiometricoWeb.pages.activos.visitas" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="nuevoActivo.aspx.cs" Inherits="BiometricoWeb.pages.activos.nuevoActivo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="/css/fstdropdown.css" rel="stylesheet" />
     <link href="/css/GridStyle.css" rel="stylesheet" />
     <link href="/css/pager.css" rel="stylesheet" />
     <script type="text/javascript">
@@ -31,7 +30,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                     <div class="mr-md-3 mr-xl-5">
-                        <h2>Visitas</h2>
+                        <h2>Nuevo Activo</h2>
                         <p class="mb-md-0">Recursos Humanos</p>
                     </div>
                 </div>
@@ -42,9 +41,8 @@
     <div runat="server" visible="true">   
         <nav>
             <div class="nav nav-pills " id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Visitas" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-login" style=""> </i>Entrada</a>
-                <a class="nav-item nav-link" id="nav_salida" data-toggle="tab" href="#nav-Salida" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-logout" style=""> </i>Salida</a>
-                <a class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-database" style=""> </i>Historial</a>
+                <a class="nav-item nav-link active" id="nav_cargar_tab" data-toggle="tab" href="#nav-Visitas" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-login" style=""> </i>Crear</a>
+                <a class="nav-item nav-link" id="nav_cargarPermisos_tab" data-toggle="tab" href="#nav-Registros" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="mdi mdi-database" style=""> </i>Registros</a>
             </div>
         </nav>
     </div>
@@ -52,7 +50,6 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-Visitas" role="tabpanel" aria-labelledby="nav-cargar-tab">
             <br />
-            
             <%--Búsqueda--%>
             <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -65,10 +62,10 @@
                                     <div class="col-7">
                                         <asp:DropDownList runat="server" ID="DDLProceso" CssClass="form-control" OnSelectedIndexChanged="DDLProceso_SelectedIndexChanged" AutoPostBack="true">
                                             <asp:ListItem Value="1" Text="Personal Interno"></asp:ListItem>
-                                            <asp:ListItem Value="2" Text="Visitas" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Value="2" Text="Visitas"></asp:ListItem>
                                             <asp:ListItem Value="3" Text="Data Center"></asp:ListItem>
                                             <asp:ListItem Value="4" Text="Soporte Técnico"></asp:ListItem>
-                                            <asp:ListItem Value="5" Text="Nuevo Activo"></asp:ListItem>                                            
+                                            <asp:ListItem Value="5" Text="Nuevo Activo" Selected="True"></asp:ListItem>                                            
                                         </asp:DropDownList>
                                     </div>
                                 </div>
@@ -94,7 +91,7 @@
                                             <div class="form-group row">
                                                 <label class="col-2 col-form-label">Identidad:</label>
                                                 <div class="col-9">
-                                                    <asp:TextBox runat="server" ID="TxIdentidad" CssClass="form-control" AutoPostBack="true" OnTextChanged="TxIdentidad_TextChanged" />
+                                                    <asp:TextBox runat="server" ID="TxIdentidad" CssClass="form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -150,87 +147,8 @@
                                 <h4 class="card-title">REGISTRAR INFORMACION</h4>
                                 <div class="row">
                                     <div class="col-12">
-                                        <asp:Button ID="BtnGuardar" class="btn btn-success" runat="server" Text="Registrar" OnClick="BtnGuardar_Click" />
-                                        <asp:Button ID="BtnCancelar" class="btn btn-secondary" runat="server" Text="Cancelar" OnClick="BtnCancelar_Click" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </div>
-
-        <div class="tab-pane fade" id="nav-Salida" role="tabpanel" aria-labelledby="nav-cargar-tab">
-            <br />
-            <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-                    <div runat="server" id="DivSalidaVisita" visible="true">
-                        <div class="col-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body" runat="server" id="Div4" >
-                                    <h4 class="card-title">Datos de Salida</h4>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="form-group row">
-                                                <label class="col-3 col-form-label">Identidad:</label>
-                                                <div class="col-9">
-                                                    <asp:TextBox runat="server" CssClass="form-control" ID="TxIdentidadSalida" AutoPostBack="true" OnTextChanged="TxIdentidadSalida_TextChanged"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <asp:Label runat="server" ID="TxMensaje" ForeColor="CornflowerBlue" CssClass="col-form-label" Text=""></asp:Label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div runat="server" id="Div1" visible="true">
-                        <div class="col-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body" runat="server" id="Div3" >
-                                    <h4 class="card-title">Información</h4>
-                                    <div class="row">
-                                        <div runat="server" visible="false" id="DivDatosEntrada" class="row col-12">
-                                            <div class="col-12">
-                                                <div class="form-group row">
-                                                    <label class="col-2">Nombre:</label>
-                                                    <b><asp:Label runat="server" ID="LbNombreSalida" CssClass="col-9 align-content-end"></asp:Label></b>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group row">
-                                                    <label class="col-2">Motivo de visita:</label>
-                                                    <b><asp:Label runat="server" ID="LbMotivo" CssClass="col-9 align-content-end"></asp:Label></b>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group row">
-                                                    <label class="col-2">Fecha de Entrada:</label>
-                                                    <b><asp:Label runat="server" ID="LbFechaEntrada" CssClass="col-9 align-content-end"></asp:Label></b>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group row">
-                                                    <label class="col-2">Equipo:</label>
-                                                    <b><asp:Label runat="server" ID="LbEquipo" CssClass="col-9 align-content-end"></asp:Label></b>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 grid-margin stretch-card" runat="server" id="DivSalida" visible="false">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">REGISTRAR INFORMACION</h4>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <asp:Button ID="BtnRegistrarSalida" class="btn btn-success" runat="server" Text="Registrar" OnClick="BtnRegistrarSalida_Click"/>
+                                        <asp:Button ID="BtnGuardar" class="btn btn-success" runat="server" Text="Registrar" />
+                                        <asp:Button ID="BtnCancelar" class="btn btn-secondary" runat="server" Text="Cancelar" />
                                     </div>
                                 </div>
                             </div>
@@ -251,7 +169,7 @@
                                 <div class="row">   
                                     <label class="col-2">Nombre:</label>
                                     <div class="col-7">
-                                        <asp:TextBox runat="server" ID="TxBusqueda" AutoPostBack="true" CssClass="form-control" OnTextChanged="TxBusqueda_TextChanged"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="TxBusqueda" AutoPostBack="true" CssClass="form-control"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +194,7 @@
                                             AutoGenerateColumns="false"
                                             AllowPaging="true"
                                             GridLines="None"
-                                            PageSize="10" OnPageIndexChanging="GVBusqueda_PageIndexChanging">
+                                            PageSize="10">
                                             <Columns>
                                                 <asp:BoundField DataField="visitante" HeaderText="Nombre" ItemStyle-HorizontalAlign="Left"/>
                                                 <asp:BoundField DataField="identidad" HeaderText="Identidad" ItemStyle-HorizontalAlign="Left"/>
@@ -295,7 +213,6 @@
             </asp:UpdatePanel>
         </div>
     </div>
-
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>

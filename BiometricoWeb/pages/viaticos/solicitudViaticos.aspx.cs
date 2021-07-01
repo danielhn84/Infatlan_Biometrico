@@ -79,7 +79,7 @@ namespace BiometricoWeb.pages.viaticos
                                 foreach (DataRow item in vDatos.Rows)
                                 {
                                     txtCompañia.Text = item["empresa"].ToString();
-                                    txtcosto.Text = item["costo"].ToString();
+                                    txtcosto.Text = string.Format("{0:N2}", Convert.ToDecimal(item["costo"].ToString()));
                                     txtcomentario.Text = item["comentario"].ToString();
                                 }
                             }
@@ -369,7 +369,7 @@ namespace BiometricoWeb.pages.viaticos
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
                 foreach (DataRow item in vDatos.Rows)
                 {
-                    txtCostoHotel.Text = "L." + Convert.ToString(item["hospedaje"].ToString());
+                    txtCostoHotel.Text = "L." + string.Format("{0:N2}", Convert.ToDecimal(item["hospedaje"].ToString())); 
                 }
 
             }
@@ -387,7 +387,7 @@ namespace BiometricoWeb.pages.viaticos
                     foreach (DataRow item in vDatos.Rows)
                     {
                         Session["PRECIO_VIATICOS"] = Convert.ToInt32(item["precio"].ToString()) * (24.93);
-                        txtCostoHotel.Text = "L. " + Session["PRECIO_VIATICOS"].ToString();
+                        txtCostoHotel.Text = "L. " + string.Format("{0:N2}", Convert.ToDecimal(Session["PRECIO_VIATICOS"]));
                     }
                 }
                 catch (Exception Ex)
@@ -408,7 +408,7 @@ namespace BiometricoWeb.pages.viaticos
                 {
                     Session["PRECIO_VIATICOS"] = item["hospedaje"].ToString();
                 }
-                txtCostoHotel.Text = "L. " + Session["PRECIO_VIATICOS"].ToString();
+                txtCostoHotel.Text = "L. " + string.Format("{0:N2}", Convert.ToDecimal(Session["PRECIO_VIATICOS"]));
                 DIVNuevoHotel.Visible = true;
             }
             else
@@ -436,18 +436,21 @@ namespace BiometricoWeb.pages.viaticos
 
         void cargarDiasHrs()
         {
+            string vFormatDate = "yyyy-MM-dd";
             DateTime vToday = DateTime.Today;
             DateTime vFechaInicio = Convert.ToDateTime(TxFechaInicio.Text);
+            string vFechaInicioS = Convert.ToDateTime(TxFechaInicio.Text).ToString(vFormatDate);
 
 
             DateTime vFechaFin = Convert.ToDateTime(TxFechaRegreso.Text);
+            string vFechaFinS = Convert.ToDateTime(TxFechaRegreso.Text).ToString(vFormatDate);
             TimeSpan vDiff = vFechaFin - vFechaInicio;
             int vDias = vDiff.Days;
 
             Session["VIATICOS_HRS"] = vDiff.Hours;
             Session["VIATICOS_DIAS"] = vDiff.Days;
 
-            if (vDias == 0 && vFechaFin > vFechaInicio)
+            if (vDias == 0 && vFechaFinS != vFechaInicioS)
             {
                 Session["VIATICOS_DIAS"] = vDiff.Days + 1;
                 vDias = Convert.ToInt32(Session["VIATICOS_DIAS"]);
@@ -935,7 +938,7 @@ namespace BiometricoWeb.pages.viaticos
                 {
                     Session["PRECIO_VIATICOS"] = item["hospedaje"].ToString();
                 }
-                txtCostoHotel.Text = "L. " + Session["PRECIO_VIATICOS"].ToString();
+                txtCostoHotel.Text = "L. " + string.Format("{0:N2}", Convert.ToDecimal(Session["PRECIO_VIATICOS"]));
                 DIVNuevoHotel.Visible = true;
             }
             else
@@ -974,7 +977,7 @@ namespace BiometricoWeb.pages.viaticos
                 foreach (DataRow item in vDatos.Rows)
                 {
                     Session["PRECIO_VIATICOS"] = Convert.ToInt32(item["precio"].ToString()) * (24.93);
-                    txtCostoHotel.Text = "L. " + Session["PRECIO_VIATICOS"].ToString();
+                    txtCostoHotel.Text = "L. " + string.Format("{0:N2}", Convert.ToDecimal(Session["PRECIO_VIATICOS"]));
                 }
             }
             catch (Exception Ex)
@@ -1080,7 +1083,7 @@ namespace BiometricoWeb.pages.viaticos
             if (Session["VIATICOS_DIAS"].ToString() == "0")
             {
                 //LBHospedaje.Text = Session["PRECIO_VIATICOS"].ToString().Contains(",") ? Session["PRECIO_VIATICOS"].ToString().Replace(",", ".") : Session["PRECIO_VIATICOS"].ToString();
-                LBHospedaje.Text = Convert.ToDecimal(Session["PRECIO_VIATICOS"]).ToString();
+                LBHospedaje.Text = string.Format("{0:N2}", Convert.ToDecimal(Session["PRECIO_VIATICOS"])); 
                 Session["HOSPEDAJE_C"] = Session["PRECIO_VIATICOS"].ToString();
             }
             else
@@ -1089,7 +1092,7 @@ namespace BiometricoWeb.pages.viaticos
                 vDias = Convert.ToInt32(Session["VIATICOS_DIAS"]);
                 vHospedaje = vPrecio * vDias;
                 //LBHospedaje.Text = vHospedaje.ToString().Contains(",") ? vHospedaje.ToString().Replace(",", ".") : vHospedaje.ToString();
-                LBHospedaje.Text = vHospedaje.ToString();
+                LBHospedaje.Text = string.Format("{0:N2}",vHospedaje);
                 Session["HOSPEDAJE_C"] = vHospedaje;
             }
         }
@@ -1104,7 +1107,7 @@ namespace BiometricoWeb.pages.viaticos
             //int vCirculacionHrs = 0;
             if (Session["VIATICOS_DIAS"].ToString() == "0")
             {
-                LBHospedaje.Text = Session["PRECIO_VIATICOS"].ToString();
+                LBHospedaje.Text = string.Format("{0:N2}", Convert.ToDecimal(Session["PRECIO_VIATICOS"]));
                 // LBHospedaje.Text = Session["PRECIO_VIATICOS"].ToString().Contains(",") ? Session["PRECIO_VIATICOS"].ToString().Replace(",", ".") : Session["PRECIO_VIATICOS"].ToString();
             }
             else
@@ -1113,7 +1116,7 @@ namespace BiometricoWeb.pages.viaticos
                 vPrecio = Convert.ToDecimal(Session["PRECIO_VIATICOS"]);
                 vDias = Convert.ToInt32(Session["VIATICOS_DIAS"]);
                 vHospedaje = vPrecio * vDias;
-                LBHospedaje.Text = vHospedaje.ToString();
+                LBHospedaje.Text = string.Format("{0:N2}", vHospedaje);
                 //LBHospedaje.Text = vHospedaje.ToString().Contains(",") ? vHospedaje.ToString().Replace(",", ".") : vHospedaje.ToString();
             }
             vDias = Convert.ToInt32(Session["VIATICOS_DIAS"]);
@@ -1121,31 +1124,31 @@ namespace BiometricoWeb.pages.viaticos
             {
 
                 vCirculacion = Convert.ToInt32(Session["CIRCULACION_VIATICOS"].ToString());
-                LBCirculacion.Text = vCirculacion.ToString();
+                LBCirculacion.Text = string.Format("{0:N2}", vCirculacion);
             }
             if (Convert.ToInt32(Session["VIATICOS_HRS"]) <= 4 && vDias == 0)
             {
                 vMediaJornada = Convert.ToInt32(Session["CIRCULACION_VIATICOS"]) / 2;
-                LBCirculacion.Text = vMediaJornada.ToString();
+                LBCirculacion.Text = string.Format("{0:N2}", vMediaJornada);
             }
             if (Convert.ToInt32(Session["VIATICOS_HRS"]) <= 4 && vDias > 0)
             {
                 vMediaJornada = Convert.ToInt32(Session["CIRCULACION_VIATICOS"]) / 2;
                 vCirculacion = Convert.ToInt32(Session["CIRCULACION_VIATICOS"].ToString()) * Convert.ToInt32(Session["VIATICOS_DIAS"].ToString());
                 vResultadoCirculacion = vCirculacion + vMediaJornada;
-                LBCirculacion.Text = vResultadoCirculacion.ToString();
+                LBCirculacion.Text = string.Format("{0:N2}", vResultadoCirculacion);
             }
             if (Convert.ToInt32(Session["VIATICOS_HRS"]) > 4 && vDias > 0)
             {
                 vMediaJornada = Convert.ToInt32(Session["CIRCULACION_VIATICOS"].ToString());
                 vCirculacion = Convert.ToInt32(Session["CIRCULACION_VIATICOS"].ToString()) * Convert.ToInt32(Session["VIATICOS_DIAS"].ToString());
                 vResultadoCirculacion = vCirculacion + vMediaJornada;
-                LBCirculacion.Text = vResultadoCirculacion.ToString();
+                LBCirculacion.Text = string.Format("{0:N2}", vResultadoCirculacion);
             }
         }
         void calculoInternacional()
         {
-            LBCirculacion.Text = Session["CIRCULACION_VIATICOS"].ToString();
+            LBCirculacion.Text = string.Format("{0:N2}", Convert.ToDecimal(Session["CIRCULACION_VIATICOS"]));
 
         }
         void calcularAlimento()
@@ -1166,19 +1169,19 @@ namespace BiometricoWeb.pages.viaticos
 
                 if (vHoraInicio.Hour <= 7 && vHoraFin.Hour >= 19)
                 {
-                    LBDesayuno.Text = vDesayuno.ToString();
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayuno);
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour <= 7 && vHoraFin.Hour < 19)
                 {
-                    LBDesayuno.Text = vDesayuno.ToString();
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayuno);
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
                     LBCena.Text = "0";
                 }
                 if (vHoraInicio.Hour <= 7 && vHoraFin.Hour < 11)
                 {
-                    LBDesayuno.Text = vDesayuno.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayuno);
                     LBAlmuerzo.Text = "0";
                     LBCena.Text = "0";
                 }
@@ -1186,20 +1189,20 @@ namespace BiometricoWeb.pages.viaticos
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour >= 19)
                 {
                     LBDesayuno.Text = "0";
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour <= 18)
                 {
                     LBDesayuno.Text = "0";
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
                     LBCena.Text = "0";
                 }
                 if (vHoraInicio.Hour > 14 && vHoraFin.Hour >= 19)
                 {
                     LBDesayuno.Text = "0";
                     LBAlmuerzo.Text = "0";
-                    LBCena.Text = vCena.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour < 11)
                 {
@@ -1220,90 +1223,90 @@ namespace BiometricoWeb.pages.viaticos
                 if (vHoraInicio.Hour <= 7 && vHoraFin.Hour >= 19)
                 {
                     vDesayunoTotal = vDesayuno + vDesayuno;
-                    LBDesayuno.Text = vDesayunoTotal.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoTotal);
                     vAlmuerzoTotal = vAlmuerzo + vAlmuerzo;
-                    LBAlmuerzo.Text = vAlmuerzoTotal.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoTotal);
                     vCenaTotal = vCena + vCena;
-                    LBCena.Text = vCenaTotal.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaTotal);
                 }
                 if (vHoraInicio.Hour <= 7 && vHoraFin.Hour < 19 && vHoraFin.Hour > 7)
                 {
                     vDesayunoTotal = vDesayuno + vDesayuno;
-                    LBDesayuno.Text = vDesayunoTotal.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoTotal);
                     vAlmuerzoTotal = vAlmuerzo + vAlmuerzo;
-                    LBAlmuerzo.Text = vAlmuerzoTotal.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoTotal);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour <= 7 && vHoraFin.Hour < 11 && vHoraFin.Hour > 7)
                 {
                     vDesayunoTotal = vDesayuno + vDesayuno;
-                    LBDesayuno.Text = vDesayunoTotal.ToString();
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoTotal);
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
 
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour >= 19)
                 {
 
-                    LBDesayuno.Text = vDesayuno.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayuno);
                     vAlmuerzoTotal = vAlmuerzo + vAlmuerzo;
-                    LBAlmuerzo.Text = vAlmuerzoTotal.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoTotal);
                     vCenaTotal = vCena + vCena;
-                    LBCena.Text = vCenaTotal.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaTotal);
                 }
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour >= 14 && vHoraFin.Hour < 19)
                 {
 
-                    LBDesayuno.Text = vDesayuno.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayuno);
                     vAlmuerzoTotal = vAlmuerzo + vAlmuerzo;
-                    LBAlmuerzo.Text = vAlmuerzoTotal.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoTotal);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour <= 14 && vHoraFin.Hour > 7)
                 {
 
-                    LBDesayuno.Text = vDesayuno.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayuno);
                     vAlmuerzoTotal = vAlmuerzo + vAlmuerzo;
-                    LBAlmuerzo.Text = vAlmuerzoTotal.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoTotal);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour >= 14 && vHoraFin.Hour >= 19)
                 {
 
-                    LBDesayuno.Text = vDesayuno.ToString();
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayuno);
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
                     vCenaTotal = vCena + vCena;
-                    LBCena.Text = vCenaTotal.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaTotal);
                 }
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour < 11 && vHoraFin.Hour > 7)
                 {
-                    LBDesayuno.Text = vDesayuno.ToString();
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayuno);
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour >= 14 && vHoraFin.Hour < 12 && vHoraFin.Hour > 7)
                 {
-                    LBDesayuno.Text = vDesayuno.ToString();
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayuno);
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour <= 7 && vHoraFin.Hour <= 5)
                 {
                     LBDesayuno.Text = "0";
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour <= 5)
                 {
                     LBDesayuno.Text = "0";
-                    LBAlmuerzo.Text = vAlmuerzo.ToString();
-                    LBCena.Text = vCena.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzo);
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
                 if (vHoraInicio.Hour >= 14 && vHoraFin.Hour <= 7)
                 {
                     LBDesayuno.Text = "0";
                     LBAlmuerzo.Text = "0";
-                    LBCena.Text = vCena.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCena);
                 }
             }
             if (Convert.ToInt32(Session["VIATICOS_DIAS"].ToString()) >= 2)//VIATICOS DE MAS DE UN DIA
@@ -1316,84 +1319,84 @@ namespace BiometricoWeb.pages.viaticos
                 {
                     vDesayunoTotal = vDesayuno + vDesayuno;
                     vDesayunoExtra = (vDesayuno * vDiasAlimento) + vDesayunoTotal;
-                    LBDesayuno.Text = vDesayunoExtra.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoExtra);
                     vAlmuerzoTotal = vAlmuerzo + vAlmuerzo;
                     vAlmuerzoExtra = (vAlmuerzo * vDiasAlimento) + vAlmuerzoTotal;
-                    LBAlmuerzo.Text = vAlmuerzoExtra.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoExtra);
                     vCenaTotal = vCena + vCena;
                     vCenaExtra = (vCena * vDiasAlimento) + vCenaTotal;
-                    LBCena.Text = vCenaExtra.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaExtra);
                 }
                 if (vHoraInicio.Hour <= 7 && vHoraFin.Hour < 19)
                 {
                     vDesayunoTotal = vDesayuno + vDesayuno;
                     vDesayunoExtra = (vDesayuno * vDiasAlimento) + vDesayunoTotal;
-                    LBDesayuno.Text = vDesayunoExtra.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoExtra);
                     vAlmuerzoTotal = vAlmuerzo + vAlmuerzo;
                     vAlmuerzoExtra = (vAlmuerzo * vDiasAlimento) + vAlmuerzoTotal;
-                    LBAlmuerzo.Text = vAlmuerzoExtra.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoExtra);
                     vCenaExtra = (vCena * vDiasAlimento) + vCena;
-                    LBCena.Text = vCenaExtra.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaExtra);
                 }
                 if (vHoraInicio.Hour <= 7 && vHoraFin.Hour < 11)
                 {
                     vDesayunoTotal = vDesayuno + vDesayuno;
                     vDesayunoExtra = (vDesayuno * vDiasAlimento) + vDesayunoTotal;
-                    LBDesayuno.Text = vDesayunoExtra.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoExtra);
                     vAlmuerzoExtra = (vAlmuerzo * vDiasAlimento) + vAlmuerzo;
-                    LBAlmuerzo.Text = vAlmuerzoExtra.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoExtra);
                     vCenaExtra = (vCena * vDiasAlimento) + vCena;
-                    LBCena.Text = vCenaExtra.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaExtra);
                 }
 
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour >= 19)
                 {
                     vDesayunoExtra = (vDesayuno * vDiasAlimento) + vDesayuno;
-                    LBDesayuno.Text = vDesayunoExtra.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoExtra);
                     vAlmuerzoTotal = vAlmuerzo + vAlmuerzo;
                     vAlmuerzoExtra = (vAlmuerzo * vDiasAlimento) + vAlmuerzoTotal;
-                    LBAlmuerzo.Text = vAlmuerzoExtra.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoExtra);
                     vCenaTotal = vCena + vCena;
                     vCenaExtra = (vCena * vDiasAlimento) + vCenaTotal;
-                    LBCena.Text = vCenaExtra.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaExtra);
                 }
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour <= 18)
                 {
                     vDesayunoExtra = (vDesayuno * vDiasAlimento) + vDesayuno;
-                    LBDesayuno.Text = vDesayunoExtra.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoExtra);
                     vAlmuerzoTotal = vAlmuerzo + vAlmuerzo;
                     vAlmuerzoExtra = (vAlmuerzo * vDiasAlimento) + vAlmuerzoTotal;
-                    LBAlmuerzo.Text = vAlmuerzoExtra.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoExtra);
                     vCenaExtra = (vCena * vDiasAlimento) + vCena;
-                    LBCena.Text = vCenaExtra.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaExtra);
                 }
                 if (vHoraInicio.Hour > 14 && vHoraFin.Hour >= 19)
                 {
                     vDesayunoExtra = (vDesayuno * vDiasAlimento) + vDesayuno;
-                    LBDesayuno.Text = vDesayunoExtra.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoExtra);
                     vAlmuerzoExtra = (vAlmuerzo * vDiasAlimento) + vAlmuerzo;
-                    LBAlmuerzo.Text = vAlmuerzoExtra.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoExtra);
                     vCenaTotal = vCena + vCena;
                     vCenaExtra = (vCena * vDiasAlimento) + vCenaTotal;
-                    LBCena.Text = vCenaExtra.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaExtra);
                 }
                 if (vHoraInicio.Hour > 7 && vHoraFin.Hour < 11)
                 {
                     vDesayunoExtra = (vDesayuno * vDiasAlimento) + vDesayuno;
-                    LBDesayuno.Text = vDesayunoExtra.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoExtra);
                     vAlmuerzoExtra = (vAlmuerzo * vDiasAlimento) + vAlmuerzo;
-                    LBAlmuerzo.Text = vAlmuerzoExtra.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoExtra);
                     vCenaExtra = (vCena * vDiasAlimento) + vCena;
-                    LBCena.Text = vCenaExtra.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaExtra);
                 }
                 if (vHoraInicio.Hour > 14 && vHoraFin.Hour < 19)
                 {
                     vDesayunoExtra = (vDesayuno * vDiasAlimento) + vDesayuno;
-                    LBDesayuno.Text = vDesayunoExtra.ToString();
+                    LBDesayuno.Text = string.Format("{0:N2}", vDesayunoExtra);
                     vAlmuerzoExtra = (vAlmuerzo * vDiasAlimento) + vAlmuerzo;
-                    LBAlmuerzo.Text = vAlmuerzoExtra.ToString();
+                    LBAlmuerzo.Text = string.Format("{0:N2}", vAlmuerzoExtra);
                     vCenaExtra = (vCena * vDiasAlimento) + vCena;
-                    LBCena.Text = vCenaExtra.ToString();
+                    LBCena.Text = string.Format("{0:N2}", vCenaExtra);
                 }
             }
             if (DDLHotel.SelectedValue != "x")
@@ -1404,7 +1407,7 @@ namespace BiometricoWeb.pages.viaticos
         void calcularTransporte()
         {
             if (DDLTransporte.SelectedValue == "3" && DDLTipoViaje.SelectedValue == "1")
-                LBTransporte.Text = Session["TRANSPORTE_VIATICOS"].ToString();
+                LBTransporte.Text = string.Format("{0:N2}", Convert.ToDecimal( Session["TRANSPORTE_VIATICOS"]));
 
             if (DDLTransporte.SelectedValue == "2" && DDLTipoViaje.SelectedValue == "1")
                 LBTransporte.Text = "0";
@@ -1415,7 +1418,7 @@ namespace BiometricoWeb.pages.viaticos
             if (DDLTransporte.SelectedValue == "2" && DDLTipoViaje.SelectedValue == "1")
             {
                 Decimal vDepreciacion = Convert.ToDecimal(Session["VIATICOS_KM"]) * Convert.ToDecimal(Session["DEPRECIACION_VIATICOS"]);
-                LBDepresiacion.Text = vDepreciacion.ToString();
+                LBDepresiacion.Text = string.Format("{0:N2}", vDepreciacion);
                 //LBDepresiacion.Text = vDepreciacion.ToString().Contains(",")? vDepreciacion.ToString().Replace(",","."): vDepreciacion.ToString();
                 Session["DEPRECIACION_C"] = vDepreciacion;
                
@@ -1424,11 +1427,11 @@ namespace BiometricoWeb.pages.viaticos
         void calcularPeaje()
         {
             if (DDLTransporte.SelectedValue == "4" && DDLTipoViaje.SelectedValue == "1")
-                LBPeaje.Text = "100";
+                LBPeaje.Text = string.Format("{0:N2}", 100);
             if (DDLTransporte.SelectedValue == "2" && DDLTipoViaje.SelectedValue == "1")
             {
                 Decimal vPeaje = Convert.ToDecimal(Session["PEAJE_VIATICOS"]) * Convert.ToDecimal(Session["VIATICOS_PEAJE"]);
-                LBPeaje.Text = vPeaje.ToString();
+                LBPeaje.Text = string.Format("{0:N2}", vPeaje);
                 //LBPeaje.Text = vPeaje.ToString().Contains(",")? vPeaje.ToString().Replace(",","."): vPeaje.ToString();
             }
             if (DDLTransporte.SelectedValue == "1" && DDLTipoViaje.SelectedValue == "1")
@@ -1436,7 +1439,7 @@ namespace BiometricoWeb.pages.viaticos
                 if (Convert.ToString(Session["ID_PUESTO"]) == "20000409" || Convert.ToString(Session["ID_PUESTO"]) == "20000410")
                 {
                     Decimal vPeaje = Convert.ToDecimal(Session["PEAJE_VIATICOS"]) * Convert.ToDecimal(Session["VIATICOS_PEAJE"]);
-                    LBPeaje.Text = vPeaje.ToString();
+                    LBPeaje.Text = string.Format("{0:N2}", vPeaje);
                     //LBPeaje.Text = vPeaje.ToString().Contains(",") ? vPeaje.ToString().Replace(",", ".") : vPeaje.ToString();
                 }
             }
@@ -1445,32 +1448,23 @@ namespace BiometricoWeb.pages.viaticos
         void calcularEmergencia()
         {
             if (DDLTipoViaje.SelectedValue == "1" && CBEmergencia.Checked == true)
-                LBEmergencia.Text = "500";
+                LBEmergencia.Text = string.Format("{0:N2}", 500);
             else
                 LBEmergencia.Text = "0";
         }
         void calcularTotal()
         {
 
-            //Decimal vHospedaje = Convert.ToDecimal(LBHospedaje.Text).ToString().Contains(".") ?  Convert.ToDecimal(LBHospedaje.Text): Convert.ToDecimal(LBHospedaje.Text.Replace(",", "."));
-            //Decimal vDepresiacion = Convert.ToDecimal(LBDepresiacion.Text).ToString().Contains(".") ? Convert.ToDecimal(LBDepresiacion.Text): Convert.ToDecimal(LBDepresiacion.Text.Replace(",", "."));
-            //Decimal vSubTotal = vHospedaje + Convert.ToInt32(LBDesayuno.Text) + Convert.ToInt32(LBAlmuerzo.Text) + Convert.ToInt32(LBCena.Text) + vDepresiacion + Convert.ToInt32(LBTransporte.Text) + Convert.ToInt32(LBPeaje.Text) + Convert.ToInt32(LBCirculacion.Text);
-            //LBSubTotal.Text = vSubTotal.ToString().Contains(",")? vSubTotal.ToString().Replace(",","."): vSubTotal.ToString();
-            //Decimal vTotal = vHospedaje + Convert.ToInt32(LBDesayuno.Text) + Convert.ToInt32(LBAlmuerzo.Text) + Convert.ToInt32(LBCena.Text) + vDepresiacion + Convert.ToInt32(LBTransporte.Text) + Convert.ToInt32(LBPeaje.Text) + Convert.ToInt32(LBCirculacion.Text) + Convert.ToInt32(LBEmergencia.Text);
-            //LBTotal.Text = vTotal.ToString().Contains(",")? vTotal.ToString().Replace(",","."): vTotal.ToString(); 
-            ////Decimal vTsoli = Convert.ToDecimal(LBHospedaje.Text) + Convert.ToDecimal(LBDesayuno.Text) + Convert.ToDecimal(LBAlmuerzo.Text) + Convert.ToDecimal(LBCena.Text) + Convert.ToDecimal(LBTransporte.Text) + Convert.ToDecimal(LBPeaje.Text) + Convert.ToDecimal(LBCirculacion.Text) + Convert.ToDecimal(LBEmergencia.Text);
-            //Decimal vTsoli = vTotal - vDepresiacion;
-            //LBTSoli.Text = vTsoli.ToString().Contains(",")? vTsoli.ToString().Replace(",","."): vTsoli.ToString();
+           
+            Decimal vSubTotal = Convert.ToDecimal(Session["HOSPEDAJE_C"]) + Convert.ToDecimal(LBDesayuno.Text) + Convert.ToDecimal(LBAlmuerzo.Text) + Convert.ToDecimal(LBCena.Text) + Convert.ToDecimal(Session["DEPRECIACION_C"]) + Convert.ToDecimal(LBTransporte.Text) + Convert.ToDecimal(LBPeaje.Text) + Convert.ToDecimal(LBCirculacion.Text);
+            LBSubTotal.Text = string.Format("{0:N2}", vSubTotal);
 
-            Decimal vSubTotal = Convert.ToDecimal(Session["HOSPEDAJE_C"]) + Convert.ToInt32(LBDesayuno.Text) + Convert.ToInt32(LBAlmuerzo.Text) + Convert.ToInt32(LBCena.Text) + Convert.ToDecimal(Session["DEPRECIACION_C"]) + Convert.ToInt32(LBTransporte.Text) + Convert.ToInt32(LBPeaje.Text) + Convert.ToInt32(LBCirculacion.Text);
-            LBSubTotal.Text = vSubTotal.ToString();
-            //LBSubTotal.Text = vSubTotal.ToString().Contains(",") ? vSubTotal.ToString().Replace(",", ".") : vSubTotal.ToString();
-            Decimal vTotal = Convert.ToDecimal(Session["HOSPEDAJE_C"]) + Convert.ToInt32(LBDesayuno.Text) + Convert.ToInt32(LBAlmuerzo.Text) + Convert.ToInt32(LBCena.Text) + Convert.ToDecimal(Session["DEPRECIACION_C"]) + Convert.ToInt32(LBTransporte.Text) + Convert.ToInt32(LBPeaje.Text) + Convert.ToInt32(LBCirculacion.Text) + Convert.ToInt32(LBEmergencia.Text);
-            LBTotal.Text = vTotal.ToString();
-            //LBTotal.Text = vTotal.ToString().Contains(",")? vTotal.ToString().Replace(",","."): vTotal.ToString();
+            Decimal vTotal = Convert.ToDecimal(Session["HOSPEDAJE_C"]) + Convert.ToDecimal(LBDesayuno.Text) + Convert.ToDecimal(LBAlmuerzo.Text) + Convert.ToDecimal(LBCena.Text) + Convert.ToDecimal(Session["DEPRECIACION_C"]) + Convert.ToDecimal(LBTransporte.Text) + Convert.ToDecimal(LBPeaje.Text) + Convert.ToDecimal(LBCirculacion.Text) + Convert.ToDecimal(LBEmergencia.Text);
+            LBTotal.Text = string.Format("{0:N2}", vTotal);
+
             Decimal vTsoli = vTotal - Convert.ToDecimal(Session["DEPRECIACION_C"]);
-            LBTSoli.Text = vTsoli.ToString();
-            //LBTSoli.Text = vTsoli.ToString().Contains(",")? vTsoli.ToString().Replace(",","."): vTsoli.ToString();
+            LBTSoli.Text = string.Format("{0:N2}", vTsoli);
+
 
             if (DDLTipoViaje.SelectedValue == "2")
             {
@@ -1481,14 +1475,14 @@ namespace BiometricoWeb.pages.viaticos
                     if (Convert.ToInt32(Session["VIATICOS_DIAS"]) == 0)
                     {
                         Decimal vTotalInternacional = (vTotal + Convert.ToDecimal(Session["CABELICE_VIATICOS"]));
-                        LBTotal.Text = vTotalInternacional.ToString();
-                        LBSubTotal.Text = vTotalInternacional.ToString();
+                        LBTotal.Text = string.Format("{0:N2}", vTotalInternacional);
+                        LBSubTotal.Text = string.Format("{0:N2}", vTotalInternacional);
                     }
                     else if (Convert.ToInt32(Session["VIATICOS_DIAS"]) >= 1)
                     {
-                        Decimal vTotalInternacional = Convert.ToInt32(LBCirculacion.Text) + (Convert.ToDecimal(Session["CABELICE_VIATICOS"]) * Convert.ToDecimal(Session["VIATICOS_DIAS"]));
-                        LBTotal.Text = vTotalInternacional.ToString();
-                        LBSubTotal.Text = vTotalInternacional.ToString();
+                        Decimal vTotalInternacional = Convert.ToDecimal(LBCirculacion.Text) + (Convert.ToDecimal(Session["CABELICE_VIATICOS"]) * Convert.ToDecimal(Session["VIATICOS_DIAS"]));
+                        LBTotal.Text = string.Format("{0:N2}", vTotalInternacional);
+                        LBSubTotal.Text = string.Format("{0:N2}", vTotalInternacional);
                     }
                 }
                 if (DDLDestinoF.SelectedValue == "273")
@@ -1496,14 +1490,14 @@ namespace BiometricoWeb.pages.viaticos
                     if (Convert.ToInt32(Session["VIATICOS_DIAS"]) == 0)
                     {
                         Decimal vTotalInternacional = vTotal + Convert.ToDecimal(Session["PAISDOLAR_VIATICOS"]);
-                        LBTotal.Text = vTotalInternacional.ToString();
-                        LBSubTotal.Text = vTotalInternacional.ToString();
+                        LBTotal.Text = string.Format("{0:N2}", vTotalInternacional);
+                        LBSubTotal.Text = string.Format("{0:N2}", vTotalInternacional);
                     }
                     else if (Convert.ToInt32(Session["VIATICOS_DIAS"]) >= 1)
                     {
                         Decimal vTotalInternacional = vTotal + (Convert.ToDecimal(Session["PAISDOLAR_VIATICOS"]) * Convert.ToDecimal(Session["VIATICOS_DIAS"]));
-                        LBTotal.Text = vTotalInternacional.ToString();
-                        LBSubTotal.Text = vTotalInternacional.ToString();
+                        LBTotal.Text = string.Format("{0:N2}", vTotalInternacional);
+                        LBSubTotal.Text = string.Format("{0:N2}", vTotalInternacional);
                     }
                 }
                 if (DDLDestinoF.SelectedValue == "274")
@@ -1511,14 +1505,14 @@ namespace BiometricoWeb.pages.viaticos
                     if (Convert.ToInt32(Session["VIATICOS_DIAS"]) == 0)
                     {
                         Decimal vTotalInternacional = vTotal + Convert.ToDecimal(Session["PAISNODOLAR_VIATICOS"]);
-                        LBTotal.Text = vTotalInternacional.ToString();
-                        LBSubTotal.Text = vTotalInternacional.ToString();
+                        LBTotal.Text = string.Format("{0:N2}", vTotalInternacional);
+                        LBSubTotal.Text = string.Format("{0:N2}", vTotalInternacional);
                     }
                     else if (Convert.ToInt32(Session["VIATICOS_DIAS"]) >= 1)
                     {
                         Decimal vTotalInternacional = vTotal + (Convert.ToDecimal(Session["PAISNODOLAR_VIATICOS"]) * Convert.ToDecimal(Session["VIATICOS_DIAS"]));
-                        LBTotal.Text = vTotalInternacional.ToString();
-                        LBSubTotal.Text = vTotalInternacional.ToString();
+                        LBTotal.Text = string.Format("{0:N2}", vTotalInternacional);
+                        LBSubTotal.Text = string.Format("{0:N2}", vTotalInternacional);
                     }
                 }
 
@@ -1781,6 +1775,8 @@ namespace BiometricoWeb.pages.viaticos
             string vSolicitante = "";
             string vSubGerencia = "";
             string vCategoria = "";
+            string vSubGerenciaA = "";
+            string vCategoriaA = "";
             string vCotizacion = "";
             string vIDViaticos = Session["VIATICOS_CODIGO"].ToString();
             string vAprobador = Session["USUARIO"].ToString();
@@ -1801,8 +1797,16 @@ namespace BiometricoWeb.pages.viaticos
             foreach (DataRow item in vDatos2.Rows)
             {
                 vCotizacion = item["idViaticos"].ToString();
-
             }
+
+            String vQueryA = "VIATICOS_Solicitud 12,'" + vAprobador + "'";
+            DataTable vDatosA = vConexion.obtenerDataTable(vQueryA);
+            foreach (DataRow item in vDatosA.Rows)
+            {
+                vSubGerenciaA = item["SubGerencia"].ToString();
+                vCategoriaA= item["Categoria"].ToString();
+            }
+
             //OBTENER CORREOS DE PARTICIPANTES
             string vQueryD = "VIATICOS_ObtenerGenerales 48," + Session["VIATICOS_CODIGO"];
             DataTable vDatosEmpleado = vConexion.obtenerDataTable(vQueryD);
@@ -1813,7 +1817,7 @@ namespace BiometricoWeb.pages.viaticos
             DataTable vDatosUsuario = (DataTable)Session["AUTHCLASS"];           
             //OBTENER CORREOS DE PARTICIPANTES
 
-            if (vEstado == "6" && vTransporte != "2" && vTransporte != "4")
+            if ((vEstado == "6" && vTransporte != "2" && vTransporte != "4") || (vEstado == "1" && vTransporte != "2" && vTransporte != "4" && (vCategoriaA=="2" || vCategoriaA == "1")))
             {
                 String vNewEstado = "7";
                 string vQueryNE = "VIATICOS_Solicitud 8, '" + Session["VIATICOS_CODIGO"].ToString() + "','" + vNewEstado + "','" + Session["USUARIO"].ToString() + "','" + DDLVehiculo.SelectedValue + "','" + DDLEmpleado.SelectedValue + "'";
@@ -1906,7 +1910,7 @@ namespace BiometricoWeb.pages.viaticos
                         }
                     }
                 }
-                //ENVIAR A JEFE APRUEBA
+                //ENVIAR A JEFE 
                 if (vDatosUsuario.Rows.Count > 0)
                 {
                     foreach (DataRow item in vDatosUsuario.Rows)
@@ -2683,7 +2687,7 @@ namespace BiometricoWeb.pages.viaticos
                         {
 
                             string vReporteViaticos = "Recibo Solicitud";
-                            string vCorreoAdministrativo = "dzepeda@bancatlan.hn";
+                            string vCorreoAdministrativo = "dzepeda@bancatlan.hn;gcruz@bancatlan.hn";
                             //string vCorreoAdministrativo = "acedillo@bancatlan.hn";
                             string vAsuntoRV = "Recibo de viaje";
                             string vBody = "Aprobación de viaje";
@@ -2728,10 +2732,10 @@ namespace BiometricoWeb.pages.viaticos
                                     "'" + txtMotivoVehiculo.Text + "', '" + Session["USUARIO"].ToString() + "'," +
                                     "'" + DDLDestinoI.SelectedValue + "','" + DDLHotel.SelectedValue + "'," +
                                     "'" + DDLHabitacion.SelectedValue + "','" + vEmergencia + "', '" + txtNewPais.Text + "'," +
-                                    "'" + txtNewHotel.Text + "','" + vDesayuno + "','" + LBHospedaje.Text.Replace(',', '.') + "'," +
-                                    "'" + LBDesayuno.Text.Replace(',', '.') + "','" + LBAlmuerzo.Text.Replace(',', '.') + "','" + LBCena.Text.Replace(',', '.') + "','" + LBDepresiacion.Text.Replace(',', '.') + "'," +
-                                    "'" + LBTransporte.Text.Replace(',', '.') + "','" + LBEmergencia.Text.Replace(',', '.') + "','" + LBPeaje.Text.Replace(',', '.') + "','" + LBCirculacion.Text.Replace(',', '.') + "'," +
-                                    "'" + LBSubTotal.Text.Replace(',', '.') + "','" + LBTotal.Text.Replace(',', '.') + "','" + Session["USUARIO"].ToString() + "','" + DDLDestinoF.SelectedValue + "'";
+                                    "'" + txtNewHotel.Text + "','" + Convert.ToDecimal(vDesayuno) + "','" + Convert.ToDecimal(LBHospedaje.Text) + "'," +
+                                    "'" + Convert.ToDecimal(LBDesayuno.Text) + "','" + Convert.ToDecimal(LBAlmuerzo.Text) + "','" + Convert.ToDecimal(LBCena.Text) + "','" + Convert.ToDecimal(LBDepresiacion.Text) + "'," +
+                                    "'" + Convert.ToDecimal(LBTransporte.Text) + "','" + Convert.ToDecimal(LBEmergencia.Text) + "','" + Convert.ToDecimal(LBPeaje.Text) + "','" + Convert.ToDecimal(LBCirculacion.Text) + "'," +
+                                    "'" + Convert.ToDecimal(LBSubTotal.Text) + "','" + Convert.ToDecimal(LBTotal.Text) + "','" + Session["USUARIO"].ToString() + "','" + DDLDestinoF.SelectedValue + "'";
                     Int32 vInfo = vConexion.ejecutarSql(vQuery);
                     if (vInfo != 0)
                     {
@@ -2770,10 +2774,10 @@ namespace BiometricoWeb.pages.viaticos
                                     "'" + txtMotivoVehiculo.Text + "', '" + Session["USUARIO"].ToString() + "'," +
                                     "'" + DDLDestinoI.SelectedValue + "','" + DDLHotel.SelectedValue + "'," +
                                     "'" + DDLHabitacion.SelectedValue + "','" + vEmergencia + "', '" + txtNewPais.Text + "'," +
-                                    "'" + txtNewHotel.Text + "','" + vDesayuno + "','" + LBHospedaje.Text.Replace(',', '.') + "'," +
-                                    "'" + LBDesayuno.Text.Replace(',', '.') + "','" + LBAlmuerzo.Text.Replace(',', '.') + "','" + LBCena.Text.Replace(',', '.') + "','" + LBDepresiacion.Text.Replace(',', '.') + "'," +
-                                    "'" + LBTransporte.Text.Replace(',', '.') + "','" + LBEmergencia.Text.Replace(',', '.') + "','" + LBPeaje.Text.Replace(',', '.') + "','" + LBCirculacion.Text.Replace(',', '.') + "'," +
-                                    "'" + LBSubTotal.Text.Replace(',', '.') + "','" + LBTotal.Text.Replace(',', '.') + "','" + Session["USUARIO"].ToString() + "','" + DDLDestinoF.SelectedValue + "'";
+                                    "'" + txtNewHotel.Text + "','" + Convert.ToDecimal(vDesayuno) + "','" + Convert.ToDecimal(LBHospedaje.Text) + "'," +
+                                    "'" + Convert.ToDecimal(LBDesayuno.Text) + "','" + Convert.ToDecimal(LBAlmuerzo.Text) + "','" + Convert.ToDecimal(LBCena.Text) + "','" + Convert.ToDecimal(LBDepresiacion.Text) + "'," +
+                                    "'" + Convert.ToDecimal(LBTransporte.Text) + "','" + Convert.ToDecimal(LBEmergencia.Text) + "','" + Convert.ToDecimal(LBPeaje.Text) + "','" + Convert.ToDecimal(LBCirculacion.Text) + "'," +
+                                    "'" + Convert.ToDecimal(LBSubTotal.Text) + "','" + Convert.ToDecimal(LBTotal.Text) + "','" + Session["USUARIO"].ToString() + "','" + DDLDestinoF.SelectedValue + "'";
                     Int32 vInfo = vConexion.ejecutarSql(vQuery);
                     if (vInfo == 1)
                     {
@@ -2924,7 +2928,7 @@ namespace BiometricoWeb.pages.viaticos
                                 typeBody.Viaticos,
                                 item["Nombre"].ToString(),
                                 "/pages/viaticos/devolverViaticos.aspx",
-                                "Se ha regresado solicitud de viáticos.</b>Motivo: " + txtcomentarioAprobar
+                                "Se ha regresado solicitud de viáticos.</b>Motivo: " + txtcomentarioAprobar.Text
                                 );
                         }
                     }
@@ -3130,9 +3134,11 @@ namespace BiometricoWeb.pages.viaticos
             vService.EnviarMensaje("acedillo@bancatlan.hn",
                             typeBody.Viaticos,
                             "Adan Cedillo",
-                            "/pages/viaticos/solicitudViaticos.aspx", 
-                            "Se ha creado una solicitud de viaticos exitosamente."                           
-                            );  
+                            "/pages/viaticos/solicitudViaticos.aspx",
+                            "Se ha enviado solicitud de viáticos a su jefe para ser aprobado."
+                            );
+
+           
         }
 
         protected void BtnConfirmarTransporte_Click(object sender, EventArgs e)

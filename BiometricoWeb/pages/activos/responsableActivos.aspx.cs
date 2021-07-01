@@ -161,7 +161,7 @@ namespace BiometricoWeb.pages.activos
         protected void BtnAceptar_Click(object sender, EventArgs e){
             try{
                 xml vDatosXML = new xml();
-                Object[] vDatosMaestro = new object[22];
+                Object[] vDatosMaestro = new object[23];
                 String vMarca = "", vModelo = "", vUbicacion = "", vCat = "";
                 vCat = Session["ACTIVOS_CAT"].ToString();
                 if (vCat == "1" || vCat == "4"){ 
@@ -178,18 +178,18 @@ namespace BiometricoWeb.pages.activos
                     vUbicacion = TxUbicacionUPS.Text;
                 }
 
-                for (int i = 0; i < 13; i++){
+                for (int i = 0; i < 14; i++){
                     vDatosMaestro[i] = "";
                 }
-                vDatosMaestro[13] = Session["USUARIO"].ToString();
-                vDatosMaestro[14] = vMarca;
-                vDatosMaestro[15] = vModelo;
-                vDatosMaestro[16] = TxMemoria.Text;
-                vDatosMaestro[17] = TxDisco.Text;
-                vDatosMaestro[18] = TxProcesador.Text;
-                vDatosMaestro[19] = vUbicacion;
-                vDatosMaestro[20] = TxKvaUPS.Text;
-                vDatosMaestro[21] = TxWattsUPS.Text;
+                vDatosMaestro[14] = Session["USUARIO"].ToString();
+                vDatosMaestro[15] = vMarca;
+                vDatosMaestro[16] = vModelo;
+                vDatosMaestro[17] = TxMemoria.Text;
+                vDatosMaestro[18] = TxDisco.Text;
+                vDatosMaestro[19] = TxProcesador.Text;
+                vDatosMaestro[20] = vUbicacion;
+                vDatosMaestro[21] = TxKvaUPS.Text;
+                vDatosMaestro[22] = TxWattsUPS.Text;
                 String vXML = vDatosXML.ObtenerXMLActivos(vDatosMaestro);
                 vXML = vXML.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
 

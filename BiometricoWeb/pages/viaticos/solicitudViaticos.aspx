@@ -630,7 +630,7 @@
                    <div class="row col-12">
                        <asp:Label Text="&nbsp&nbspEl uso de vehículo propio queda a cuenta y riesgo del colaborador." runat="server" />
                        <asp:Label Text="&nbsp&nbspCualquier tipo de daño INFATLAN no se hará cargo." runat="server" /><br /><br />
-                       <asp:Label Text="&nbsp&nbspAl aceptar esta condición confirma que está deacuerdo con lo &nbsp&nbspmencionado, caso contrario no se le permitirá utilizar vehículo &nbsp&nbsppersonal." runat="server" />
+                       <asp:Label Text="&nbsp&nbspAl aceptar esta condición confirma que está de acuerdo con lo &nbsp&nbspmencionado, caso contrario no se le permitirá utilizar vehículo &nbsp&nbsppersonal." runat="server" />
                    </div><br />
                     <asp:UpdatePanel ID="UpdatePanel7" runat="server">
                         <ContentTemplate>

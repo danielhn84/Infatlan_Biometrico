@@ -255,6 +255,7 @@ namespace BiometricoWeb.pages.viaticos
                         Session["VIATICOS_FECHA_INICIO"] = Convert.ToDateTime(item["FechaI"]).ToString("dd/MM/yyyy HH:mm:ss");
                         Session["VIATICOS_FECHA_FIN"] = Convert.ToDateTime(item["FechaF"]).ToString("dd/MM/yyyy HH:mm:ss");
                         Session["VIATICOS_IDEMPLEADO"] = item["IDEmpleado"].ToString();
+                        Session["VIATICOS_LIQ_IDEMPLEADO"] = item["IDEmpleado"].ToString();
                         Session["VIATICOS_EMERGENCIA"] = item["Emergencia"].ToString();
                         Session["VIATICOS_NEWPAIS"] = item["NewPais"].ToString();
                         Session["VIATICOS_NEWHOTEL"] = item["NewHotel"].ToString();

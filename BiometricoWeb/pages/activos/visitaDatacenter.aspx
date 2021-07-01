@@ -457,11 +457,7 @@
                                                         <asp:BoundField DataField="empresa" ItemStyle-HorizontalAlign="center" HeaderText="Empresa" ItemStyle-Width="15%" />
                                                         <asp:BoundField DataField="ingresoEquipo" ItemStyle-HorizontalAlign="center" HeaderText="Ingeso Equipo" ItemStyle-Width="12%" />
                                                         <asp:BoundField DataField="permisoCel" ItemStyle-HorizontalAlign="center" HeaderText="Permiso Celular" ItemStyle-Width="12%" />
-                                                        <asp:TemplateField HeaderStyle-Width="10px" ItemStyle-HorizontalAlign="center" HeaderText="Acción">
-                                                            <ItemTemplate>
-                                                                <asp:LinkButton ID="BtnInfo" runat="server" class="btn btn-secondary" Title="Ver" CommandArgument='<%# Eval("identidad") %>' CommandName="informacion"><i class="mdi mdi-information text-white""></i> </asp:LinkButton>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
+                                                        
                                                     </Columns>
                                                 </asp:GridView>
                                             </div>

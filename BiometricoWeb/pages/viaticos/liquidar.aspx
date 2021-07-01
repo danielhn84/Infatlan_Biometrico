@@ -228,8 +228,8 @@
                                 <td><asp:DropDownList ID="DDLTipoFactura" OnTextChanged="DDLTipoFactura_TextChanged" runat="server" AutoPostBack="true" CssClass="form-control"></asp:DropDownList></td>   
                                 <td><div style="text-align:center;"><asp:CheckBox ID="CBFactura" OnCheckedChanged="CBFactura_CheckedChanged" Checked="true" AutoPostBack="true" runat="server"  /></div></td>
                                 <td><asp:TextBox AutoPostBack="true" ID="txtFechaFactura" OnTextChanged="txtFechaFactura_TextChanged" placeholder="1900-12-31" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox></td>
-                                <td><asp:TextBox ID="txtcantidad" runat="server" CssClass="form-control" TextMode="Number" AutoPostBack="true"></asp:TextBox></td>
-                                <td><asp:TextBox ID="txtNoFactura" MaxLength="4" runat="server" CssClass="form-control" TextMode="Number" AutoPostBack="true"></asp:TextBox></td>
+                                <td><asp:TextBox ID="txtcantidad" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox></td>
+                                <td><asp:TextBox ID="txtNoFactura" MaxLength="4" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox></td>
                                 <td> <asp:LinkButton runat="server" ID="btnAceptarF" OnClick="btnAceptarF_Click" Text="" CssClass="btn btn-success  ti-check-box mr-2"> <i class="mdi mdi-thumb-up" ></i></asp:LinkButton></td>
                             </tr>                              
                            
@@ -263,7 +263,7 @@
                                                    <asp:BoundField DataField="IDTipoFactura" HeaderText="Codigo Tipo" Visible="false" ItemStyle-HorizontalAlign="center" />
                                                     <asp:BoundField DataField="TipoFactura" HeaderText="Tipo Factura" ItemStyle-HorizontalAlign="center" />
                                                    <asp:BoundField DataField="Fecha" HeaderText="Fecha" ItemStyle-HorizontalAlign="center" />
-                                                   <asp:BoundField DataField="Monto" HeaderText="Monto" ItemStyle-HorizontalAlign="center" />
+                                                   <asp:BoundField DataField="Monto" HeaderText="Monto" HtmlEncode=False DataFormatString="{0:N2}" ItemStyle-HorizontalAlign="center" />
                                                    <asp:BoundField DataField="NoFac" HeaderText="No. Factura" ItemStyle-HorizontalAlign="center" />
                                                     <asp:BoundField DataField="Hora" HeaderText="Hora" Visible="false" ItemStyle-HorizontalAlign="center" />
                                                     <asp:TemplateField  HeaderStyle-Width="60px" ItemStyle-HorizontalAlign="center">

@@ -67,7 +67,7 @@
                 <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end ">
                     <ul class="navbar-nav mr-lg-4 w-100">
                         <li class="nav-item nav-search d-none d-lg-block w-100">
-                            <img src="/images/rh.png" alt="logo" />
+                            <img src="/images/rh4.png" alt="logo" />
                         </li>
                     </ul>
                     <ul class="navbar-nav navbar-nav-right">
@@ -76,7 +76,7 @@
                         <li class="nav-item nav-profile dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                                 <img src="/images/faces/face5.jpg" alt="profile" />
-                                <span class="nav-profile-name">
+                                <span class="nav-profile-name text-white">
                                     <asp:Literal ID="LitUsuario" runat="server"></asp:Literal>
                                 </span>
                             </a>
@@ -84,7 +84,7 @@
                                 <a class="dropdown-item" href="/logout.aspx">
                                     <i class="mdi mdi-logout text-primary"></i>
                                     Logout
-                            </a>
+                                </a>
                             </div>
                         </li>
                     </ul>
@@ -101,7 +101,7 @@
                        
                         <li class="nav-item" runat="server" visible="true" id="LIDashboard">
                             <a class="nav-link" href="/default.aspx">
-                                <i class="mdi mdi-home menu-icon"></i>
+                                <i class="mdi mdi-chart-pie menu-icon"></i>
                                 <span class="menu-title">Dashboard</span>
                             </a>
                         </li>
@@ -110,7 +110,7 @@
                         
                         <li class="nav-item" id="LIServicios" runat="server" visible="true" style="list-style-type: none;">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basic6" aria-expanded="false" aria-controls="ui-basic6">
-                                <i class="mdi mdi-store menu-icon"></i><span class="menu-title">Servicios</span><i class="menu-arrow"></i>
+                                <i class="mdi mdi-home menu-icon"></i><span class="menu-title">Servicios</span><i class="menu-arrow"></i>
                             </a>
                             <div class="collapse" id="ui-basic6">
                                 <ul class="nav flex-column sub-menu">
@@ -146,6 +146,18 @@
                                             <span class="menu-title">Permisos</span>
                                         </a>
                                     </li>
+
+                                    <li class="" id="LIParqueos" runat="server" visible="false" style="margin-left:-20%; cursor:pointer;">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <i class="mdi mdi-car menu-icon"></i>
+                                            <span class="menu-title">Parqueos</span>
+                                        </a>
+                                        <div class="dropdown-menu" id="ui-basic17">
+                                            <a class="nav-link" href="/pages/servicios/parkingRequest.aspx">Gestión</a>
+                                            <a class="nav-link" href="/pages/servicios/parkingList.aspx">Listados</a>
+                                        </div>
+                                    </li>
+
                                 </ul>
                             </div>
                         </li>
@@ -226,9 +238,9 @@
                             </div>
                         </li>
 
-                        <li class="nav-item" id="LIViaticos" runat="server" visible="false">
+                        <li class="nav-item" id="LIViaticos" runat="server" visible="true">
                             <a class="nav-link" data-toggle="collapse" href="#ui-basicV" aria-expanded="false" aria-controls="ui-basic5">
-                                <i class="mdi mdi-car menu-icon"></i>
+                                <i class="mdi mdi-map-marker-radius menu-icon"></i>
                                 <span class="menu-title">Viáticos</span>
                                 <i class="menu-arrow"></i>
                             </a>
@@ -387,7 +399,7 @@
                                 <span class="menu-title">Activos</span>
                                 <i class="menu-arrow"></i>
                             </a>
-                            <div class="show" id="ui-basic14">
+                            <div class="collapse" id="ui-basic14">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="" runat="server" visible="false" id="LIVisitas" style="margin-left:-20%">
                                         <a class="nav-link" href="/pages/activos/visitas.aspx">

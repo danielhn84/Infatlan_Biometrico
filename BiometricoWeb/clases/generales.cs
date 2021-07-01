@@ -106,5 +106,21 @@ namespace BiometricoWeb.clases
 
             return businessDays;
         }
+
+        public bool Permisos(DataTable vDatosLogin, String vPermiso){
+            Boolean vFlag = false;
+            try{
+                String vQuery = "RSP_Perfiles 1," + vDatosLogin.Rows[0]["idEmpleado"].ToString();
+                DataTable vDatosPerfil = vConexion.obtenerDataTable(vQuery);
+                
+                for (int i = 0; i < vDatosPerfil.Rows.Count; i++){
+                    if (vDatosPerfil.Rows[i]["idPerfil"].ToString() == vPermiso){
+                        vFlag = true;
+                        break;
+                    }
+                }
+            }catch { vFlag = false; }
+            return vFlag;
+        }
     }
 }

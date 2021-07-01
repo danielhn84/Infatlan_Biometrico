@@ -136,11 +136,11 @@ namespace BiometricoWeb.pages.viaticos
             if (Session["LIQ_ESTADO2"].ToString() == "2")
             {
                 //vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"].ToString().Replace('.', ','));
-                vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".")? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".",","): Session["VIATICOS_LIQ_TOTAL"]);
+                vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]);
             }
             else
             {
-                vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"].ToString().Contains(".") ? Session["VIATICOS_LIQ_TOTAL"].ToString().Replace(".", ",") : Session["VIATICOS_LIQ_TOTAL"]);
+                vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"]);
                 // vTotalLiquidar = Convert.ToDecimal(Session["VIATICOS_LIQ_TOTAL"].ToString().Replace('.', ',')) - Convert.ToDecimal(Session["VIATICOS_COSTODEPRE"]);            
             }
 
@@ -148,16 +148,16 @@ namespace BiometricoWeb.pages.viaticos
             {
                 txtMontoSolicitado.Text = "0";
                 txtMontoLiquidado.Text = "0";
-                txtMontoSolicitado.Text = "$ " + vTotalLiquidar.ToString();
+                txtMontoSolicitado.Text = "$ " + string.Format("{0:N2}", vTotalLiquidar);
                 txtTipoViaje.Text = Convert.ToString(Session["VIATICOS_LIQ_TIPOVIAJE"]);
                 txtSolicitante.Text = Convert.ToString(Session["VIATICOS_LIQ_EMPLEADO"]);
                 txtSAP.Text = Convert.ToString(Session["VIATICOS_LIQ_SAP"]);
                 txtPuesto.Text = Convert.ToString(Session["VIATICOS_LIQ_PUESTO"]);
 
                 LBComentario.Text = "Comentario= " + Session["COMENTARIO_RECIBO"];
-                txtMontoLiquidado.Text = "$ " + Convert.ToString(Session["MONTOLIQUIDADOR"]);
-                Decimal vDiff = vTotalLiquidar - Convert.ToDecimal(Session["MONTOLIQUIDADOR"].ToString().Contains(".")? Session["MONTOLIQUIDADOR"].ToString().Replace(".",","): Session["MONTOLIQUIDADOR"]);
-                txtfechaDiferencia.Text = "$ "+ vDiff.ToString();
+                txtMontoLiquidado.Text = "$ " + string.Format("{0:N2}", Convert.ToDecimal(Session["MONTOLIQUIDADOR"])); 
+                Decimal vDiff = vTotalLiquidar - Convert.ToDecimal(Session["MONTOLIQUIDADOR"]);
+                txtfechaDiferencia.Text = "$ "+ string.Format("{0:N2}", vDiff); 
 
                 txtAlerta.Text = txtSolicitante.Text + " DEBE DEPOSITAR " + txtfechaDiferencia.Text;
             }
@@ -165,16 +165,16 @@ namespace BiometricoWeb.pages.viaticos
             {
                 txtMontoSolicitado.Text = "0";
                 txtMontoLiquidado.Text = "0";
-                txtMontoSolicitado.Text = "L. " + vTotalLiquidar.ToString();
+                txtMontoSolicitado.Text = "L. " + string.Format("{0:N2}", vTotalLiquidar);
                 txtTipoViaje.Text = Convert.ToString(Session["VIATICOS_LIQ_TIPOVIAJE"]);
                 txtSolicitante.Text = Convert.ToString(Session["VIATICOS_LIQ_EMPLEADO"]);
                 txtSAP.Text = Convert.ToString(Session["VIATICOS_LIQ_SAP"]);
                 txtPuesto.Text = Convert.ToString(Session["VIATICOS_LIQ_PUESTO"]);
 
                 LBComentario.Text = "Comentario= " + Session["COMENTARIO_RECIBO"];
-                txtMontoLiquidado.Text = "L. " + Convert.ToString(Session["MONTOLIQUIDADOR"]);
-                Decimal vDiff = vTotalLiquidar - Convert.ToDecimal(Session["MONTOLIQUIDADOR"].ToString().Contains(".") ? Session["MONTOLIQUIDADOR"].ToString().Replace(".", ",") : Session["MONTOLIQUIDADOR"]);
-                txtfechaDiferencia.Text ="L. "+ vDiff.ToString();
+                txtMontoLiquidado.Text = "L. " + string.Format("{0:N2}", Convert.ToDecimal(Session["MONTOLIQUIDADOR"])); 
+                Decimal vDiff = vTotalLiquidar - Convert.ToDecimal(Session["MONTOLIQUIDADOR"]);
+                txtfechaDiferencia.Text ="L. "+ string.Format("{0:N2}", vDiff);
 
                 txtAlerta.Text = txtSolicitante.Text + " DEBE DEPOSITAR " + txtfechaDiferencia.Text;
             }
@@ -218,7 +218,7 @@ namespace BiometricoWeb.pages.viaticos
                                 typeBody.Viaticos,
                                 item["Nombre"].ToString(),
                                 "/pages/viaticos/buscarRecibo.aspx",
-                                "Se ha aprobado solicitud de boucher de liquidación."
+                                "Se ha aprobado solicitud de voucher de liquidación."
                                 );
                         }
                     }
@@ -234,7 +234,7 @@ namespace BiometricoWeb.pages.viaticos
                                 typeBody.Viaticos,
                                 item["nombre"].ToString(),
                                 "/pages/viaticos/buscarRecibo.aspx",
-                                "Se ha aprobado solicitud de boucher de liquidación."
+                                "Se ha aprobado solicitud de voucher de liquidación."
                                 );
                         }
                     }
@@ -253,7 +253,7 @@ namespace BiometricoWeb.pages.viaticos
                                 typeBody.Viaticos,
                                 item["Nombre"].ToString(),
                                 "/pages/viaticos/buscarRecibo.aspx",
-                                "Se ha ingresado una solicitud de boucher de pago de liquidación que requiere de su aprobación."
+                                "Se ha ingresado una solicitud de voucher de pago de liquidación que requiere de su aprobación."
                                 );
                         }
                     }
@@ -269,12 +269,32 @@ namespace BiometricoWeb.pages.viaticos
                                 typeBody.Viaticos,
                                 item["nombre"].ToString(),
                                 "/pages/viaticos/buscarRecibo.aspx",
-                                "Se ha enviado solicitud de boucher de pago de liquidación que será aprobado por Sub Gerencia Administrativa."
+                                "Se ha enviado solicitud de voucher de pago de liquidación que será aprobado por Sub Gerencia Administrativa."
                                 );
                         }
                     }
                 }
             }
+        }
+
+        void enviarSuscripcion()
+        {
+            String vCorreoSolicitante = "";
+            String vQuery4 = "VIATICOS_ObtenerGenerales 50,'" + Session["VIATICOS_LIQ_CODIGO"] + "'";
+            DataTable vDatos4 = vConexion.obtenerDataTable(vQuery4);
+            foreach (DataRow item in vDatos4.Rows)
+            {
+                vCorreoSolicitante = item["Correo"].ToString();
+            }
+
+            string vReporteViaticos = "voucher";
+            string vCorreoAdministrativo = "acedillo@bancatlan.hn;dzepeda@bancatlan.hn;gcruz@bancatlan.hn";
+            //string vCorreoAdministrativo = "acedillo@bancatlan.hn";
+            string vAsuntoRV = "Recibo de pago";
+            string vBody = "Confirmación de pago";
+            int vEstadoSuscripcion = 0;
+            string vQueryRep = "VIATICOS_ObtenerGenerales 51, '" + vReporteViaticos + "','" + vCorreoSolicitante + "','" + vCorreoAdministrativo + "','" + vAsuntoRV + "','" + vBody + "','" + vEstadoSuscripcion + "','" + Session["VIATICOS_LIQ_CODIGO"] + "'";
+            vConexion.ejecutarSql(vQueryRep);
         }
 
         protected void btnModalEnviar_Click(object sender, EventArgs e)
@@ -286,9 +306,10 @@ namespace BiometricoWeb.pages.viaticos
             {
                 string vQuery3 = "VIATICOS_Liquidaciones 9, '" + Session["VIATICOS_LIQ_CODIGO"].ToString() + "','" + Session["USUARIO"].ToString() + "'";
                 Int32 vInfo = vConexion.ejecutarSql(vQuery3);
-                if (vInfo == 1)
+                if (vInfo >= 1)
                 {
                     enviarCorreo();
+                    enviarSuscripcion();
                     HFRecibo.Value = null;
                     limpiarForm();
                     ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "Pop", "closeModal();", true);
@@ -318,7 +339,7 @@ namespace BiometricoWeb.pages.viaticos
 
                 string vQuery3 = "VIATICOS_Liquidaciones 7, '" + Session["VIATICOS_LIQ_CODIGO"].ToString() + "','" + vArchivo + "','" + Session["USUARIO"].ToString() + "'";
                 Int32 vInfo = vConexion.ejecutarSql(vQuery3);
-                if (vInfo == 1)
+                if (vInfo >= 1)
                 {
                     enviarCorreo();
                     HFRecibo.Value = null;

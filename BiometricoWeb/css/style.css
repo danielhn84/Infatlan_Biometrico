@@ -10876,12 +10876,12 @@ fieldset:disabled a.btn {
         border-color: #ff4747;
     }
 
-.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active,
-.show > .btn-secondary.dropdown-toggle {
-  color: #fff;
-  background-color: #4f4f4f;
-  border-color: #484848;
-}
+    .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active,
+    .show > .btn-secondary.dropdown-toggle {
+        color: #fff;
+        background-color: #fff;
+        border-color: #484848;
+    }
 
 .btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-secondary.dropdown-toggle:focus {
@@ -20986,8 +20986,8 @@ dl li {
 /* === Landing screens === */
 /* Auth */
 .auth .login-half-bg {
-  background: url("../images/auth/login-bg.jpg");
-  background-size: cover;
+    background: url("../images/auth/login-bg6.png");
+    background-size: cover;
 }
 
 .auth .register-half-bg {
@@ -20995,9 +20995,9 @@ dl li {
   background-size: cover;
 }
 
-.auth.lock-full-bg {
-  background: url("../images/auth/lockscreen-bg.jpg");
-  background-size: cover;
+.auth .lock-full-bg {
+    background: url("../images/auth/login-bg3.jpg");
+    background-size: cover;
 }
 
 .auth .lock-profile-img {
@@ -21433,17 +21433,17 @@ dl li {
 }
 
 .navbar .navbar-menu-wrapper {
-  background: #b4caff;
-  transition: width 0.25s ease;
-  -webkit-transition: width 0.25s ease;
-  -moz-transition: width 0.25s ease;
-  -ms-transition: width 0.25s ease;
-  color: #9b9b9b;
-  padding-left: 1.062rem;
-  padding-right: 1.062rem;
-  width: calc(100% - 257px);
-  height: 60px;
-  border-bottom: 1px solid #e3e3e3;
+    background: #00468c;
+    transition: width 0.25s ease;
+    -webkit-transition: width 0.25s ease;
+    -moz-transition: width 0.25s ease;
+    -ms-transition: width 0.25s ease;
+    color: #9b9b9b;
+    padding-left: 1.062rem;
+    padding-right: 1.062rem;
+    width: calc(100% - 257px);
+    height: 60px;
+    border-bottom: 1px solid #e3e3e3;
 }
 
 @media (max-width: 991px) {

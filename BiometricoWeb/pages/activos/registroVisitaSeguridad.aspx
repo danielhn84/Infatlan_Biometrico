@@ -70,6 +70,7 @@
                                                 <asp:ListItem Value="2" Text="Visitas"></asp:ListItem>
                                                 <asp:ListItem Value="3" Text="Data Center" Selected="True"></asp:ListItem>
                                                 <asp:ListItem Value="4" Text="Soporte Técnico"></asp:ListItem>
+                                                <asp:ListItem Value="5" Text="Nuevo Activo"></asp:ListItem>                                            
                                             </asp:DropDownList>
                                         </div>
                                     </div>

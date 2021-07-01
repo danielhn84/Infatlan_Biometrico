@@ -65,12 +65,13 @@
                                             <asp:ListItem Value="2" Text="Visitas"></asp:ListItem>
                                             <asp:ListItem Value="3" Text="Data Center"></asp:ListItem>
                                             <asp:ListItem Value="4" Text="Soporte Técnico" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Value="5" Text="Nuevo Activo"></asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
                                 </div>
 
                                 <div class="row"> 
-                                    <label class="col-2">Serie del artículo</label>
+                                    <label class="col-2 col-form-label">Serie del artículo</label>
                                     <div class="col-7">
                                         <asp:TextBox runat="server" ID="TxBusqueda" AutoPostBack="true" OnTextChanged="TxBusqueda_TextChanged" CssClass="form-control"></asp:TextBox>
                                     </div>
@@ -220,6 +221,14 @@
                                             <label class="col-3">Motivo</label>
                                             <div class="col-9">
                                                 <asp:DropDownList ID="DDLMotivo" runat="server" class="form-control"></asp:DropDownList>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group row">
+                                            <label class="col-3">SysAid</label>
+                                            <div class="col-9">
+                                                <asp:TextBox runat="server" ID="TxSysAid" CssClass="form-control"></asp:TextBox>
                                             </div>
                                         </div>
                                     </div>

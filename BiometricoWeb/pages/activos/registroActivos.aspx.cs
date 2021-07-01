@@ -100,6 +100,18 @@ namespace BiometricoWeb.pages.activos
                     Session["ACTIVOS_TI"] = vDatos;
                 }
 
+                vQuery = "[RPS_ActivosTI] 14";
+                vDatos = vConexion.obtenerDataTable(vQuery);
+                if (vDatos.Rows.Count > 0){
+                    DDLEmpresa.Items.Clear();
+                    DDLEmpresaSW.Items.Clear();
+                    DDLEmpresa.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    DDLEmpresaSW.Items.Add(new ListItem { Value = "0", Text = "Seleccione una opción" });
+                    foreach (DataRow item in vDatos.Rows){
+                        DDLEmpresa.Items.Add(new ListItem { Value = item["idEmpresa"].ToString(), Text = item["empresa"].ToString() });
+                        DDLEmpresaSW.Items.Add(new ListItem { Value = item["idEmpresa"].ToString(), Text = item["empresa"].ToString() });
+                    }
+                }
 
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
@@ -217,7 +229,7 @@ namespace BiometricoWeb.pages.activos
             try{
                 xml vDatosXML = new xml();
 
-                Object[] vDatosMaestro = new object[22];
+                Object[] vDatosMaestro = new object[23];
                 vDatosMaestro[0] = DDLCategorias.SelectedValue;
                 vDatosMaestro[1] = DDLCategorias.SelectedValue != "2" ? DDLTipo.SelectedValue : DDLTipoSW.SelectedValue;
                 vDatosMaestro[2] = DDLCategorias.SelectedValue != "2" ? DDLResponsable.SelectedValue : DDLResponsableSW.SelectedValue;
@@ -231,8 +243,9 @@ namespace BiometricoWeb.pages.activos
                 vDatosMaestro[10] = DDLCategorias.SelectedValue != "2" ? "" : TxLenguajeSW.Text;
                 vDatosMaestro[11] = 0;
                 vDatosMaestro[12] = 1;
-                vDatosMaestro[13] = Session["USUARIO"].ToString();
-                for (int i = 14; i < 22; i++){
+                vDatosMaestro[13] = DDLCategorias.SelectedValue != "2" ? DDLEmpresa.SelectedValue : DDLEmpresaSW.SelectedValue; ;
+                vDatosMaestro[14] = Session["USUARIO"].ToString();
+                for (int i = 15; i < 23; i++){
                     vDatosMaestro[i] = "";
                 }
 

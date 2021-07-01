@@ -114,6 +114,11 @@
     <Content Include="default.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\auth\login-bg7.png" />
+    <Content Include="images\auth\login-bg6.png" />
+    <Content Include="images\auth\login-bg5.jpg" />
+    <Content Include="images\auth\login-bg4.jpg" />
+    <Content Include="images\auth\login-bg3.jpg" />
     <Content Include="images\auth\lockscreen-bg.jpg" />
     <Content Include="images\auth\login-bg2.jpg" />
     <Content Include="images\auth\login-bg.jpg" />
@@ -131,6 +136,9 @@
     <Content Include="images\logo.svg" />
     <Content Include="images\logo_mini.png" />
     <Content Include="images\rh.png" />
+    <Content Include="images\rh2.png" />
+    <Content Include="images\rh3.png" />
+    <Content Include="images\rh4.png" />
     <Content Include="images\vistaPrevia1.JPG" />
     <Content Include="js\bootstrap-notify.js" />
     <Content Include="js\calendarscript.js" />
@@ -167,6 +175,7 @@
     <Content Include="pages\access.aspx" />
     <Content Include="pages\activos\asignacion.aspx" />
     <Content Include="pages\activos\activosInternos.aspx" />
+    <Content Include="pages\activos\nuevoActivo.aspx" />
     <Content Include="pages\activos\registroActivos.aspx" />
     <Content Include="pages\activos\registroVisitaSeguridad.aspx" />
     <Content Include="pages\activos\responsableActivos.aspx" />
@@ -187,6 +196,7 @@
     <Content Include="pages\documentacion\docGrupos.aspx" />
     <Content Include="pages\documentacion\docReportes.aspx" />
     <Content Include="pages\documentacion\tipoDocumentos.aspx" />
+    <Content Include="pages\mail\TemplateMailViaticos.html" />
     <Content Include="pages\mail\TemplateReport.html" />
     <Content Include="pages\mantenimiento\costos.aspx" />
     <Content Include="pages\mantenimiento\hotel.aspx" />
@@ -218,6 +228,8 @@
     <Content Include="pages\servicios\descriptorDetalle.aspx" />
     <Content Include="pages\servicios\descriptorPuestos.aspx" />
     <Content Include="pages\servicios\organizationalChart.aspx" />
+    <Content Include="pages\servicios\parkingRequest.aspx" />
+    <Content Include="pages\servicios\parkingList.aspx" />
     <Content Include="pages\settings.aspx" />
     <Content Include="pages\tiempoExtraordinario\feriados.aspx" />
     <Content Include="pages\tiempoExtraordinario\mantenimiento.aspx" />
@@ -322,6 +334,13 @@
     </Compile>
     <Compile Include="pages\activos\activosInternos.aspx.designer.cs">
       <DependentUpon>activosInternos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activos\nuevoActivo.aspx.cs">
+      <DependentUpon>nuevoActivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activos\nuevoActivo.aspx.designer.cs">
+      <DependentUpon>nuevoActivo.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\activos\registroActivos.aspx.cs">
       <DependentUpon>registroActivos.aspx</DependentUpon>
@@ -657,6 +676,20 @@
     </Compile>
     <Compile Include="pages\servicios\organizationalChart.aspx.designer.cs">
       <DependentUpon>organizationalChart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\servicios\parkingRequest.aspx.cs">
+      <DependentUpon>parkingRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\servicios\parkingRequest.aspx.designer.cs">
+      <DependentUpon>parkingRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\servicios\parkingList.aspx.cs">
+      <DependentUpon>parkingList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\servicios\parkingList.aspx.designer.cs">
+      <DependentUpon>parkingList.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\settings.aspx.cs">
       <DependentUpon>settings.aspx</DependentUpon>

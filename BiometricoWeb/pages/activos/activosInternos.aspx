@@ -66,6 +66,7 @@
                                             <asp:ListItem Value="2" Text="Visitas"></asp:ListItem>
                                             <asp:ListItem Value="3" Text="Data Center"></asp:ListItem>
                                             <asp:ListItem Value="4" Text="Soporte Técnico"></asp:ListItem>
+                                            <asp:ListItem Value="5" Text="Nuevo Activo"></asp:ListItem>                                            
                                         </asp:DropDownList>
                                     </div>
                                 </div>
@@ -166,7 +167,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-3">Empleado:</label>
                                                     <div class="col-9">
-                                                        <asp:DropDownList runat="server" ID="DDLEmpleado" CssClass="select2 form-control custom-select"></asp:DropDownList>
+                                                        <asp:DropDownList runat="server" ID="DDLEmpleado" CssClass="select2 form-control custom-select" Width="100%"></asp:DropDownList>
                                                     </div>
                                                 </div>
                                             </div>

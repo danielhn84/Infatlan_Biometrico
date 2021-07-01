@@ -156,7 +156,7 @@ namespace BiometricoWeb.clases
                             ), Server.MapPath("/images/logo.png")));
                         break;
                     case typeBody.Viaticos:
-                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyBuzon(
+                        mail.AlternateViews.Add(CreateHtmlMessage(PopulateBodyViaticos(
                             Usuario,
                             Nombre,
                             vMessage,
@@ -255,6 +255,19 @@ namespace BiometricoWeb.clases
             body = body.Replace("{Nombre}", vNombre);
             body = body.Replace("{Titulo}", vTitulo);
             body = body.Replace("{Tabla}", vTabla);
+            return body;
+        }
+
+        public string PopulateBodyViaticos(string vNombre, string vTitulo, string vUrl, string vDescripcion){
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("/pages/mail/TemplateMailViaticos.html"))){
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{Host}", ConfigurationManager.AppSettings["Host"]);
+            body = body.Replace("{Nombre}", vNombre);
+            body = body.Replace("{Titulo}", vTitulo);
+            body = body.Replace("{Url}", vUrl);
+            body = body.Replace("{Descripcion}", vDescripcion);
             return body;
         }
     }

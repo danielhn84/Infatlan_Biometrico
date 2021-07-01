@@ -179,6 +179,12 @@ namespace BiometricoWeb.pages
         }
 
         private void ValidacionesPermisos(String vEmpleado, DateTime vFechaInicio, DateTime vFechaRegreso, String vTipo, TimeSpan tsHorario){
+            //CONSULTA DE TARJETAS KANBAN
+            String vQuery = "[RSP_ObtenerGenerales] 21," + Session["USUARIO"].ToString() + ",'" + vFechaInicio + "'";
+            DataTable vData = vConexion.obtenerDataTable(vQuery);
+            if (vData.Rows.Count > 0 && vData.Rows[0][0].ToString() != "0" || vData.Rows[0][1].ToString() != "0")
+                throw new Exception("Tiene tarjetas Kanban pendientes, seleccione otra fecha.");
+             
             Decimal vDiasDisponibles = Convert.ToDecimal((LbNumeroVaciones.Text == String.Empty ? "0" : LbNumeroVaciones.Text));
             //GENERALES
             if (vEmpleado.Equals("0"))
@@ -238,7 +244,7 @@ namespace BiometricoWeb.pages
                 String vAnual = DateTime.Now.Year.ToString();
                 String vMes = DateTime.Now.Month.ToString().Length > 1 ? DateTime.Now.Month.ToString() : "0" + DateTime.Now.Month.ToString();
 
-                String vQuery = "RSP_ValidacionesPermisos 2," + vEmpleado + ",'" + vAnual + "',0";
+                vQuery = "RSP_ValidacionesPermisos 2," + vEmpleado + ",'" + vAnual + "',0";
                 DataTable vDatos = vConexion.obtenerDataTable(vQuery);
 
                 if (Convert.ToInt32(vDatos.Rows[0][0].ToString()) > 15)
@@ -297,7 +303,7 @@ namespace BiometricoWeb.pages
                 String vIni = Convert.ToDateTime(vFechaInicio).ToString(vFormato);
                 String vFin = Convert.ToDateTime(vFechaRegreso).ToString(vFormato);
                 
-                String vQuery = "RSP_ValidacionesPermisos 1," + vEmpleado + ",'" + vIni + "','" + vFin + "'";
+                vQuery = "RSP_ValidacionesPermisos 1," + vEmpleado + ",'" + vIni + "','" + vFin + "'";
                 DataTable vDatosVerificacion = vConexion.obtenerDataTable(vQuery);
 
                 if (vDatosVerificacion.Rows.Count > 0){

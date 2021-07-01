@@ -234,7 +234,9 @@ namespace BiometricoWeb.pages.activos
                 if (DDLProceso.SelectedValue == "3")
                     Response.Redirect("/pages/activos/registroVisitaSeguridad.aspx");
                 if (DDLProceso.SelectedValue == "4")
-                    Response.Redirect("/pages/security.aspx");
+                    Response.Redirect("/pages/activos/soporte.aspx");
+                if (DDLProceso.SelectedValue == "5")
+                    Response.Redirect("/pages/activos/nuevoActivo.aspx");
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }

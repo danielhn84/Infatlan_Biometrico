@@ -152,7 +152,8 @@ namespace BiometricoWeb.pages.activos
                     ",'" + Session["USUARIO"].ToString() + "'" +
                     "," + DDLMotivo.SelectedValue +
                     ",'" + TxObservaciones.Text + "'" +
-                    "," + DDLDepartamento.SelectedValue;
+                    "," + DDLDepartamento.SelectedValue +
+                    "," + TxSysAid.Text;
                     vInfo = vConexion.obtenerDataTable(vQuery);
                     if (vInfo.Rows.Count > 0){
                         cargarDatos();
@@ -207,6 +208,7 @@ namespace BiometricoWeb.pages.activos
             DDLMotivo.SelectedIndex = -1;
             TxObservaciones.Text = string.Empty;
             DDLDepartamento.SelectedIndex = -1;
+            TxSysAid.Text = string.Empty;
 
             UpdatePanel3.Update();
             UpdatePanel1.Update();
@@ -509,6 +511,8 @@ namespace BiometricoWeb.pages.activos
                     Response.Redirect("/pages/activos/visitas.aspx");
                 if (DDLProceso.SelectedValue == "3")
                     Response.Redirect("/pages/activos/registroVisitaSeguridad.aspx");
+                if (DDLProceso.SelectedValue == "5")
+                    Response.Redirect("/pages/activos/nuevoActivo.aspx");
             }catch (Exception ex){
                 Mensaje(ex.Message, WarningType.Danger);
             }
