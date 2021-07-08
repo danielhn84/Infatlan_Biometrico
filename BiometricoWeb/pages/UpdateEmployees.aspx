@@ -446,12 +446,24 @@
                             <div class="row col-12" style="margin-top:-2%">
                                 <div class="col-md-6">
                                     <div class="form-group row">
+                                        <label class="col-3 col-form-label">Domicilio</label>
+                                        <div class="col-sm-9">
+                                            <asp:TextBox runat="server" ID="TxDomicilio" CssClass="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row">
                                         <label class="col-3 col-form-label">Tarjeta</label>
                                         <div class="col-sm-9">
                                             <asp:TextBox runat="server" ID="TxTarjeta" CssClass="form-control"/>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row col-12" style="margin-top:-2%">
                                 <div class="col-md-6">
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label"></label>
@@ -463,10 +475,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <%--<div class="row col-12" style="margin-top:-2%">
-                                
-                            </div>--%>
 
                         </ContentTemplate>
                     </asp:UpdatePanel>

@@ -188,8 +188,9 @@
     <Content Include="pages\activos\visitaDatacenterPendienteResponsable.aspx" />
     <Content Include="pages\activos\visitaDCPersonal.aspx" />
     <Content Include="pages\activos\visitas.aspx" />
-    <Content Include="pages\areas.aspx" />
+    <Content Include="pages\configuracion\areas.aspx" />
     <Content Include="pages\authorizations.aspx" />
+    <Content Include="pages\configuracion\feriados.aspx" />
     <Content Include="pages\documentacion\archivo.aspx" />
     <Content Include="pages\documentacion\crearDocumentos.aspx" />
     <Content Include="pages\documentacion\docAreas.aspx" />
@@ -204,7 +205,7 @@
     <Content Include="pages\mantenimiento\reportes.aspx" />
     <Content Include="pages\mantenimiento\tipoViaje.aspx" />
     <Content Include="pages\mantenimiento\transporte.aspx" />
-    <Content Include="pages\firmantes.aspx" />
+    <Content Include="pages\configuracion\firmantes.aspx" />
     <Content Include="pages\marcajes.aspx" />
     <Content Include="pages\servicios\birthdayCalendar.aspx" />
     <Content Include="pages\buzonSugerencias.aspx" />
@@ -220,7 +221,7 @@
     <Content Include="pages\permissions.aspx" />
     <Content Include="pages\politicaDetalle.aspx" />
     <Content Include="pages\politicas.aspx" />
-    <Content Include="pages\puestos.aspx" />
+    <Content Include="pages\configuracion\puestos.aspx" />
     <Content Include="pages\salidas.aspx" />
     <Content Include="pages\security.aspx" />
     <Content Include="pages\sec_aprobaciones.aspx" />
@@ -426,11 +427,11 @@
     <Compile Include="pages\activos\visitas.aspx.designer.cs">
       <DependentUpon>visitas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\areas.aspx.cs">
+    <Compile Include="pages\configuracion\areas.aspx.cs">
       <DependentUpon>areas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\areas.aspx.designer.cs">
+    <Compile Include="pages\configuracion\areas.aspx.designer.cs">
       <DependentUpon>areas.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\authorizations.aspx.cs">
@@ -439,6 +440,13 @@
     </Compile>
     <Compile Include="pages\authorizations.aspx.designer.cs">
       <DependentUpon>authorizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\configuracion\feriados.aspx.cs">
+      <DependentUpon>feriados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\configuracion\feriados.aspx.designer.cs">
+      <DependentUpon>feriados.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\documentacion\archivo.aspx.cs">
       <DependentUpon>archivo.aspx</DependentUpon>
@@ -524,11 +532,11 @@
     <Compile Include="pages\mantenimiento\transporte.aspx.designer.cs">
       <DependentUpon>transporte.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\firmantes.aspx.cs">
+    <Compile Include="pages\configuracion\firmantes.aspx.cs">
       <DependentUpon>firmantes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\firmantes.aspx.designer.cs">
+    <Compile Include="pages\configuracion\firmantes.aspx.designer.cs">
       <DependentUpon>firmantes.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\marcajes.aspx.cs">
@@ -621,11 +629,11 @@
     <Compile Include="pages\politicas.aspx.designer.cs">
       <DependentUpon>politicas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="pages\puestos.aspx.cs">
+    <Compile Include="pages\configuracion\puestos.aspx.cs">
       <DependentUpon>puestos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\puestos.aspx.designer.cs">
+    <Compile Include="pages\configuracion\puestos.aspx.designer.cs">
       <DependentUpon>puestos.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\salidas.aspx.cs">

@@ -105,6 +105,7 @@ namespace BiometricoWeb
                         LIBuzon.Visible = false;
                         LIDocumentacion.Visible = false;
                         LIEstructura.Visible = false;
+                        LIViaticos.Visible = false;
                     }
                     break;
                 }

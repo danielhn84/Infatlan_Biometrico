@@ -315,7 +315,7 @@ namespace BiometricoWeb.pages
                     TimeSpan ts = Convert.ToDateTime(TxFechaInicio.Text) - DateTime.Now;
                     if (ts.Days < -15)
                         throw new Exception("No se pueden agregar permisos por incumplimiento de politica (15 dias maximo para ingresar permisos pasados)");
-                    if (ts.Days < 2)
+                    if (ts.Days < 2 && vTipo != "1008")
                         throw new Exception("No se pueden agregar permisos por incumplimiento de politica (48 Horas antes)");
                     if (ts.Days > 15)
                         throw new Exception("No se pueden agregar permisos por incumplimiento de politica (15 dias maximo de anticipación)");
@@ -361,10 +361,7 @@ namespace BiometricoWeb.pages
                     vExtension = System.IO.Path.GetExtension(FUDocumentoPermiso.FileName);
                 }
 
-                if (DDLTipoPermiso.SelectedValue == "1006" && !FUDocumentoPermiso.HasFiles)
-                    Response.Redirect("/pages/permissions.aspx?ex=4");
-                if (DDLTipoPermiso.SelectedValue == "1026" && !FUDocumentoPermiso.HasFiles)
-                    Response.Redirect("/pages/permissions.aspx?ex=4");
+                validacionArchivos();
 
                 String vArchivo = String.Empty;
                 if (vFileDeposito1 != null)
@@ -466,6 +463,23 @@ namespace BiometricoWeb.pages
             catch (Exception Ex) { Mensaje(Ex.Message, WarningType.Danger); }
         }
 
+        private void validacionArchivos() {
+            if (DDLTipoPermiso.SelectedValue == "1006" && !FUDocumentoPermiso.HasFiles)
+                Response.Redirect("/pages/permissions.aspx?ex=4");
+            if (DDLTipoPermiso.SelectedValue == "1008" && !FUDocumentoPermiso.HasFiles)
+                Response.Redirect("/pages/permissions.aspx?ex=4");
+            if (DDLTipoPermiso.SelectedValue == "1022" && !FUDocumentoPermiso.HasFiles)
+                Response.Redirect("/pages/permissions.aspx?ex=4");
+            if (DDLTipoPermiso.SelectedValue == "1023" && !FUDocumentoPermiso.HasFiles)
+                Response.Redirect("/pages/permissions.aspx?ex=4");
+            if (DDLTipoPermiso.SelectedValue == "1024" && !FUDocumentoPermiso.HasFiles)
+                Response.Redirect("/pages/permissions.aspx?ex=4");
+            if (DDLTipoPermiso.SelectedValue == "1025" && !FUDocumentoPermiso.HasFiles)
+                Response.Redirect("/pages/permissions.aspx?ex=4");
+            if (DDLTipoPermiso.SelectedValue == "1026" && !FUDocumentoPermiso.HasFiles)
+                Response.Redirect("/pages/permissions.aspx?ex=4");
+        }
+
         protected void DDLTipoPermiso_SelectedIndexChanged(object sender, EventArgs e){
             try{
                 DIVCompensacion.Visible = false;
@@ -489,8 +503,8 @@ namespace BiometricoWeb.pages
                         UpdatePanelFechas.Update();
                         break;
                     case "1003":
-                        TxFechaInicio.TextMode = TextBoxMode.DateTimeLocal;
-                        TxFechaRegreso.TextMode = TextBoxMode.DateTimeLocal;
+                        TxFechaInicio.TextMode = TextBoxMode.Date;
+                        TxFechaRegreso.TextMode = TextBoxMode.Date;
                         UpdatePanelFechas.Update();
                         DIVDocumentos.Visible = true;
                         break;

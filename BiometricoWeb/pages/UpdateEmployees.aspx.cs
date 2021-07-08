@@ -136,6 +136,7 @@ namespace BiometricoWeb.pages
                         //DDLModJefatura.SelectedIndex = CargarInformacionDDL(DDLModJefatura, item["idJefe"].ToString().PadLeft(8, '0'));
                         DDLModJefatura.SelectedIndex = CargarInformacionDDL(DDLModJefatura, item["idJefe"].ToString());
                         TxModADUser.Text = item["adUser"].ToString();
+                        TxDomicilio.Text = item["direccion"].ToString();
                         string vPermiso = item["PermisosCGS"].ToString();
 
                         CBxPermisos.Checked = vPermiso == "" ? false : Convert.ToBoolean(vPermiso);
@@ -235,23 +236,24 @@ namespace BiometricoWeb.pages
 
         protected void BtnModEmpleados_Click(object sender, EventArgs e){
             try{
-                String vQuery = "RSP_IngresarEmpleados 2," + LbModNoEmpleado.Text + "," +
-                    "'" + TxModNombre.Text + "'," +
-                    DDLModArea.SelectedValue + "," +
-                    "'" + DDLModCiudad.SelectedValue + "'," +
-                    "'" + null + "'," +
-                    "'" + TxModIdentidad.Text + "'," +
-                    "'" + TxModNacimiento.Text + "'," +
-                    "'" + null + "'," +
-                    "'" + TxModEmailEmpresa.Text + "'," +
-                    "'" + TxModEmailPersonal.Text + "'," +
-                    "'" + TxModTelefono.Text + "'," +
-                    "'" + TxModCodigoSAP.Text + "'," +
-                    "'" + DDLEstado.SelectedValue + "'," +
-                    "'" + DDLModTurnos.SelectedValue + "'," +
-                    "'" + DDLModPuestos.SelectedValue + "','" +
-                    DDLModJefatura.SelectedValue + "'," +
-                    "'" + TxModADUser.Text + "'";
+                String vQuery = "RSP_IngresarEmpleados 2" +
+                    "," + LbModNoEmpleado.Text + "" +
+                    ",'" + TxModNombre.Text + "'" +
+                    "," + DDLModArea.SelectedValue + "" +
+                    ",'" + DDLModCiudad.SelectedValue + "'" +
+                    ",'" + null + "'" +
+                    ",'" + TxModIdentidad.Text + "'" +
+                    ",'" + TxModNacimiento.Text + "'" +
+                    ",'" + TxDomicilio.Text + "'" +
+                    ",'" + TxModEmailEmpresa.Text + "'" +
+                    ",'" + TxModEmailPersonal.Text + "'" +
+                    ",'" + TxModTelefono.Text + "'" +
+                    ",'" + TxModCodigoSAP.Text + "'" +
+                    ",'" + DDLEstado.SelectedValue + "'" +
+                    ",'" + DDLModTurnos.SelectedValue + "'" +
+                    ",'" + DDLModPuestos.SelectedValue + "'" +
+                    ",'" + DDLModJefatura.SelectedValue + "'" +
+                    ",'" + TxModADUser.Text + "'";
 
                 Int32 vInformacion = vConexion.ejecutarSql(vQuery);
                 if (vInformacion == 1){

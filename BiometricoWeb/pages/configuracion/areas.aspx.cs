@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BiometricoWeb.pages
+namespace BiometricoWeb.pages.configuracion
 {
     public partial class areas : System.Web.UI.Page
     {

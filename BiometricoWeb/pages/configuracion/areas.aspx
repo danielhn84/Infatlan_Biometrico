@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="areas.aspx.cs" Inherits="BiometricoWeb.pages.areas" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.Master" AutoEventWireup="true" CodeBehind="areas.aspx.cs" Inherits="BiometricoWeb.pages.configuracion.areas" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/css/smart_wizard.css" rel="stylesheet" type="text/css" />
     <link href="/css/smart_wizard_theme_circles.css" rel="stylesheet" type="text/css" />

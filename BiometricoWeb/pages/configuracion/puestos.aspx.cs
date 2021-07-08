@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace BiometricoWeb.pages
+namespace BiometricoWeb.pages.configuracion
 {
     public partial class puestos : System.Web.UI.Page
     {
@@ -96,25 +96,17 @@ namespace BiometricoWeb.pages
                     
                     LbSubir.Text = vIdPuesto;
 
-                    if (vDatosDescrip.Rows.Count.ToString()!="0")
-                    {
+                    if (vDatosDescrip.Rows.Count.ToString()!="0"){
                         DivAlertaDescriptor.Visible = true;
                         LbAlertaDescriptor.Text = "Puesto " + vDatos.Rows[0]["nombre"].ToString() + " ya contiene archivo. " +
                             "<br>Si desea cambiarlo, ingrese uno nuevo.";
-                        
-
-                    }
-                    else
-                    {
+                    }else{
                         DivAlertaDescriptor.Visible = false;
                     }
                    
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalDescriptor();", true);
-                    
                 }
-
-            }
-            catch (Exception Ex){
+            }catch (Exception Ex){
                 Mensaje(Ex.Message, WarningType.Danger);
             }
         }

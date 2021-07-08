@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace BiometricoWeb.pages
+namespace BiometricoWeb.pages.configuracion
 {
 
 

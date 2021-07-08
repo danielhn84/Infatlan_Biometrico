@@ -324,9 +324,10 @@
                                             <span class="menu-title">Administración</span>
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic4">
-                                            <a class="nav-link" href="/pages/areas.aspx">Departamentos</a>
-                                            <a class="nav-link" href="/pages/puestos.aspx">Posiciones</a>
-                                            <a class="nav-link" href="/pages/firmantes.aspx">Firmantes</a>
+                                            <a class="nav-link" href="/pages/configuracion/areas.aspx">Departamentos</a>
+                                            <a class="nav-link" href="/pages/configuracion/puestos.aspx">Posiciones</a>
+                                            <a class="nav-link" href="/pages/configuracion/firmantes.aspx">Firmantes</a>
+                                            <a class="nav-link" href="/pages/configuracion/feriados.aspx">Feriados</a>
                                         </div>
                                     </li>
 
