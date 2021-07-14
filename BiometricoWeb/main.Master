@@ -227,11 +227,11 @@
                                             <span class="menu-title">Mantenimiento</span>
                                         </a>
                                         <div class="dropdown-menu" id="ui-basic13">
-                                            <a class="nav-link" runat="server" id="LITExManFeriados" visible="false" href="/pages/tiempoExtraordinario/feriados.aspx">Feriados</a>
-                                            |
+                                            <a class="nav-link" runat="server" id="LITExManFeriados" visible="false" href="/pages/tiempoExtraordinario/feriados.aspx">Feriados</a>                                       
                                             <a class="nav-link" runat="server" id="LITExManProyectos" visible="false" href="/pages/tiempoExtraordinario/proyectos.aspx">Proyectos</a>
                                             <a class="nav-link" runat="server" id="LITExManPropuesta" visible="false" href="/pages/tiempoExtraordinario/propuesta.aspx">Propuesta</a>
                                             <a class="nav-link" runat="server" id="LITExManEquipos" visible="false" href="/pages/tiempoExtraordinario/mantenimiento.aspx">Tipos de Trabajo</a>
+                                             <a class="nav-link" runat="server" id="LITExCargaTurno" visible="true" href="/pages/tiempoExtraordinario/cargaTurnos.aspx">Carga Turno</a>
                                         </div>
                                     </li>
                                 </ul>

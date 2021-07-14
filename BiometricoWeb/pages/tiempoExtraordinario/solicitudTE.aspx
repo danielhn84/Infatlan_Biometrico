@@ -266,7 +266,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-6" style="text-align: right">Trabajo realizado de forma:</label>
                                                 <div class="col-sm-6">
-                                                    <asp:RadioButtonList ID="RbFormaTrabajo" RepeatDirection="Horizontal" Width="160px" runat="server" AutoPostBack="True" OnSelectedIndexChanged="RbFormaTrabajo_SelectedIndexChanged">
+                                                    <asp:RadioButtonList ID="RbFormaTrabajo" RepeatDirection="Horizontal" Width="160px" runat="server" OnSelectedIndexChanged="RbFormaTrabajo_SelectedIndexChanged">
                                                         <asp:ListItem Value="1">Remota</asp:ListItem>
                                                         <asp:ListItem Value="2">Presencial</asp:ListItem>
                                                     </asp:RadioButtonList>
@@ -279,7 +279,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-4 col-form-label">Fecha Inicio</label>
                                                 <div class="col-sm-8">
-                                                    <asp:TextBox ID="TxFechaInicio" placeholder="1900-12-31 00:00:00" class="form-control" runat="server" TextMode="DateTimeLocal" OnTextChanged="TxFechaInicio_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                    <asp:TextBox ID="TxFechaInicio" placeholder="1900-12-31 00:00:00" class="form-control" runat="server" TextMode="DateTimeLocal" OnTextChanged="TxFechaInicio_TextChanged" AutoPostBack="true" ></asp:TextBox>
 
                                                 </div>
                                             </div>

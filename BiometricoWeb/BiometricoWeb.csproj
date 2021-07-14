@@ -232,6 +232,7 @@
     <Content Include="pages\servicios\parkingRequest.aspx" />
     <Content Include="pages\servicios\parkingList.aspx" />
     <Content Include="pages\settings.aspx" />
+    <Content Include="pages\tiempoExtraordinario\cargaTurnos.aspx" />
     <Content Include="pages\tiempoExtraordinario\feriados.aspx" />
     <Content Include="pages\tiempoExtraordinario\mantenimiento.aspx" />
     <Content Include="pages\tiempoExtraordinario\PendientesAprobarJefe.aspx" />
@@ -705,6 +706,13 @@
     </Compile>
     <Compile Include="pages\settings.aspx.designer.cs">
       <DependentUpon>settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\cargaTurnos.aspx.cs">
+      <DependentUpon>cargaTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\tiempoExtraordinario\cargaTurnos.aspx.designer.cs">
+      <DependentUpon>cargaTurnos.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\tiempoExtraordinario\feriados.aspx.cs">
       <DependentUpon>feriados.aspx</DependentUpon>
